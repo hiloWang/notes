@@ -26,10 +26,9 @@ canvas有很多draw方法，可以画出不同图形，接下来就对这一系�
 
 用于绘制文本
 
-```
+```java
       drawText(String text, float x, float y, Paint paint);
-      drawTextOnPath(String text, Path path, float hOffset,
-                float vOffset, Paint paint)
+      drawTextOnPath(String text, Path path, float hOffset, float vOffset, Paint paint)
       drawPosText( String text,float[] pos, Paint paint),pos用于给每一个文字自定绘图坐标(已废弃)
 ```
 

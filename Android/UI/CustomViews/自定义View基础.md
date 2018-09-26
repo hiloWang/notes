@@ -1,5 +1,6 @@
 # 自定义View基础
 
+---
 ## 1 View介绍
 
 View即代表视图，表示用户界面的基本模块，一个View占据了屏幕上的一个矩形区域，并负责这个区域的绘制与事件处理。其次View是安卓系统所有UI控件的基类，而ViewGroup作为View的容器，其自身也是继承自View。
@@ -28,10 +29,12 @@ View即代表视图，表示用户界面的基本模块，一个View占据了屏
 
 所以有一下公式：
 
+```
     x = left + translationX
     y = top + translationY
     right = left + getWidth();
     bottom = top + getHeight();
+```
 
 ### 2.2 角度
 
@@ -71,6 +74,7 @@ View即代表视图，表示用户界面的基本模块，一个View占据了屏
 ###  2.1 自定义view需要掌握的知识
 
 对于自定义View除了上面提到的一些类之类，我们还需要熟悉下面列出的技能点：
+
 - setContenLayout的处理流程
 - LayoutInflater inflate布局的流程
 - view的事件分发
@@ -91,5 +95,5 @@ View即代表视图，表示用户界面的基本模块，一个View占据了屏
 7. 看看support包中是否有一些关于View的一些兼容操作，如果有就尽量使用support包中的方法。如v4包中的ViewCompat
 8. 搞清楚View的透明度与颜色的透明度是不一个样的概念。
 9. 事件分发的流程一定要清楚，在ViewGroup中处理事件分发时，重写OnTouchEvent事件要处理两种情况：
-  - 自己的onInterceptTouchEvent直接就拦截的DOWN事件，那么ViewGroup的OnTouchEvent的事件是从DOWN事件开始的
-  - 自己的onInterceptTouchEvent拦截的DOWN后面的事件或者onInterceptTouchEvent一直没有拦截事件(如果子view也不处理事件)，那么ViewGroup的OnTouchEvent的事件是从MOVE事件开始的
+    - 自己的onInterceptTouchEvent直接就拦截的DOWN事件，那么ViewGroup的OnTouchEvent的事件是从DOWN事件开始的
+    - 自己的onInterceptTouchEvent拦截的DOWN后面的事件或者onInterceptTouchEvent一直没有拦截事件(如果子view也不处理事件)，那么ViewGroup的OnTouchEvent的事件是从MOVE事件开始的

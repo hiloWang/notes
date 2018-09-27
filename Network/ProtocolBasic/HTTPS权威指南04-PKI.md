@@ -15,7 +15,7 @@ PKI 的目标就是实现不同成员在不见面的情况下进行安全通信�
 
 ![](images/pki_ca_lifecycle.png)
 
-性格角色说明：
+各角色说明：
 
 - **订阅人**：订阅人（或者说最终实体）是指那些需要证书来提供安全服务的团体。
 - **登记机构**：登记机构（registration authority，RA）主要是完成一些证书签发的相关管理工作。例如，RA会首先对用户进行必要的身份验证，然后才会去找CA签发证书。
@@ -83,9 +83,9 @@ PKI 的目标就是实现不同成员在不见面的情况下进行安全通信�
 
 信赖方为了能够验证证书，必须收集信任的所有根 CA 证书。大多数的操作系统都提供一个根证书库，从而在一开始启动的时候就能够建立信任。几乎所有的软件开发者都重用了底层操作系统提供的根证书库，唯一的例外是 Mozilla，为了保证不同平台的兼容性，它维护了自己的根证书库。
 
->浏览器验证网站数字证书的流程简述：CA 下发给网站的证书都是一个证书链，从根证书开始，到下级CA，最后一层就是网站证书。当浏览器收到服务器发送的证书后，需要验证其真实性才能使用其公钥。而证书的签名是通过签名算法和上级 CA 的私钥生成的，浏览器需要用上级 CA 的公钥才能解密签名，并与生成的指纹对比。这个公钥就明文保存在证书链中的上层证书中。具体可以参考 [浏览器如何验证HTTPS证书的合法性？](https://www.zhihu.com/question/37370216)
+>浏览器验证网站数字证书的流程简述：CA 下发给网站的证书都是一个证书链，从根证书开始，到下级 CA，最后一层就是网站证书。当浏览器收到服务器发送的证书后，需要验证其真实性才能使用其公钥。而证书的签名是通过签名算法和上级 CA 的私钥生成的，浏览器需要用上级 CA 的公钥才能解密签名，并与生成的指纹对比。这个公钥就明文保存在证书链中的上层证书中。具体可以参考 [浏览器如何验证HTTPS证书的合法性？](https://www.zhihu.com/question/37370216)
 
-所有的根证书库都要求 CA 通过专门为证书颁发机构设计的独立审计。要签发 D V和 OV 证书，必须通过下面至少一项审计。
+所有的根证书库都要求 CA 通过专门为证书颁发机构设计的独立审计。要签发 DV 和 OV 证书，必须通过下面至少一项审计。
 
 - 针对证书颁发机构的 WebTrust 审计：
 - ETSI TS 101 456 
@@ -127,7 +127,10 @@ DV证书的签发是全自动的，所以非常快，它的签发时间主要取
 
 当出现 `私钥泄露` 或者 `不再需要使用` 的时候，我们就需要吊销证书。但是这里存在误用的风险。吊销协议和流程的设计是为了确保证书是有效的，否则就需要将吊销情况通知信赖方。现在有下面两种证书吊销标准。
 
-- 证书吊销列表（certificate revocation list，CRL）是一组未过期、但是却已经被吊销的证书序列号列表，CA维护了一个或多个这样的列表。每一张证书都需要在CRL分发点（CRL distribution point）扩展中包含对应的CRL地址。CRL最大的问题在于它越来越大，实时查询起来会非常慢。
+- 证书吊销列表（certificate revocation list，CRL）是一组未过期、但是却已经被吊销的证书序列号列表，CA 维护了一个或多个这样的列表。每一张证书都需要在 CRL 分发点（CRL distribution point）扩展中包含对应的 CRL 地址。CRL 最大的问题在于它越来越大，实时查询起来会非常慢。
+
+>由于 CRL 列表非常巨大，浏览器不可能每次 TLS 都去下载，所以常用的做法是浏览器会缓存这份名单，定期做后台更新。这样虽然后台更新存在时间间隔，证书失效不实时。
+
 - 在线证书状态协议（online certificate status protocol，OCSP）允许信赖方获得一张证书的吊销信息。OCSP服务器通常称为OCSP响应程序，OCSP响应程序的地址编码在颁发机构信息访问（authority information access，AIA）证书扩展中。OCSP支持实时查询并且解决了CRL最大的缺点，但是并没有解决所有的吊销问题：因为OCSP的使用带来了性能、隐私方面的问题和新的漏洞。其中一部分问题可以通过OCSP stapling技术来解决，它允许服务器在TLS握手的过程中直接嵌入OCSP响应。
 
 
@@ -139,6 +142,8 @@ DV证书的签发是全自动的，所以非常快，它的签发时间主要取
 - [维基百科：X.509](https://zh.wikipedia.org/wiki/X.509)
 - [维基百科：TLS](http://zh.wikipedia.org/wiki/%E4%BC%A0%E8%BE%93%E5%B1%82%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE)  
 - [维基百科：PKCS](https://zh.wikipedia.org/wiki/%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E5%AD%A6%E6%A0%87%E5%87%86)  
+- [维基百科：证书吊销列表](https://zh.wikipedia.org/wiki/%E8%AF%81%E4%B9%A6%E5%90%8A%E9%94%80%E5%88%97%E8%A1%A8)
+- [维基百科：在线证书状态协议](https://zh.wikipedia.org/wiki/%E5%9C%A8%E7%BA%BF%E8%AF%81%E4%B9%A6%E7%8A%B6%E6%80%81%E5%8D%8F%E8%AE%AE)
 - [PKI/CA 技术的介绍](http://netsecurity.51cto.com/art/200602/21066.htm)
 - [OpenSSL命令、PKI、CA、SSL证书原理](http://www.cnblogs.com/LittleHann/p/3738141.html)
 - [数字证书及CA的扫盲介绍](https://program-think.blogspot.com/2010/02/introduce-digital-certificate-and-ca.html)
@@ -146,3 +151,4 @@ DV证书的签发是全自动的，所以非常快，它的签发时间主要取
 - [SSL/TLS协议运行机制的概述](http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html)
 - [SSL 的保密性、真实性、完整性和不可否认性具体怎么体现？](https://segmentfault.com/q/1010000000192807)
 - [Sun Java System Application Server Enterprise Edition 8.2 管理指南——第九章：配置安全性](https://docs.oracle.com/cd/E19900-01/820-0847/ablnk/index.html)
+- [HTTPS 加密过程和 TLS 证书验证](https://juejin.im/post/5a4f4884518825732b19a3ce)

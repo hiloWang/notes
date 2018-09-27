@@ -177,8 +177,10 @@ Finished 消息意味着握手已经完成。消息内容将加密，以便双�
 TLS支持许多密钥交换算法，能够支持各种证书类型、公钥算法和密钥生成协议。使用哪一种密钥交换由协商的套件所决定。一旦套件决定下来，两端都能了解按照哪种算法继续操作。实际使用的密钥交换算法主要有以下4种。
 
 - RSA：RSA 是一种事实上的标准密钥交换算法，它得到了广泛的支持。但它受到一个问题的严重威胁：它的设计使被动攻击者可以解码所有加密数据，只要她能够访问服务器的私钥。因此，RSA密钥交换正慢慢被其他支持前向保密（forward  secrecy）的算法所替代。RSA密钥交换是一种密钥传输（key  transport）算法，这种算法由客户端生成预主密钥，并以服务器公钥加密传送给服务器。
-- DHE_RSA：临时Diffie-Hellman（ephemeral Diffie-Hellman，DHE）密钥交换是一种构造完备的算法。它的优点是支持前向保密，缺点是执行缓慢。DHE是一种密钥协定算法，进行协商的团体都对密钥生成产生作用，并对公共密钥达成一致。在TLS中，DHE通常与RSA身份验证联合使用。
-- ECDHE_RSA 和 ECDHE_ECDSA：临时椭圆曲线Diffie-Hellman（ephemeral elliptic curve Diffie-Hellman，ECDHE）密钥交换建立在椭圆曲线加密的基础之上。椭圆曲线算法是相对较新的算法。大家认可它执行很快而且提供了前向保密。但是只有较新的客户端才能较好地支持。ECDHE也是一种密钥协定算法，其理论原理与DHE类似。在TLS中，ECDHE可以与RSA或者ECDSA身份验证一起使用。
+  
+- DHE_RSA：临时 Diffie-Hellman（ephemeral Diffie-Hellman，DHE）密钥交换是一种构造完备的算法。它的优点是支持前向保密，缺点是执行缓慢。DHE是一种密钥协定算法，进行协商的团体都对密钥生成产生作用，并对公共密钥达成一致。在TLS中，DHE通常与RSA身份验证联合使用。
+  
+- ECDHE_RSA 和 ECDHE_ECDSA：临时椭圆曲线 Diffie-Hellman（ephemeral elliptic curve Diffie-Hellman，ECDHE）密钥交换建立在椭圆曲线加密的基础之上。椭圆曲线算法是相对较新的算法。大家认可它执行很快而且提供了前向保密。但是只有较新的客户端才能较好地支持。ECDHE也是一种密钥协定算法，其理论原理与DHE类似。在 TLS 中，ECDHE 可以与RSA或者 ECDSA 身份验证一起使用。
 
 
 >原书关于密钥交换算法有非常完整的描述，如果需要进一步了解可以参阅原书。
@@ -243,6 +245,8 @@ struct{
 
 ---
 ## 11 密码套件
+
+上面说到的 TLS 握手过程中，ClientHello 中包含了一个 Cipher Suites 字段，Cipher Suites 表示 Client 支持的密码套件块，那么什么是密码套件块呢？
 
 TLS 为了实现所需的安全特性提供了非常大的灵活性，它是一个创造实际密码协议的框架，虽然以往版本将某些机密基元硬编码到协议中，但是 TLS1.2 是完全可配置的，密钥套件是 **一组选定的加密基元和其他参数，它可以精确定义如何实现安全**。套件大致由以下属性定义：
 
@@ -313,4 +317,4 @@ struct {
 ---
 ## 推荐阅读
 
-通过阅读 [Wireshark 抓包理解 HTTPS 请求流程](https://www.jianshu.com/p/cf8c2f2cd18a) 可以加深 TLS 握手过程的理解。
+- 通过阅读 [Wireshark 抓包理解 HTTPS 请求流程](https://www.jianshu.com/p/cf8c2f2cd18a) 可以加深 TLS 握手过程的理解。

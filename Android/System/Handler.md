@@ -385,7 +385,7 @@ next方法中是一个无限循环，如果消息队列没有消息，当前线�
         }
 ```
 
-而Looper的构造方法也很简单，初始化对应的MessageQueue，修改内部标识，记录它所在线程。这样Looper就初始化好了，我们也可以得出一个结论：**一个线程只能对应一个Looper和MessageQueue**，Looper除了提供preparer方法外，还提供了quit和quitSafely方法，quit用于直接退出loop循环，而quitSafey只是设定一个标识，当Looper轮询完所有消息后才自动退出**，Looper退出后，通过Handler发送消息会发送失败，这时Handler的sendXXX方法返回false**，在子线程中如果不再需要使用Looper，最后是让Looper退出消息轮询结束线程。
+而Looper的构造方法也很简单，初始化对应的MessageQueue，修改内部标识，记录它所在线程。这样Looper就初始化好了，我们也可以得出一个结论：**一个线程只能对应一个Looper和MessageQueue**，Looper除了提供preparer方法外，还提供了quit和quitSafely方法，quit用于直接退出loop循环，而quitSafey只是设定一个标识，当Looper轮询完所有消息后才自动退出，Looper退出后，通过Handler发送消息会发送失败，这时Handler的sendXXX方法返回false，在子线程中如果不再需要使用Looper，最后是让Looper退出消息轮询结束线程。
 
 其次，Looper还有一个方法用于获取主线程的Loope，这是因为主线程的Looper比较特殊：
 

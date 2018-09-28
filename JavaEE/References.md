@@ -36,6 +36,7 @@
 - [Spring MVC探险](http://www.iteye.com/blogs/subjects/springmvc-explore)
 - [知乎：如何学习Spring Boot](https://www.zhihu.com/question/53729800)
 - [Spring 4 All](http://www.spring4all.com/)
+- [外行人都能看懂的SpringCloud](https://juejin.im/post/5b83466b6fb9a019b421cecc)
 
 ### 书籍
 

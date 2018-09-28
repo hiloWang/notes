@@ -196,7 +196,7 @@ Placeholder（占位符）是一个虚拟对象，作用和它的名字一样，
 ---
 ## 引用
 
-- [android-ConstraintLayoutExamples](https://github.com/googlesamples/android-ConstraintLayoutExamples)，官方示例
+- [GoogleSample: android-ConstraintLayoutExamples](https://github.com/googlesamples/android-ConstraintLayoutExamples)，官方示例
 - [ConstraintLayout](https://developer.android.com/reference/android/support/constraint/ConstraintLayout.html)
 - [ConstraintLayout 完全解析 快来优化你的布局吧](http://blog.csdn.net/lmj623565791/article/details/78011599)
 - [解析ConstraintLayout的性能优势](https://mp.weixin.qq.com/s/gGR2itbY7hh9fo61SxaMQQ)

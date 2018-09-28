@@ -27,6 +27,8 @@
 具体参考文章：
 - [一大波 Android 刘海屏来袭，全网最全适配技巧！](https://mp.weixin.qq.com/s?__biz=MzIxNjc0ODExMA==&mid=2247485355&idx=1&sn=708775695da9a3411b4b240bd59b7017&chksm=97851e8aa0f2979cca7d24a2644c2dda3d2b2afe185dd47ae441750cec66bc4c38ae27cc5340&mpshare=1&scene=1&srcid=0412N98t7MX8So35HZBcMNCl#rd)
 - [号外！号外！全网第一手Android P刘海屏适配大揭秘，唯一Kotlin算法](https://www.jianshu.com/p/40630ecb06fb)
+- [Android P 刘海屏适配全攻略](https://mp.weixin.qq.com/s?__biz=MzIwMTAzMTMxMg==&mid=2649492726&idx=1&sn=b65984db6ac52ae806f8f0ad9dc7c9c3&chksm=8eec8709b99b0e1f7cbf03ae09117b24aa82595d16d9f6e6dc269e8e3beccfc64f154aca3d25&mpshare=1&scene=1&srcid=06109Xgd4CobknV69eI4EDOX#rd)
+- [Android P 凹口屏支持，打造全面屏体验](https://mp.weixin.qq.com/s/LyInks673YdHbXsDOD4inA)
 
 ## Sensor
 
@@ -54,3 +56,12 @@ book：
 ## Permission
 
 - [聊一聊Android 6.0的运行时权限](http://droidyue.com/blog/2016/01/17/understanding-marshmallow-runtime-permission/)
+
+## 非 SDK 接口问题
+
+
+- [非 SDK 接口常见问题](https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&mid=2652046529&idx=1&sn=ca2dd3e41d3e0459a2f18987ec849b7f&chksm=808ca484b7fb2d92b41a16c5f9d0dd2fda4ee68d0ac192dde83509a8e33310a11ad252c27b66&mpshare=1&scene=1&srcid=06195xxeD4kSdPUevs26ZYTS#rd)
+- [Android 应用兼容性最佳实践 | 中文教学视频](https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&mid=2652046686&idx=1&sn=c070272fbe65156afc20b282a5b4908b&chksm=808ca51bb7fb2c0dc1c8ab3c1519c5ce1d92532219da2be47d8809214e99c74bcca685503580&mpshare=1&scene=1&srcid=0715GRlpOeyFjxEiQXGKSHXQ#rd)
+- [Android 9 的非 SDK 接口限制 | 中文教学视频](https://mp.weixin.qq.com/s/fS_3DOpAJfa_MJ2rCvPGWA)
+- [突破Android P非SDK API限制的几种代码实现](https://juejin.im/post/5ba0f3f7e51d450e6f2e39e0)
+- [突破Android P的非公开API限制](https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247488664&idx=1&sn=610312f426d72b73103970bff2c32a30&chksm=f951a1dbce2628cd5e0f9fa60a67fc4eb3d080a7f102cdfc80d7a18161a2d2c04992b2b59ed4&mpshare=1&scene=1&srcid=0413gOKphy8dm0Rm5sxUey4b#rd)

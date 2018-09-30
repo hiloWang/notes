@@ -109,7 +109,7 @@
 - [事件分发007-ScaleGestureDetector](Android/UI/CustomViews/事件分发007-ScaleGestureDetector.md) **TODO**
 - [事件分发008-MotionEvent详解](Android/UI/CustomViews/事件分发008-MotionEvent详解.md)
 - [事件分发009-嵌套滑动研究](Android/UI/CustomViews/事件分发009-嵌套滑动研究.md)
-- [事件分发010-KeyEvent事件分发流程](Android/UI/CustomViews/事件分发010-KeyEvent事件分发流程.md)  **TODO**
+- [事件分发010-KeyEvent事件分发流程](Android/UI/CustomViews/事件分发010-KeyEvent事件分发流程.md)
 - [事件分发011-系统输入事件](Android/UI/CustomViews/事件分发011-系统输入事件.md)
 - [事件分发012-Scroller](Android/UI/CustomViews/事件分发012-Scroller.md)
 

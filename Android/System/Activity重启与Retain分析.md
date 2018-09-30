@@ -1,4 +1,4 @@
-# Activity的重启与Fragment和Loader的Retain分析
+# Activity的重启与Fragment、Loader 的 Retain 分析
 
 ---
 ## 1 Activity的重启

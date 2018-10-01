@@ -8,7 +8,6 @@ Google：
 - [android-architecture-components](https://github.com/googlesamples/android-architecture-components)
 - [android-sunflower](https://github.com/googlesamples/android-sunflower)
 
-
 TDD：
 
 - [AndroidTDDBootStrap](https://github.com/Piasy/AndroidTDDBootStrap)
@@ -67,6 +66,7 @@ MVX：
 - [MVC, MVP, MVVM比较以及区别(上)](http://www.cnblogs.com/JustRun1983/p/3679827.html)、[MVC, MVP, MVVM比较以及区别(下)](http://www.cnblogs.com/JustRun1983/p/3727560.html) 与 [谈谈关于MVP模式中V-P交互问题](http://www.cnblogs.com/artech/archive/2010/03/25/1696205.html)
 - [说说Android的MVP模式](http://toughcoder.net/blog/2015/11/29/understanding-android-mvp-pattern/)
 - [浅谈 MVC、MVP 和 MVVM 架构模式](https://draveness.me/mvx)
+- [如何构建Android MVVM 应用框架](https://tech.meituan.com/android_mvvm.html?utm_source=tool.lu)
 
 
 架构思考与实践

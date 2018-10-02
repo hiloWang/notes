@@ -1,0 +1,4 @@
+- [程序员必须知道的10大基础实用算法及其讲解](https://www.sdk.cn/news/2321)
+- [排序算法总结](https://segmentfault.com/a/1190000004994003)
+- [awesome-java-leetcode](https://github.com/Blankj/awesome-java-leetcode)
+- [BasicExercises](https://github.com/CaMnter/BasicExercises)

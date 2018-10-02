@@ -144,7 +144,7 @@ Pointcuts语法包括：
 #### within和withincode 
 
 - within用于捕获类型，示例`within(HelloAspectDemo)`表示在HelloAspectDemo类中
-- withincode用于捕获在构造器或者方法中的所有连接点，用法与within类似，withcode()接受的signature是方法
+- withincode用于捕获在构造器或者方法中的所有连接点，用法与within类似，`withcode()`接受的 signature 是方法
 
 #### cflow
 

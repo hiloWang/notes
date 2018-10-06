@@ -1,0 +1,12 @@
+# ConcurrentHashMap的实现原理与使用
+
+## 1 为什么在并发的环境中需要使用ConcurrentHashMap
+
+在并发编程中，使用HashMap容易导致死循环，而使用线程安全的HashTable则效率太低，使用便有了ConcurrentHashMap。
+
+在多线程的环境下，HashMap的put方法会引起死循环，因为多线程会导致HashMap的Emtry链表形成环形结构，一旦形成了环形结构，Entry的next节点就用于不会null，就会产生死循环去获取Entry，导致CPU使用率达到100%，所以在并发编程中不能使用HashMap。
+
+
+## 2 ConcurrentHashMap的结构
+
+ConcurrentHashMap是由Segment数组和HashEmtry数组组成的。Segment是一种可重入锁。

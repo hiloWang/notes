@@ -42,6 +42,7 @@
 - [拥抱Rxjava](https://wbinarytree.github.io/archives/)
 - [如何形象的描述反应式编程中的背压(Backpressure)机制？](https://www.zhihu.com/question/49618581/answer/237078934?utm_source=wechat_session&utm_medium=social&from=singlemessage)
 - [知乎RxJava Meetup](https://github.com/zhihu/zhihu-rxjava-meetup)
+- [RxJava 沉思录 1-4](https://juejin.im/post/5b8f536c5188255c352d3528)
 
 扩展
 

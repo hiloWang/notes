@@ -229,7 +229,8 @@ Gradle 实战：
 
 ### Java
 
-- [Java核心技术36讲](Languages/Java/Java核心技术36讲/Java核心技术36讲重点记录.md)，推荐订阅该[专栏](https://time.geekbang.org/column/intro/82)
+- [JNI-1](Languages/Java/Basic/JNI笔记-1.md)
+- [JNI-2](Languages/Java/Basic/JNI笔记-2.md) 
 
 ### C语言
 

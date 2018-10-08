@@ -371,16 +371,27 @@ OKHttp依赖OkIO进行io操作，okio是一个很高效的io操作库
 
 #### Body
 
-```
+```java
     @POST("/users/new")
     Call<User> createUser(@Body User user);
 ```
 
 - 该对象将会被`Retroofit`实例指定的转换器转换，如果没有添加转换器，则只有`RequestBody`可用
 
+#### Post json
+
+```java
+public interface ServiceApi{
+    @POST("prefix/user/{login}")
+    Call<ResponseBody> login(@Path("login") String postfix, @Body RequestBody params);  
+}
+
+RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),(new JSONObject(jsonParams)).toString());
+```
+
 #### Multipart
 
-```
+```java
     @Multipart
     @PUT("/user/photo")
     Call<User> updateUser(@Part("photo") RequestBody photo, @Part("description") RequestBody description);
@@ -390,12 +401,12 @@ OKHttp依赖OkIO进行io操作，okio是一个很高效的io操作库
 
 #### 文件上传
 
-```
+```java
         @Multipart
         @POST("http://10.2.20.13:8080/day21FileUpload/servlet/RegistServlet")
         Call<String> upDateMeiZiUserData( @Part("photo\"; filename=\"123.jpg\" ") RequestBody file , @Part("username") String name);
 
-      File file = new File(Environment.getExternalStorageDirectory(), "123.jpg");
+            File file = new File(Environment.getExternalStorageDirectory(), "123.jpg");
             RequestBody fileBody =  RequestBody.create(MediaType.parse("multipart/form-data"), file);
     
             mTestService.getMeiZiUserData(fileBody , "ztiany").enqueue(new Callback<String>() {
@@ -413,7 +424,7 @@ OKHttp依赖OkIO进行io操作，okio是一个很高效的io操作库
 
 或者使用下面方式：
 
-```
+```java
     @Multipart
     @POST("http://10.2.20.13:8080/day21FileUpload/servlet/RegistServlet")
     Observable<Response<PersonalInfo>> upDateMeiZiUserData(@PartMap Map<String, RequestBody> params);
@@ -438,7 +449,7 @@ OKHttp依赖OkIO进行io操作，okio是一个很高效的io操作库
 
 #### 静态
 
-```
+```java
     @Headers("Cache-Control: max-age=640000")
     @GET("/widget/list")
     Call<List<Widget>> widgetList();
@@ -457,7 +468,7 @@ OKHttp依赖OkIO进行io操作，okio是一个很高效的io操作库
 
 可以使用`@Header`注解动态的更新一个请求的header。必须给`@Header`提供相应的参数，如果参数的值为空header将会被忽略，否则就调用参数值的`toString()`方法并使用返回结果
 
-```
+```java
     @GET("/user")
     Call<User> getUser(@Header("Authorization") String authorization)
 ```
@@ -468,7 +479,7 @@ OKHttp依赖OkIO进行io操作，okio是一个很高效的io操作库
 
 为了避免Retrofit将非常大的数据直接读进内存中，需要添加一个特殊的注解：
 
-```
+```java
     @Streaming
     @GET
     Call<ResponseBody> downloadFileWithDynamicUrlAsync(@Url String fileUrl);

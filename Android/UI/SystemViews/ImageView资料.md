@@ -9,7 +9,7 @@
 ### 裁剪
 
 - [uCrop](https://github.com/Yalantis/uCrop)图片裁剪库(Yalantis出品)
--  [crop-image-layout](https://github.com/yulu/crop-image-layout)|图片裁剪库
+- [crop-image-layout](https://github.com/yulu/crop-image-layout)|图片裁剪库
 
 ### 编辑
 
@@ -30,6 +30,10 @@
 
 - [Matisse](https://github.com/zhihu/Matisse)
 - [boxing](https://github.com/Bilibili/boxing)
+
+### 截图
+
+- [PixelShot](https://github.com/Muddz/PixelShot)
 
 ### App
 

@@ -8,7 +8,7 @@
 
 在gradle集成`RxLifecycle`：
 
-```
+```groovy
     //RxLifecycle核心
     compile 'com.trello:rxlifecycle:0.8.0'
     //提供了Android中Activiy/Fragment的生命周期事件
@@ -17,7 +17,7 @@
     compile 'com.trello:rxlifecycle-components:0.8.0'
 ```
 另外还有两个可选模块
-```
+```groovy
     // If you want to use Navi for providers
     compile 'com.trello:rxlifecycle-navi:0.8.0'
     // If you want to use Kotlin syntax
@@ -32,7 +32,7 @@
 
 使用RxLifecycle需要继承`RxCompatActivity`或者`RxFragment`，`RxDialogFragment`、`RxFragmentActivity`。
 
-```
+```java
     public class RxLifecycleTestActivity extends RxAppCompatActivity {
        ......
     }

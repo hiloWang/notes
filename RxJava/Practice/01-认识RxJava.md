@@ -1,25 +1,26 @@
 # RxJava 入门
 
-## 1 RxJava 简介
+---
+## 1 Rx 简介
 
-RxJava官方介绍是：**Reactive Extensions for the JVM , a library for composing asynchronous and event-based programs using observable sequences for the Java VM**"，既**JVM上的响应式扩展，一个在 Java VM 上使用`可观测的序列`来编写`异步的`、`基于事件`的程序的库**
+RxJava官方介绍是：**Reactive Extensions for the JVM , a library for composing asynchronous and event-based programs using observable sequences for the Java VM**"，既 **JVM上的响应式扩展，一个在 Java VM 上使用`可观测的序列`来编写`异步的`、`基于事件`的程序的库**
 
 ### RX 历史
 
-ReactiveX是Reactive Extensions的缩写，一般简写为Rx，最初是LINQ(Language Integrated Query)的一个扩展，由微软的架构师Erik Meijer领导的团队开发，在2012年11月开源，Rx是一个编程模型，目标是提供一致的编程接口，帮助开发者更方便的处理异步数据流，Rx的大部分语言库由ReactiveX组织负责维护，比较流行的有RxJava/RxJS/Rx.NET，社区网站是 `reactivex.io`。
+ReactiveX 是 Reactive Extensions 的缩写，一般简写为 Rx，最初是 LINQ(Language Integrated Query) 的一个扩展，由微软的架构师 Erik Meijer 领导的团队开发，在 2012 年 11 月开源，Rx 是一个编程模型，目标是 **提供一致的编程接口**，帮助开发者更方便的处理异步数据流，Rx 的大部分语言库由 ReactiveX 组织负责维护，比较流行的有 RxJava/RxJS/Rx.NET，社区网站是 `reactivex.io`。
 
-### 什么是ReactiveX
+### 什么是 ReactiveX
 
 - **微软定义**：Rx是一个函数库，让开发者可以利用可观察序列和LINQ风格查询操作符来编写异步和基于事件的程序，使用Rx，开发者可以用Observables表示异步数据流，用LINQ操作符查询异步数据流， 用Schedulers参数化异步数据流的并发处理，Rx可以这样定义：`Rx = Observables + LINQ + Schedulers`。
-- **`reactivex.io`**定义：Rx是一个使用可观察数据流进行异步编程的编程接口，ReactiveX结合了`观察者模式、迭代器模式和函数式编程的精华`。
+- `reactivex.io`定义：Rx是一个使用可观察数据流进行异步编程的编程接口，ReactiveX结合了`观察者模式、迭代器模式和函数式编程的精华`。
 
-具体可以参考 [**ReactiveX宣言**](https://www.reactivemanifesto.org/) ：ReactiveX不仅仅是一个编程接口，它是一种编程思想的突破，它影响了许多其它的程序库和框架以及编程语言。
+具体可以参考 [ReactiveX宣言](https://www.reactivemanifesto.org/) ：ReactiveX 不仅仅是一个编程接口，它是一种编程思想的突破，它影响了许多其它的程序库和框架以及编程语言。
 
 RxJava使用了`观察者模式+迭代器模式+函数式编程`
 
-- 观察者模式：RxJava扩展了观察者模式，通过使用可观察的对象序列流来表述一系列事件，订阅者进行观察并对序列流做出反应（或持久化或输出显示等等）
-- 迭代器模式：借鉴迭代器模式，对多个对象序列进行迭代输出，订阅者可以依次处理不同的对象序列
-- 函数式编程：使用函数式编程思想(functional programming)，极大简化问题解决的步骤
+- 观察者模式：RxJava 扩展了观察者模式，通过使用可观察的对象序列流来表述一系列事件，订阅者进行观察并对序列流做出反应（或持久化或输出显示等等）。
+- 迭代器模式：借鉴迭代器模式，对多个对象序列进行迭代输出，订阅者可以依次处理不同的对象序列。
+- 函数式编程：使用函数式编程思想(functional programming)，极大简化问题解决的步骤。
 
 ### 响应式与函数式
 
@@ -33,10 +34,10 @@ RxJava使用了`观察者模式+迭代器模式+函数式编程`
 函数式编程：
 
 - 纯函数：没有副总用的函数，对于没有副作用的函数，不管多个线程调用多少次，总能得到相同的结果。
-- 高阶函数：返回函数的函数
-- 函数是第一等公民：函数可以成为另一个函数的参数
+- 高阶函数：返回函数的函数。
+- 函数是第一等公民：函数可以成为另一个函数的参数。
 
-RxJava综合应用了函数式与响应式编程
+RxJava 综合应用了函数式与响应式编程思想。
 
 ### Rx模式
 
@@ -53,12 +54,14 @@ RxJava综合应用了函数式与响应式编程
 *   异步错误处理：传统的try/catch没办法处理异步计算，Rx提供了合适的错误处理机制
 *   轻松使用并发：Rx的Observables和Schedulers让开发者可以摆脱底层的线程同步和各种并发问题
 
-使用Observable的优势：
+使用 Observable 的优势：
 
 - Observable可组合：Rx的Observable一开始就是为组合异步数据流准备的，可以轻易组合带条件的异步执行流程。
-- Observable更灵活：bservable是一个抽象概念，适用于任何场景。
+- Observable更灵活：observable 是一个抽象概念，适用于任何场景。
 - Observable无偏见：Rx对于对于并发性或异步性没有任何特殊的偏好，Observable可以用任何方式实现，线程池、事件循环、非阻塞IO、Actor模式等。
-- 避免回调嵌套的地狱
+- 避免了回调嵌套的地狱
+
+Rx 本来是抽象的，它是一种范式，不针对具体的应用场景，它试图以统一的编程接口处理所有的异步操作，以上列举了它的一些特点与优势，但它不仅仅如此。
 
 ---
 ## 2 观察者模式
@@ -72,7 +75,7 @@ RxJava综合应用了函数式与响应式编程
 在实际使用中，数据的传递一般分为两种方式：推模型和拉模型。
 
 - **推模型**：目标对象向观察者推送目标的详细信息，不管观察者是否需要，推送的信息通常是目标对象的全部或者部分数据，相当于是在广播通信
-- **拉模型**：目标对象在通知观察者的时候，只传递少量的数据信息，如果观察者需要更加具体的信息，由观察者主动到目标对象中获取，相当于是观察者从目标对象中拉取数据，一般这中模型的实现中，会把目标对象自身通知upate方法传递给观察者，这样在观察者需要获取数据的时候，就可以通过这个引用来获取了。
+- **拉模型**：目标对象在通知观察者的时候，只传递少量的数据信息，如果观察者需要更加具体的信息，由观察者主动到目标对象中获取，相当于是观察者从目标对象中拉取数据，一般这种模型的实现中，会把目标对象自身通过 update 方法传递给观察者，这样在观察者需要获取数据的时候，就可以通过这个引用来获取了。
 
 ---
 ##  3 一些名词解释
@@ -84,8 +87,7 @@ RxJava综合应用了函数式与响应式编程
 *   **emit** 直译为发射，发布，发出，含义是Observable在数据产生或变化时发送通知给Observer，调用Observer对应的方法
 *   **items** 直译为项目，条目，在Rx里是指Observable发射的数据项
 
-与迭代器模式不同的地方在于， 迭代器模式在事件处理上采用的是“同步/拉式”的方式，而Observable采用的是“异步/推式”的方式 ，对于Subscriber(观察者)而言，这种方式会更加灵活。
-
+与迭代器模式不同的地方在于， 迭代器模式在事件处理上采用的是 “同步/拉式” 的方式，而Observable采用的是 “异步/推式” 的方式 ，对于Subscriber(观察者)而言，这种方式会更加灵活。
 
 
 RxJava中使用的是推模型，当订阅发生后，Observable主动把具体的数据发射给Subscriber。

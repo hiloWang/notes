@@ -19,7 +19,7 @@ RxJava核心部分即我们使用RxJava操作符。这些都是最常用的。
 
 # RxJava扩展
 
-除了RxJava核心之外，还有一部分RxJava扩展。扩展部分有：
+除了RxJava核心之外，还有一部分 RxJava 扩展。扩展部分有：
 
 - [RxJavaString](https://github.com/ReactiveX/RxJavaString) 对字符串的操作
 - [RxJavaFileUtils](https://github.com/ReactiveX/RxJavaFileUtils) 对文件的操作
@@ -27,7 +27,7 @@ RxJava核心部分即我们使用RxJava操作符。这些都是最常用的。
 - [RxJavaMath](https://github.com/ReactiveX/RxJavaMath) 数学计算
 
 
-# [RxAndroid模块](https://github.com/ReactiveX/RxAndroid/wiki "RxAndroid-wiki")
+# [RxAndroid](https://github.com/ReactiveX/RxAndroid/wiki "RxAndroid-wiki")
 
 - RxAndroid android调度器
 - RxBinding View相关

@@ -64,34 +64,31 @@ Dagger2是一个依赖注入框架，在学习Dagger2前先来了解一下什么
 通过 `@Inject` 实现注入，这样连 setter 都省了。
 
 Dagger2 是使用生成代码实现完整依赖注入的框架，极大减少了使用者的编码量，Dagger2 由 google 维护，更多的资料可以自行 google，或者参考官方文档。
-
 在学习 Dagger2 前需要配置好 Dagger2 需要的依赖：
 
 ```groovy
     apply plugin: 'com.android.application'
-    ......
+   ......
     dependencies {
         compile 'com.google.dagger:dagger:2.x'
         annotationProcessor 'com.google.dagger:dagger-compiler:2.x'
     }
 ```
-
-在开发过程中，我们编写各种类并使它们相互协作来完成特定的功能，这样类与类之间肯定存在依赖关系，比如 A 类需要调用 B 类的某个方法或者获取它的某个属性，A 类对象怎么持有 B 类对象的引用呢？展开来讲就是怎么样才能比较好地维护好类与类之间的关系呢？
+u在开发过程中，我们编写各种类并使它们相互协作来完成特定的功能，这样类与类之间肯定存在依赖关系，比如 A 类需要调用 B 类的某个方法或者获取它的某个属性，A 类对象怎么持有 B 类对象的引用呢？展开来讲就是怎么样才能比较好地维护好类与类之间的关系呢？
 
 比较好的情况是：类与类之间的关系是松耦合的，对于单个类来讲，需要尽量简单，不想知道依赖的类是怎么创建的，把它给用就好，多个类来讲，希望尽量减少相互之间的依赖，手动维护这些可能是非常繁琐的，于是便有了类似 Dagger2 这样的框架，其帮我们维护好了类之间的关系，实现了松耦合，以声明注解的方式把多个类连接起来，不仅仅如此，许多依赖注入框架还提供了高级特性，比如注入依赖的生命周期控制等等，为我们编写出灵活的松耦合的代码提供的强大的支持。
 
 ---
 ## 2 Dagger2 的注解
 
-首先来了解一下 Dagger2 中的注解，Dagger2 使用的是 Java 依赖注入标准（JSR-330）：
-
+首先来了解一下 Dagger2 中的注解，下面部分注解属于 Java 依赖注入标准（JSR-330）：
 
 | 名称  | 作用  |
 | ------------ | ------------ |
-|`@Inject`|该注入有两个作用：<br/> 1. 通常在需要依赖的地方使用这个注解。比如给一个字段加上 `@Inject` 注解，就表示该字段将被容器注入。<br/> 2. 该注解用标注姐构造函数上，表示该类的的对象是可以由 Dagger 创建并注入给依赖者的依赖|
-|`@Module`|Modules 类里面的方法专门提供依赖，定义一个类，用 `@Module` 注解，这样 Dagger 在构造类的实例的时候，就知道从哪里去找到需要的依赖|
+|`@Inject`|该注入有两个作用： <br/> 1. 通常在需要依赖的地方使用这个注解。比如给一个字段加上 `@Inject` 注解，就表示该字段将被容器注入。 <br/> 2. 该注解用标注姐构造函数上，表示该类的的对象是可以由 Dagger 创建并注入给依赖者的依赖|
+`@Module`|Modules 类里面的方法专门提供依赖，定义一个类，用 `@Module` 注解，这样 Dagger 在构造类的实例的时候，就知道从哪里去找到需要的依赖|
 |`@Provide`|在 Modules 中，Dagger 只能从加上这个注解的方法中获取依赖。|
-|`@Component`|注释一个接口或抽象类，对于该接口或抽象类，要从一 Module 中生成完整的依赖注入实现。|
+|`@Component`|标注一个接口或抽象类，对于该接口或抽象类，要从一 Module 中生成完整的依赖注入实现。|
 |`@Scope`|Dagger2 可以通过自定义注解限定注解作用域，与注入对象的生命周期有关|
 |`@Named`|当同一个注入器有多个返回相同类型的方法时，使用 `@Named` 来区分不同依赖的注入|
 |`@Qualifier`|与 Named 相似，当类的类型不足以鉴别一个依赖的时候，我们就可以使用这个注解标示，它比 Named 更加强大|
@@ -105,11 +102,9 @@ Dagger2 是使用生成代码实现完整依赖注入的框架，极大减少了
 
 主要概念：
 
-- 依赖者：需要依赖的对象，比如 Android 中的 Activity/Fragment 依赖 Presenter 或 ViwModel。
+- 依赖者：需要被注入依赖的对象，比如 Android 中的 Activity/Fragment 依赖 Presenter 或 ViwModel。
 - 依赖：被依赖者依赖的对象，比如 Presenter 或者 ViewModel，依赖同时也可以是依赖者。
-- ioc 容器：容器是一个抽象的概念，它存储了我们需要的对象，Modules 类里面的方法用于向 Dagger 提供依赖。与 @Inject 一起形成了容器中依赖的关系链。
-- Component 作为注入器，绑定了一组 Module ，并从 Module 形成的依赖关系链中查找依赖注入给依赖者。
-
+- 容器：容器是一个抽象的概念，它存储了依赖者需要的对象。
 
 编写好代码之后，使用AndroidStudio的`make app`命令，即可生成代码，比如为定义的 Component 生成具体实现，其名称为：DaggerYourComponentName
 
@@ -136,7 +131,7 @@ Dagger2 是使用生成代码实现完整依赖注入的框架，极大减少了
     public class DaggerFragment extends Fragment {
 
         @Inject
-        People mPeople;
+        People mPeople
 
          @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {

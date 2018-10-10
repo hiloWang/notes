@@ -627,7 +627,7 @@ Map multibindings支持以下绑定方式：
 **Dagger Android**是对Android平台的扩展。提供了一种低耦合的对 Android 四大组件以及 Fragmengt 的注入方式。其内容原理是使用的 `Map multibindings` 。
 
 - `ContributesAndroidInjector`：这是一个非常强大的注解，可以为注入目标生成 Component， 不过只能用于 Android 中的组件(比如Activity、Service、Fragment等)。
-- AndroidInjector 支持扩展以对其他组件进行注入，具体参考[如何扩展](https://github.com/Ztiany/Programming-Notes/blob/master/Android/Dagger2AndroidInjection/README.md)
+- AndroidInjector 支持扩展以对其他组件进行注入，具体参考 [这个 Demo](https://github.com/Ztiany/Programming-Notes/blob/master/Android/Dagger2AndroidInjection/README.md)
 
 ---
 ## 11 注入nullable对象

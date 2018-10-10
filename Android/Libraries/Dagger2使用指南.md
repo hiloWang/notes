@@ -17,8 +17,7 @@ Dagger2是一个依赖注入框架，在学习Dagger2前先来了解一下什么
     
         public void fire() {
             mHandGun.shoot();
-        }
-    
+        }    
     }
 ```
 
@@ -49,13 +48,17 @@ Dagger2是一个依赖注入框架，在学习Dagger2前先来了解一下什么
 ```java
     public class Soldiers {
     
-
-@Inject
-        private Gun mGun;        public void setGun(Gun gun) {
+        @Inject
+        private Gun mGun;        
+        
+        public void setGun(Gun gun) {
             xxx.inject(this);
         }
     
         public void fire() {
+        }
+```
+
 # Dagger2学习
 
 ---

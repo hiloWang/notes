@@ -1,7 +1,7 @@
 # Dagger2学习
 
 ---
-## 1 依赖注入与D agger2
+## 1 依赖注入与 Dagger2
 
 Dagger2是一个依赖注入框架，在学习Dagger2前先来了解一下什么是依赖注入。说到依赖注入，首先肯定有一种依赖关系，比如士兵需要使用枪来进行射击训练，这时他肯定需要一把枪，那么怎么样让这个士兵持有一把枪呢？，可以直接 new 啊。
 
@@ -65,22 +65,13 @@ Dagger2是一个依赖注入框架，在学习Dagger2前先来了解一下什么
 通过 `@Inject` 实现注入，这样连 setter 都省了。
 
 
-Dagger2 是使用生成代码实现完整依赖注入的框架，由 google 维护，更多的资料可以查阅官方文档。
+### Dagger2 简介
 
-在学习 Dagger2 前需要配置好 Dagger2 需要的依赖：
+Dagger2 是一个完全静态的编译时依赖注入框架，适用于 Java 和 Android。其前身是由 Square 创建的动态注入框架 Dagger。Dagger2 现在由 Google 维护。
 
-```groovy
-    apply plugin: 'com.android.application'
-    ......
-    dependencies {
-        compile 'com.google.dagger:dagger:2.x'
-        annotationProcessor 'com.google.dagger:dagger-compiler:2.x'
-    }
-```
-
+依赖注入框架已存在多年，其中包含各种用于配置和注入的 API。为什么重新发明轮子？Dagger2 是第一个基于代码生成技术(APT)实现依赖注入的框架。其指导原则是生成代码，模仿用户可能手写的代码，以确保依赖注入简单、可追溯和高效。旨在解决基于反射的进行依赖注入导致的性能问题。
 
 ### 总结
-
 
 在开发过程中，我们编写各种类并使它们相互协作来完成特定的功能，这样类与类之间肯定存在依赖关系，比如 A 类需要调用 B 类的某个方法或者获取它的某个属性，A 类对象怎么持有 B 类对象的引用呢？展开来讲就是怎么样灵活地处理好类与类之间的引用关系呢？
 
@@ -90,19 +81,19 @@ Dagger2 是使用生成代码实现完整依赖注入的框架，由 google 维�
 
 
 ---
-## 2 Dagger2 的注解
+## 2 Dagger2 注解
 
 首先来了解一下 Dagger2 中的注解，下面部分注解属于 Java 依赖注入标准（JSR-330）：
 
 | 名称  | 作用  |
 | ------------ | ------------ |
-|`@Inject`|该注入有两个作用： <br/> 1. 通常在需要依赖的地方使用这个注解。比如给一个字段加上 `@Inject` 注解，就表示该字段将由容器提供注入。 <br/> 2. 该注解标注在构造函数上，表示该类的的对象是可以由 Dagger 创建并注入给需要该依赖的依赖者|
-`@Module`|Modules 类里面的方法专门提供依赖，定义一个类，用 `@Module` 注解，这样 Dagger 在构造类的实例的时候，就知道从哪里去找到需要的依赖|
-|`@Provide`|在 Modules 中，Dagger 只能从加上这个注解的方法中获取依赖。|
-|`@Component`|标注一个接口或抽象类，对于该接口或抽象类，要从一 Module 中生成完整的依赖注入实现。|
-|`@Scope`|Dagger2 可以通过自定义注解限定注解作用域，与注入对象的生命周期有关|
-|`@Named`|当同一个注入器有多个返回相同类型的方法时，使用 `@Named` 来区分不同依赖的注入|
-|`@Qualifier`|与 Named 相似，当类的类型不足以鉴别一个依赖的时候，我们就可以使用这个注解标示，它比 Named 更加强大|
+|`@Inject`|该注入有两个作用： <br/> 1. 通常在需要依赖的地方使用这个注解，比如给一个字段加上 `@Inject` 注解，就表示该字段将由容器提供注入 。<br/> 2. 该注解标注在构造函数上，表示该类的的对象是可以由 Dagger 创建并注入给需要该依赖的对象。|
+`@Module`| Modules 类里面的方法用于提供依赖，定义一个类，用 `@Module` 注解，这样 Dagger 在构造类的实例的时候，就知道从哪里去找到需要的依赖。|
+|`@Provide`|在 Modules 中定义的方法，需要加上这个注解，Dagger 将从这些方法中创建依赖。否则 Modules 中定义的方法就只是一个普通方法。|
+|`@Component`|标注一个接口或抽象类，对于该接口或抽象类，要从一组 Module 中生成完整的依赖注入实现。|
+|`@Scope`|Dagger2 可以通过自定义注解限定注解作用域，与注入对象的生命周期有关。|
+|`@Named`|当同一个注入器有多个返回相同类型的方法时，使用 `@Named` 来区分不同依赖的注入。|
+|`@Qualifier`|与 Named 相似，当类的类型不足以鉴别一个依赖的时候，我们就可以使用这个注解进行标示，它比 Named 更加强大。|
 
 
 基本的使用规则：
@@ -115,38 +106,43 @@ Dagger2 是使用生成代码实现完整依赖注入的框架，由 google 维�
 
 - 依赖者：需要被注入依赖的对象，比如 Android 中的 Activity/Fragment 依赖 Presenter 或 ViwModel。
 - 依赖：被依赖者依赖的对象，比如 Presenter 或者 ViewModel，依赖同时也可以是依赖者。
-- 容器：容器是一个抽象的概念，它存储了依赖者需要的对象。
+- 容器：容器是一个抽象的概念，它存储了依赖者需要的对象。被 `@Component` 标注的接口或抽象类，Dagger 根据其绑定的一组 Module 生成完整的依赖注入实现。
 
 编写好代码之后，使用AndroidStudio的`make app`命令，即可生成代码，比如为定义的 Component 生成具体实现，其名称为：DaggerYourComponentName
 
 ### Dagger 示例
 
-```
-    //Module
+```java
+    //使用 @Module 来声明一个 Module
     @dagger.Module
     public class PeopleModule {
 
+        //被 @Provides 标准的方法可以提供该方法返回类型的依赖。
         @Provides
         People getPeople() {
             return new ChinesePeople();
         }
     }
 
-    //注入器
+    //使用 @Component 来声明一个注入容器，Dagger2 将为我们生成具体的实现，其名称是 DaggerPeopleComponent。
     @Component(modules = {PeopleModule.class})//指定在哪些module中查找依赖
     public interface PeopleComponent {
-        void inject(DaggerFragment daggerFragment);//用于注入，只能有一个参数
+
+        ///定义这样的一个方法，返回类型为 void，且只有一个参数，表示 Dagger2 要为才参数类型的实例提供依赖注入。
+        void inject(DaggerFragment daggerFragment);
     }
 
     //使用依赖注入的容器
     public class DaggerFragment extends Fragment {
 
+        //在依赖者中，使用 @Inject 标注一个字段，表示希望该字段由 Dagger2 提供注入。
         @Inject
         People mPeople
 
          @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+            //Dagger2 为我们生成了注入容器 DaggerPeopleComponent，然后调用 inject 方法来进行依赖注入。
             DaggerPeopleComponent.builder().build().inject(this);
         }
 
@@ -157,15 +153,24 @@ Dagger2 是使用生成代码实现完整依赖注入的框架，由 google 维�
     }
 ```
 
+实例中：
+
+- PeopleModule 可以提供 People 类型的依赖
+- PeopleComponent 绑定了 PeopleModule，并声明了要为 DaggerFragment 提供依赖注入
+- DaggerFragment 中的 People 字段需要被容器注入，而 PeopleComponent 绑定的 PeopleModule 正好可以提供 People 类型的依赖
+
+这写要素缺一不可。
+
+
 ---
-## 3 Dagger2注入规则
+## 3 Dagger2 注入规则
 
 ### 如果 Providers 方法需要参数
 
 Module中`@Provides`方法可以带输入参数，这个参数可以有以下方式提供：
 
 - 1：其参数由Module集合中的其他`@Provides`方法提供
-```
+```java
     //在module中
     @providers
     ObjectA objcetA(ObjectB b){
@@ -180,7 +185,7 @@ Module中`@Provides`方法可以带输入参数，这个参数可以有以下方
 - 2：如果Module集合中的其他`@Provides`方法没有提供，但是所依赖的参数类型有带`@Inject`注解的构造方法，而自动调用它的构造方法创建。
 - 3：如果都没有的话，只能显式的提供方法所需要的参数
 
-**注意是 Module 集合而不是单个 Module，因为 component 可以指定多个 Module**，也就是说多个 Module 可以互补
+**注意是 Module 集合而不是单个 Module，因为 component 可以指定多个 Module**，也就是说多个 Module 可以互补。
 
 ### 添加多个 Module 与 Module 实例的创建
 
@@ -188,16 +193,16 @@ Module中`@Provides`方法可以带输入参数，这个参数可以有以下方
 
 - 1：直接在Component上指定
 
-```
+```java
     @Component(modules={ModuleA.class,ModuleB.class,ModuleC.class}) //添加多个Module
     public interface XXComponent{
         ...
     }
 ```
 
-- 2:在一个新的module中，include多个子module
+- 2：在一个新的module中，include多个子module
 
-```
+```java
          @Module(includes={ModuleA.class,ModuleB.class,ModuleC.class})
          public class XXModule{
              ...
@@ -206,22 +211,26 @@ Module中`@Provides`方法可以带输入参数，这个参数可以有以下方
 
 Component的创建有两种方法:
 
-- `DaggerXXX.create();`等价于`DaggerXXX.builder().build();`
-- 利用builder模式，可以传入特定的module，而且当Component需要的module没有无参的构造方法时，必须使用buidler模式传入。
-```
+- 1 直接调用 create 方法：`DaggerXXX.create();`。其 等价于 `DaggerXXX.builder().build();`，但是使用这种方式是有条件的：
+    - Component 绑定到的 Module 中的标注了 `@providers` 的方法都是静态的。
+    - Component 绑定到的 Module 中的标注了 `@providers` 的方法不是是静态的。但是它们都有默认的构造函数。
+- 2 利用 builder 模式，可以传入特定的 module，而且以下情况下，必须使用buidler模式传入。
+    - 当 Component 需要的 module 没有无参的构造方法时。此时 Dagger2 无法自动创建该 Module 实例。
+
+```java
         mPeopleComponent = DaggerPeopleComponent.builder()
                     .peopleModule(new PeopleModule(
                             new NameFactory()
                     )).build();
 ```
 
-### 用Named或Qualifier来区分返回类型相同的`@Provides`方法
+### 用 Named 或 Qualifie r来区分返回类型相同的 `@Provides` 方法
 
-如果Component指定的Module集合中有多个返回相同类型的@Providers方法，则需要使用Named或Qualifier来对这些方法进行区分：
+如果 Component 指定的 Module 集合中有多个返回相同类型的 `@Providers` 方法，则需要使用 Named 或 Qualifier 来对这些方法进行区分：
 
 #### Named
 
-```
+```java
     //Module中
           @Named("A")
           @Provides
@@ -246,7 +255,7 @@ Component的创建有两种方法:
 
 Qualifier更加强大，允许我们自定义，注意格式
 
-```
+```java
     //实现一个用int类型区分的IntPeopleNamed
     @Qualifier//元注解
     @Documented//规范要求
@@ -276,7 +285,7 @@ Qualifier更加强大，允许我们自定义，注意格式
         People mPeopleB;
 ```
 
-### Component中方法定义规则
+### Component 中方法定义规则
 
 #### 1 Component 一般定义一个方法，用来提供注入，必须有需要注入的容器作为参数
 
@@ -287,20 +296,21 @@ Qualifier更加强大，允许我们自定义，注意格式
     }
 ```
 
-#### 2 如果Component中定义了没有参数的方法，则方法必须有返回值
+#### 2 如果 Component 中定义了没有参数的方法，则方法必须有返回值
 
 Component也可以代替Module中的`@Provides`方法来提供依赖，而不需要`@Provides`注解，对于Component中方法的返回值，需要在指定的Moudle集合中提供返回这个类型的`@Provides`方法。但是如果返回值的类型有带有inject注解的构造函数，则会调用这个构造函数返回对象,这时指定的Moudle集合中可以没有返回这个类型值的`@Provides`方法。
 
 #### 3 Component 可以依赖另一个 Component
 
-- 如果 ComponentA 依赖于 ComponentB，ComponentB 必须定义带返回值的方法来提供 ComponentA 缺少的依赖，也就是说 ComponentB 要提供 ComponentA 中缺少的依赖，则必须声明依赖类型返回值的方法。
+- 如果 ComponentA 依赖于 ComponentB，ComponentB 中必须定义带返回值的方法来提供 ComponentA 缺少的依赖，也就是说 ComponentB 要显式提供 ComponentA 中缺少的依赖，则必须声明依赖类型返回值的方法。
 
-```
+```java
       //假如PeopleComponent中缺少对String的依赖
         @Component(dependencies = JapanComponent.class ,modules = PeopleModule.class)
         public interface PeopleComponent {
             void inject(DaggerFragment daggerFragment);
-      }
+        }
+
         //JapanModule有返回String的@Provides方法，如果JapanComponent要提供依赖给PeopleComponent，则在JapanComponent中必须暴露方法提供依赖
         @Component(modules = JapanModule.class)
         public interface JapanComponent {
@@ -310,7 +320,7 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 
 这时也只能用 Builder 的方式构造依赖注入器了：
 
-```
+```java
      DaggerPeopleComponent.builder()
             .japanComponent(new JapanComponent())
             .activityModule(new ActivityModule())
@@ -321,37 +331,36 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 
 
 ---
-## 4 关于Inject注解
+## 4 关于 Inject 注解
 
-在需要注入依赖的地方使用@Inject注解
-有三种inject方式：constructor,field和method injection
+在需要注入依赖的地方使用 `@Inject` 注解，有三种 inject 方式：constructor、field、method injection。
 
 ### constructor
 
-1.  在Constructor加上@Inject
-2.  表示Constructor的参数需要dependency
-3.  这些参数可以被使用在privte或final字段
+1.  在类的 Constructor 加上 `@Inject` 注解，表示该类的的对象是可以由 Dagger 创建并注入给需要该依赖的对象。（这里是提供依赖）
+2.  但是类的 Constructor 上的参数（依赖）需要由注入容器提供。（这里是需要依赖）
+3.  injection 发生在对象创建时。
 
-### Method
+### Method(在 Android 中没有用到)
 
-1.  在methods上加上@Inject
-2.  表示method的参数需要dependency
-3.  injection发生在对象被完全建立之后
+1.  在 methods 上加上 `@Inject`。
+2.  表示 method 的参数需要 dependency。
+3.  injection 发生在对象被完全建立之后。
 
-### Field(在 anroid 中常用)
+### Field
 
-1.  在fields上加上@Inject
-2.  field不能为private或是final，至少是缺省的访问权限
-3.  injection发生在对象完全建立之后
+1.  在 fields上加上 `@Inject`。
+2.  field不 能为 private 或是 final，至少是缺省的访问权限。
+3.  injection 发生在对象完全建立之后。
 
 ---
 ## 5 Scope 控制注入对象的声明周期
 
-首先要明白Scope的作用范围是同一个Component实例上。
+首先要明白 Scope 的作用范围是绑定在一个 Component 实例上的。
 
 创建某些对象有时候是耗时浪费资源或者没有完全必要的，比如说我们的Android中，有很多的东西是全局的比如：
 
-```
+```java
       Context//全局的上下文：ApplicationContext
       ThreadExecutor threadExecutor();//全局的子线程调度器
       PostExecutionThread postExecutionThread();//全局主线程转发器
@@ -363,7 +372,7 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 
 在Application中初始化一个全局的注入器ApplicationComponent，暴露方法提供ApplicationComponent给其他模块。
 
-```
+```java
     public class AppContext extends Application {
         private static AppContext appContext;
         private AppComponent mAppComponent;
@@ -386,7 +395,7 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 
 给ApplicationComponent定义一个语义上的全局Scope
 
-```
+```java
     @Scope
     @Documented
     @Retention(RetentionPolicy.RUNTIME)
@@ -400,7 +409,7 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 
 - 第一步在AppComponent使用@AppScope注解
 
-```
+```java
     //在AppComponent使用@AppScope注解
     @AppScope
     @Component(modules = AppModule.class)
@@ -413,7 +422,7 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 
 直接在需要注入的类上声明scope注解
 
-```
+```java
     @AppScope
     public class JobExecutor implements Executor{
         @Inject
@@ -425,9 +434,9 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
     }
 ```
 
-在Module中的@provides方法上使用
+在Module中的 `@provides` 方法上使用
 
-```
+```java
     @Module
     public class AppModule {
 
@@ -443,7 +452,7 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 
 使用AppContenxt获取全局的依赖注入器，进行注入
 
-```
+```java
     public class BaseActivity extends AppCompatActivity {
         @Inject
         Executor mJobExecutor;
@@ -462,7 +471,7 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 同一个component实例中，对于提供的依赖，如果使用了scope注解，则这个依赖只会被生成一次，这个提供的依赖的生命周期与component保存一致，以后每次使用这个component进行注入，都只会返回同一个依赖对象，而没有使用scope的，则使用同一个component注入的话，每一次注入都会生成新的依赖。
 
 至于 Singleton
-```
+```java
     @Scope
     @Documented
     @Retention(RUNTIME)
@@ -490,8 +499,7 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 
 - 1 直接在 ParentComponent 中定义返回ChildComponent的方法
 
-```
-    
+```java
 //1 定义子 Component
     @SubScrope
     @Subcomponent(modules=××××)
@@ -509,12 +517,11 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
     AppContext.getParentComponent()
         .getChildComponent(new ChildModule())
         .inject(this);
-
 ```
 
 - 2 使用 Builder 模式
 
-```
+```java
     @Subcomponent(modules = RequestModule.class)
     interface RequestComponent {
 
@@ -530,7 +537,7 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 
     //ParentComponent 返回 ChildComponent 的 Builder
     public interface ParentComponent{
-           ChildComponent.Builder getChildComponentBuilder();
+        ChildComponent.Builder getChildComponentBuilder();
     }
 ```
 
@@ -544,9 +551,9 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 ---
 ## 8  Lazy 与 Provider
 
-Lazy 和 Provider都是用于包装 Container 中需要被注入的类型，Lazy 用于延迟加载，Provide 用于强制重新加载：
+Lazy 和 Provider 都是用于包装 Container 中需要被注入的类型，Lazy 用于延迟加载，Provide 用于强制重新加载：
 
-```
+```java
     public class Container{
         @Inject Lazy<PeopleA> mPeopleA; //注入Lazy元素
         @Inject Provider<PeopleB> mPeopleB; //注入Provider元素
@@ -569,9 +576,9 @@ Dagger允许将多个对象绑定到集合中，即使使用mutlbindings将对�
 
 关键注解：`@IntoSet, @ElementsIntoSet`
 
-定义Module
+定义 Module
 
-```
+```java
     @Module
     class MyModuleA {
       @Provides
@@ -593,7 +600,7 @@ Dagger允许将多个对象绑定到集合中，即使使用mutlbindings将对�
 
 绑定这两个Module来注入Set：
 
-```
+```java
     class Bar {
       @Inject Bar(Set<String> strings) {
         assert strings.contains("ABC");
@@ -607,7 +614,7 @@ Dagger允许将多个对象绑定到集合中，即使使用mutlbindings将对�
 
 关键注解：`@MapKey, @IntoMap, @LongKey, @StringKey`等等
 
-Map multibindings支持以下绑定方式：
+Map multibindings 支持以下绑定方式：
 
 - 注入Map
 - 自定义MapKey
@@ -625,21 +632,21 @@ Map multibindings支持以下绑定方式：
 ---
 ## 10 Dagger2 安卓拓展
 
-**Dagger Android**是对Android平台的扩展。提供了一种低耦合的对 Android 四大组件以及 Fragmengt 的注入方式。其内容原理是使用的 `Map multibindings` 。
+**Dagger Android** 是基于 Dagger2 对 Android 平台的提供的扩展。提供了一种低耦合的对 Android 四大组件以及 Fragmengt 进行注入的方式。可以让我们减少很多模板代码的编写。其内部原理是使用的 `Map multibindings` 。
 
-- `ContributesAndroidInjector`：这是一个非常强大的注解，可以为注入目标生成 Component， 不过只能用于 Android 中的组件(比如Activity、Service、Fragment等)。
+- `ContributesAndroidInjector`：这是一个非常强大的注解，可以为注入目标自动生成 Component 实现， 不过只能用于 Android 中的组件(比如Activity、Service、Fragment等)。
 - AndroidInjector 支持扩展以对其他组件进行注入，具体参考 [这个 Demo](https://github.com/Ztiany/Programming-Notes/blob/master/Android/Dagger2AndroidInjection/README.md)
 
 ---
-## 11 注入nullable对象
+## 11 注入 Nullable 对象
 
 有时候需要注入的对象是可null的，默认Dagger2对对注入的对象进行检测，如果是null的，则会抛出异常，标注注入的对象可null有两种方式：
 
-### 使用Nullable
+### 使用 Nullable
 
 Module中是使用`javax.annotation.Nullable`注解：
 
-```
+```java
 @Module
 public class ServiceModule {
 
@@ -654,7 +661,7 @@ public class ServiceModule {
 
 在被注入对象中也要标注该注入的对象可null
 
-```
+```java
 public class ShoppingCartRepository   {
 
     @Inject
@@ -665,11 +672,11 @@ public class ShoppingCartRepository   {
 }
 ```
 
-### 使用BindsOptionalOf
+### 使用 BindsOptionalOf
 
 BindsOptionalO提供注入对象的方法上，表示此注入对象可能不存在，即可能不会被注入。使用方式：
 
-```
+```java
 //step 1
 @Module
 public interface ApiServiceModule {
@@ -695,7 +702,7 @@ Optional<Lazy<Foo>>
 Optional<Provider<Lazy<Foo>>>
 ```
 
-Optional支持`com.google.common.base.Optional` 和 `java.util.Optional`。
+Optional支持 `com.google.common.base.Optional` 和 `java.util.Optional`。
 
 具体参考：
 
@@ -707,7 +714,7 @@ Optional支持`com.google.common.base.Optional` 和 `java.util.Optional`。
 
 标记Component构建器或SubComponent构建器上的方法，该方法允许将实例绑定到组件中的某种类型。示例：
 
-```
+```java
 //定义一个Component，并为其定义一个构建器
 @Component(modules = AppModule.class)
 interface AppComponent {
@@ -736,13 +743,30 @@ interface AppComponent {
 ```
 
 ---
-## 13 Producers
+## 13 使用 `@Binds` 注解
+
+`@Binds` 可作为 简单的`@Provider`方法的替代，它标注在抽象的 Module 的抽象方法上。例如：
+
+```java
+@Module
+public abstract class RandomModule{
+
+    @Binds 
+    abstract Random bindRandom(SecureRandom secureRandom);
+
+}
+```
+
+具体可以参考官方文档。
+
+---
+## 14 Producers
 
 Producers是Dagger2的拓展，原有的注入方式都是同步的，Producers模块提供了异步注入的方式。具体参考[文档](https://google.github.io/dagger/producers)。
 
 
 ---
-## 14 泛型支持
+## 15 泛型支持
 
 泛型可以应用于Dagger2中，在基类中定义泛型，然后在具体的子类确定实际参数类型，Dagger2依然可以提供正确的注入：
 
@@ -770,7 +794,7 @@ public class UserPresenter implement IPresenter{
 ```
 
 ---
-## 15 Dagger 2.17 更新
+## 16 Dagger 2.17 更新
 
 Dagger 2.17 的更新可能会引发一些编译错误，官方解释原文为：If you start seeing missing binding errors in this release, check out [this wiki page](https://github.com/google/dagger/wiki/Dagger-2.17-@Binds-bugs) for information on how to debug the issues
 
@@ -778,8 +802,8 @@ Dagger 2.17 的更新可能会引发一些编译错误，官方解释原文为�
 ---
 ## 引用
 
+- [Users-Guide](https://google.github.io/dagger/users-guide)
+- [API-Reference](https://google.github.io/dagger/api/latest/)
+- [让你的Daggers保持锋利](https://juejin.im/entry/5b8252d5e51d4538cd22834c)
 - [Android常用开源工具（1）-Dagger2入门](http://blog.csdn.net/duo2005duo/article/details/50618171)
 - [Android常用开源工具（2）-Dagger2进阶](http://blog.csdn.net/duo2005duo/article/details/50696166)
-- [Users-Guide](https://google.github.io/dagger/users-guide)
-- [让你的Daggers保持锋利](https://juejin.im/entry/5b8252d5e51d4538cd22834c)
-

@@ -43,8 +43,8 @@ Dagger2是一个依赖注入框架，在学习Dagger2前先来了解一下什么
 }
 ```
 
-其实注入是很好理解的。除此之外，还有更厉害的注解注入：
-
+其实注入是很好理解的。除此之外，还有的注解注入方式：
+ 
 ```java
     public class Soldiers {
     
@@ -52,67 +52,6 @@ Dagger2是一个依赖注入框架，在学习Dagger2前先来了解一下什么
         private Gun mGun;        
         
         public void setGun(Gun gun) {
-            xxx.inject(this);
-        }
-    
-        public void fire() {
-        }
-```
-
-# Dagger2学习
-
----
-## 1 依赖注入与D agger2
-
-Dagger2是一个依赖注入框架，在学习Dagger2前先来了解一下什么是依赖注入。说到依赖注入，首先肯定有一种依赖关系，比如士兵需要使用枪来进行射击训练，这时他肯定需要一把枪，那么怎么样让这个士兵持有一把枪呢？，可以直接 new 啊。
-
-
-```java
-    public class Soldiers {
-    
-        private HandGun mHandGun;
-    
-        public Soldiers() {
-            mHandGun = new HandGun();
-        }
-    
-        public void fire() {
-            mHandGun.shoot();
-        }
-    
-    }
-```
-
-但是上面这个程序是有问题的，因为 Soldiers 可以使用很多种枪啊，不仅仅是手枪，而且 Soldiers 不是制造手枪的，所以他也不应该知道手枪的创建过程。这时候我们就有了注入之说，提供一个方法，来给 Soldiers 提供枪，而 Soldiers 只需要用枪射击即可。
-
-注入的方式有很多种，比如说 **构造器注入**，**setter注入**，**注解注入**，这里肯定不能使用构造器注入，因为 Soldiers 是可以独立存在，他与枪不是强依赖关系。
-
-```java
-    public class Soldiers {
-    
-        private Gun mGun;
-    
-        public void setGun(Gun gun) {
-            mGun = gun;
-        }
-    
-        public void fire() {
-            if (mGun != null)
-                mGun.shoot();
-        }
-    
-
-}
-```
-
-其实注入是很好理解的。除此之外，还有更厉害的注解注入：
- 
-```java
-    public class Soldiers {
-    
-
-@Inject
-        private Gun mGun;        public void setGun(Gun gun) {
             xxx.inject(this);
         }
     

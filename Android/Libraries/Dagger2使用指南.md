@@ -1,9 +1,10 @@
 # Dagger2学习
 
 ---
-## 1 依赖注入与Dagger2
+## 1 依赖注入与D agger2
 
 Dagger2是一个依赖注入框架，在学习Dagger2前先来了解一下什么是依赖注入。说到依赖注入，首先肯定有一种依赖关系，比如士兵需要使用枪来进行射击训练，这时他肯定需要一把枪，那么怎么样让这个士兵持有一把枪呢？，可以直接 new 啊。
+
 
 ```java
     public class Soldiers {
@@ -23,7 +24,7 @@ Dagger2是一个依赖注入框架，在学习Dagger2前先来了解一下什么
 
 但是上面这个程序是有问题的，因为 Soldiers 可以使用很多种枪啊，不仅仅是手枪，而且 Soldiers 不是制造手枪的，所以他也不应该知道手枪的创建过程。这时候我们就有了注入之说，提供一个方法，来给 Soldiers 提供枪，而 Soldiers 只需要用枪射击即可。
 
-注入的方式有很多种，比如说**构造器注入**，**setter注入**，**注解注入**，这里肯定不能使用构造器注入，因为 Soldiers 是可以独立存在，他与枪不是强依赖关系。
+注入的方式有很多种，比如说 **构造器注入**，**setter注入**，**注解注入**，这里肯定不能使用构造器注入，因为 Soldiers 是可以独立存在，他与枪不是强依赖关系。
 
 ```java
     public class Soldiers {
@@ -60,43 +61,36 @@ Dagger2是一个依赖注入框架，在学习Dagger2前先来了解一下什么
     }
 ```
 
-通过inject实现注入，这样连setter都省了。
+通过 `@Inject` 实现注入，这样连 setter 都省了。
 
-Dagger2是使用生成代码实现完整依赖注入的框架，极大减少了使用者的编码负担，Dagger2由google维护，更多的资料可以自行google。
+Dagger2 是使用生成代码实现完整依赖注入的框架，极大减少了使用者的编码量，Dagger2 由 google 维护，更多的资料可以自行 google，或者参考官方文档。
 
-在学习Dagger2前需要配置好Dagger2需要的依赖：
+
+在学习 Dagger2 前需要配置好 Dagger2 需要的依赖：
 
 ```groovy
-    buildscript {
-        repositories {
-            jcenter()
-        }
-        dependencies {
-            classpath 'com.android.tools.build:gradle:2.0.0-beta6'
-            classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        }
-    }
-    ......
     apply plugin: 'com.android.application'
-    apply plugin: 'com.neenbedankt.android-apt'
     ......
     dependencies {
-        def daggerVersion = "2.5"
-        compile fileTree(dir: 'libs', include: ['*.jar'])
-        compile "com.google.dagger:dagger:${daggerVersion}"
-        apt "com.google.dagger:dagger-compiler:${daggerVersion}"
+        compile 'com.google.dagger:dagger:2.x'
+        annotationProcessor 'com.google.dagger:dagger-compiler:2.x'
     }
 ```
 
+在开发过程中，我们编写各种类并使它们相互协作来完成特定的功能，这样类与类之间肯定存在依赖关系，比如 A 类需要调用 B 类的某个方法或者获取它的某个属性，A 类对象怎么持有 B 类对象的引用呢？展开来讲就是怎么样才能比较好地维护好类与类之间的关系呢？
+
+比较好的情况是：类与类之间的关系是松耦合的，对于单个类来讲，需要尽量简单，不想知道依赖的类是怎么创建的，把它给用就好，多个类来讲，希望尽量减少相互之间的依赖，手动维护这些可能是非常繁琐的，于是便有了类似 Dagger2 这样的框架，其帮我们维护好了类之间的关系，实现了松耦合，以声明注解的方式把多个类连接起来，不仅仅如此，许多依赖注入框架还提供了高级特性，比如注入依赖的生命周期控制等等，为我们编写出灵活的松耦合的代码提供的强大的支持。
+
+
 ---
-## 2 Dagger2的注解
+## 2 Dagger2 的注解
 
 首先来了解一下Dagger2的注解：
 
 
 | 名称  | 作用  |
 | ------------ | ------------ |
-| `@Inject`  |  通常在需要依赖的地方使用这个注解。比如给一个字段加上`@Inject`注解，就表示该字段将被注入|
+|`@Inject`|  通常在需要依赖的地方使用这个注解。比如给一个字段加上`@Inject`注解，就表示该字段将被注入|
 |`@Module`|Modules类里面的方法专门提供依赖，定义一个类，用@Module注解，这样Dagger在构造类的实例的时候，就知道从哪里去找到需要的依赖|
 |`@Provide`|在Modules中，定义的方法加上这个注解，以此来告诉Dagger我们想要构造对象并提供这些依赖。|
 |`@Component`|Components就是一个注入器，是@Inject和@Module的桥梁|

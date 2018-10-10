@@ -85,32 +85,33 @@ Dagger2 是使用生成代码实现完整依赖注入的框架，极大减少了
 ---
 ## 2 Dagger2 的注解
 
-首先来了解一下Dagger2的注解：
+首先来了解一下 Dagger2 中的注解，Dagger2 使用的是 Java 依赖注入标准（JSR-330）：
 
 
 | 名称  | 作用  |
 | ------------ | ------------ |
-|`@Inject`|  通常在需要依赖的地方使用这个注解。比如给一个字段加上`@Inject`注解，就表示该字段将被注入|
-|`@Module`|Modules类里面的方法专门提供依赖，定义一个类，用@Module注解，这样Dagger在构造类的实例的时候，就知道从哪里去找到需要的依赖|
-|`@Provide`|在Modules中，定义的方法加上这个注解，以此来告诉Dagger我们想要构造对象并提供这些依赖。|
-|`@Component`|Components就是一个注入器，是@Inject和@Module的桥梁|
-|`@Scope`|Dagger2可以通过自定义注解限定注解作用域，与注入对象的生命周期有关|
-|`@Named`|当同一个注入器有多个返回相同类型的方法时，使用`@Named`来区分不同依赖的注入|
-|`@Qualifier`|与Named相似，当类的类型不足以鉴别一个依赖的时候，我们就可以使用这个注解标示，更加强大|
+|`@Inject`|通常在需要依赖的地方使用这个注解。比如给一个字段加上 `@Inject` 注解，就表示该字段将被注入。当然 Inject 还有其他用法|
+|`@Module`|Modules 类里面的方法专门提供依赖，定义一个类，用 `@Module` 注解，这样 Dagger 在构造类的实例的时候，就知道从哪里去找到需要的依赖|
+|`@Provide`|在 Modules 中，Dagger 只能从加上这个注解的方法中获取依赖。|
+|`@Component`|Components 就是一个注入器，是 `@Inject` 和 `@Module` 的桥梁|
+|`@Scope`|Dagger2 可以通过自定义注解限定注解作用域，与注入对象的生命周期有关|
+|`@Named`|当同一个注入器有多个返回相同类型的方法时，使用 `@Named` 来区分不同依赖的注入|
+|`@Qualifier`|与 Named 相似，当类的类型不足以鉴别一个依赖的时候，我们就可以使用这个注解标示，它比 Named 更加强大|
 
-实现一次注入，需要三个元素：
-
-- modules：Modules类里面的方法专门提供依赖
-- 注入器：component
-- 使用依赖注入的容器
 
 基本的使用规则：
 
-- Module上必须使用`@Module`注解，注明本类属于Module，Module里面的方法必须使用@Provides注解，注明该方法是用来提供依赖对象的特殊方法
-- Component上必须使用`@Component`注解， 指明Component在哪些Module中查找依赖，component必须声明为接口，最后提供注入方法
-- 如果在使用注入的容器中声明了需要inject的依赖，而用来注入的Component有提供对此容器进行注入的方法，如果所指定的Module中没有提供返回容器需要的依赖的使用`@Providers`注解的方法，则编译无法通过
+- Module 上必须使用 `@Module` 注解，注明本类属于 Module，Module 里想要提供依赖的方法必须使用 `@Provides` 注解，注明该方法是用来提供依赖对象的特殊方法。
+- Component 上必须使用 `@Component` 注解， 指明 Component 在哪些 Module 中查找依赖，Component 必须声明为接口，最后提供注入方法。
+- 如果在依赖者中使用 `@Inject` 声明了需要 Dagger 为其注入依赖，用来注入的 Component 又提供对此依赖者进行注入的方法，Component 无法从它绑定的 Module 中找到依赖者所需的依赖（即从 Module 中标注了 `@Providers` 注解的方法中找），则编译无法通过。
 
-编写好代码之后，使用AndroidStudio的`make app`命令，即可生成代码，比如为定义的Component生成具体实现，其名称为：DaggerYourComponentName
+使用 Dagger2 实现依赖注入需要的基本元素：
+
+- modules：Modules 类里面的方法专门提供依赖
+- component：Component 作为注入器，依赖特定的 Module 并从中查找依赖注入给
+- 使用依赖注入的容器
+
+编写好代码之后，使用AndroidStudio的`make app`命令，即可生成代码，比如为定义的 Component 生成具体实现，其名称为：DaggerYourComponentName
 
 ### Dagger 示例
 

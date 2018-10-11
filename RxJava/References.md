@@ -16,7 +16,6 @@
 
 - [给Android 开发者的 RxJava 详解](http://gank.io/post/560e15be2dca930e00da1083)
 - [云在千锋——Intro To RxJava 系列教程总结](http://blog.chengyunfeng.com/?p=983#ixzz4FFdx0wg5)
-- [AdvancedRxJava翻译](http://blog.piasy.com/AdvancedRxJava)
 - [RxJava的周末狂欢](http://mrfu.me/2016/01/10/RxWeekend/)
 - [RxJava 与 Retrofit 结合的最佳实践](http://gank.io/post/56e80c2c677659311bed9841)
 - [Airbnb：我们的安卓客户端是如何使用 RxJava 的](https://realm.io/cn/news/kau-felipe-lima-adopting-rxjava-airbnb-android/)
@@ -57,3 +56,9 @@ reactive-streams
 
 - [reactive-streams-jvm](https://github.com/reactive-streams/reactive-streams-jvm)
 - [reactive-streams-commons](https://github.com/reactor/reactive-streams-commons)
+
+## AdvanceRxJava
+
+AdvanceRxJava 并不是教我们如何使用 RxJava，而是讲解了 RxJava 的设计原理以及各种并发原语。
+
+- [AdvancedRxJava翻译](http://blog.piasy.com/AdvancedRxJava)

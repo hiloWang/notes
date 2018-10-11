@@ -1,6 +1,5 @@
 # RxJava使用总结
 
-
 ---
 ## 1 map与flatMap使用场景
 
@@ -71,18 +70,60 @@ BehaviorSubject的特性就是当有一个新的订阅者订阅它时，如果�
 ---
 ## 9 Replay
 
-### 9.1 使用replay缓存发射过的数据，当屏幕旋转Activity重建时，把之前的数据恢复过来
+### 9.1 使用 replay 缓存发射过的数据，当屏幕旋转 Activity 重建时，把之前的数据恢复过来
 
-其实是利用Fragmen的retain功能，保留ConnectableObservable的实例，但是setRetainInstace(true)只会在Activity因为配置重建(reCreate)时才会保留Fragment的实例，但是真实的情况下要复杂的多，所以一般不会这样使用Replay。
+其实是利用 Fragment 的 retain 功能，保留 ConnectableObservable 的实例，但是 `setRetainInstace(true)` 只会在 Activity 因为配置重建(recreate)时才会保留 Fragment 的实例，但是真实的情况下要复杂的多，所以一般不会这样使用 Replay。
 
 ### 9.2 多个界面从同一个数据源获取数据
 
 有这样的情况，一个接口返回的数据是多个界面需要的，比如ViewPager的多个列表Pager或从同一个接口获取不同类型的数据来展示，而多个界面可能通过出发请求数据的方法，为了只让请求数据的方法只调用一次，可以使用ConnectableObservable来缓存数据。这是Observable多播的一种应用。使用连接类操作符把普通的Observable变成多播的ConnectableObservable，多个界面从同一个ConnectableObservable根据条件过滤获取自己的数据。
 
 ---
-##  10 autoConnect有指定数量的订阅者订阅后才开始执行
+##  10 autoConnect 有指定数量的订阅者订阅后才开始执行
 
 如果明确的知道会有多少个订阅者，并且需要当所有的订阅者都订阅时才开始请求数据，可以使用autoConnection，autoConnection的作用是：**返回一个Observable，当有规定数量的Subscribers订阅它时自动连接这个ConnectableObservable**。
+
+```java
+public class OrderRepository {
+
+    private OrderApi mOrderApi;
+    private ConnectableObservable<OrderItem> mPublish;
+
+    private static final String SEND_BACK = "1";
+    private static final String NO_SEND_BACK = "0";
+
+    @Inject
+    OrderRepository(OrderApi orderApi) {
+        mOrderApi = orderApi;
+    }
+
+    @Override
+    public Observable<List<OrderItem>> orderList(OrderFilter orderFilter) {
+        loadOrderListInfo();
+        return mPublish
+                .filter(orderFilter::filter)
+                .toList()
+                .doOnError(throwable -> invalidateListData());
+    }
+
+    private void loadOrderListInfo() {
+        if (mPublish == null) {
+            Observable<OrderItem> httpResultObservable = mOrderApi.loadOrderList()
+                    .compose(RxNetUtils.resultProcessor())
+                    .flatMap(orders -> orders == null ? Observable.empty() : Observable.from(orders));
+            mPublish = httpResultObservable.replay();
+            mPublish.connect();
+        }
+    }
+
+    @Override
+    public void invalidateListData() {
+        mPublish = null;
+    }
+
+}
+```
+
 
 ---
 ## 11 使用 Completable 或 Single
@@ -121,7 +162,78 @@ BehaviorSubject的特性就是当有一个新的订阅者订阅它时，如果�
 ```
 
 
+---
+## 13 先缓存后网络的数据选取策略
 
+- 如果网络不可能，获取缓存，没有缓存则通知网络异常
+- 如果网络可用
+    * 2.1，如果没有缓存，则从网络获取
+    * 2.1，如果有缓存，则先返回缓存，然后从网络获取
+    * 2.1，对比缓存与网络数据，如果没有更新，则忽略
+    * 2.1，如果有更新，则更新缓存，并返回网络数据
 
+### 使用 replay + connect + concat
 
+```kotlin
+/**
+ * @param remote     网络数据源
+ * @param local      本地数据源
+ * @param onNewData  当有更新时，返回新的数据，可以在这里存储
+ * @param <T>        数据类型
+ * @param isNew 比较器，当comparator.compare(local, remote) = -1，表示有更新
+ * @return 组合后的Observable
+</T> */
+fun <T> composeMultiSource(remote: Observable<Optional<T>>, local: Observable<Optional<T>>,
+                           isNew: (oldT: T, newT: T) -> Boolean,
+                           onNewData: Consumer<T>): Observable<Optional<T>> {
+    if (!NetworkUtils.isConnected()) {
+        return local
+                .flatMap {
+                    it.isPresent.yes { Observable.just(it) }.otherwise { Observable.error(NetworkErrorException()) }
+                }
+    }
+    //有网络
+    val sharedLocal = local.replay()
+    sharedLocal.connect()
 
+    val complexRemote = sharedLocal
+            .flatMap { localData ->
+                //没有缓存
+                if (!localData.isPresent) {
+                    remote.doOnNext {
+                        it.isPresent.yes { onNewData.accept(it.get()) }
+                    }
+                } else/*有缓存，不触发错误，只有在过期时返回新的数据*/ {
+                    remote
+                            .onErrorResumeNext(Observable.empty())
+                            .filter {
+                                it.isPresent && isNew(localData.get(), it.get())
+                            }.doOnNext {
+                                onNewData.accept(it.get())
+                            }
+                }
+            }
+
+    return Observable.concat(sharedLocal.filter { it.isPresent }, complexRemote)
+}
+```
+
+### 使用 startWith + distinctUntilChanged
+
+```java
+Observable<Data> cachedObservable = getFromLocal();
+
+networkApi.getRemoteData()
+    .doOnNext(newData -> 
+        saveToLocal(newData)
+    )
+    .startWith(cachedObservable)//先获取缓存
+    .distinctUntilChanged()//保证不会出现相同数据，这里还可以自定义选择器。
+    .subscribeOn(Schedulers.io())
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe(data -> {
+        publishDataToUI(data)
+    });
+```
+
+参考[RxJava 沉思录（二）：空间维度](https://juejin.im/post/5b8f5470e51d450e3d2c8ddf)

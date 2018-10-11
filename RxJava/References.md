@@ -4,9 +4,9 @@
 
 | 地址  | 描述  |
 | ------------ | ------------ |
-| [RxJavaWiKi](https://github.com/ReactiveX/RxJava/wiki) | 官方文档 |
+|[RxJavaWiKi](https://github.com/ReactiveX/RxJava/wiki) | 官方文档 |
 |[RxAndroidWiki](https://github.com/ReactiveX/RxAndroid/wiki)|Android官方文档|
-| [Rx中文翻译文档](https://github.com/mcxiaoke/RxDocs) | Rx中文翻译文档 |
+|[Rx中文翻译文档](https://github.com/mcxiaoke/RxDocs) | Rx中文翻译文档 |
 |[RxJava-Essentials-CN](https://github.com/yuxingxin/RxJava-Essentials-CN)|RxJava Essentials 中文翻译版|
 |[RxMarble](http://rxmarbles.com/)|RxJava宝石图帮助更好的理解RxJava操作符|
 |[awesome-rxjava](https://github.com/eleventigers/awesome-rxjava)|RxJava有用的资源|

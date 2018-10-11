@@ -56,6 +56,7 @@ kotlin 发展简史：
 - [Kodein](https://github.com/SalomonBrys/Kodein/) Kotlin 依赖注入框架
 - [Fuel](https://github.com/kittinunf/Fuel) Kotlin 网络请求库
 - [kotlintest](https://github.com/kotlintest/kotlintest) 测试项目
+- [kotlinpoet](https://github.com/square/kotlinpoet) 类似 square 的 javapoet，用于生成 kotlin 代码
 
 ---
 ## 4 协程

@@ -34,6 +34,7 @@
 ### 截图
 
 - [PixelShot](https://github.com/Muddz/PixelShot)
+- [auto-scroll-capture](https://github.com/android-notes/auto-scroll-capture)
 
 ### App
 

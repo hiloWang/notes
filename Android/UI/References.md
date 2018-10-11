@@ -27,4 +27,3 @@
 - [Android-ParallaxRefresh](https://github.com/devsoulwolf/Android-ParallaxRefresh)
 - [SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout)
 - [SpringView](https://github.com/liaoinstan/SpringView)
-- 

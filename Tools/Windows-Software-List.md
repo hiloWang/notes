@@ -41,13 +41,13 @@
 - MinGW
 - [GOW](https://github.com/bmatzelle/gow)
 - Chocolatey
- - `ChocolateyInstall` 配置安装环境
- - `ChocolateyToolsRoot` 和 `ChocolateyToolsLocation`  配置软件安装环境
+    - `ChocolateyInstall` 配置安装环境
+    - `ChocolateyToolsRoot` 和 `ChocolateyToolsLocation`  配置软件安装环境
 - [babun](http://babun.github.io/)
 - [cmder](http://cmder.net/)
- - `Cmder.exe /REGISTER ALL`
- - Environment：`set LANG=zh_CN.UTF-8`
- - [Win下必备神器之Cmder](https://jeffjade.com/2016/01/13/2016-01-13-windows-software-cmder/)
+    - `Cmder.exe /REGISTER ALL`
+    - Environment：`set LANG=zh_CN.UTF-8`
+    - [Win下必备神器之Cmder](https://jeffjade.com/2016/01/13/2016-01-13-windows-software-cmder/)
 - [xshell-cn](http://www.xshellcn.com/xshell.html)
 - Windows10-bash子系统：详细配置参考[这里](http://www.jianshu.com/p/bc38ed12da1d)
 - LLVM (要求安装 visual studio)

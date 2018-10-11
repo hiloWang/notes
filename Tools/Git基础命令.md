@@ -29,7 +29,7 @@
 ---|---
 `git config --global user.name "name"`    | 配置用户名
 `git config --global user.email "email"` | 配置邮箱
-`git config --gobal core.autocrlf false`  | 系统的换行符错误
+`git config --global core.autocrlf false`  | 系统的换行符错误
 `git config --list --global`    |      查看全局信息
 `git config --list`    |      查看所有配置信息
 `git config user.name`     |     查看用户名称

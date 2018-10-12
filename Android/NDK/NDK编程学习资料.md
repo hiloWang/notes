@@ -4,6 +4,10 @@
 - [NDK 入门指南](https://developer.android.com/ndk/guides/index.html)
 - [The Native Android API](http://mobilepearls.com/labs/native-android-api/)
 
+## 博客
+
+- [Android NDK 入门](https://xiaozhuanlan.com/crayfish)
+
 ## 示例代码
 
 - [googlesamples/android-ndk](https://github.com/googlesamples/android-ndk):该项目包含多个分支

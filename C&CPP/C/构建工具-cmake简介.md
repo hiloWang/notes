@@ -19,7 +19,7 @@
 ---
 ## 引用
 
-### 官方文档
+官方文档：
 
 - [CMake官网教程](https://cmake.org/documentation/)
 - [CMake Wiki](https://cmake.org/Wiki/CMake)
@@ -27,11 +27,15 @@
 - [CMake Wiki](https://cmake.org/Wiki/CMake)
 - [CMake_Useful_Variables](https://cmake.org/Wiki/CMake_Useful_Variables)
 
-### 博客
+博客：
 
 - [make makefile cmake qmake都是什么，有什么区别？](https://www.zhihu.com/question/27455963)
 - [CMake 入门实战](http://hahack.com/codes/cmake/)
 - [cmake使用教程](https://juejin.im/post/5a6f32e86fb9a01ca6031230)
 - [使用CMake组织C++工程](https://elloop.github.io/tools/2016-04-04/learning-cmake-0)
 - [cmake手册](http://www.cnblogs.com/coderfenghc/tag/cmake/)
+
+Android
+
 - [Android NDK 开发之 CMake 必知必会](https://juejin.im/post/5b9879976fb9a05d330aa206)
+- [关于在Android中使用CMake你所需要了解的一切](https://juejin.im/post/5bb025db5188255c38537198)

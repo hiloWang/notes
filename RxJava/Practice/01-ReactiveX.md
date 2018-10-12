@@ -46,7 +46,7 @@ RxJava 官方介绍：Reactive Extensions for the JVM , a library for composing 
 
 RxJava 使用推模型，当订阅发生后，Observable 主动把具体的数据发射给 Subscriber。
 
-### 理解
+### 我的理解
 
 ReactiveX 结合了 Observer模式、Iterator模式和函数式编程。
 
@@ -56,6 +56,8 @@ ReactiveX 结合了 Observer模式、Iterator模式和函数式编程。
 - Observable 与响应关系：它是一切事件源的抽象，通过订阅它，形成了下游观察者对上游事件序列变化的响应关系。这种响应式区别于传统直观的命令式、过程式风格。
 - 统一的编程接口与异常处理机制：Observable 是所有事件的源，Subscriber（Observer）是最终的事件接收者，对象序列流从 Observable 发出，经过各种变化操作，把最终的结果推送到 Subscriber（事件序列流要么成功要么失败，结果总是会通知到 Subscriber）。就这么简单，基本上我们不需要为特定的场景定义特定的接口了。
 - 多个事件源的组合：Observable 非常灵活，利用其提供的操作符可以轻易实现和其他 Observable 的复杂交换，比如串行、并行、相互等待。这比传统的基于异步回调的方式要强大太多。
+
+RxJava 是 JVM 上响应式扩展的标准实现 。它提供了强大的函数式 API，同意了异步编程接口，响应式扩展是一种编程范式，编写代码时可以使用这种范式，也可以不适用，所以 RxJava 并不正在具体的场景，它有很多特点，比如 解决 callbackhell、优雅的线程切换、强大的操作符、链式编程等等，但这些都不是它的核心，也不是重点，最重要的是我们如何理解和掌握这种编程思想，在实际的业务场景中利用 RxJava 提供的 API 来简化我们遇到的问题。
 
 ---
 ## 3 还是不懂？

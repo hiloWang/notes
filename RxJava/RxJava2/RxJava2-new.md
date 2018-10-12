@@ -6,7 +6,7 @@ RxJava2主要类图
 
 ## 1 响应式流规范
 
-[`Reactive Streams`](http://www.reactive-streams.org/)规范提供一个非堵塞的异步流处理的背压(backpressure)标准；`Reactive Streams`的目标是增加抽象层，而不是进行底层的流处理，规范将这些问题留给了库实现来解决。对于JVM，目前已经有多个库实现该标准，`RxJava2, akka-streams（Playing 有使用）,Reactor(Spring Reactive有使用) 等`；统一标准的好处就是 各个实现产生的数据可以方便的转换和消费；
+[`Reactive Streams`](http://www.reactive-streams.org/)规范提供一个非堵塞的异步流处理的背压(backpressure)标准；`Reactive Streams`的目标是增加抽象层，而不是进行底层的流处理，规范将这些问题留给了库实现来解决。对于JVM，目前已经有多个库实现该标准，`RxJava2, akka-streams（Playing 有使用）,Reactor(Spring Reactive有使用) 等`；统一标准的好处就是 **各个实现产生的数据可以方便的转换和消费**。
 
 
 ---
@@ -61,7 +61,7 @@ RxJava2中的Action和Fouchtion等现在都遵守Java8中的函数式接口，�
 3. Functions基本就是名字的修改和不常用类的删除
 
 ---
-## 4 不再支持Null
+## 4 不再支持 Null
 
 RxJava2的流中不再支持null值，比如`Observable.just()`传入一个null会抛出`NullPointerException`，或者在使用map或者flatMap返回一个null也会抛出`NullPointerException`。
 
@@ -69,10 +69,11 @@ RxJava2的流中不再支持null值，比如`Observable.just()`传入一个null�
 
 - 对于确实需要一个结果的流使用一个不可变的对象表示 NULL 值
 - 使用 Completable
+- 使用 Optional
 
 
 ---
-## 5 Flowable还是Observable
+## 5 Flowable 还是 Observable
 
 **什么时候用 Observable(不支持背压)：**
 
@@ -89,7 +90,7 @@ RxJava2的流中不再支持null值，比如`Observable.just()`传入一个null�
 - 有很多的阻塞和/或 基于拉取的数据源，但是又想得到一个响应式非阻塞接口的。
 
 ---
-## 6 Subscription命名
+## 6 Subscription 命名
 
 在RxJava1里，Subscription起到的是订阅桥梁的作用。在2中，由于Subscription本身和Reactive-Streams里的另外一个同名概念冲突。因此把RxJava2中原本的Subscription改名成了Disposable、CompositeSubscription改名成为CompositeDisposable
 

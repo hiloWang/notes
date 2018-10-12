@@ -37,10 +37,7 @@
 `git version`  | 查看版本
 
 
-所有的配置都在.git隐藏文件夹内存config文件中
-
-
-
+所有的配置都在 `.git` 隐藏文件夹内存config文件中
 
 ---
 ## 创建仓库
@@ -120,9 +117,10 @@
 ---
 ## SSH KEY
 
+```
     ssh-keygen -t rsa -C "your email address"     在`C:\Users\Administrator\.ssh`生成私匙，邮箱地址使用初始化的邮箱  (提醒ssh-keygen没有空格)
     ssh -T git@gitHub.com 验证ssh key
-
+```
 
 ---
 ## 远程仓库

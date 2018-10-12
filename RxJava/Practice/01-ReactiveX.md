@@ -22,8 +22,6 @@ Rx 模式支持响应式数据序列处理，主要的设计要点有：
 
 ### ReactiveX 定义
 
-阅读 [ReactiveX宣言](https://www.reactivemanifesto.org/zh-CN)。
-
 `reactivex.io`定义：ReactiveX 是一个使用 **可观察数据流** 进行 **异步编程** 的编程接口。ReactiveX 结合了 Observer模式、Iterator模式和函数式编程。ReactiveX 不仅仅是一个编程接口，它是一种编程思想的突破，它影响了许多其它的程序库和框架以及编程语言。
 
 ---

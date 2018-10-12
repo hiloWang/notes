@@ -223,9 +223,11 @@ FILL    |充满，拉伸src的宽和高，使其完全填充满dst。
 ### Android API与应用
 
 - [矩阵的相关API参考](http://blog.csdn.net/hahajluzxb/article/details/8165258)
+- [自定义View之Matrix最全API解析](https://blog.csdn.net/IO_Field/article/details/78843630)
 - [android matrix 最全方法详解与进阶（完整篇）](http://blog.csdn.net/cquwentao/article/details/51445269)
 - [Android 贴纸](http://www.jianshu.com/p/6b6bc64a6823)
 - [android画板---涂鸦,缩放，旋转，贴纸实现](http://www.jianshu.com/p/1e1ca1e700ab)
+
 
 
 

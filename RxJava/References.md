@@ -47,14 +47,6 @@
 - [知乎RxJava Meetup](https://github.com/zhihu/zhihu-rxjava-meetup)
 - [RxJava 沉思录 1-4](https://juejin.im/post/5b8f536c5188255c352d3528)
 
-响应式宣言
-
-- [反应式宣言](https://www.reactivemanifesto.org/zh-CN)
-
-扩展
-
-- [RxJava2Extensions](https://github.com/akarnokd/RxJava2Extensions)
-
 Sample
 
 - [RxJava2-Android-Samples](https://github.com/amitshekhariitbhu/RxJava2-Android-Samples)
@@ -64,6 +56,12 @@ reactive-streams
 
 - [reactive-streams-jvm](https://github.com/reactive-streams/reactive-streams-jvm)
 - [reactive-streams-commons](https://github.com/reactor/reactive-streams-commons)
+
+## 库
+
+- [RxJava2Extensions](https://github.com/akarnokd/RxJava2Extensions)
+- [RxLifecycle](https://github.com/trello/RxLifecycle)
+- [AutoDispose](https://github.com/uber/AutoDispose)
 
 ## AdvanceRxJava
 

@@ -12,6 +12,10 @@
 - **[AndroidOpenGLDemo](https://github.com/doggycoder/AndroidOpenGLDemo)**
 
 
+## 音视频
+
+- [Android 音视频开发学习思路](https://www.cnblogs.com/renhui/p/7452572.html)
+
 ## OpenCV
 
-- [x] todo
+- [ ] todo

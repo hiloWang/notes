@@ -36,9 +36,9 @@ Flux
 - [kotlin-android-flux](https://github.com/satorufujiwara/kotlin-android-flux)
 - [kotlin-architecture-components](https://github.com/satorufujiwara/kotlin-architecture-components)
 
-MVRx
+从零开始仿写一个抖音app系列
 
-- [MvRx](https://github.com/airbnb/MvRx)
+- [从零开始仿写一个抖音App](https://github.com/whenSunSet/MyTikTok)
 
 ---
 ## 接口设计

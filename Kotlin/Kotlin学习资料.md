@@ -79,6 +79,10 @@ kotlin 发展简史：
 - [Kotlin 协程使用手册](https://juejin.im/post/5a90e3836fb9a063592bebe2)
 - [coroutine-recipes 协程风格代码](https://github.com/dmytrodanylyk/coroutine-recipes)
 
+博客：
+
+- [Kotlin coroutines vs RxJava: an initial performance test](https://proandroiddev.com/kotlin-coroutines-vs-rxjava-an-initial-performance-test-68160cfc6723)
+
 ---
 ## 5 BennyHuo Kotlin
 

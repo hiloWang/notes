@@ -70,10 +70,6 @@
 - [Android P 刘海屏适配全攻略](https://mp.weixin.qq.com/s?__biz=MzIwMTAzMTMxMg==&mid=2649492726&idx=1&sn=b65984db6ac52ae806f8f0ad9dc7c9c3&chksm=8eec8709b99b0e1f7cbf03ae09117b24aa82595d16d9f6e6dc269e8e3beccfc64f154aca3d25&mpshare=1&scene=1&srcid=06109Xgd4CobknV69eI4EDOX#rd)
 - [Android P 凹口屏支持，打造全面屏体验](https://mp.weixin.qq.com/s/LyInks673YdHbXsDOD4inA)
 
-## Permission
-
-- [聊一聊Android 6.0的运行时权限](http://droidyue.com/blog/2016/01/17/understanding-marshmallow-runtime-permission/)
-- 8.0 系统安装 apk 问题
 
 ## 非 SDK 接口问题
 

@@ -172,6 +172,10 @@ import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.
 - ConvertToUTF8
 - SublimeLinter
 - Terminal
+- markdown edting
+```
+"draw_centered": false
+```
 
 ### 2 SciTools Unstand
 

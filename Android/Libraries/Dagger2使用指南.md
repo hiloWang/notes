@@ -565,12 +565,15 @@ Lazy 和 Provider 都是用于包装 Container 中需要被注入的类型，Laz
     }
 ```
 
-值得注意的是，Provider 保证每次重新加载，但是并不意味着每次返回的对象都是不同的。只有Module的Provide方法每次都创建新实例时，Provider 每次 `get()` 的对象才不相同。
+值得注意的是：
+
+- Dagger2 只有在真正实施注入时才会为依赖者创建需并注入需要的对象，可以认为这已经是懒加载了，在这个基础上 Dagger2 还提供的 Lazy 注解用于延迟加载。可以认为这是二级懒加载。
+- Provider 保证每次重新加载，但是并不意味着每次返回的对象都是不同的。只有 Module 的 Provide 方法每次都创建新实例时，Provider 每次 `get()` 的对象才不相同。
 
 ---
 ## 9 Multibindings
 
-Dagger允许将多个对象绑定到集合中，即使使用mutlbindings将对象绑定到不同的模块中也是如此。Dagger组合集合，以便应用程序代码可以注入它而不依赖于单独的绑定。可以使用多绑定来实现插件架构，Multibindings分为set和map。
+Dagger 允许将多个对象绑定到集合中，即使使用 mutlbindings 将对象绑定到不同的模块中也是如此。Dagger 组合集合，以便应用程序代码可以注入它而不依赖于单独的绑定。可以使用多绑定来实现插件架构，Multibindings 分为 set 和 map。
 
 ### 9.1 Set multibindings
 
@@ -628,6 +631,17 @@ Map multibindings 支持以下绑定方式：
 - [Dagger2Recipes-ActivitiesMultibinding](https://github.com/frogermcs/Dagger2Recipes-ActivitiesMultibinding)
 - [Dagger2-MultiBinding-Android-Example](https://github.com/trevjonez/Dagger2-MultiBinding-Android-Example)
 
+### 注意
+
+Lazy 和 Provider 注解同样适用于 multibinding。下面两种方式都是可以的。
+
+```java
+    @Inject
+    Map<String, Provider<MapValue>> mMapValueMap;
+
+     @Inject
+    Map<String, Provider<MapValue>> mMapValueMap;
+```
 
 ---
 ## 10 Dagger2 安卓拓展

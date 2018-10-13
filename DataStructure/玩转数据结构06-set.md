@@ -15,6 +15,8 @@
 - 二分搜索树天然支持 set 所有的操作。
 - 使用链表实现。
 
+### 使用二分搜索树实现 Set
+
 ```java
 public class BSTSet<E extends Comparable<E>> implements Set<E> {
 
@@ -50,7 +52,11 @@ public class BSTSet<E extends Comparable<E>> implements Set<E> {
     }
 
 }
+```
 
+### 使用链表实现 Set
+
+```java
 public class LinkedListSet<E> implements Set<E> {
 
     private LinkedList<E> mLinkedList;

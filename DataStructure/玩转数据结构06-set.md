@@ -132,7 +132,7 @@ public class LinkedListSet<E> implements Set<E> {
         傲慢与偏见词汇量：6530
         用时2.347496207s
 
-### 链表
+### 链表复杂度
 
 复杂度
 
@@ -140,9 +140,7 @@ public class LinkedListSet<E> implements Set<E> {
 - 增（本身是常数级的，但需要先查）：O(n)
 - 删：O(n)
 
-### BST
-
-复杂度
+### BST 复杂度
 
 - 查：O(h)，h 是树的高度
 - 增：O(h)，h 是树的高度
@@ -150,22 +148,24 @@ public class LinkedListSet<E> implements Set<E> {
 
 对于满二叉树来说：
 
-    h-1 层有 2^(h -1) 个节点
-    h 层的树有 2^1 + 2^2 + ... + 2^(h-1) = 2^h -1
+![](index_files/bst.png)
 
-由此推测复杂度是：
+```
+    h-1 层有 2^(h -1) 个节点
+    h 层的树有 2^1 + 2^2 + ... + 2^(h-1) = (2^h) -1
+```
+
+由此推测复杂度是（n是节点数）：
 
 ![](index_files/bts_O.png)
 
-<br>
-<br>
-### 复杂度对比
+### log(n) 和 O(n) 复杂度对比
 
 ![](index_files/on-logn.png)
 
 ### BST 有局限性
 
-但是 BST 有局限性，BST 中的数据如果是按照大小顺序依次添加的，那么其将退化成链表，复杂度明显提高。而平衡二叉树没有这个问题。
+但是 BST 有局限性，BST 中的数据如果是按照大小顺序依次添加的，那么其将退化成链表，复杂度明显提高，变为 O(n)。而平衡二叉树没有这个问题。
 
 ### 集合的复杂度对比
 

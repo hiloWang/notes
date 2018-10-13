@@ -94,10 +94,10 @@ public class LinkedListSet<E> implements Set<E> {
 ```java
  public static void main(String... args) {
         System.out.println("bst---------------------------------------------------------------");
-        printWords("files/a-tale-of-two-cities.txt", "双城计", new BSTSet<>());
+        printWords("files/a-tale-of-two-cities.txt", "双城记", new BSTSet<>());
         printWords("files/pride-and-prejudice.txt", "傲慢与偏见", new BSTSet<>());
         System.out.println("linked---------------------------------------------------------------");
-        printWords("files/a-tale-of-two-cities.txt", "双城计", new LinkedSet<>());
+        printWords("files/a-tale-of-two-cities.txt", "双城记", new LinkedSet<>());
         printWords("files/pride-and-prejudice.txt", "傲慢与偏见", new LinkedSet<>());
     }
 
@@ -182,6 +182,7 @@ class Solution {
     private String[] codes = {".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."};
 
     public int uniqueMorseRepresentations(String[] words) {
+        //这里使用java的TreeSet，TreeSet底层是平衡二叉树。
         TreeSet<String> treeSet = new TreeSet<>();
         for (String word : words) {
             StringBuilder stringBuilder = new StringBuilder();

@@ -91,6 +91,8 @@ public class LinkedListSet<E> implements Set<E> {
 ---
 ## 2 性能对比
 
+通过计算双城记和傲慢与偏见中的词汇量来测试性能。
+
 ```java
  public static void main(String... args) {
         System.out.println("bst---------------------------------------------------------------");
@@ -134,19 +136,17 @@ public class LinkedListSet<E> implements Set<E> {
 
 ### 链表复杂度
 
-复杂度
-
-- 查：O(n)
-- 增（本身是常数级的，但需要先查）：O(n)
-- 删：O(n)
+- 查：`O(n)`
+- 增（添加头节点本身是常数级的，但需要先查防止重复添加）：`O(n)`
+- 删：`O(n)`
 
 ### BST 复杂度
 
-- 查：O(h)，h 是树的高度
-- 增：O(h)，h 是树的高度
-- 删：O(h)，h 是树的高度
+- 查：`O(h)`，h 是树的高度
+- 增：`O(h)`，h 是树的高度
+- 删：`O(h)`，h 是树的高度
 
-对于满二叉树来说：
+h 的复杂度具体是多少呢？对于满二叉树来说，树的高度与节点数的关系如下图所示：
 
 ![](index_files/bst.png)
 
@@ -167,7 +167,7 @@ public class LinkedListSet<E> implements Set<E> {
 
 但是 BST 有局限性，BST 中的数据如果是按照大小顺序依次添加的，那么其将退化成链表，复杂度明显提高，变为 O(n)。而平衡二叉树没有这个问题。
 
-### 集合的复杂度对比
+### 集合的不同实现的复杂度对比
 
 ![](index_files/set_O.png)
 

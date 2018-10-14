@@ -154,20 +154,28 @@ public class LinkedListSet<E> implements Set<E> {
 
 h 的复杂度具体是多少呢？对于满二叉树来说，树的高度与节点数的关系如下图所示：
 
-![](index_files/bst.png)
+层级 | h 层有多少个节点
+---|---
+0 层 | 1
+1 层 | 2
+2 层 | 4
+3 层 | 8
+4 层 | 16
+h 层 | 2<sup>(h-1)</sup>
 
-```
-    h-1 层有 2^(h -1) 个节点
-    h 层的树有 2^1 + 2^2 + ... + 2^(h-1) = (2^h) -1
-```
+所以：第 (h-1) 层有 2<sup>(h -1)</sup> 个节点，h 层的树有 （2<sup>1</sup> +2<sup>2</sup> + ... + 2^<sup>(h-1)</sup>） = （2^<sup>h</sup> -1），由此推测复杂度是（n是节点数）：
 
-由此推测复杂度是（n是节点数）：
+- h = log<sub>2</sub>(n + 1)
+- 复杂度为：O(log<sub>2</sub> n)，即 O(log n)
 
-![](index_files/bts_O.png)
 
 ### log(n) 和 O(n) 复杂度对比
 
-![](index_files/on-logn.png)
+n | O(log n)  | O(n) | 差距
+---|---|---|---
+n = 16 | 4 | 16| 4 倍
+n = 1024 | 10 | 1024| 100 倍
+n = 100万 | 20 | 100万| 5 万倍
 
 ### BST 有局限性
 
@@ -175,7 +183,11 @@ h 的复杂度具体是多少呢？对于满二叉树来说，树的高度与节
 
 ### 集合的不同实现的复杂度对比
 
-![](index_files/set_O.png)
+操作 | LinkedListSet  | BTSSet | BTSSet平均复杂度 | BTSSet退化成链表后
+---|---|---|---|---
+add|O(n) | O(h)|O(log n) |O(n) 
+contains|O(n) | O(h) |O(log n) | O(n)|O(n)
+remove| O(n)|O(h) |O(log n) | O(n)
 
 ---
 ## 3 [LeetCode804](https://leetcode-cn.com/problems/unique-morse-code-words/description/)

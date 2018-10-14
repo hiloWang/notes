@@ -360,3 +360,69 @@ public class BSTMap<Key extends Comparable<Key>, Value> implements Map<Key, Valu
 ## 4 集合与映射的关系
 
 如果有了一个 Map 的底层实现，那么其可以直接用来实现 Set，这只是 Map 的一种特殊情况，即 Map 中的 Key 对应的 Value 始终是为 null 的。事实上 Java 类库中也是这么做的，比如 HashSet 内部就是使用的 HashMap 实现的。
+
+---
+## 5 [LeetCode 349](https://leetcode-cn.com/problems/intersection-of-two-arrays/description/) 和 [LeetCode 350](https://leetcode-cn.com/problems/intersection-of-two-arrays-ii/description/)
+
+```java
+public class LeetCode_349 {
+
+    public int[] intersection(int[] nums1, int[] nums2) {
+        Set<Integer> set = new HashSet<>();
+        for (int i : nums1) {
+            set.add(i);
+        }
+
+        List<Integer> list = new ArrayList<>();
+        for (int i : nums2) {
+            if (set.contains(i)) {
+                list.add(i);
+                set.remove(i);
+            }
+        }
+
+        int[] result = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            result[i] = list.get(i);
+        }
+        return result;
+    }
+
+}
+
+
+public class LeetCode_350 {
+
+    public int[] intersect(int[] nums1, int[] nums2) {
+        java.util.Map<Integer, Integer> map = new TreeMap<>();
+        for (int i : nums1) {
+            if (!map.containsKey(i)) {
+                map.put(i, 1);
+            }else {
+                map.put(i, map.get(i) + 1);
+            }
+        }
+
+        List<Integer> list = new ArrayList<>();
+
+        for (int i : nums2) {
+            if (map.containsKey(i)) {
+                list.add(i);
+                int value = map.get(i) - 1;
+                if (value == 0) {
+                    map.remove(i);
+                }else {
+                    map.put(i, value);
+                }
+            }
+        }
+
+        int[] result = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            result[i] = list.get(i);
+        }
+        return result;
+    }
+
+}
+```

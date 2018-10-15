@@ -11,7 +11,7 @@
 - 《C++ 必知必会》
 - [cplusplus](http://www.cplusplus.com/)
 - [菜鸟教程](http://www.runoob.com/cplusplus/)
--  [C++笔记](http://www.hahack.com/wiki/)
+- [C++笔记](http://www.hahack.com/wiki/)
 - [C++基础教程完整版](http://yun.itheima.com/course/275.html)
 
 ## c++ 标准库

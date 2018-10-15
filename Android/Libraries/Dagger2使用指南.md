@@ -637,7 +637,7 @@ Lazy 和 Provider 注解同样适用于 multibinding。下面两种方式都是�
 
 ```java
     @Inject
-    Map<String, Provider<MapValue>> mMapValueMap;
+    Map<String, MapValue> mMapValueMap;
 
      @Inject
     Map<String, Provider<MapValue>> mMapValueMap;

@@ -3,7 +3,7 @@
 ---
 ## 1 STL简介
 
-STL(Standard Template Library,标准模板库)，是惠普实验室开发的一系列软件的统称。现在主要出现在c++中，但是在引入c++之前该技术已经存在很长时间了。
+STL(Standard Template Library，标准模板库)，是惠普实验室开发的一系列软件的统称。现在主要出现在c++中，但是在引入c++之前该技术已经存在很长时间了。
 
 STL从广义上分为: 
 
@@ -11,8 +11,7 @@ STL从广义上分为:
 - 算法(algorithm) 
 - 迭代器(iterator)
 
-容器和算法之间通过迭代器进行无缝连接。STL几乎所有的代码都采用了模板类或者模板函数，
-这相比传统的由函数和类组成的库来说提供了更好的代码重用机会。在c++标准程序库中隶属于STL的占到了80%以上。
+容器和算法之间通过迭代器进行无缝连接。STL几乎所有的代码都采用了模板类或者模板函数，这相比传统的由函数和类组成的库来说提供了更好的代码重用机会。在c++标准程序库中隶属于STL的占到了80%以上。
 
 在c++标准中，STL被组织成以下13个头文件：
 
@@ -20,8 +19,7 @@ STL从广义上分为:
 <algorithm>、<deque>、<functional>、<iterator>、<vector>、<list>、<map>、<memory>、<numeric>、<queue>、<set>、<stack> 和<utility>
 ```
 
-STL的一个重要特点是数据结构和算法的分离。尽管这是个简单的概念，但是这种分离确实使得STL变得非常通用。
-例如:在STL的vector容器中，可以放入元素、基础数据类型变量、元素的地址；STL的`sort() `排序函数可以用来操作vector,list等容器。
+STL的一个重要特点是数据结构和算法的分离。尽管这是个简单的概念，但是这种分离确实使得STL变得非常通用。例如在STL的vector容器中，可以放入元素、基础数据类型变量、元素的地址；STL的`sort() `排序函数可以用来操作vector、list等容器。
 
 
 STL具有高可重用性，高性能，高移植性，跨平台的优点：
@@ -35,8 +33,7 @@ STL具有高可重用性，高性能，高移植性，跨平台的优点：
 
 #### 容器概念介绍
 
-STL中容器是指存储有限数据元素的一种数据结构。比如栈(stack)，队列(queue)...，那么什么是数据结构，我们研究把数据按照特定的方式排列起来，
-便于我们查找、删除、排序或者其他一些目的，这种不同的排列方式我们就可以叫数据结构。STL中容器分为：序列式容器和关联式容器。
+STL中容器是指存储有限数据元素的一种数据结构。比如栈(stack)，队列(queue)...，那么什么是数据结构，我们研究把数据按照特定的方式排列起来，便于我们查找、删除、排序或者其他一些目的，这种不同的排列方式我们就可以叫数据结构。STL中容器分为：序列式容器和关联式容器。
 
 #### 迭代器介绍
 
@@ -587,13 +584,11 @@ int main(){
 }
 ```
 
-在函数`test_deep_copy()`中创建了一个myclass对象，vector对象，这两个对象在函数`test_deep_copy()`执行完毕之后，会调用自身的析构函数，
-而STL容器都是值引用，再向容器中加入元素的时候，实际上是对元数据进行了一份拷贝，将拷贝的数据放入到容器中。
+在函数`test_deep_copy()`中创建了一个myclass对象，vector对象，这两个对象在函数`test_deep_copy()`执行完毕之后，会调用自身的析构函数，而STL容器都是值引用，再向容器中加入元素的时候，实际上是对元数据进行了一份拷贝，将拷贝的数据放入到容器中。
 
 由于我们没有提供拷贝构造函数,没有重载`=`操作符，vector对我们的mc对象进行的简单的浅拷贝，将拷贝的对象插入到容器中，导致我们的mc对象的data指针和容器中mc对象的拷贝对象中的data指针都指向了我们在堆区分配的内存，当函数结束，两个对象都调用了析构函数，先调用析构函数的对象成功释放了堆区内存，后调用析构函数的对象一释放，程序挂掉了。
 
-原因在于两个指针指向了同一块堆区内存，这样会导致不可预知的结果，函数结束其中一个调用析构函数，销毁了data指向的内存空间，而另一个对象析构的时候就会挂掉。
-问题的解决办法就是，**给我们的对象提供一个拷贝构造函数，并且重载=操作符,两个指针分别指向自己的那一块内存，互不影响。**
+原因在于两个指针指向了同一块堆区内存，这样会导致不可预知的结果，函数结束其中一个调用析构函数，销毁了data指向的内存空间，而另一个对象析构的时候就会挂掉。问题的解决办法就是，**给我们的对象提供一个拷贝构造函数，并且重载=操作符,两个指针分别指向自己的那一块内存，互不影响。**
 
 
 ### 2.10 STL容器使用时机
@@ -614,6 +609,7 @@ set的使用场景：比如对手机游戏的个人得分记录的存储，存�
 ## 3 常用算法 
 
 相关内容：
+
 - 函数对象适配器
 - 算法基本分类
 - 常用遍历算法
@@ -630,8 +626,9 @@ set的使用场景：比如对手机游戏的个人得分记录的存储，存�
 重载函数调用操作符的类，其对象常称为函数对象（function object），即它们是行为类似函数的对象，也叫仿函数(functor),其实就是重载“()”操作符，使得类对象可以像函数那样调用。
 
 注意:
+
 1. 函数对象(仿函数)是一个类，不是一个函数。
-2. 函数对象(仿函数)重载了”() ”操作符使得它可以像函数一样调用。
+2. 函数对象(仿函数)重载了”()”操作符使得它可以像函数一样调用。
 
 假定某个类有一个重载的operator()，而且重载的operator()要求获取一个参数，我们就将这个类称为“一元仿函数”（unary functor）；相反，如果重载的operator()要求获取两个参数，就将这个类称为“二元仿函数”（binary functor）。
 
@@ -776,7 +773,8 @@ bool compare02(int v1，int v2); //同样是叫做二元谓词
 - 二元谓词 应用举例 : `sort`
 
 示例：
-```
+
+```cpp
 #include<iostream>
 #include<vector>
 #include<algorithm>
@@ -880,12 +878,13 @@ int main(){
     return EXIT_SUCCESS;
 }
 ```
+
 #### 内建函数对象
 
 STL内建了一些函数对象。分为:算数类函数对象,关系运算类函数对象，逻辑运算类仿函数。这些仿函数所产生的对象，用法和一般函数完全相同，当然我们还可以产生无名的临时对象来履行函数功能。使用内建函数对象，需要引入头文件 `#include<functional>`。
 
 - 6个算数类函数对象，除了negate是一元运算，其他都是二元运算。
-```
+```cpp
 template<class T> T plus<T>//加法仿函数
 template<class T> T minute<T>//减法仿函数
 template<class T> T multiplies<T>//乘法仿函数
@@ -894,7 +893,7 @@ template<class T> T modulus<T>//取模仿函数
 template<class T> T negate<T>//取反仿函数
 ```
 - 6个关系运算类函数对象，每一种都是二元运算。
-```
+```cpp
 template<class T> bool equal_to<T>//等于
 template<class T> bool not_equal_to<T>//不等于
 template<class T> bool greater<T>//大于
@@ -903,14 +902,14 @@ template<class T> bool less<T>//小于
 template<class T> bool less_equal<T>//小于等于
 ```
 - 逻辑运算类运算函数，not为一元运算，其余为二元运算
-```
+```cpp
 template<class T> bool logical_and<T>//逻辑与
 template<class T> bool logical_or<T>//逻辑或
 template<class T> bool logical_not<T>//逻辑非
 ```
 
 使用示例
-```
+```cpp
 //使用内建函数对象声明一个对象
 plus<int> myPlus;
 cout << myPlus(5, 3) << endl;
@@ -933,6 +932,7 @@ count_if equal_to 参数绑定
 - mem_fun_ref ： 修饰成员函数
 
 分类：
+
 - 预定义函数对象
 - 仿函数适配器`bind1st、bind2nd`
 - 仿函数适配器`not1、not2`
@@ -940,6 +940,7 @@ count_if equal_to 参数绑定
 - 成员函数适配器`mem_fun、mem_fun_ref`
 
 示例：
+
 ```c++
 #include<vector>
 #include<string>
@@ -1120,8 +1121,7 @@ int main(){
 ```
 
 
-如果希望函数对象适配器能对我们自己编写的函数对象有效，我们需要根据我们的函数对象类型继承STL的父类对象。
-如果你本身是二元函数对象则需要继承 
+如果希望函数对象适配器能对我们自己编写的函数对象有效，我们需要根据我们的函数对象类型继承STL的父类对象。如果你本身是二元函数对象则需要继承 
 - 二元函数继承：`public binary_function<参数类型,参数类型,返回类型>`
 - 一元函数继承：`public unary_function<参数类型,返回类型>`
 
@@ -1166,7 +1166,8 @@ transform(iterator beg1, iterator end1, iterator beg2, _callbakc)
 ```
 
 #### 常用查找算法
-```
+
+```cpp
 /*
     find算法 查找元素
     @param beg 容器开始迭代器
@@ -1219,7 +1220,8 @@ count_if(iterator beg, iterator end, _callback);
 ```
 
 #### 常用排序算法
-```
+
+```cpp
 /*
     merge算法 容器元素合并，并存储到另一容器中
     @param beg1 容器1开始迭代器
@@ -1252,7 +1254,8 @@ reverse(iterator beg, iterator end)
 ```
 
 #### 常用拷贝和替换算法
-```
+
+```cpp
 /*
     copy算法 将容器内指定范围的元素拷贝到另一容器中
     @param beg 容器开始迭代器
@@ -1285,7 +1288,7 @@ swap(container c1, container c2)
 ```
 
 #### 常用算数生成算法
-```
+```cpp
 /*
     accumulate算法 计算容器元素累计总和
     @param beg 容器开始迭代器
@@ -1301,8 +1304,9 @@ accumulate(iterator beg, iterator end, value)
 */
 fill(iterator beg, iterator end, value)
 ```
+
 #### 常用集合算法
-```
+```cpp
 /*
     set_intersection算法 求两个set集合的交集
     注意:两个集合必须是有序序列
@@ -1336,7 +1340,6 @@ set_union(iterator beg1, iterator end1, iterator beg2, iterator end2, iterator d
     @return 目标容器的最后一个元素的迭代器地址
 */
 set_difference(iterator beg1, iterator end1, iterator beg2, iterator end2, iterator dest)
-
 ```
 
 ---

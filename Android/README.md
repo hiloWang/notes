@@ -5,6 +5,7 @@
 ## 基础组件
 
 - [Application](Basic/Application.md)
+- [四大组件角色概述](Basic/四大组件角色概述.md)
 - [Activity](Basic/Activity.md)  
 - [Service](Basic/Service.md)  
 - [Intent](Basic/Intent.md)
@@ -110,3 +111,77 @@
 ## 优化
 
 - [性能优化](Optimization/Performance.md)
+
+## 架构总结
+
+- [架构相关资料](Architecture/References.md)
+- [项目架构实践01-开发准备](Architecture/项目架构实践01-开发准备.md)
+- [项目架构实践02-开发规范](Architecture/项目架构实践02-开发规范.md)
+- [项目架构实践03-认识架构](Architecture/项目架构实践03-认识架构.md)
+- [项目架构实践04-架构实施](Architecture/项目架构实践04-架构实施.md)
+- [项目架构实践05-组件化与模块化](Architecture/项目架构实践05-组件化与模块化.md)
+- [项目架构实践-AOP编程](Architecture/项目架构实践-AOP编程.md)
+- [项目架构实践-CleanArchitecture学习](Architecture/项目架构实践-CleanArchitecture学习.md)
+- [项目架构实践-DataBinding](Architecture/项目架构实践-DataBinding.md)
+- [项目架构实践-Jetpack-AAC-1](Architecture/项目架构实践-Jetpack-AAC-1.md)
+- [项目架构实践-Jetpack-AAC-2](Architecture/项目架构实践-Jetpack-AAC-2.md)
+- [项目架构实践-Jetpack-AAC-3](Architecture/项目架构实践-Jetpack-AAC-3.md)
+- [项目架构实践-Jetpack-Navigation](Architecture/项目架构实践-Jetpack-Navigation.md)
+- [项目架构实践-Jetpack-介绍](Architecture/项目架构实践-Jetpack-介绍.md)
+- [项目架构实践-列表设计与思考](Architecture/项目架构实践-列表设计与思考.md)
+- [项目架构实践-项目测试与CI](Architecture/项目架构实践-项目测试与CI.md)
+- [跨平台开发模式](Architecture/跨平台开发模式.md)
+
+## 网络
+
+- [Android网络请求](Network/Android网络请求.md)
+- [OkHttp01-References](Network/OkHttp01-References.md)
+- [OkHttp02-Interceptor](Network/OkHttp02-Interceptor.md)
+- [OkHttp03-AutoRetry](Network/OkHttp03-AutoRetry.md)
+- [OkHttp04-Analyse](Network/OkHttp04-Analyse.md)
+- [Retrofit-1使用](Network/Retrofit-1使用.md)
+- [Retrofit-2Analyse](Network/Retrofit-2Analyse.md)
+- [Retrofit-3Extends](Network/Retrofit-3Extends.md)
+- [GraphQL](Network/GraphQL.md)
+- [相关资料](Network/References.md)
+
+## 系统
+
+Android 系统原理学习资料
+
+- [学习资料](System/References.md)
+
+View：
+
+- [View系统分析01-View树的构建](System/View系统分析01-View树的构建.md)
+- [View系统分析02-View树的遍历](System/View系统分析02-View树的遍历.md)
+
+IPC机制（《Android开发艺术探索总结》）
+
+- [IPC-01](System/IPC-01.md)
+- [IPC-02-Binder](System/IPC-02-Binder.md)
+- [IPC-03-BinderPool](System/IPC-03-BinderPool.md)
+- [IPC-04-BinderAuthentication](System/IPC-04-BinderAuthentication.md)
+- [IPC-05-ContentProvider](System/IPC-05-ContentProvider.md)
+- [IPC-06-Messenger](System/IPC-06-Messenger.md)
+
+
+《深入理解Android内核设计思想》：
+
+- [DUAndroid01](System/DUAndroid01.md)
+- [DUAndroid02-SystemBasic](System/DUAndroid02-SystemBasic.md)
+- [DUAndroid03-Process_Memory](System/DUAndroid03-Process_Memory.md)
+
+常用类
+
+- [Handler](System/Handler.md)
+- [HandlerThread](System/HandlerThread.md)
+- [IntentService解析](System/IntentService解析.md)
+- [AsyncTask解析](System/AsyncTask解析.md)
+
+其他:
+
+- [Framework层概概述](System/Framework层概概述.md)
+- [Activity重启与Retain分析](System/Activity重启与Retain分析.md)
+- [Context](System/Context.md)
+- [窗口创建过程](System/窗口创建过程.md)

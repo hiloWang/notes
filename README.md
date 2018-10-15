@@ -33,18 +33,21 @@
 
 ## 内容
 
+基础
+
+- [操作系统](OS-Basic/README.md)
+- [网络协议](Network/README.md)
+- [数据结构与算法](DataStructure/README.md)
+
+
 编程语言
 
 - [C&CPP](C&CPP/README.md)
 - [Java](Java/README.md)
+- [RxJava](RxJava/README.md)
 - [Groovy](Groovy/README.md)
 - [Kotlin](Kotlin/README.md)
 - [Python](Python/README.md)
-
-基础
-
-- [网络协议](Network/README.md)
-- [数据结构与算法](DataStructure/README.md)
 
 平台
 

@@ -38,6 +38,8 @@ class Node{
 
 ![](index_files/snipaste_20181017_122655.png)
 
+图中包含的单词有：cat、dog、deer、pan、panda。
+
 ---
 ## 2 编程实现 Trip
 

@@ -174,10 +174,11 @@ public class BSTMap<Key extends Comparable<Key>, Value> implements Map<Key, Valu
     @Override
     public Value remove(Key key) {
         Node node = getNode(root, key);
-        if (node == null) {
-            return null;
+        if(node != null){
+            root = remove(root, key);
+            return node.value;
         }
-        return remove(root, key).value;
+        return null;
     }
 
     /*删除指定元素的节点*/
@@ -295,6 +296,7 @@ public class BSTMap<Key extends Comparable<Key>, Value> implements Map<Key, Valu
             this.value = value;
         }
     }
+    
 }
 ```
 

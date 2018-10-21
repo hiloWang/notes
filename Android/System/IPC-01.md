@@ -2,7 +2,7 @@
 
 IPC即 **Inter-Process Communication**，进程间通信即 **两个进程间进行数据交换**。
 
-Android使用的是的Linux内核，Linux的IPC方式包括`命名管道、共享内存、信号量`等，但是其IPC方式并没有采用Linux IPC方式。Android的IPC大部分采用的是Binder机制，当然通过以下方式也可以实现进程间通讯
+Android 使用的是的 Linux 内核，Linux 的 IPC 方式包括`命名管道、共享内存、信号量`等，但是其IPC方式并没有采用Linux IPC方式。Android的IPC大部分采用的是 Binder 机制，当然通过以下方式也可以实现进程间通讯：
 
 - Intent传递数据
 - 共享文件
@@ -37,7 +37,7 @@ IPC 的使用场景
 
 ### 多进程造成的影响
 
-- 静态变量和单利模式完全失效
+- 静态变量和单例模式完全失效
 - 线程同步机制完全失效
 - SharedPreference的可靠性降低
 - Application会被创建多次

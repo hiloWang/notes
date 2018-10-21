@@ -11,7 +11,7 @@
 *   布局 确定view在父容器上的位置
 *   绘制 绘制view 的内容
 
-这个过程的启动时一个叫ViewRoot.java类中 performTraversals（）函数发起的，子view也可以通过一些方法来请求重新遍历view树，但是在遍历过程view树时并不是所有的view都需要重新测量，布局和绘制，在view树的遍历过程中，系统会问view是否需要重新绘制，如果需要才会真的去绘制view。
+这个过程的启动时一个叫ViewRoot.java类中 `performTraversals()` 函数发起的，子view也可以通过一些方法来请求重新遍历view树，但是在遍历过程view树时并不是所有的view都需要重新测量，布局和绘制，在view树的遍历过程中，系统会问view是否需要重新绘制，如果需要才会真的去绘制view。
 >View有一个内部标识 mPrivateFlags，用来记录view是否需要进行某些操作
 
 流程图如下所示：
@@ -25,7 +25,7 @@
 
 ### 2.1 measure方法分析
 
-测量用来确定一个View的大小，在ViewRoot中的performTraversals()中，调用decorView的measure方法，measure方法接收两个参数，
+测量用来确定一个View的大小，在ViewRoot中的 `performTraversals()` 中，调用decorView的measure方法，measure方法接收两个参数，
 
 最初的两个参数在ViewRoot方法中产生：
 
@@ -526,6 +526,7 @@ for (int i = 0; i < count; i++) {
 ## 5 总结：
 
 关于measure的相关方法都已经理了一遍，我们大概可以理清View树的测量流程了：
+
 ![](index_files/55dc54e8-be15-4dbb-b650-f8ceb0f4042b.png)
 
 - View作为单个的控制，只需要对自身进行测量，自身的职责就是在各种测量模式下合理的设置自身的宽高，对于自定义view而言，需要处理好wrap_content模式下的测量，因为系统只支持match_parent模式。

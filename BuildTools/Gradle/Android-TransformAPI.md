@@ -1,4 +1,3 @@
-[TOC]
 # Android Transform API学习
 
 ---

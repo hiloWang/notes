@@ -5,30 +5,30 @@
 前面说到在PhoneWindow中，调用setContentView，然后解析xml布局(如果传参的xmlId的话)，从而完成整个View树的创建，
 但是只是创建了View树，并没有执行View树的遍历操作，也就不会执行测量，布局，绘制等操作，这样视图还是无法显示出来，那么View树的遍历是从哪里开始的呢？前面说过是在ViewRoot.java类中 `performTraversals()`函数发起的，那么这个函数又是被谁调用的呢？下面开始分析
 
-
 ### 1.1  引起View树重新绘制的方法
 
 首先能够引起View树重新绘制的方法有：
 
 #### 1，invalidate()方法
 
-请求重绘View树，即draw()过程，假如视图发生大小没有变化就不会调用layout()过程，并且只绘制那些“需要重绘的”视图，即谁(View的话，只绘制该View ；ViewGroup，则绘制整个ViewGroup)请求invalidate()方法，就绘制该视图。
+请求重绘View树，即 `draw()` 过程，假如视图发生大小没有变化就不会调用layout()过程，并且只绘制那些“需要重绘的”视图，即谁(View的话，只绘制该View ；ViewGroup，则绘制整个ViewGroup)请求invalidate()方法，就绘制该视图。
 
-一般引起invalidate()操作的函数如下：
- - 1、直接调用invalidate()方法，请求重新draw()，但只会绘制调用者本身。
- - 2、setSelection()方法 ：请求重新draw()，但只会绘制调用者本身。
- - 3、setVisibility()方法 ： 当View可视状态在INVISIBLE转换VISIBLE时，会间接调用invalidate()方法， 继而绘制该View。
- - 4 、setEnabled()方法 ： 请求重新draw()，但不会重新绘制任何视图包括该调用者本身。
+一般引起 `invalidate()` 操作的函数如下：
+
+ - 1、直接调用invalidate()方法，请求重新 `draw()`，但只会绘制调用者本身。
+ - 2、setSelection()方法 ：请求重新 `draw()`，但只会绘制调用者本身。
+ - 3、setVisibility()方法 ： 当 View 可视状态在INVISIBLE转换VISIBLE时，会间接调用 `invalidate()`方法， 继而绘制该View。
+ - 4 、setEnabled()方法 ： 请求重新 `draw()`，但不会重新绘制任何视图包括该调用者本身。
 
 #### 2，requestLayout()方法
 
-会导致调用measure()过程 和 layout()过程 。说明：只是对View树重新布局layout过程包括measure()和layout()过程，不会调用draw()过程，不会重新绘制任何视图包括该调用者本身。
+会导致调用measure()过程 和 layout()过程 。说明：只是对View树重新布局layout过程包括 `measure()` 和 `layout()` 过程，不会调用 `draw()` 过程，不会重新绘制任何视图包括该调用者本身。
 
-一般引起requestLayout()操作的函数如setVisibility()方法，当View的可视状态在INVISIBLE/ VISIBLE 转换为GONE状态时，会间接调用requestLayout() 和invalidate方法，同时，由于整个个View树大小发生了变化，会请求measure()过程以及draw()过程，同样地，只绘制需要“重新绘制”的视图。
+一般引起requestLayout()操作的函数如setVisibility()方法，当View的可视状态在INVISIBLE/ VISIBLE 转换为GONE状态时，会间接调用 `requestLayout()` 和invalidate方法，同时，由于整个个View树大小发生了变化，会请求 `measure()` 过程以及 `draw()` 过程，同样地，只绘制需要“重新绘制”的视图。
 
 #### 3，requestFocus()方法
 
-请求View树的draw()过程，但只绘制“需要重绘”的视图。
+请求View树的 `draw()` 过程，但只绘制“需要重绘”的视图。
 
 >具体可以参考《安卓内核剖析：第十三章View工作原理》
 
@@ -39,16 +39,16 @@ invalidate方法用的比较多，当一个View的内容放生变化时，我们
 ### 1.2 invalidate方法分析
 
 invalidate方法在View中实现如下：
-```
+```java
         //只能在UI Thread中使用，别的Thread用postInvalidate方法，View是可见的才有效，回调onDraw方法，针对整个View
         public void invalidate() {
             invalidate(true);
         }
+
         //default的权限，只能在UI Thread中使用，别的Thread用postInvalidate方法，View是可见的才有效，回调onDraw方法，针对整个View
         void invalidate(boolean invalidateCache) {
             invalidateInternal(0, 0, mRight - mLeft, mBottom - mTop, invalidateCache, true);
         }
-        
         
         //只能在UI Thread中使用，别的Thread用postInvalidate方法，View是可见的才有效，回调onDraw方法，针对局部View
         public  void  invalidate(int l, int t, int r, int b){......}
@@ -89,7 +89,8 @@ invalidate方法在View中实现如下：
 ```
 
 需要注意的是skipInvalidate()方法：如果满足下面方法条件，就会导致invalidate方法无效
-```
+
+```java
        /**
          * 不可见的或者是没有执行动画的view或者没有Transitioning将不会被绘制，这些view将不会被设置ditry_flag
          */
@@ -104,7 +105,7 @@ invalidate方法在View中实现如下：
 
 将要刷新区域直接传递给了父ViewGroup的invalidateChild方法，在invalidate中，调用父View的invalidateChild，这是一个从当前向上级父View不断传递的过程，每一层的父View都将自己的显示区域与传入的刷新Rect做交集 。所以我们看下ViewGroup的invalidateChild方法，源码如下：
 
-```
+```java
      public final void invalidateChild(View child, final Rect dirty) {
             ViewParent parent = this;
     
@@ -119,11 +120,12 @@ invalidate方法在View中实现如下：
             }
         }
 ```
-这个过程就是不断的向上调用parent.invalidateChildInParent(location, dirty)方法。那么最终这个方法会向上执行到哪呢，我们需要分析View的parent是怎么赋值的：
+
+这个过程就是不断的向上调用 `parent.invalidateChildInParent(location, dirty)` 方法。那么最终这个方法会向上执行到哪呢，我们需要分析View的parent是怎么赋值的：
 
 首先View的mParent是这样被赋值的？
 
-```
+```java
     void assignParent(ViewParent parent) {
             if (mParent == null) {
                 mParent = parent;
@@ -133,13 +135,13 @@ invalidate方法在View中实现如下：
                 throw new RuntimeException("view " + this + " being added, but"
                         + " it already has a parent");
             }
-        }
+    }
 ```
 
 assignParent是在什么时候被调用的?
 
 - 当一个View被添加到一个ViewGroup时：
-```
+```java
         public void addView(View child, int index, LayoutParams params) {
           ......
 
@@ -153,7 +155,8 @@ assignParent是在什么时候被调用的?
 ```
 
 - addViewInner
-```
+
+```java
       private void addViewInner(View child, int index, LayoutParams params,
                 boolean preventRequestLayout) {
     
@@ -165,7 +168,8 @@ assignParent是在什么时候被调用的?
             }
      }
 ```
-- 但是Decor作为一个View树的跟布局，肯定不可能被添加到ViewGroup中，那么它的mParent是谁呢？答案是ViewRoot(ViewRootImpl)，看下面分析。
+
+- 但是Decor作为一个View树的根布局，肯定不可能被添加到ViewGroup中，那么它的mParent是谁呢？答案是 `ViewRoot(ViewRootImpl)`，看下面分析。
 
 
 ### 1.3 DecorView的mParent被赋值过程、ViewRoot被创建过程与添加到WindowManager简单分析
@@ -184,7 +188,8 @@ assignParent是在什么时候被调用的?
 其中onCreate表示Activity被创建，我们也在这里setContentView，onStart表示视图即将可见，onResume表示当前Activity已可以与用户进行交互，并且视图已经可见，所以可以从这里开始分析，熟悉Activity架构的都应该知道，Activity的生命周期方法是在ActivityManagerService通过ApplicationThread进行调用的，ApplicationThread通过H类发送消息到ActivityThread，进行Activity的各生命周期方法的操作与回调，onCreate表示Activity被创建，此时DecorView压根就没被创建，直接略过，然后onStart分析：代码中也没有相关逻辑。
 
 然后是onResume方法：直接看handleResumeActivity
-```
+
+```java
     final void handleResumeActivity(IBinder token, boolean clearHide, boolean isForward) {
            ......
                 if (r.window == null && !a.mFinished && willBeVisible) {
@@ -204,8 +209,10 @@ assignParent是在什么时候被调用的?
              ......
         }
 ```
-可以看到有` wm.addView(decor, l);`这样一段逻辑，这个wm其实就是WindowManager，其实现类是WindowManagerImpl,addView的具体实现为：
-```
+
+可以看到有 `wm.addView(decor, l);` 这样一段逻辑，这个wm其实就是 WindowManager，其实现类是WindowManagerImpl，addView的具体实现为：
+
+```java
      private void addView(View view, ViewGroup.LayoutParams params, boolean nest)
         {
             if (Config.LOGV) Log.v("WindowManager", "addView view=" + view);
@@ -305,7 +312,7 @@ assignParent是在什么时候被调用的?
 然后View树执行遍历操作，整个视图显示出来。
 
 到此就可以确定DecorView的mParent确实是ViewRoot，看下面ViewRoot中的代码：
-```
+```java
        public void invalidateChild(View child, Rect dirty) {
             checkThread();
             ......
@@ -332,7 +339,7 @@ assignParent是在什么时候被调用的?
 **这里说一下ViewRoot的创建过程**：
 
 首先从ViewRoot的构造函数说起：
-```
+```java
     public ViewRoot(Context context) {
             super();
     
@@ -378,7 +385,8 @@ assignParent是在什么时候被调用的?
 - sWindowSession是WindowManager服务的远程引用
 
 然后是add
-```
+
+```java
     res = sWindowSession.add(mWindow, mWindowAttributes,
                                 getHostVisibility(), mAttachInfo.mContentInsets,
                                 mInputChannel);
@@ -395,6 +403,7 @@ assignParent是在什么时候被调用的?
 
 和invalidate类似，其实在上面分析View绘制流程时或多或少都调运到了这个方法，而且这个方法对于View来说也比较重要，所以我们接下来分析一下他。如下View的requestLayout源码：
 
+```java
      public void requestLayout() {
             ......
             if (mParent != null && !mParent.isLayoutRequested()) {
@@ -404,33 +413,78 @@ assignParent是在什么时候被调用的?
             }
             ......
         }
+```
 
 其本质也是向上层层传递，直到ViewRootImpl为止，然后触发ViewRootImpl的requestLayout方法，如下就是ViewRoot的requestLayout方法：
 
+```java
     public void requestLayout() {
             checkThread();
             mLayoutRequested = true;
             scheduleTraversals();
-        }
-
+    }
+```
 
 **至此View的绘制流程，什么时候发起绘制，以及发起绘制的流程分析完毕。**
 
 
 总结：
 
-1，View的一个简单架构图：
+- 1，View的一个简单架构图：
 ![](index_files/5e56db25-b80b-4b7a-be6f-32224a5aa96d.png)
 
 
-2，ViewRoot与ViewGroup都实现了ViewParent接口，ViewParent主要提供了一系列操作子View的方法例如焦点的切换，显示区域的控制等等。
+- 2，ViewRoot与ViewGroup都实现了ViewParent接口，ViewParent 主要提供了一系列子View与其父 View 交互的方法，例如焦点的切换、显示区域的控制等等。
 
-3，ViewGroup和WindowManager都实现了ViewManager接口，ViewManager提供了三个抽象方法addView，removeView，updateViewLayout。用来添加、删除、更新布局。
+- 3，ViewGroup和WindowManager都实现了ViewManager接口，ViewManager提供了三个抽象方法addView，removeView，updateViewLayout。用来添加、删除、更新布局。
 
 可见ViewGroup作为一个View的容器，有添加删除子view的功能，也有控制子view焦点等功能，而ViewRoot则只需要控制子view焦点等功能(应为它直接和WMS通信)，它不需要去控制子view的删除等操作，这都是decorView和其子容器的事，而WindowManager作为一个窗口管理器当然也会有添加，删除view的功能，它添加删除的都是窗口级别的View。
 
 从以上可得，利用接口把复杂的逻辑按照职责区分，子类按照自己的职责任务去实现不同的接口，而在逻辑调用时，只需要通过接口去声明，偶尔性降低，职责明确后代码也很清晰，这就是所谓的面向接口编程吧！！！
 
+
+```java
+/**
+ * Defines the responsibilities for a class that will be a parent of a View.
+ * This is the API that a view sees when it wants to interact with its parent.
+ * 定义用用代表View的Parent的接口，其提供的API用于子view和其Parent进行交互
+ */
+public interface ViewParent {
+   
+    public void requestLayout();
+    public boolean isLayoutRequested();
+    public void requestTransparentRegion(View child);
+    public void invalidateChild(View child, Rect r);
+    public ViewParent invalidateChildInParent(int[] location, Rect r);
+
+    public ViewParent getParent();
+
+    public void requestChildFocus(View child, View focused);
+    public void recomputeViewAttributes(View child);
+    public void clearChildFocus(View child);
+    public boolean getChildVisibleRect(View child, Rect r, android.graphics.Point offset);
+    public View focusSearch(View v, int direction);
+    public void bringChildToFront(View child);
+    public void focusableViewAvailable(View v);
+    public boolean showContextMenuForChild(View originalView);
+    public void createContextMenu(ContextMenu menu);
+    public void childDrawableStateChanged(View child);
+    public void requestDisallowInterceptTouchEvent(boolean disallowIntercept);
+    public boolean requestChildRectangleOnScreen(View child, Rect rectangle,
+            boolean immediate);
+}
+
+/** 
+  * Interface to let you add and remove child views to an Activity. To get an instance
+  * of this class, call Context.getSystemService()。
+  * 一个接口，用来让你从 Activity 添加或移除一个View，可以用 Context.getSystemService() 获取其实例。
+  */
+public interface ViewManager{
+    public void addView(View view, ViewGroup.LayoutParams params);
+    public void updateViewLayout(View view, ViewGroup.LayoutParams params);
+    public void removeView(View view);
+}
+```
 
 ### 导致View树重新遍历的时机
 
@@ -472,7 +526,7 @@ performTraversals方法太过复杂，具体的逻辑可以去查看源码，大
 
 判断是否需要重新测量，需要则执行测量
 
-```
+```java
       /**
       lp的定义：`WindowManager.LayoutParams lp = mWindowAttributes;`      
       */
@@ -485,7 +539,7 @@ performTraversals方法太过复杂，具体的逻辑可以去查看源码，大
 
 
 这里可以看一下测量规格产生的方法：一般都是屏幕的宽高
-```
+```java
     private int getRootMeasureSpec(int windowSize, int rootDimension) {
             int measureSpec;
             switch (rootDimension) {
@@ -513,51 +567,45 @@ performTraversals方法太过复杂，具体的逻辑可以去查看源码，大
 ### layout
 
 判断是否需要重新布局，需要则重新布局
-```
+
+```java
      host.layout(0, 0, host.mMeasuredWidth, host.mMeasuredHeight);
 ```
 
 ### draw
 
 判断是否重新绘制，调用draw方法
-```
+
+```java
     mView.draw(canvas);
 ```
 从这个流程也可以看到，
 
-draw方法中，canvas的初始化，当然GL11是很复杂的东西，暂时不研究：
-```
-     final GL11 gl = (GL11) context.getGL();
+draw方法中，canvas的初始化，当然 GL11 是很复杂的东西，暂时不研究：
+
+```java
+            final GL11 gl = (GL11) context.getGL();
             mGL = gl;
             mGlCanvas = new Canvas(gl);
 ```
 
 View树的布局完毕通知也是在遍历中通知的：
-```
+
+```java
      if (triggerGlobalLayoutListener) {
                 attachInfo.mRecomputeGlobalAttributes = false;
                 attachInfo.mTreeObserver.dispatchOnGlobalLayout();
-            }
+     }
 ```
-
->差不多就是这样子了。水平有限，更多细节可以参考《Android内核剖析》
 
 ---
 ## 3 总结
 
 -  DecorView初始化之后将会被添加到WindowManager中，同时WindowManager中会为新添加的DecorView创建一个对应的ViewRoot，并把DecorView设置给ViewRoot。所以view树的根View就是DecorView，因为DecorView的父亲是ViewRoot，实现了ViewParent接口，但是没有继承自View，所以根本不是一个View，它可以理解为View树的管理者，其成员变量mView作为它管理的View树的根View，遍历流程由它发起，ViewRoo它的核心任务是与WindowManagerService进行通信。
 
-- 当Activity被创建时，会相应的创建一个Window对象，Window对象创建时会获取应用的WindowManager（注意，这是应用的窗口管理者，不是系统的,是LocalWindowManager，不过其内部还是持有系统WindowManager的引用），WindowManger继承自ViewManager，而添加到WindowManager中的是DecorView，不是Window，所以其实真正意义上的window就是View。
+- 当Activity被创建时，会相应的创建一个Window对象，Window对象创建时会获取应用的WindowManager（注意，这是应用的窗口管理者，不是系统的,是LocalWindowManager，不过其内部还是持有系统WindowManager的引用），WindowManger继承自ViewManager，添加到WindowManager中的是DecorView，不是Window，所以其实真正意义上的window就是View。
 
-ViewManager的定义很简单就是添加、更新，删除view：
-```
-      public interface ViewManager{
-        public void addView(View view, ViewGroup.LayoutParams params);
-        public void updateViewLayout(View view, ViewGroup.LayoutParams params);
-        public void removeView(View view);
-      }
-```
-  而WindowManager的实现了ViewManager，并添加了对窗口管理的一系列行为与属性，从而简化了客户端对窗口的操作。
+- ViewManager的定义很简单就是添加、更新，删除view，WindowManager的实现了ViewManager，并添加了对窗口管理的一系列行为与属性，从而简化了客户端对窗口的操作。
 
 - 当ViewRoot的setView方法中将会调用requestLayout进行第一次视图测量请求。同时sWindowSession.add自身内部的W对象，以此达到和WindowManagerService的关联。ViewRoot在ViewRoot的构造方法中会通过getWindowSession来获取WindowManagerService系统服务的远程对象
 

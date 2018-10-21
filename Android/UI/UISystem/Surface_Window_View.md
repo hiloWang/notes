@@ -2,7 +2,7 @@
 ---
 ## Surface
 
-Surface是一个对象，该对象拥有一群像素，这些像素可以组合层图像显示到屏幕上、手机屏幕上的每一个window（如对话框、全屏的activity、状态栏）都有唯一一个自己的surface，window将自己的内容（content）绘制到该surface中。Surface Flinger根据各个surface在Z轴上的顺序（Z-order）将它们渲染到最终的显示屏上。
+Surface是一个对象，该对象拥有一群像素，这些像素可以组合层图像显示到屏幕上、手机屏幕上的每一个window（如对话框、全屏的activity、状态栏）都有唯一一个自己的surface，window将自己的内容（content）绘制到该surface中。SurfaceFlinger根据各个surface在Z轴上的顺序（Z-order）将它们渲染到最终的显示屏上。
 
 一个surface通常有两个缓冲区以实现双缓冲绘制：当应用正在一个缓冲区中绘制自己下一个UI状态时，Surface Flinger可以将另一个缓冲区中的数据合成显示到屏幕上，而不用等待应用绘制完成。
 
@@ -12,7 +12,7 @@ Surface是一个对象，该对象拥有一群像素，这些像素可以组合�
 
 官方文档对Window的解释：Abstract base class for a top-level window look and behavior policy. An instance of this class should be used as the top-level view added to the window manager. It provides standard UI policies such as a background, title area, default key processing, etc.翻译过来就是Window是一个抽象类，是所有视图的最顶层容器，视图的外观和行为都归他管，不论是背景显示，标题栏还是事件处理都是他管理的范畴
 
-Windows是抽象的，就像我们在计算机中看到的各个软件窗口一样，它拥有**唯一一个用以绘制自己的内容的surface**、应用通过 Window Manager创建一个window，Window Manager 为每一个window创建一个surface，并把该surface传递给应用以便应用在上面绘制。应用可以在surface上任意进行绘制。对于Window Manager来说，surface就是一个不透明的矩形而已。
+Windows是抽象的，就像我们在计算机中看到的各个软件窗口一样，它拥有 **唯一一个用以绘制自己的内容的surface**、应用通过 WindowManager 创建一个window，Windo Manager 为每一个 window 创建一个 surface，并把该 surface 传递给应用以便应用在上面绘制。应用可以在 surface 上任意进行绘制。对于 WindowManager 来说，surface 就是一个不透明的矩形而已。
 
 
 ---

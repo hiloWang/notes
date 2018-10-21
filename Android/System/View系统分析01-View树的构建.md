@@ -5,24 +5,25 @@
 
 View是Android系统中很重要的一个部分，在Android的官方文档中是这样描述的：**表示了用户界面的基本构建模块。一个View占用了屏幕上的一个矩形区域并且负责界面绘制和事件处理。**
 
-而Activity相当于视图层中的控制层，是用来控制和管理View的，真正用来显示和处理事件的实际上是View，当我们在Activity中调用setContentView();并传入一个View或者一个LayoutId，界面上就会显示设置的View出来，setContentView()的过程稍后分析。
+而 Activity 相当于视图层中的控制层，是用来控制和管理 View 的，真正用来显示和处理事件的实际上是 View，当我们在 Activity 中调用 `setContentView();`并传入一个 View 或者一个 LayoutId，界面上就会显示设置的 View 出来，setContentView()的过程稍后分析。
 
-一个view要显示在界面上，需要经历一个view树的遍历过程，这个过程又可以分为三个过程，分别是：
+一个 view 要显示在界面上，需要经历一个 view 树的遍历过程，这个过程又可以分为三个过程，分别是：
 
 - **测量** 确定一个View的大小
 - **布局** 确定view在父节点上的位置
 - **绘制** 绘制view的内容
 
-这个过程的启动由一个叫`ViewRoot`(之后修改为ViewRootImpl)类中` performTraversals()`函数发起的，子view也可以通过一些方法来请求重绘view树，但是在重绘view树时并不是所有的view都需要重新绘制，所在在view树的遍历过程中，系统会问view是否需要重新绘制，如果需要才会真的去绘制view。
+这个过程的启动由一个叫`ViewRoot`(之后修改为ViewRootImpl)类中`performTraversals()`函数发起的，子view也可以通过一些方法来请求重绘view树，但是在重绘view树时并不是所有的view都需要重新绘制，所在在view树的遍历过程中，系统会问view是否需要重新绘制，如果需要才会真的去绘制view。
 
 
-这个实现在view的mPrivateFlag中，
+这个实现在 view 的 mPrivateFlag 中，
 
 - View中有一个私有int变量mPrivateFlags，用于保存View的状态，int型32位，通过0/1可以保存32个状态的true或者false，采用这种方式可以有效的减少内存占用，提高运算效率，`应该可以把这种方式叫做二进制映射`。关于这个mPrivateFlags会在view的绘制流程中进行学习。
 - 当某一个View发起了测量请求时，将会把mPrivateFlags中的某一位从0变为1，同时请求父View，父View也会把自身的该值从0变为1，同时也将会把其他子View的值从0变为1。这样一层一层传递，最终传到到DecorView，DecorView的parent是ViewRoot，所以最终都将由ViewRoot来进行处理。
 - ViewRoot收到请求后，将会从上至下开始遍历，检查标记，只要有相对应的标记就执行测量/布局/绘制
 
 流程图如下所示：
+
 ![](index_files/d1264e9b-5248-46ae-a48d-4f487c26c008.jpg)
 
 ---
@@ -32,7 +33,7 @@ View是Android系统中很重要的一个部分，在Android的官方文档中�
 
 进入Activity源码可以看到如下代码：
 
-```
+```java
         private Window mWindow;
 
         public void setContentView(@LayoutRes int layoutResID) {
@@ -42,10 +43,12 @@ View是Android系统中很重要的一个部分，在Android的官方文档中�
 ```
 调用的是`getWindow().setContentView(layoutResID);`而getrWindow返回的是mWindow，在代码中可以看到mWindow是这样被初始化的：
 
-    mWindow = new PhoneWindow(this);
-
-PhoneWindow是Window的子类，从Window的注释我们也可以得到PhoneWindow是Window的实现，而Window是对安卓窗口概念的抽象：
 ```
+    mWindow = new PhoneWindow(this);
+```
+
+PhoneWindow是 Window 的子类，从 Window 的注释我们也可以得到 PhoneWindow 是 Window 的实现，而 Window 是对安卓窗口概念的抽象：
+```java
     /**
      * Abstract base class for a top-level window look and behavior policy.  An
      * instance of this class should be used as the top-level view added to the
@@ -60,10 +63,12 @@ PhoneWindow是Window的子类，从Window的注释我们也可以得到PhoneWind
      */
     public abstract class Window {......}
 ```
+
 一个抽象的基础的顶级窗口类，定义的基本的行为和外观政策，这类的实例应该用作顶层视图添加到窗口管理器，它提供了标准UI政策背景等标题区域,默认键处理等。
 
 继续跟踪PhoneWindow，下面是PhoneWindow的源码部分,可以看到其内部定义了平时开发中用到的各种元素。
-```
+
+```java
     /**
      * Android-specific Window.
      * <p>
@@ -82,7 +87,8 @@ PhoneWindow是Window的子类，从Window的注释我们也可以得到PhoneWind
     }
 ```
 查看setContentView的源码实现：如果是view则会为其设置一个ViewGroup的LayoutParams，宽高都为匹配父元素，添加到mContentParent中，如果是布局id，先用布局填充器来解析布局id指定的xml文件，然后添加到mContentParent中，那mContentParent怎么初始化的呢？很明显是在installDecor()中被初始化的。
-```
+
+```java
       @Override
         public void setContentView(int layoutResID) {
             if (mContentParent == null) {
@@ -116,27 +122,30 @@ PhoneWindow是Window的子类，从Window的注释我们也可以得到PhoneWind
         }
     }
 ```
+
 接下来先看布局填充器如何解析xml布局
 
 ### 2.1 布局填充器LayoutInflate解析xml布局分析
 
 首先mLayoutInflate是这样被初始化的
 
+```java
     mLayoutInflater = LayoutInflater.from(context);
-
-查看LayoutInfater源码：
-
 ```
+
+查看 LayoutInfater 源码：
+
+```java
     /**
      * 这个类用来实例化xml中定义的view节点，
      * 使用Activity#getLayoutInflater()或者 Context#getSystemService}获取一个标准的LayoutInflater实例
-      */
+    */
       public abstract class LayoutInflater {
     
-    ......
+        //...... 省略很多代码
     
         /**
-        比如通过from方法获取一个LayoutInflater实例
+         * 比如通过from方法获取一个LayoutInflater实例
          * Obtains the LayoutInflater from the given context.
          */
         public static LayoutInflater from(Context context) {
@@ -148,20 +157,21 @@ PhoneWindow是Window的子类，从Window的注释我们也可以得到PhoneWind
             return LayoutInflater;
         }
 
-    ......
+        ......
 
     }
 ```
-可以看到可以看到LayoutInflater是个抽象类，LayoutInflater使用pull解析的方式来解析xml，而它的继承者是PhoneLayoutInflater，可以在Policy类中找到相关构建过程。
+可以看到可以看到 LayoutInflater 是个抽象类，LayoutInflater使用pull解析的方式来解析xml，而它的继承者是PhoneLayoutInflater，可以在Policy类中找到相关构建过程。
 
 #### 具体的解析xml 布局流程
 
 其具体的解析xml布局实现为下面代码，下面贴出了所有相关的方法
-```
-          public View inflate(int resource, ViewGroup root, boolean attachToRoot) {
+
+```java
+        public View inflate(int resource, ViewGroup root, boolean attachToRoot) {
             if (DEBUG) System.out.println("INFLATING from resource: " + resource);
-             //xml构建一个xml解析器
-            XmlResourceParser parser = getContext().getResources().getLayout(resource);
+                //xml构建一个xml解析器
+                XmlResourceParser parser = getContext().getResources().getLayout(resource);
             try {
                 return inflate(parser, root, attachToRoot);
             } finally {
@@ -515,21 +525,24 @@ PhoneWindow是Window的子类，从Window的注释我们也可以得到PhoneWind
         }  
 ```
 首先其解析xml的方式是pull解析，inflate方法的三个参数都非常重要，稍后分析。
+
 方法的开发是对xml规范的一些判断，不符合直接抛异常，如对merge的处理是父view必须非null而且必须添加到父view中去：
-```
-    if (TAG_MERGE.equals(name)) {
+```java
+                    if (TAG_MERGE.equals(name)) {
                         if (root == null || !attachToRoot) {
                             throw new InflateException("<merge /> can be used only with a valid "
                                     + "ViewGroup root and attachToRoot=true");
                         }
+                    }
 ```
 
 接下来看一个view的初始化，是通过` View temp = createViewFromTag(name, attrs);`
 方法继续初始化的，关联方法是createView，从其内部逻辑看出，xml中的View都是通过反射进行实例化的
 
 下面是关于inflate方法三个参数的逻辑：
-```
-     View temp = createViewFromTag(name, attrs);
+
+```java
+                        View temp = createViewFromTag(name, attrs);
 
                         ViewGroup.LayoutParams params = null;
 
@@ -541,33 +554,32 @@ PhoneWindow是Window的子类，从Window的注释我们也可以得到PhoneWind
                         }
 ```
 
-- 第一步：如果root 非null
+- 第一步：如果 root 非 null，attachToRoot 为 false
 
->ViewGroup.LayoutParams会被初始化，调用的是`root.generateLayoutParams(attrs)`
-如果attachToRoot为false，LayoutParams设置给被创建的view。
+ViewGroup.LayoutParams会被初始化，调用的是`root.generateLayoutParams(attrs)`。将创建的 LayoutParams 设置给被创建的 view。
 
-- 第二步：如果root 非null 并且attachToRoot为true
+- 第二步：如果 root 非 null 并且 attachToRoot 为 true
 
->LayoutParams设置给被创建的view，并且被创建的view添加到root总作为子view
+LayoutParams设置给被创建的view，并且被创建的view添加到root总作为子view
 
-- 第三步：如果root 为null 并且attachToRoot为false
+- 第三步：如果 root 为 null 并且 attachToRoot 为 false
 
->则只是单纯的创建一个View了
+则只是单纯的创建一个View了
 
-**有一点需要注意的是LayoutInflater的返回值问题，如果root 非null 并且attachToRoot为true返回的View是root，否则为为inflate的根View。**
+**有一点需要注意的是LayoutInflater的返回值问题，如果 root 非 null 并且 attachToRoot 为 true 返回的 View 是 root，否则为 inflate 的根 View。**
 
-**到这里应该可以明白为何有时候，在平时的inflate方法调用时，如果root传空的话，根布局的layout_width等属性都是无效的！！！**
+**到这里应该可以明白为何有时候，在平时的 inflate 方法调用时，如果 root 传空的话，根布局的 layout_width 等属性都是无效的！！！**
 
-当一个节点调用完毕，又会调用` rInflate(parser, temp, attrs);`进行递归解析
+当一个节点调用完毕，又会调用`rInflate(parser, temp, attrs);`进行递归解析
 
 在rInflate函数中还可以看到 `parent.onFinishInflate();`函数的调用时机。
 
 以上基本就是xml布局解析的过程，更多具体细节可以参考源码。
 
-### 2.2 installDecor()的源码实现分析
+### 2.2 installDecor() 的源码实现分析
 
 源码如下：
-```
+```java
     private void installDecor() {
             //初始化decorView
             if (mDecor == null) {
@@ -599,16 +611,18 @@ PhoneWindow是Window的子类，从Window的注释我们也可以得到PhoneWind
             }
         }
 ```
+
 可以看到如果mDecor为null的话会调用`generateDecor`初始化一个DecorView，代码如下：
-```
+
+```java
       protected DecorView generateDecor() {
             return new DecorView(getContext(), -1);
-        }
+    }
 ```
 
 代码很简单就是直接创建了一个DecorView，那么来看看DecorView的实现：
 
-```
+```java
      private final class DecorView extends FrameLayout implements RootViewSurfaceTaker{
           ......
     }
@@ -620,12 +634,10 @@ DecorView是PhoneWindow的内部类，并且是final的，集成自FrameLayout�
 
 `mContentParent = generateLayout(mDecor);`
 
-根据一系列的风格判断，最终确定ContentView的布局id
+根据一系列的风格判断，最终确定 ContentView 的布局id，比如 mIsFloating、Window_windowNoTitle 等等...
 
-比如mIsFloating,Window_windowNoTitle等等...
-
-确定好id之后会进行解析，然后添加到decorView中，最后初始化mContentView
-```
+确定好id之后会进行解析，然后添加到 decorView 中，最后初始化mContentView
+```java
      View in = mLayoutInflater.inflate(layoutResource, null);
      decor.addView(in, new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
      ViewGroup contentParent = (ViewGroup)findViewById(ID_ANDROID_CONTENT);
@@ -633,21 +645,20 @@ DecorView是PhoneWindow的内部类，并且是final的，集成自FrameLayout�
 
 ID_ANDROID_CONTENT的值为：`com.android.internal.R.id.content;`
 
-上面说的根据一系列窗口特点和系统风格确定好布局id，style是在xml的theme中指定，那么怎么改变窗口的特征呢？
-
-其实就是requestFeature这个方法了，但是其内部有一段代码是这样的：
-```
+上面说的根据一系列窗口特点和系统风格确定好布局id，style是在xml的theme中指定，那么怎么改变窗口的特征呢？其实就是requestFeature这个方法了，但是其内部有一段代码是这样的：
+```java
     if (mContentParent != null) {
-                throw new AndroidRuntimeException("requestFeature() must be called before adding content");
-            }
+        throw new AndroidRuntimeException("requestFeature() must be called before adding content");
+    }
 ```
 也就是说，requestFeature必须在setContentView之前调用。
 
 
 分析到这里也可以明白，有写时候不希望界面显示title，我们会调用：
-```
+```java
       getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 ```
+
 其实原理就是在构建view树的时候，根据设置的窗口特性，去解析不同的布局xml
 
 
@@ -706,7 +717,8 @@ ID_ANDROID_CONTENT的值为：`com.android.internal.R.id.content;`
 
 
 例如view的draw方法中：
-```
+
+```java
     public void draw(Canvas canvas) {
             final int privateFlags = mPrivateFlags;
             //判断是否需要绘制,View的是否绘制由mPrivateFlags中一位标识，
@@ -715,7 +727,7 @@ ID_ANDROID_CONTENT的值为：`com.android.internal.R.id.content;`
             //重置
             mPrivateFlags = (privateFlags & ~PFLAG_DIRTY_MASK) | PFLAG_DRAWN;
     
-       int saveCount;
+            int saveCount;
     
             if (!dirtyOpaque) {
                 drawBackground(canvas);
@@ -746,7 +758,8 @@ ID_ANDROID_CONTENT的值为：`com.android.internal.R.id.content;`
             ......}
 ```
 一般情况下viewGroup的ondraw方法是不会被调用，因为没有可以绘制的内容，这时它就是透明的状态，对于不透明的计算条件有一个方法computeOpaqueFlags：
-```
+
+```java
     protected void computeOpaqueFlags() {
             // Opaque if:不透明条件
             //   - Has a background 
@@ -769,8 +782,10 @@ ID_ANDROID_CONTENT的值为：`com.android.internal.R.id.content;`
             }
         }
 ```
+
 `setWillNotDraw`方法，其实也是对mPrivateFlat进行这种运算。
-```
+
+```java
         /**
          * If this view doesn't do any drawing on its own, set this flag to
          * allow further optimizations. By default, this flag is not set on

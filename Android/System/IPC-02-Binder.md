@@ -82,7 +82,7 @@ bindService方法的第二个参数类型是ServiceConnection，是一个接口
 - 服务端进行B中，Service onBind返回一个Binder类型的对象，这个Binder对象在创建的时候会调用内部的init方法，init方法是native的，其实是通过底层`c/c++`向Binder驱动注册一个`mRemote`
 
 ```java
-ApplicationThread中：
+//ApplicationThread中：
 
         public final void scheduleBindService(IBinder token, Intent intent,
                     boolean rebind) {
@@ -93,11 +93,11 @@ ApplicationThread中：
                 queueOrSendMessage(H.BIND_SERVICE, s);
             }
 
-ApplicationThread的内部H类中的处理:
+//ApplicationThread的内部H类中的处理:
       case BIND_SERVICE:
                         handleBindService((BindServiceData)msg.obj);
 
-ApplicationThread中:
+//ApplicationThread中:
 private final void handleBindService(BindServiceData data) {
         Service s = mServices.get(data.token);
         if (s != null) {

@@ -5,7 +5,6 @@
 
 上篇笔记已经对view树的遍历和measure进行了讲解，但是我们也知道，view需要显示出来，需要进行三大步骤，这第二大不步骤就是layout了，layout用来确定子view的位置。
 
-
 layout方法也是从ViewRoot中发起的，2.3源码如下：
 
 ```java
@@ -175,12 +174,9 @@ ViewGroup的onLayout是一个抽象方法，也就是说我们如果自定义Vie
         }
     
     }
-
 ```
-也就是说我们在onCreate，onStart，onRsume中调用View的`getHeight`，`getWidth`和`getMeasuredWidth`，`getMeasuredHeight`返回的都会是0
 
-
-那么有什么办法呢？
+也就是说我们在onCreate，onStart，onRsume中调用View的`getHeight`，`getWidth`和`getMeasuredWidth`，`getMeasuredHeight`返回的都会是0，那么有什么办法在这之前就能获取 View 的宽高？
 
 ### 方法1：Activity的onWindowFocusChanged
 

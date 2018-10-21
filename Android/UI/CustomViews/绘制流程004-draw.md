@@ -141,7 +141,7 @@ view有两个重载的draw方法，分别是：
 - Paint 画笔
 - Path 路径
 - Bitmap Canvas是画布，但是我们需要画纸，Bitmap就是画纸
-- ColorMatrix和Matrix的熟练运用
+- ColorMatrix 和 Matrix 的熟练运用
 - PathMeasure
 
 ---

@@ -22,7 +22,7 @@
 
 ## 2 observeOn的实现
 
-observeOn的源码实现如下：
+observeOn 的源码实现如下：
 
 ```java
         public final Observable<T> observeOn(Scheduler scheduler) {
@@ -34,14 +34,14 @@ observeOn的源码实现如下：
      }
 ```
 
-可以看到observeOn内部使用了lift变换，此处的操作符实现是OperatorObserveOn是，lift的原理已经学习过，其影响的阶段是在数据发射阶段，下面来看一下OperatorObserveOn的实现：
+可以看到 observeOn 内部使用了 lift 变换，此处的操作符实现是 OperatorObserveOn 是，lift 的原理已经学习过，其影响的阶段是在数据发射阶段，下面来看一下 OperatorObserveOn 的实现：
 
 代码不是很长，所以直接贴出全部代码分析；
 
 ```java
     public final class OperatorObserveOn<T> implements Operator<T, T> {
 
-    private final Scheduler scheduler;//调度器，用于创建Workder
+     private final Scheduler scheduler;//调度器，用于创建Workder
      private final boolean delayError;//是否延迟错误
 
      public OperatorObserveOn(Scheduler scheduler, boolean delayError) {
@@ -66,9 +66,7 @@ observeOn的源码实现如下：
          }
      }
 
-    /**这里是ObserveOnSubscriber的实现
-         ObserveOnSubscribe继承了ObserveOnSubscribe，并且是新了Action0
-         */
+     /** 这里是ObserveOnSubscriber的实现，ObserveOnSubscribe继承了ObserveOnSubscribe，并且是新了Action0 */
      private static final class ObserveOnSubscriber<T> extends ObserveOnSubscribe<T> implements Action0 {
 
         final Subscriber<? super T> child;//原来的Subscriber
@@ -279,20 +277,18 @@ observeOn的源码实现如下：
 
 ObserveOn的逻辑梳理如下：
 
-- 使用lift+OperatorObserveOn操作符实现
+- 使用 lift+ OperatorObserveOn 操作符实现
 - 由OperatorObserveOn操作符创建的Subscriber包装原来的传入的Subscriber，然后在转发数据的时候使用了异步转发，从而实现了发射数据的异步切换。
 
 ### 具体实现的细节
 
-ObserveOnSubscriber：由OperatorObserveOn操作符实现创建并返回的Subscriber
+ObserveOnSubscriber：由 OperatorObserveOn 操作符实现创建并返回的 Subscriber，由于是异步转发，不可能实现无阻塞的同步发射，所以需要用队列Queue来暂存数据
 
-由于是异步转发，不可能实现无阻塞的同步发射，所以需要用队列Queue来暂存数据
-
-```
+```java
     final Queue<Object> queue
 ```
 
-ObserveOn首先会请求128条数据，多余的数据项由上游保存，这里的128是告诉上游你先给我128条数据，然后在你能力范围内保存数据，最好如果上游也无法保存了，就只能继续把数据发射给ObserverOn创建的Subscribe，如果此时队列已满，就会抛出MissingBackpressureException异常，前面学习的背压的就是这个意思了。
+ObserveOn首先会请求128条数据，多余的数据项由上游保存，这里的128是告诉上游你先给我128条数据，然后在你能力范围内保存数据，最好如果上游也无法保存了，就只能继续把数据发射给ObserverOn创建的Subscribe，如果此时队列已满，就会抛出 MissingBackpressureException 异常，前面学习的背压的就是这个意思了。
 
 ```java
             public void onStart() {
@@ -301,7 +297,7 @@ ObserveOn首先会请求128条数据，多余的数据项由上游保存，这�
             }
     
 
-      public void onNext(final T t) {
+            public void onNext(final T t) {
                 if (isUnsubscribed() || finished) {
                     return;
                 }

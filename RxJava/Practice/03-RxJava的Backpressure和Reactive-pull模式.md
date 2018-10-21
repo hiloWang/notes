@@ -3,17 +3,17 @@
 ---
 ##  1 Backpressure
 
-RxJava基于观察者模式，Observable是数据源，也就是被观察者，而Subscriber是观察者，默认的Observable只有Subscriber对其进行订阅时它才会开始发射数据，数据从Observable流向Subscriber，也可以说Observable是生产者，负责产生事件，而Subscriber是消费者，负责处理事件。
+RxJava 基于观察者模式，Observable 是数据源，也就是被观察者，而 Subscriber 是观察者，默认的 Observable 只有 Subscriber 对其进行订阅时它才会开始发射数据，数据从 Observable 流向 Subscriber，也可以说 Observable 是生产者，负责产生事件，而 Subscriber 是消费者，负责处理事件。
 
-但是在Rx中，只要生产者数据好了就发射出去了。如果生产者比较慢，则消费者就会等待新的数据到来。如果生产者快，则就会有很多数据发射给消费者，而不管消费者当前有没有能力处理数据。这样会出现什么样的情况呢？
+但是在 Rx 中，只要生产者数据好了就发射出去了。如果生产者比较慢，则消费者就会等待新的数据到来。如果生产者快，则就会有很多数据发射给消费者，而不管消费者当前有没有能力处理数据。这样会导致什么问题呢？
 
 ### 同步的情况
 
-当Observable与Subscriber处于同一线程，由于是同步调用，所以Observable会阻塞Sunscriber处理完一个事件后再发射下一个事件，并不会有什么问题。
+当 Observable 与 Subscriber 处于同一线程，由于是同步调用，事件的发送时阻塞式的，所以 Observable 会被阻塞到 Sunscriber 处理完一个事件后再发射下一个事件，并不会有什么问题。
 
 ### 异步的情况
 
-当Observable与Subscriber处于不同线程会导致一个异常产生，例如：
+当 Observable 与 Subscriber 处于不同线程会导致一个异常产生，例如：
 
 ```java
     Observable.interval(1, TimeUnit.MILLISECONDS)
@@ -30,14 +30,12 @@ RxJava基于观察者模式，Observable是数据源，也就是被观察者，�
                     });
 ```
 
-结果：程序运行抛出 MissingBackpressureException，这就是**背压（Backpressure）**，即事件产生的速度比消费快（在 producer-consumer(生产者-消费者) 模式中）。发生 overproucing 后，当链式结构不能承受数据压力时，就会抛出 `MissingBackpressureException` 异常。试想一下，线程A不可能无阻塞的把多个数据同步传递给另一个线程B，所以这种情况只有在线程A中使用容器存储数据，而后调用线程B一个一个的去处理数据，当线程B处理数据太慢，而线程A中容器已满，就会出现了背压。
+结果：程序运行抛出 `MissingBackpressureException`，这就是 **背压（Backpressure）**，即事件产生的速度比消费快（在 producer-consumer(生产者-消费者) 模式中）。发生 overproucing 后，当链式结构不能承受数据压力时，就会抛出 `MissingBackpressureException` 异常。试想一下，线程 A 不可能直接把多个数据同步传递给另一个线程 B，所以这种情况只有在线程 A 中使用容器来存储数据，而后线程 B 一个一个的去处理数据，当线程 B 处理数据太慢，而线程 A 中容器已满，就会出现了背压。
 
 ---
-## 2 Reactive pull
+## 2 发射数据的方式：Reactive pull
 
-RxJava 实现了一种通过 Subscriber 来通知 Observable 发射数据的方式。
-
-在creat方法中我们手动实现了OnSubscribe，Subscriber的onNext，onError，onCompleted方法都是由我们自己调用实现的，这很清晰，但是其他创建型操作符是如何实现的呢？，比如 from：
+RxJava 实现了一种通过 Subscriber 来通知 Observable 发射数据的方式。在 create 方法中我们手动实现了 OnSubscribe，Subscriber 的 onNext、onError、onCompleted 方法由开发者实现调用，这很清晰，但是其他创建型操作符是如何实现的呢？，比如 from：
 
 ### from
 
@@ -109,14 +107,14 @@ Subscriber的setProducer方法实现如下：
 
 实现了Producer的ProducerFromArray
 
-```
+```java
       static final class FromArrayProducer<T> extends AtomicLong implements Producer {......}
 ```
 
 其request方法实现如下：
 
 ```java
-       public void request(long n) {
+            public void request(long n) {
                 //从刚刚分析可以n为Long.MAX_VALUE
                 if (n < 0) {
                     throw new IllegalArgumentException("n >= 0 required but it was " + n);
@@ -134,10 +132,10 @@ Subscriber的setProducer方法实现如下：
             }
 ```
 
-由于默认request方法的参数n为Long.MAX_VALUE，所以调用的是 `fastPath()` 方法。
+由于默认 request 方法的参数 n 为 Long.MAX_VALUE，所以调用的是 `fastPath()` 方法。
 
 ```java
-     void fastPath() {
+            void fastPath() {
                 final Subscriber<? super T> child = this.child;
                 for (T t : array) {
                     if (child.isUnsubscribed()) {
@@ -156,11 +154,11 @@ Subscriber的setProducer方法实现如下：
 
 ### Producer
 
-上面分析过程中提到了Producer，其实Producer作用是在Observable和Subscriber之间建立一个请求信道的接口，并允许Subscriber调用 `request(n)` 方法来向Observable请求n个数据。
+上面分析过程中提到了 Producer，其实Producer作用是在 Observable 和 Subscriber 之间建立一个请求信道的接口，并允许Subscriber调用 `request(n)` 方法来向Observable请求 n 个数据。
 
-刚刚分析from中可以看出 `request(n)` 的 n 默认是Long.MAX_VALUE，也就是说，默认Subscriberu请求Observable的所有数据，但是我们可以改变这种行为。
+刚刚分析from中可以看出 `request(n)` 的 n 默认是 Long.MAX_VALUE，也就是说，默认 Subscriber 请求 Observable 的所有数据，但是我们可以改变这种行为。
 
-Subscriber有个函数 `request(n)` 调用该函数用来通知Observable现在Subscriber准备接受下面n个数据：
+Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现在 Subscriber 准备接受下面n个数据：
 
 ```java
     public abstract class Subscriber<T> implements Observer<T>, Subscription {
@@ -193,10 +191,7 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知Observable现在S
                       }
 ```
 
-在onStart方法中调用request方法(这时还没有设置producer)，requested中的值就会被改变，requested则表示当前 Subscriber 的处理能力。
-
-
-它会影响刚刚我们分析的setProducer方法的逻辑
+在 onStart 方法中调用 request 方法(这时还没有设置producer)，requested 中的值就会被改变，requested 则表示当前 Subscriber 的处理能力。它会影响刚刚我们分析的setProducer方法的逻辑：
 
 ```java
                if (toRequest == NOT_SET) {
@@ -207,10 +202,10 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知Observable现在S
                 }
 ```
 
-再回到刚刚我们分析的FromArrayProducer会执行slowPath方法：
+再回到刚刚我们分析的 FromArrayProducer 会执行 slowPath 方法：
 
 ```java
-    void slowPath(long r) {
+        void slowPath(long r) {
                 final Subscriber<? super T> child = this.child;
                 final T[] array = this.array;
                 final int n = array.length;
@@ -255,7 +250,7 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知Observable现在S
         }
 ```
 
-从方法逻辑可看出，它会根据Subscriber的请求数量来发射指定数量的数据。所以我们可以改变from的默认行为：
+从方法逻辑可看出，它会根据 Subscriber 的请求数量来发射指定数量的数据。所以我们可以改变 from 的默认行为：
 
 ```java
       class CustomerSubscriber extends Subscriber<Integer> {
@@ -297,14 +292,14 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知Observable现在S
             customerSubscriber.requestMore(3);
 ```
 
->request的数量是累加的，既三次requestMore(3)=requestMore(9).
+>request的数量是累加的，既三次 `requestMore(3)=requestMore(9)`。
 
 ###  doOnRequested
 
-当Subscriber请求更多的时候的时候，doOnRequest 就会被调用。参数中的值为请求的数量。
+当 Subscriber 请求更多事件的时候，doOnRequest 就会被调用。参数中的值为请求的数量。
 
 ```java
-    Observable.range(1, 30)
+                    Observable.range(1, 30)
                     .doOnRequest(new Action1<Long>() {
                         @Override
                         public void call(Long aLong) {
@@ -313,9 +308,9 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知Observable现在S
                     })
                     .subscribe();
     
-    执行结果：along:9223372036854775807
+    //执行结果：along:9223372036854775807
     
-    Observable.range(1, 30)
+                    Observable.range(1, 30)
                     .doOnRequest(new Action1<Long>() {
                         @Override
                         public void call(Long aLong) {
@@ -332,7 +327,7 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知Observable现在S
                           .......
                     );
                     
-    执行结果：along:2
+    //执行结果：along:2
 ```
 
 其内部实现比较简单。
@@ -386,7 +381,7 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知Observable现在S
 
 ### create方法
 
-单纯的在create中使用request并没有作用，因为我们自己写的OnSubscribe没有对request做任何处理。
+单纯的在 create 中使用 request 并没有作用，因为我们自己写的 OnSubscribe 没有对 request 做任何处理。
 
 ```java
     Observable.create(
@@ -453,7 +448,7 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知Observable现在S
     6
 ```
 
-如果加上observeOn就不一样了：
+如果加上 observeOn 就不一样了：
 
 ```java
      Observable.create(
@@ -517,9 +512,9 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知Observable现在S
     doOnRequest 2 是我们告诉observeOn返回的Observable我们先要两个数据，此时程序还没有退出，还在等待request。
 
 
-可以看出observeOn默认使用了128大小的容器缓冲数据，由于我们调用了request(2)，改变了请求的数据量，所以这里只会发射两个数据。
+可以看出 observeOn 默认使用了 128 大小的容器缓冲数据，由于我们调用了 `request(2)`，改变了请求的数据量，所以这里只会发射两个数据。
 
-下面代码必然会造成MissingBackpressureException，因为observeOn只能暂存128个元素，而我们发射了129个。
+下面代码必然会造成 MissingBackpressureException，因为 observeOn 只能暂存128个元素，而我们发射了 129 个。
 
 ```java
      Observable.create(
@@ -542,13 +537,15 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知Observable现在S
                     .observeOn(Schedulers.newThread())
 ```
 
+通过以上分析，我们直到了 Backpressure 产生的内部原因，Producer 用于让 Subscriber 设置自身处理事件的能力，当 Subscriber 设置了较大的数据处理能力而处理事件的速率却没有上游产生事件快时，随着上游事件的堆积，超过设定的容量时，就会导致 MissingBackpressureException。
+
 ---
 ## 3  Backpressure 策略
 
-Rx 操作函数内部使用队列和缓冲来实现 backpressure ，从而避免保存无限量的数据。大量数据的缓冲应该使用专门的操作函数来处理，例如：cache、buffer 等。 zip 函数就是一个示例，第一个 Observable 可能在第二个 Observable 发射数据之前就发射了一个或者多个数据。所以 zip 需要一个较小的缓冲来匹配两个 Observable，从而避免操作失败。因此， zip 内部使用了一个 128 个数据的小缓冲。
+Rx 操作函数内部使用队列和缓冲来实现 backpressure ，从而避免保存无限量的数据。大量数据的缓冲应该使用专门的操作函数来处理，例如：cache、buffer 等。 zip 函数就是一个示例，第一个 Observable 可能在第二个 Observable 发射数据之前就发射了一个或者多个数据。所以 zip 需要一个较小的缓冲来匹配两个 Observable，从而避免操作失败。因此 zip 内部使用了一个 128 个数据的小缓冲。
 
 ```java
-      Observable.interval(1, TimeUnit.SECONDS).take(30)
+    Observable.interval(1, TimeUnit.SECONDS).take(30)
                     .doOnRequest(new Action1<Long>() {
                         @Override
                         public void call(Long aLong) {
@@ -558,16 +555,14 @@ Rx 操作函数内部使用队列和缓冲来实现 backpressure ，从而避免
                     .zipWith(Observable.interval(300, TimeUnit.MILLISECONDS).take(20), new Func2<Long, Long, String>() {
                         @Override
                         public String call(Long aLong, Long aLong2) {
-    
                             return String.valueOf(aLong).concat(String.valueOf(aLong2));
                         }
     
                     })
                     .subscribe();
+            
+            //结果：128
 ```
-
-结果：128
-
 
 很多 Rx 操作函数内部都使用了 backpressure 从而避免过多的数据填满内部的队列。这样处理慢的消费者就会把这种情况传递给前面的消费者，前面的消费者开始缓冲数据直到他也缓存满为止再告诉他前面的消费者。Backpressure 并没有消除这种情况。只是让错误延迟发生，我们还是需要处理这种情况。
 

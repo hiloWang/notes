@@ -12,7 +12,7 @@ from操作符是把其他类型的对象和数据类型转化成Observable，fro
 
 just操作符也是把其他类型的对象和数据类型转化成Observable，它和from操作符很像，只是方法的参数有所差别，just会按数据的原始状态发送数据，可以把任何数据转化成Observable。
 
-##  defer
+## defer
 
 defer操作符是直到有订阅者订阅时，才通过Observable的工厂方法创建Observable并执行，defer操作符能够保证Observable的状态是最新的。
 
@@ -33,7 +33,7 @@ interval操作符是每隔一段时间就产生一个数字，这些数字从0�
 
 range操作符是创建一组在从n开始，个数为m的连续数字，比如range(3,10)，就是创建3、4、5…12的一组数字
 
-##  repeat
+## repeat
 
 repeat操作符是对某一个Observable，重复产生多次结果，repeat响应的是onCompleted，当onCompleted执行，便会重新订阅之前的Observable。
 

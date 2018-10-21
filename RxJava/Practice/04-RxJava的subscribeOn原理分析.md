@@ -1,11 +1,11 @@
 # subscribeOn原理分析
 
-通过subscribeOn可以切换Observable所允许的线程，平时在使用的过程中感到非常的好用，但是这个是怎么实现的呢？现在就来研究一下。
+通过 subscribeOn 可以切换 Observable 所运行的线程，平时在使用的过程中感到非常的好用，但是这个是怎么实现的呢？现在就来研究一下。
 
-分析这个过程需要设计的类有：
+分析这个过程需要涉及的类有：
 
 - Observable 被观察者
-- OperatorSubscribeOn 继承自OnSubscribe
+- OperatorSubscribeOn 继承自 OnSubscribe
 - Worker 抽象工作者
 - NewThreadWorker Worker的一个实现者
 
@@ -179,12 +179,10 @@ Worker有一个schedule方法，接受一个Action0，进行异步调度，通�
         Subscription startSubscription = threadObservable.subscribe(startSubscriber);
 ```
 
-OperatorSubscribeOn源码
-
-这里OperatorSubscribeOn的实例对应于threadObservable，既经过subscribeOn变换创建的Observable时与OperatorSubscribeOn对应的。
+OperatorSubscribeOn源码：这里OperatorSubscribeOn的实例对应于threadObservable，即经过subscribeOn变换创建的Observable是与OperatorSubscribeOn对应的。
 
 ```java
-    public final class OperatorSubscribeOn<T> implements OnSubscribe<T> {
+public final class OperatorSubscribeOn<T> implements OnSubscribe<T> {
 
     final Scheduler scheduler;//异步调度器
     final Observable<T> source;//上游的Observable。
@@ -266,10 +264,10 @@ OperatorSubscribeOn源码
             }
         });
       }
-    }
+}
 ```
 
-最终source在异步线程被订阅，然后数据会流向call方法中创建的Subscriber s，然后s又把数据转发给了内部包装的subscriber，也就是我们传入的subscriber。转了一圈又回到了我们的subscriber，但是线程却切换了。
+最终 source 在异步线程被订阅，然后数据会流向call方法中创建的 Subscribers，然后s又把数据转发给了内部包装的subscriber，也就是我们传入的subscriber。转了一圈又回到了我们的subscriber，但是线程却切换了。
 
 
 

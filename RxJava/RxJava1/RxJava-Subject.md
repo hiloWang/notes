@@ -3,7 +3,7 @@
 ---
 ## 1 Subject介绍
 
-`subject`**它可以是一个Observable同时也可以是一个Observer：它作为连接这两个世界的一座桥梁**。一个Subject可以订阅一个Observable，就像一个观察者，并且它可以发射新的数据，或者传递它接受到的数据，就像一个Observable。很明显，作为一个Observable，观察者们或者其它Subject都可以订阅它。
+`subject` **它可以是一个Observable同时也可以是一个Observer：它作为连接这两个世界的一座桥梁** 。一个Subject可以订阅一个Observable，就像一个观察者，并且它可以发射新的数据，或者传递它接受到的数据，就像一个Observable。很明显，作为一个Observable，观察者们或者其它Subject都可以订阅它。
 
 Subject使用静态的`create`方法来创建自身对象。可用用于订阅，也可以被订阅。
 

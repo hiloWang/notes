@@ -10,7 +10,6 @@
 - 使用lift方法，通过Operator返回的Subscriber包装原来的Subscriber来实现变换。
 - 创建新的OnSunscribe，控制上游的OnSunscribe的订阅方式和向下发射数据的方式。
 
-
  lift也是基于OnSunscribe的实现的，只是lift方法中的OnSunscribe是固定不变的。所以OnSunscribe的实现才是变换的关键。
 
  subscribeOn的线程切换是在OnSunscribe中完成的，在OnSunscribe改变了继续往上游通知的订阅的线程

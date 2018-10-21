@@ -1,9 +1,9 @@
-# RxJava-基本元素
+# RxJava-基本元素（RxJava1）
 
 ---
 ## 1 Observable
 
-Observable：**可观察的，被观察者**，它决定什么时候触发事件以及触发怎样的事件，可以说它是事件流中的生产者，Observable的创建有多种方式，但是都基于**create**方法
+Observable：**可观察的，被观察者**，它决定什么时候触发事件以及触发怎样的事件，可以说它是事件流中的生产者，Observable的创建有多种方式，但是都基于 **create** 方法
 
 ```java
        protected Observable(OnSubscribe<T> f) {
@@ -26,7 +26,7 @@ Observable只有一个构造方法，接收一个OnSubscribe接口，
             });
 ```
 
-OnSubscribe表示当发生订阅时需要发生的事情，它只有一个call方法，当Observable被订阅的时候，OnSubscribe 的 call() 方法会自动被调用，在call方法里面去实现相关逻辑，把事件序列传递给Subscriber，比如上面的call方法中，通知Subscriber发生了四次onNext事件，最后调用Subscriber的onCompleted表示事件系列的终止。
+OnSubscribe 表示当发生订阅时需要发生的事情，它只有一个 call 方法，当 Observable 被订阅的时候，OnSubscribe 的 call() 方法会自动被调用，在call 方法里面去实现相关逻辑，把事件序列传递给 Subscriber，比如上面的 call 方法中，通知 Subscriber 发生了四次 onNext 事件，最后调用Subscriber 的 onCompleted 表示事件系列的终止。
 
 Observable是一个重量级的类，除了构造函数外，在Observable中还定义了丰富的操作符。
 
@@ -48,7 +48,8 @@ Observable的创建依赖于OnSubscribe，OnSubscribe表示当发生订阅时需
             // cover for generics insanity
      }
 ```
-在Action1中有一个call方法，OnSubscribe继承了这个call方法，这个call方法的参数一个订阅者，当Observable被订阅的时候，OnSubscribe 的call()方法会自动被调用。即在这个call方法中是发射数据。
+
+在 Action1 中有一个 call 方法，OnSubscribe 继承了这个call方法，这个 call 方法的参数一个订阅者，当Observable被订阅的时候，OnSubscribe 的`call()` 方法会自动被调用。即在这个 call 方法中是发射数据。
 
 ---
 ## 3 Observer
@@ -65,21 +66,20 @@ Observer：即观察者，用于响应事件的发生，定义如下：
 
 这三个方法代表了事件序列中会发生的三个行为：
 
-*   onNext(T t):Observable调用这个方法发射数据，参数类型与Observable发射数据的类型是一致的，这个方法可能会被调用多次，这取决于你的实现。
-*   onCompleted(): 事件队列完结，当不会再有新的onNext() 发出时，需要触发 onCompleted() 方法作为标志。
-*   onError(): 事件序列在传递和处理的过程中发生异常时。onError()会被触发，同时事件序列和订阅关系自动终止。
+*   `onNext(T t)`：Observable调用这个方法发射数据，参数类型与Observable发射数据的类型是一致的，这个方法可能会被调用多次，这取决于你的实现。
+*   `onCompleted()`：事件队列完结，当不会再有新的onNext() 发出时，需要触发 onCompleted() 方法作为标志。
+*   `onError()`：事件序列在传递和处理的过程中发生异常时。onError()会被触发，同时事件序列和订阅关系自动终止。
 
 RxJava有如下规则：
 
-- onNext可能会被调用零次或者很多次
-- onCompleted与onError互斥，同一个事件队列只能调用其中一个
-- 当调用了onCompleted或onError表示事件流结束，不会再调用onNext，并且自动取消订阅
-
+- onNext 可能会被调用零次或者很多次。
+- onCompleted 与 onError 互斥，同一个事件队列只能调用其中一个。
+- 当调用了 onCompleted 或 onError 表示事件流结束，不会再调用 onNext，并且自动取消订阅。
 
 ---
 ## 4 Subscriber
 
-Subscriber是一个抽象类，它是Observer的扩展，实现了Observer和Subscription。Subscription描述了Observable与Subscriber之间的订阅关系，其定义如下：
+Subscriber 是一个抽象类，它是 Observer 的扩展，实现了 Observer 和 Subscription。Subscription 描述了 Observable 与 Subscriber 之间的订阅关系，其定义如下：
 
 ```java
     public interface Subscription {
@@ -118,14 +118,14 @@ Subscriber可以理解为一个功能更加全面的订阅者。
     Subscription subscription =   observable.subscribe(subscriber);
 ```
 
-当observer订阅了observable后，订阅关系就就发生了，返回Subscription用于表示订阅关系，Subscription提供了用于判断和控制observer和observable之间的关系的方法。
+当 observer 订阅了observable后，订阅关系就就发生了，返回 Subscription 用于表示订阅关系，Subscription 提供了用于判断和控制 observer 和observable 之间的关系的方法。从代码来看，是被观察者订阅了观察者，貌似这样的逻辑是不合理的，应该是观察者订阅被观察者，但是这样的设计是为了 RxJava 的链式调用。
 
-从代码来看，是被观察者订阅了观察者，貌似这样的逻辑是不合理的，应该是观察者订阅被观察者，但是这样的设计是为了RxJava的链式调用。
+>获取 subscribe 改名为 subscribeBy 更合适
 
 ---
-## 6 Action和Func
+## 6 Action 和 Func
 
-在RxJava中定义了许多Action和Func，这些Action和Func都代表一个特定功能函数。用于RxJava的函数式编程风格。
+在 RxJava 中定义了许多 Action 和 Func，这些 Action 和 Func 都代表一个特定功能函数。用于 RxJava 的函数式编程风格。
 
 ### 6.1 Func
 
@@ -179,9 +179,7 @@ Action和Func是RxJava中重要的组成部分，在函数式编程中它们就�
 ---
 ## 7  subscribe
 
-subscribe表示订阅，是一种行为，作为RxJava的使用者，有必要理清一下Subscribe的流程：
-
-根据Rxjava的源码，订阅的流程简化如下：
+subscribe表示订阅，是一种行为，作为RxJava的使用者，有必要理清一下Subscribe的流程，根据 Rxjava 的源码，订阅的流程简化如下：
 
 ```java
      public Subscription subscribe(Subscriber subscriber) {
@@ -191,13 +189,13 @@ subscribe表示订阅，是一种行为，作为RxJava的使用者，有必要�
     }
 ```
 
-1.  调用subscriber.onStart()方法，告知其订阅已经开始
-2.  调用onSubscribe的call方法，在call方法中通知Subscriber发生的事件序列
-3.  以Subscription的形式返回subscriber，方便订阅后的反订阅操作
+1.  调用 `subscriber.onStart()` 方法，告知其订阅已经开始
+2.  调用 onSubscribe 的 call 方法，在 call 方法中通知 Subscriber 发生的事件序列
+3.  以 Subscription 的形式返回 subscriber，方便订阅后的反订阅操作
 
 接下来分析一下subscribe的源码来验证上面所说的流程：
 
-Observable中的subscribe方法：
+Observable 中的 subscribe 方法：
 
 ```java
         public final Subscription subscribe(Subscriber<? super T> subscriber) {
@@ -229,9 +227,9 @@ Observable中的subscribe方法：
         }
 ```
 
-*   首先是对subscriber的一些null判断
-*   然后直接调用subscriber.onStart()方法，可以看出onStart的调用时机，其与订阅者在同一个线程中执行
-*   使用SafeSubscriber包装原始的Subscriber，是用来保证RxJava的一些规定与做一些错误处理的，比如保证onComplete和onError互斥，onNext在onComplete不再发送数据等等。
+*   首先是对参数进行非 null 判断
+*   然后直接调用 `subscriber.onStart()` 方法，可以看出onStart的调用时机，其与订阅者在同一个线程中执行
+*   使用 SafeSubscriber 包装原始的 Subscriber，是用来保证 RxJava 的一些规定与做一些错误处理的，比如保证 onComplete 和 onError 互斥，onNext在 onComplete 不再发送数据等等。
 *   在RxJavaHooks中返回的还是原来的onSubscribe，然后调用了onSubscribe的call方法（call方法被调用即订阅开始触发行为）。
 *   最后返回的是的Subscriber，只是形态变成了Subscription，方便订阅后的反订阅操作(只返回需要的功能接口)
 

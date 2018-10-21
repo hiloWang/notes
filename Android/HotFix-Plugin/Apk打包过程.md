@@ -60,7 +60,7 @@ Android官方APK打包流程图：
 
 在打包apk文件之前需要通过appt工具打包资源文件，apk包中的资源文件都是经过编译过的，是二进制文件。资源打包过程将AndroidManifest.xml与res目录除了assets目录以外的文件进行编译，生成resource.arsc和若干二进制的xml文件。资源ID和资源文件的对应关系都是在resource.arsc中的。这些文件都会被打包到res.apk中。
 
-所有没有编译的资源（如images等）、编译过的资源和.dex文件都会被**apkbuilder**工具打包到最终的`.apk`文件中。打包的工具apkbuilder位于`android-sdk/tools`目录下。apkbuilder为一个脚本文件，实际调用的是`android-sdk/tools/lib/sdklib.ja`r文件中的`com.android.sdklib.build.ApkbuilderMain`类。
+所有没有编译的资源（如images等）、编译过的资源和.dex文件都会被**apkbuilder**工具打包到最终的`.apk`文件中。打包的工具apkbuilder位于`android-sdk/tools`目录下。apkbuilder为一个脚本文件，实际调用的是`android-sdk/tools/lib/sdklib.jar`文件中的`com.android.sdklib.build.ApkbuilderMain`类。
 
 ###  2.6 对APK文件进行签名
 

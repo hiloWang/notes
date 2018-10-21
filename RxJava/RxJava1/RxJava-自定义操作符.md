@@ -75,9 +75,9 @@
                 public void call(Subscriber<? super R> o) {
                 //使用我们的操作符创建一个新的st，
                             Subscriber<? super T> st = hook.onLift(operator).call(o);
-                //调用st.start(),将会调用o的start。
+                //调用st.start()，将会调用o的start。
                             st.onStart();
-                //用原始的Obsrvable的onSubscribe调用新创建的st，综合以上三步就形成了链式调用。
+                //用原始的Obsrvable的 成员onSubscribe 调用新创建的st，综合以上三步就形成了链式调用。
                             onSubscribe.call(st);
                 }
             });

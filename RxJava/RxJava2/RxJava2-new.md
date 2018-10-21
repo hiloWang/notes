@@ -18,17 +18,17 @@ RxJava 2 中的注意元素：
 - `Observable`：ObservableSource的基础实现
 - `Observer`：观察者，提供了基于接收推送通知机制。
 - `Subject`：代表一个数据源和观察者
-- `Publisher`
+- `Publisher`：Publisher 是潜在的不定数量的事件序列提供者，根据它的 Subscriber 的需求来发布这些事件序列
 - `Flowable`：Flowable是支持被压的数据源
-- `Subscriber`
-- `Processor`：Subject在RxJava2中依然存在，但现在他们不支持backpressure。新出现的Processors支持backpressure，并且都设计为现成安全的
-- `Subscription`：Subscription用于连接RxJava2中的Flowable和Subscriber，在使用Flowable的create时，必须调用Subscription的request方法指定请求的数据，请求的个数代表自己能处理数据的能力
+- `Subscriber`：当调用 Publisher 的 subscribe(Subscriber) 时，Subscriber 的 onSubscribe(Subscription) 将被调用一次，Subscriber 在调用 Subscription.request(long) 请求数据之前，时，Subscriber 不会收到任何通知。其他三个方法就是标准的事件处理方法，Subscriber 一般作为 Publisher 的订阅者。
+- `Processor`：Subject在RxJava2中依然存在，但现在他们不支持 backpressure。新出现的 Processors 支持 backpressure，并且都设计为线程安全的
+- `Subscription`：Subscription 用于连接 RxJava2 中的 Flowable 和 Subscriber，在使用 Flowable 的 create 时，必须调用 Subscription 的request 方法指定请求的数据，请求的个数代表自己能处理数据的能力。
 - `CompletableSource`：可完成的数据源基础接口
-- `Completable`
+- `Completable`：CompletableSource 的实现
 - `SingleSource`：发送单个数据项的数据源基础接口
-- `Single`
+- `Single`：SingleSource 的实现
 - `MaybeSource`：能够发射0或者1个数据，要么成功，要么失败。有点类似于Optional
-- `Maybe`
+- `Maybe`：MaybeSource 的实现
 
 ### 2.1 Flowable
 
@@ -92,7 +92,7 @@ RxJava2的流中不再支持null值，比如`Observable.just()`传入一个null�
 ---
 ## 6 Subscription 命名
 
-在RxJava1里，Subscription起到的是订阅桥梁的作用。在2中，由于Subscription本身和Reactive-Streams里的另外一个同名概念冲突。因此把RxJava2中原本的Subscription改名成了Disposable、CompositeSubscription改名成为CompositeDisposable
+在 RxJava1 里，Subscription 起到的是订阅桥梁的作用。在 2 中，由于 Subscription 本身和 Reactive-Streams 里的另外一个同名概念冲突。因此把RxJava2 中原本的 Subscription 改名成了 Disposable、CompositeSubscription 改名成为 CompositeDisposable。
 
 ---
 ##  其他

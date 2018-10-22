@@ -19,3 +19,4 @@
 ## 玩转数据算法
 
 - [玩转数据算法00-概述](PlayWithAlgorithms/玩转算法00-概述.md)
+- [玩转数据算法01-排序基础](PlayWithAlgorithms/玩转算法01-排序基础.md)

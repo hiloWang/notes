@@ -135,7 +135,8 @@ public class BaseDexClassLoader extends ClassLoader {
 从源码可以看出，BaseDexClassLoader的方法调用都由DexPathList实现，DexPathList中就保存了ClassLoader对应的dex路径和so路径等。
 
 ### DexPathList的分析
-```
+
+```java
 /**
  *与ClassLoader关联的一对条目列表。其中一个列表是dex /资源路径
  *

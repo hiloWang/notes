@@ -16,8 +16,9 @@
 - [玩转数据结构13-红黑树](PlayWithDataStructures/玩转数据结构13-红黑树.md)
 - [玩转数据结构14-哈希表](PlayWithDataStructures/玩转数据结构14-哈希表.md)
 
-## 玩转数据算法
+## 学习算法思维
 
-- [玩转算法00-概述](PlayWithAlgorithms/玩转算法00-概述.md)
-- [玩转算法01-排序基础](PlayWithAlgorithms/玩转算法01-排序基础.md)
-- [玩转算法02-排序高级](PlayWithAlgorithms/玩转算法02-排序高级.md)
+- [学习算法思维00-概述](PlayWithAlgorithms/学习算法思维00-概述.md)
+- [学习算法思维01-排序基础](PlayWithAlgorithms/学习算法思维01-排序基础.md)
+- [学习算法思维02-排序高级](PlayWithAlgorithms/学习算法思维02-排序高级.md)
+- [学习算法思维03-堆与堆排序](PlayWithAlgorithms/学习算法思维03-堆排序.md)

@@ -34,6 +34,7 @@
 - [Small——做最轻巧的跨平台插件化框架](https://github.com/wequick/Small)、[Small文档](http://code.wequick.net/Small/cn/home)
 - [360——RePlugin](https://github.com/Qihoo360/RePlugin)
 - [Android-Plugin-Framework](https://github.com/limpoxe/Android-Plugin-Framework)：Android插件开发框架完整源码及示例
+- [Phantom — 唯一零 Hook 稳定占坑类 Android 热更新插件化方案](https://github.com/ManbangGroup/Phantom)
 
 ### 热修复
 

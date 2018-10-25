@@ -1,6 +1,6 @@
 ## RxJava 实践
 
-- [1 ReactiveC](Practice/01-ReactiveX.md)
+- [1 ReactiveX](Practice/01-ReactiveX.md)
 - [2 RxJava中基本的元素](Practice/02-RxJava中基本的元素.md)
 - [3 RxJava的Backpressure和Reactive-pull模式](Practice/03-RxJava的Backpressure和Reactive-pull模式.md)
 - [4 RxJava的subscribeOn原理分析](Practice/04-RxJava的subscribeOn原理分析.md)

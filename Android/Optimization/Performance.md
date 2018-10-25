@@ -1,11 +1,11 @@
 # Android性能优化
 
-**无论你的应用多么酷多么有用，如果它运行缓慢，或者非常消耗内存，那么没有人会乐意使用它。**
+>无论你的应用多么酷多么有用，如果它运行缓慢，或者非常消耗内存，那么没有人会乐意使用它。
 
 ---
 ## 1 布局优化
 
-Android Sdk提供的HierarchyViewwer可以很直观的查看冗余的层级，去掉这些多余的布局层级可以是我们的ui变得更加流畅。
+Android SDK 提供的 HierarchyViewwer 可以很直观的查看 View 树的冗余层级，去掉这些多余的布局层级可以是我们的 UI 变得更加流畅。
 
 ### 1.1 使用include布局
 
@@ -13,14 +13,11 @@ incude可以在一个布局中引入另外一个布局文件，可以很方便�
 
 ### 1.2 使用merge标签
 
-使用merge可以消除自布局的根视图与它的父视图是同一类性的情况
+使用 merge 可以消除自布局的根视图与它的父视图是同一类性的情况
 
 ### 1.3 使用ViewStub延迟加载视图
 
-ViewStub是一个不可见的能在运行期间加载目标视图的宽高都为0的View。
-
-当调用ViewStub.inflate方法或者设置visible之前，他不占用布局控件和系统资源
-
+ViewStub是一个不可见的能在运行期间加载目标视图的宽高都为0的View，当调用ViewStub.inflate方法或者设置visible之前，它不占用布局控件和系统资源
 
 ### 1.4 减少视图数的层级
 
@@ -28,44 +25,42 @@ ViewStub是一个不可见的能在运行期间加载目标视图的宽高都为
 
 简单来说，在AndroidUI布局中，需要遵守的原则包括以下几点：
 
-- 尽量多用RelativeLayout，不要使用绝对布局
-- 在使用ListView，RecyclerView等列表组件中尽量避免使用LinearLayout的layout_weight属性
-- 将可复用的组件抽取出来，通过include引入
-- 使用ViewStub标签延迟加载不常用的组件
-- 使用merge标签减少布局的嵌套层次
-- 在布局层级相同的情况下，LinearLayot的性能优于RelativeLayout
+- 尽量多用 RelativeLayout，不要使用绝对布局
+- 在使用 ListView，RecyclerView 等列表组件中尽量避免使用 LinearLayout 的 layout_weight 属性
+- 将可复用的组件抽取出来，通过 include 引入
+- 使用 ViewStub 标签延迟加载不常用的组件
+- 使用 merge 标签减少布局的嵌套层次
+- 在布局层级相同的情况下，LinearLayot 的性能优于 RelativeLayout
 
 ---
 ## 2 内存优化
 
-RandomAccessMemory(RAM)在任何软件开发中都是很宝贵的资源，这一点在物理内存通常很有限的操作系统上，显得尤为突出，为了GC能够从app中即使的回收内存，我们需要注意避免内存泄漏并且在适当的时机来释放引用对象。
+RandomAccessMemory(RAM) 在任何软件开发中都是很宝贵的资源，这一点在物理内存很有限的操作系统上，显得尤为突出，为了 GC 能够从 app 中及时的回收内存，我们需要注意避免内存泄漏并且在适当的时机来释放引用对象。
 
-**如果管理内存**：应该在开发过程中的每一个阶段都考虑都RAM的有限性，甚至包括开发开发之前的设计阶段就应该开始考虑RAM的限制，一般我们应该遵循如下要点：
+**如果管理内存**：应该在开发过程中的每一个阶段都考虑都 RAM 的有限性，甚至包括开发开发之前的设计阶段就应该开始考虑 RAM 的限制，一般我们应该遵循如下要点：
 
-### 2.1 珍惜Service资源
+### 2.1 珍惜 Service 资源
 
-如果你的App需要在后台使用Service，除非他被触发执行一个任务，否则其他时候都应该是飞运行状态。同样需要注意，当这个Service已经完成工作任务后因为**停止失败**造成的内存泄漏。
-
-限制Service的最好办法是使用IntentService
-
+如果你的 App 需要在后台使用 Service，除非它被触发执行一个任务，否则其他时候都应该是非运行状态。同样需要注意，当这个 Service 已经完成工作任务后因为 **停止失败** 造成的内存泄漏。限制 Service 的最好办法是使用 IntentService
 
 ### 2.2 当UI隐藏时释放内存
 
-当用户切换到其他应用并且你的应用UI不可见时，应该释放UI上所在用的所有内存，在这个时候释放UI资源可以显著的增加系统缓存进程的能力。
+当用户切换到其他应用并且你的应用 UI 不可见时，应该释放 UI 上所在用的所有内存，在这个时候释放 UI 资源可以显著增加系统缓存进程的能力。
 
-为了能够接收到用户离开你的UI时的通知，需要实现Activity类里面的onTrimMemory回调，应该使用这个方法来监听TRIM_MEMROY_UI_HIDDEN级别的回调，此时意味着你的ui已经隐藏，应该释放哪些仅仅被你的UI使用的资源。
+为了能够接收到用户离开你的 UI 时的通知，需要实现 Activity 类里面的 onTrimMemory 回调，应该使用这个方法来监听 TRIM_MEMROY_UI_HIDDEN 级别的回调，此时意味着你的 UI 已经隐藏，应该释放那些仅仅被你的UI使用的资源。
 
+```java
         public void onTrimMemory(int level) {
             super.onTrimMemory(level);
             if (level == AppCompatActivity.TRIM_MEMORY_UI_HIDDEN) {
                 //释放ui资源
             }
         }
-
+```
 
 ### 2.3 当内存紧张时释放部分内存
 
-在你的app生命周期的任何阶段，onTrimMemroy回调方法同样可以告诉你整个内存资源已经开始紧张，你应该根据onTrimMemeory方法中的内存级别来进一步决定释放哪些资源。
+在你的 app 生命周期的任何阶段，onTrimMemroy 回调方法同样可以告诉你整个内存资源已经开始紧张，你应该根据 onTrimMemeory 方法中的内存级别来进一步决定释放哪些资源。
 
 - **TRIM_MEMROY_RUNNING_MONERATE**:App正在运行并且不会被列为可以杀死的进程，但是设备已经处于低内存状态，系统开始触发杀死LRU Cache中的Process机制。
 - **TRIM_MEMROY_RUNNING_LOW**：App正在运行并且没有被列为可以杀死的进程，但是设备已经处于更低内存状态，此时应该释放那些备用的资源来提升系统的性能(也会直接影响你的App的性能)
@@ -77,43 +72,43 @@ RandomAccessMemory(RAM)在任何软件开发中都是很宝贵的资源，这一
 - **TRIM_MOMORY_MODERATE**： 系统正在处于低内存状态，并且你的进程正在处于接近LRU缓存名单中部的位置。
 - **TRIM_MEMROY_COMPLETE**： 系统正在处于低内存状态，并且你的进程正在处于LRU缓存名单最容易被杀掉的位置。
 
->onTrimMemeroy是在Android4.0系统中被加入的，对于老的版本可以使用onLowMemory回调来实现兼容，onLowMemory相当于TRIM_MEMROY_COMPLETE。
+>onTrimMemeroy 是在 Android4.0 系统中被加入的，对于老的版本可以使用 onLowMemory 回调来实现兼容，onLowMemory 相当于 TRIM_MEMROY_COMPLETE。
 
 
-当系统开始进程LR缓存中进程是，尽管它首先按照LRU的顺序来操作，但是，他同样会考虑进程的内存使用量，因此消耗较少的进程则容易被保留下来。
+当系统开始进程 LR 缓存中进程时，尽管它首先按照 LRU 的顺序来操作，但是，它同样会考虑进程的内存使用量，因此消耗较少的进程则容易被保留下来。
 
 
 
 ### 2.4 检查你应该使用多少内存
 
-- 通过getMemoryClass()可以获取你的App的可用heap大小
-- 除非是确认你的app需要教打大的内存来运行(图片编辑app)，否则一般不应该适用largeHeap=true属性
+- 通过 `getMemoryClass()` 可以获取你的App的可用heap大小
+- 除非是确认你的app需要教打大的内存来运行(图片编辑app)，否则一般不应该适用 `largeHeap=true` 属性
 
-
-     ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-            int memoryClass = activityManager.getMemoryClass();//单位M
-             Runtime.getRuntime().maxMemory();//但是byte
-
+```java
+    ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+    int memoryClass = activityManager.getMemoryClass();//单位M
+    Runtime.getRuntime().maxMemory();//但是byte
+```
 
 ### 2.5 避免bitmap的浪费
 
-- android2.3 bitmap的内存放在navive内存中
-- android3.0 bitmap的内存调整至Dalvik heap中
-- 深入了解Bitmap
+- android2.3 bitmap 的内存放在 navive 内存中
+- android3.0 bitmap 的内存调整至 Dalvik heap 中
+- 深入了解 Bitmap 相关原理
 - 使用并熟悉成熟的图片加载框架
 
 ### 2.6 使用优化过的容器
 
-利用SparseArray、SparseBooleanArray等容易，通常他们比HashMap节省内存，在元素存量量较少时，不建议使用HashMap
+利用 SparseArray、SparseBooleanArray 等容器，通常它们比 HashMap 节省内存，在元素存量量较少时(1000级别)，不建议使用 HashMap
 
 ### 2.7 注意内存开销
 
-对于你使用的语言和库的成本与开销有所了解，比如在Android使用常量+注解代替枚举进行内存优化
+对于你使用的语言和库的成本与开销有所了解，比如在 Android 使用 常量+注解 代替枚举进行内存优化
 
 - 枚举的内存消耗通常是static constanst的两倍，尽量避免在Android使用enum
-- 在Java中每个类（包括匿名内部类）都会使用大概500byge
-- 每个类的实例开销是12-16bytes
-- 在HashMap中添加一个entr，y需要一个占用32bytes内存
+- 在 Java 中每个类（包括匿名内部类）都会使用大概 500bytes
+- 每个类的实例开销是 12-16 bytes
+- 在 HashMap 中添加一个 entry 需要一个占用 32bytes 内存
 
 ### 2.8 注意代码抽象
 
@@ -123,7 +118,7 @@ RandomAccessMemory(RAM)在任何软件开发中都是很宝贵的资源，这一
 
 ### 2.10 避免使用依赖注入框架
 
-这里说的依赖注入框架是运行时依赖注入框架
+这里说的依赖注入框架是运行时依赖注入框架。
 
 ### 2.11 谨慎使用第三方库
 
@@ -184,7 +179,7 @@ TraceView是Android平台特有的数据采集和分析工具，他主要用于�
 比如我们想要测试一段代码的执行时间，需要在代码前调用：`Debug.startMethodTracing()`
 方法然后再代码的结束为止调用：`Debug.stopMethodTracing();`方法。
 
-```
+```java
     public class MainActivity extends AppCompatActivity {
     
         @Override
@@ -241,13 +236,11 @@ Profile Panel是TraceView的核心面板，其数据参数、参数非常多，�
 | Real Time/Call|某函数的CPU执行时间与调用次数的比，相当于该函数的平均执行时间，这个时间中包含了内部调用其它函数的执行时间|
 
 
-TraceView的产生较多，其中Incl的全称为(Inclusive)代表包含某函数中调用子函数的执行时间，而Excl(全部称为Exclusive)，代表不包含子函数调用的执行时间。
+TraceView的参数较多，其中Incl的全称为(Inclusive)代表包含某函数中调用子函数的执行时间，而Excl(全部称为Exclusive)，代表不包含子函数调用的执行时间。
 
-下面通过一个列子来学习相关概念：
+下面通过一个列子来学习相关概念：假设我们手机加载数据总共执行时间为100毫秒(取决于你收集数据的时间)，request函数的执行时间是10毫秒，在request函数中还调用了getParams，execute， 两个函数，代码如下：
 
-假设我们手机数据总共执行时间为100毫秒(取决于你收集数据的时间)，request函数的执行时间是10毫秒，在request函数中还调用了getParams，execute， 两个函数，代码如下：
-
-```
+```java
       private void request() {
             //其他代码
             String params = getParams();//耗时4毫秒
@@ -267,7 +260,7 @@ TraceView的产生较多，其中Incl的全称为(Inclusive)代表包含某函�
 加速我们的ListView需要显现一个列表，其Adapter如下：
 
 
-```
+```java
       private class FeedAdapter extends BaseAdapter {
             @Override
             public int getCount() {
@@ -322,13 +315,13 @@ TraceView的产生较多，其中Incl的全称为(Inclusive)代表包含某函�
 
 由于是ListView，我们知道出现瓶颈的地方应该在getView函数，所以逐个分析getView函数的参数：
 
-- Incl Cpu Time%=41.8%,该函数所有调用次数的真实CPU耗时栈占总耗时的41.8%
-- Incl Cpu Time=84.523，表示getView耗时为84.523毫秒，这个时间不包括cpu等待，进程切换等时间
-- Excl Cpu Time=0，表示getView本身(不包含子函数，不包含CPU切换耗时)占用的CPU时间
-- Excl Real Time=0，表示包含函数调用，cpu等待，进程切换的总耗时
-- Incl Real Time%=29.9%，表示该函数的真实耗时占总耗时的29.9%
-- Cpu Time/Call= 16+0，表示调用次数，递归次数
-- Incl Real Time=1647.328表示所有调用次数的总耗时，这里为1647.328，隐藏平均每次耗时为5.238，被调用了16次，因5.238乘以16等于83.808毫秒，由于getView的耗时为5.238，而它的Excl Real Time几乎是0，也就是说除了子函数外掉用外，getVie几乎不耗时，因此可以确认耗时操作不在getView中，而在他调用的子函数中。
+- `Incl Cpu Time%=41.8%` ,该函数所有调用次数的真实CPU耗时栈占总耗时的41.8%
+- `Incl Cpu Time=84.523` ，表示getView耗时为84.523毫秒，这个时间不包括cpu等待，进程切换等时间
+- `Excl Cpu Time=0` ，表示getView本身(不包含子函数，不包含CPU切换耗时)占用的CPU时间
+- `Excl Real Time=0` ，表示包含函数调用，cpu等待，进程切换的总耗时
+- `Incl Real Time%=29.9%` ，表示该函数的真实耗时占总耗时的29.9%
+- `Cpu Time/Call= 16+0` ，表示调用次数，递归次数
+- `Incl Real Time=1647.328` 表示所有调用次数的总耗时，这里为1647.328，隐藏平均每次耗时为5.238，被调用了16次，因5.238乘以16等于83.808毫秒，由于getView的耗时为5.238，而它的Excl Real Time几乎是0，也就是说除了子函数外掉用外，getVie几乎不耗时，因此可以确认耗时操作不在getView中，而在他调用的子函数中。
 
 于是我们继续分析getView调用的子函数，我们看到doSthHeavy函数的Incl Real Time为1624.102，所以锁定deSthHeavy函数：
 

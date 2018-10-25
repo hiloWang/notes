@@ -35,7 +35,7 @@ console.log(a[1]);
 a.length = 0;//删除所有的元素
 ```
 
-ES5中让数组的length变为不可写，此时无法操作数组
+在 ES5中，我们可以让数组的length变为不可写，此时无法操作数组
 
 ```javascrpt
 Object.defineProperty(a, "length", {

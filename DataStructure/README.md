@@ -20,5 +20,6 @@
 
 - [学习算法思维00-概述](PlayWithAlgorithms/学习算法思维00-概述.md)
 - [学习算法思维01-排序基础](PlayWithAlgorithms/学习算法思维01-排序基础.md)
-- [学习算法思维02-排序高级](PlayWithAlgorithms/学习算法思维02-排序高级.md)
-- [学习算法思维03-堆与堆排序](PlayWithAlgorithms/学习算法思维03-堆排序.md)
+- [学习算法思维02-排序高级](PlayWithAlgorithms/学习算法思维02-排序高级.md)，To Be Continued
+- [学习算法思维03-堆与堆排序](PlayWithAlgorithms/学习算法思维03-堆排序.md) ，To Be Continued
+- [学习算法思维04-二分搜索树](PlayWithAlgorithms/学习算法思维04-二分搜索树.md) ，To Be Continued

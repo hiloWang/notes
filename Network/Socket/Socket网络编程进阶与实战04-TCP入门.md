@@ -48,3 +48,16 @@ TCP 能做什么
 - 重复机制-定时器
 
 ![](index_files/snipaste_20181028_181939.png)
+
+---
+## 5 TCP传输初始化配置
+
+- `java.net.Socket` 和 `java.net.ServerSocket` 的初始化和各种配置。
+
+---
+## 6 案例实操-TCP基础数据传输
+
+- 这里的基础数据不特定指某种语言的基本类型，而是针对网络传输中基本类型。
+- 使用 `java.net.Socket` 发送和接受各种数据类型。
+- `outputStream.write(127);` 方法只能接受 byte 范围的数值，高 24 位的数据都将被忽略。
+- 使用 ByteBuffer 来简化操作 `byte[]`。

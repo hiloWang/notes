@@ -74,7 +74,7 @@ Buffer 的常用方法:
 方法 | 描述
 ---|---
 `Bufferclear()` | 清空缓冲区并返回对缓冲区的引用
-`Buffer flip()` | 将缓冲区的界限设置为当前位置，并将当前位置充值为0
+`Buffer flip()` | 将缓冲区的界限设置为当前位置，并将当前位置重置为0
 `int capacity()` | 返回Buffer 的capacity大小
 `boolean hasRemaining()` | 判断缓冲区中是否还有元素
 `int limit()` | 返回Buffer 的界限(limit) 的位置

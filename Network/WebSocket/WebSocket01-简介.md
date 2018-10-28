@@ -1,4 +1,4 @@
-# WebSocket
+# WebSocket 简介
 
 ---
 ## 1 WebSocket介绍
@@ -38,7 +38,9 @@ WebSocket协议是一种建立在TCP连接基础上的全双工通信的协议�
 ---
 ## 引用
 
+- [WebSocket和Socket的区别](http://www.jianshu.com/p/59b5594ffbb0)
 - [阮一峰：WebSocket 教程](http://www.ruanyifeng.com/blog/2017/05/websocket.html)
 - [Android最佳实践——深入浅出WebSocket协议](http://blog.csdn.net/sbsujjbcy/article/details/52839540)
 - [WebSocket 是什么原理？为什么可以实现持久连接？](https://www.zhihu.com/question/20215561)
 - [websocket 协议解析](http://imweb.io/topic/59f93bdfb72024f03c7f49d9)
+- [如何理解 TCP/IP, SPDY, WebSocket 三者之间的关系？](https://www.zhihu.com/question/20097129)

@@ -6,6 +6,7 @@
 - [W3School](http://www.w3school.com.cn/)
 - 《JavaScript权威指南》
 - [面向对象的JavaScript编程：原理与实践](https://github.com/haitaoxin/jsoo/blob/master/README.md)
+- [每个 JavaScript 工程师都应懂的33个概念](https://github.com/stephentian/33-js-concepts)
 
 ----
 ## JS引擎

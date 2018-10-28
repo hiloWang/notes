@@ -5,6 +5,11 @@
 - Advance RxJava
 - [xUtils3](https://github.com/wyouflf/xUtils3/) 源码分析
 - [ARouter](https://github.com/alibaba/ARouter) 源码分析
+- [RxDownload](https://github.com/ssseasonnn/RxDownload) 源码分析
+- [FileDownloader](https://github.com/lingochamp/FileDownloader) 源码分析
+- [Aria](https://github.com/AriaLyy/Aria) 源码分析
+- [okdownload](https://github.com/lingochamp/okdownload) 源码分析
+- [PRDownloader](https://github.com/MindorksOpenSource/PRDownloader) 源码分析
 
 ## View
 

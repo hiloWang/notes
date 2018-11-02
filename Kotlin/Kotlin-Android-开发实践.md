@@ -20,13 +20,21 @@ Kotlin为Android开发提供了许多的功能，比如Anko库和extension插件
 
 具体参考[extension keep](https://github.com/Kotlin/KEEP/blob/master/proposals/android-extensions-entity-caching.md)
 
-1. 直接使用 id 引用 view，同时支持使用 `@ContainerOptions` 指定 View 的缓存模式
-2. 支持 Parcelable 注解：通过 Parcelize 自动生成 Parcleable 实现。
-3. LayoutContainer
+1. 在 Activity 和 Fragment 中直接使用 id 引用 view。
+2. 在 1.1.4 版本发布后，支持在 ViewHolder、自定义 View、 甚至是自定义布局容器中直接使用 id 引用 view，只需要实现 LayoutContainer 接口，同时支持使用 `@ContainerOptions` 指定 View 的缓存容器。
+3. 支持 Parcelable 注解：通过 Parcelize 自动生成 Parcleable 实现。
 
 遇到的问题与解决方法：
 
 - 当两个布局中的控件 id 同名时，如何解决冲突：1 重名的 View id；2 使用 as 别名解决冲突
+
+2 和 3 需要配置开启实验性功能：
+
+```groovy
+androidExtensions {
+    experimental = true
+}
+```
 
 ---
 ## 3 Anko 的集成与使用

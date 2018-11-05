@@ -161,9 +161,11 @@ ByteOrder 用于设置缓冲区的字节顺序，可以设置的字节顺序为�
 ---
 ## 4 通道
 
-通道（Channel）由 `java.nio.channels` 包定义。Channel 表示IO 源与目标打开的连接。Channel 类似于传统的“流”。只不过Channel 本身不能直接访问数据，Channel 只能与Buffer 进行交互。借助通道，可以用最小的总开销来访问操作系统本身的 I/O 服务。
+>JDK 文档：通道表示`到实体`，如硬件设备、文件、网络套接字或可以执行一个或多个不同 I/O 操作（如读取或写入）的程序组件`的开放的连接`。通道可处于打开或关闭状态。创建通道时它处于打开状态，一旦将其关闭，则保持关闭状态。一旦关闭了某个通道，试图对其调用 I/O 操作就会导致 ClosedChannelException 被抛出。通过调用通道的 isOpen 方法可测试通道是否处于打开状态。正如扩展和实现此接口的各个接口和类规范中所描述的，一般情况下通道对于多线程的访问是安全的。 
 
-### 4.1 I/O 调度衍进
+通道（Channel）由 `java.nio.channels` 包定义。Channel 表示 IO 源与目标打开的连接。Channel 类似于传统的“流”。流是单向的（只能读或者写），而通道可以读也可以写，只不过 Channel 本身不能直接访问数据，Channel 只能与 Buffer 进行交互。借助通道，可以用最小的总开销来访问操作系统本身的 I/O 服务。
+
+### 4.1 I/O 调度的衍进
 
 早期 I/O 直接由 CPU 负责调度
 
@@ -179,14 +181,14 @@ DMA（直接存储器）：内存与 I/O 接口直接交互，这就是传统 I/
 
 ### 4.2  通道（Channel）
 
-```
+```java
 public interface Channel extends Closeable {
     public boolean isOpen();
     public void close() throws IOException;
 }
 ```
 
-从接口看来，所有的通道都有这两种操作：检查通道的开启状态和关闭通道。Java 为Channel 接口提供的最主要实现类如下：
+从接口看来，所有的通道都有这两种操作：检查通道的开启状态和关闭通道。Java 为 Channel 接口提供的最主要实现类如下：
 
 - FileChannel：用于读取、写入、映射和操作文件的通道。
 - DatagramChannel：通过UDP 读写网络中的数据通道。
@@ -445,7 +447,7 @@ Java 7 增加了一个新特性，该特性提供了另外一种管理资源的�
 
 自动资源管理基于try 语句的扩展形式：
 
-```
+```java
 try(需要关闭的资源声明){
     //可能发生异常的语句
 } catch(异常类型变量名){

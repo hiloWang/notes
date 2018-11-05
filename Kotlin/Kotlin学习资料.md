@@ -86,8 +86,15 @@ kotlin 发展简史：
 ---
 ## 5 BennyHuo Kotlin
 
+教材
+
 - [BennyHuo github](https://github.com/enbandari)
 - [Kotlin 系统入门到进阶 视频教程](http://coding.imooc.com/class/108.html)
 - [基于 GitHub App 业务深度讲解 Kotlin1.2高级特性与框架设计](https://coding.imooc.com/class/232.html)
+
+Kotlin 更新
+
+- [kotlinx.serialization 组件](https://discuss.kotliner.cn/t/topic/226)
 - [来看看 Kotlin 1.3-M2 都有哪些好玩的东西](https://mp.weixin.qq.com/s?__biz=MzIzMTYzOTYzNA==&mid=2247484229&idx=1&sn=39328734a73ce7033f017fdc9b0dd3a8&chksm=e8a05c78dfd7d56ebdbdce91ba8291f3678de02e522dc6f47118e01cce5335e0593c68441cf0&mpshare=1&scene=1&srcid=0917x8zBcvTHH1gFHLsD6HEI#rd)
 - [Kotlin 1.3 RC 来啦：快迁移您的协程代码吧！](https://mp.weixin.qq.com/s/tYkPr6dKJA0HEAlSZ0CLkg)
+- [NoArg 插件的 invokeInitializers 配置](https://mp.weixin.qq.com/s/0mEpsYfOrZDUdIoeKkL1xg)

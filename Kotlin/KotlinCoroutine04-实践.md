@@ -115,43 +115,47 @@ fun main(args: Array<String>) {
 下面是一个不断向上遍历，查找指定泛型的例子：
 
 ```kotlin
-  buildSequence {
-            var thisClass: KClass<*> = this@BaseFragment::class
-            while (true){
-                //发送当前class的超类型
-                yield(thisClass.supertypes)
-                //jvmErasure：返回表示在JVM上将此类型擦除到的运行时类的KClass实例
-                thisClass = thisClass.supertypes.firstOrNull()?.jvmErasure?: break
+private fun createPresenterKt(): P {
+    buildSequence {
+                var thisClass: KClass<*> = this@BaseFragment::class
+                while (true){
+                    //发送当前class的超类型
+                    yield(thisClass.supertypes)
+                    //jvmErasure：返回表示在JVM上将此类型擦除到的运行时类的KClass实例
+                    thisClass = thisClass.supertypes.firstOrNull()?.jvmErasure?: break
+                }
+            }.flatMap {//这里是 Sequence 的 flatMap，要求 lambda 必须返回一个 Sequence
+                //arguments 是类型参数数组
+                it.flatMap { it.arguments }.asSequence()//返回一个 Sequence
+            }.first {
+                //KTypeProjection 表示类型投影
+                it.type?.jvmErasure?.isSubclassOf(IPresenter::class) ?: false
+            }.let {
+                return it.type!!.jvmErasure.primaryConstructor!!.call() as P
             }
-        }.flatMap {//这里是 Sequence 的 flatMap，要求 lambda 必须返回一个 Sequence
-            //arguments 是类型参数数组
-            it.flatMap { it.arguments }.asSequence()//返回一个 Sequence
-        }.first {
-            //KTypeProjection 表示类型投影
-            it.type?.jvmErasure?.isSubclassOf(IPresenter::class) ?: false
-        }.let {
-            return it.type!!.jvmErasure.primaryConstructor!!.call() as P
-        }
+}
 ```
 
-java 版本
+java api 版本
 
 ```kotlin
- buildSequence<Type> {
-            var thisClass: Class<*> = this@BaseFragment.javaClass
-            while (true) {
-                yield(thisClass.genericSuperclass)
-                thisClass = thisClass.superclass ?: break
+private fun createPresenter(): P {
+    buildSequence<Type> {
+                var thisClass: Class<*> = this@BaseFragment.javaClass
+                while (true) {
+                    yield(thisClass.genericSuperclass)
+                    thisClass = thisClass.superclass ?: break
+                }
+            }.filter {
+                it is ParameterizedType
+            }.flatMap {
+                (it as ParameterizedType).actualTypeArguments.asSequence()
+            }.first {
+                it is Class<*> && IPresenter::class.java.isAssignableFrom(it)
+            }.let {
+                return (it as Class<P>).newInstance()
             }
-        }.filter {
-            it is ParameterizedType
-        }.flatMap {
-            (it as ParameterizedType).actualTypeArguments.asSequence()
-        }.first {
-            it is Class<*> && IPresenter::class.java.isAssignableFrom(it)
-        }.let {
-            return (it as Class<P>).newInstance()
-        }
+}
 ```
 
 ---

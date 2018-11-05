@@ -594,7 +594,7 @@ Java泛型系统允许在泛型上加入类型限定：
         }
     }
 
-    Cons cons = new Cons();
+            Cons cons = new Cons();
             Class<? extends Cons> class1 = cons.getClass();
             try {
                 Field field = class1.getDeclaredField("map");
@@ -701,12 +701,11 @@ Java泛型系统允许在泛型上加入类型限定：
 
 ### 获取类上的泛型信息
 
-子类继承一个带类型参数的父类时，如果此时子类也无法确定父类上的类型参数的实际类型，可以在子类上继续声明此类型参数
-
+子类继承一个带类型参数的父类时，如果此时子类也无法确定父类上的类型参数的实际类型，可以在子类上继续声明此类型参数。
 
 编译不通过
 
-```
+```java
     public class GenericT1<T> {
     }
     class GenericT_sub extends GenericT1<T>{
@@ -715,7 +714,7 @@ Java泛型系统允许在泛型上加入类型限定：
 
 编译通过
 
-```
+```java
     public class GenericT1<T> {
     }
 
@@ -723,12 +722,7 @@ Java泛型系统允许在泛型上加入类型限定：
     }
 ```
 
-但是如果需要通过反射获取一个类上类型参数的实际类型参数，注意`getGenericSuperclass`方法，获取的是直接超类，不注意的话很有可能就犯错了，看下面demo。
-
-> getGenericSuperclass 返回表示此 Class 所表示的实体（类、接口、基本类型或 void）的直接超类的 Type。
-
-
-代码如下：
+但是如果需要通过反射获取一个类上类型参数的实际类型参数，注意 `getGenericSuperclass` 方法，getGenericSuperclass 返回表示此 Class 所表示的实体（类、接口、基本类型或 void）的直接超类的 Type。不注意的话很有可能就犯错了，看下面demo。代码如下：
 
 ```java
     class Fa<T> {
@@ -736,7 +730,6 @@ Java泛型系统允许在泛型上加入类型限定：
 
     class GenericT_sub<T> extends Fa<T> {
     }
-
 
 
     public class Main {
@@ -787,7 +780,7 @@ Java泛型系统允许在泛型上加入类型限定：
     T
 ```
 
-由于GenericT_sub也无法确定Fa的实际类型参数，只能继续用T表示，那么在创建GenericT_sub的实例对象时，虽然确定了实际类型参数，但是无法通过反射其Class获取执行的实际类型参数，Java泛型有这么一种规律：**位于声明一侧的，源码里写了什么到运行时就能看到什么；位于使用一侧的，源码里写什么到运行时都没了**。
+由于 GenericT_sub 也无法确定 Fa 的实际类型参数，只能继续用T表示，那么在创建 GenericT_sub 的实例对象时，虽然确定了实际类型参数，但是无法通过反射其 Class 获取执行的实际类型参数，Java 泛型有这么一种规律：**位于声明一侧的，源码里写了什么到运行时就能看到什么；位于使用一侧的，源码里写什么到运行时都没了**。
 
 ---
 ## 7 引用

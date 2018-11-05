@@ -263,8 +263,8 @@ Qualifier更加强大，允许我们自定义，注意格式
     public @interface IntPeopleNamed {
         int value();
     }
-    //然后再Module中使用
 
+    //然后再Module中使用
        @IntPeopleNamed(1)
         @Provides
         People getPeople() {
@@ -276,6 +276,7 @@ Qualifier更加强大，允许我们自定义，注意格式
         People getPeopleB() {
             return new ChinesePeople(mNameFactory.createName(), mRandom.nextInt(100));
         }
+
     //在容器中定义区分
         @IntPeopleNamed(1)
         @Inject
@@ -289,7 +290,7 @@ Qualifier更加强大，允许我们自定义，注意格式
 
 #### 1 Component 一般定义一个方法，用来提供注入，必须有需要注入的容器作为参数
 
-```
+```java
     @Component(modules = {PeopleModule.class})
     public interface PeopleComponent {
         void inject(DaggerFragment daggerFragment);
@@ -492,12 +493,12 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 
 ### Subcomponent 的特点
 
-- 通过 Subcomponent 功能，子 Component 可以直接使用父 Component 中提供的依赖，而父 Component 中不再需要定义相关依赖类型的返回方法，只需要添加返回子 Component的方法。
+- 通过 Subcomponent 功能，子 Component 可以直接使用父 Component 中提供的依赖，而父 Component 中不再需要定义返回相关依赖类型的方法，只需要声明返回子 Component 的方法。
 - 通过 Subcomponent 功能，子 Component 同时拥有两种 Scope，当注入的元素来自父Component，则这些元素的生命周期由父 Component 决定，当注入的元素来自子 Component，则这些元素的生命周期由子 Component 决定。
 
 ### 从 ParentComponent 获取 ChildComponent 的两种方式
 
-- 1 直接在 ParentComponent 中定义返回ChildComponent的方法
+- 1 直接在 ParentComponent 中定义返回 ChildComponent 的方法
 
 ```java
 //1 定义子 Component
@@ -522,6 +523,7 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 - 2 使用 Builder 模式
 
 ```java
+//ChildComponent Component 声明
     @Subcomponent(modules = RequestModule.class)
     interface RequestComponent {
 
@@ -535,7 +537,7 @@ Component也可以代替Module中的`@Provides`方法来提供依赖，而不需
 
     }
 
-    //ParentComponent 返回 ChildComponent 的 Builder
+//ParentComponent 返回 ChildComponent 的 Builder
     public interface ParentComponent{
         ChildComponent.Builder getChildComponentBuilder();
     }
@@ -624,12 +626,11 @@ Map multibindings 支持以下绑定方式：
 - 使用复合的Key，配合`@AutoAnnotation`自动生成符合Key
 - Inherited subcomponent multibindings
 
-具体可以参考：
+关于 multibindings 以及相关拓展，可以参考：
 
 - [multibindings 文档](https://google.github.io/dagger/multibindings)
 - [Activities Subcomponents Multibinding in Dagger 2](http://frogermcs.github.io/activities-multibinding-in-dagger-2/)
 - [Dagger2Recipes-ActivitiesMultibinding](https://github.com/frogermcs/Dagger2Recipes-ActivitiesMultibinding)
-- [Dagger2-MultiBinding-Android-Example](https://github.com/trevjonez/Dagger2-MultiBinding-Android-Example)
 
 ### 注意
 
@@ -644,12 +645,9 @@ Lazy 和 Provider 注解同样适用于 multibinding。下面两种方式都是�
 ```
 
 ---
-## 10 Dagger2 安卓拓展
+## 10 Dagger For Android
 
-**Dagger Android** 是基于 Dagger2 对 Android 平台的提供的扩展。提供了一种低耦合的对 Android 四大组件以及 Fragmengt 进行注入的方式。可以让我们减少很多模板代码的编写。其内部原理是使用的 `Map multibindings` 。
-
-- `ContributesAndroidInjector`：这是一个非常强大的注解，可以为注入目标自动生成 Component 实现， 不过只能用于 Android 中的组件(比如Activity、Service、Fragment等)。
-- AndroidInjector 支持扩展以对其他组件进行注入，具体参考 [这个 Demo](https://github.com/Ztiany/Programming-Notes/blob/master/Android/Dagger2AndroidInjection/README.md)
+**Dagger Android** 是基于 Dagger2 对 Android 平台的提供的扩展。提供了非常简单的方式来对安卓组件（Android 四大组件以及 Fragmengt）进行注入。可以让我们减少很多模板代码的编写。其内部原理是使用的 `Map multibindings`，并且还提供了`ContributesAndroidInjector`注解， 这是一个非常强大的注解，可以为注入目标自动生成 Component 实现， 不过只能用于 Android 中的组件(比如Activity、Service、Fragment等)。
 
 ---
 ## 11 注入 Nullable 对象
@@ -726,7 +724,7 @@ Optional支持 `com.google.common.base.Optional` 和 `java.util.Optional`。
 ---
 ## 12 使用 BindsInstance
 
-标记Component构建器或SubComponent构建器上的方法，该方法允许将实例绑定到组件中的某种类型。示例：
+标记 Component 构建器或 SubComponent 构建器上的方法，该方法允许将实例绑定到组件中的某种类型。示例：
 
 ```java
 //定义一个Component，并为其定义一个构建器
@@ -741,8 +739,8 @@ interface AppComponent {
     //在构建器上可以使用BindsInstance来绑定自定义数据，@UserName是自定义的标识
     //然后String类型的userName可以为后面的注入构建所用
     @BindsInstance Builder userName(@UserName String userName);
-    AppComponent build();
 
+    AppComponent build();
   }
 }
 
@@ -808,9 +806,16 @@ public class UserPresenter implement IPresenter{
 ```
 
 ---
-## 16 Dagger 2.17 更新
+## 16 Dagge 更新
 
-Dagger 2.17 的更新可能会引发一些编译错误，官方解释原文为：If you start seeing missing binding errors in this release, check out [this wiki page](https://github.com/google/dagger/wiki/Dagger-2.17-@Binds-bugs) for information on how to debug the issues
+###  2.17
+
+- Dagger 2.17 的更新可能会引发一些编译错误，官方解释原文为：If you start seeing missing binding errors in this release, check out [this wiki page](https://github.com/google/dagger/wiki/Dagger-2.17-@Binds-bugs) for information on how to debug the issues。
+
+### 2.19
+
+- 关于 dagger-android，`@ActivityKey，@ServiceKey，@FragmentKey` 等已经被废弃，推荐使用 `@ClassKey`。
+- Module 中的方法应该同意返回 `AndroidInjector.Factory<?>`，而不再是 `AndroidInjector.Factory<? extends Activity>` 等类型。
 
 
 ---

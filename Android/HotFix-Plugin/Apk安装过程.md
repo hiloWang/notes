@@ -400,9 +400,11 @@ installPackageLI方法非常长，主要功能有：
 
 安装一个APK时：
 
-1. APK中的AndroidManifest.xml被解析，解析的内容会被存储到`/data/system/packages.xml`和`/data/system/packages.list`中。packages.list中指名了该应用默认存储的位置`/data/data/cn.ztiany.sample`packages.xml中包含了该应用申请的权限、签名和代码所在位置等信息，并且两者都有一个userId为10060。之所以每个应用都有一个userId，是因为Android在系统设计上把每个应用当作Linux系统上的一个用户对待，这样就可以利用已有的Linux上用户管理机制来设计Android应用，比如应用目录，应用权限，应用进程管理等。
-2. 接下来是保存应用的执行文件，根据packages.xml中指定的codePath，创建一个目录，apk会被命名成base.apk并拷贝到此，其中lib目录用来存放native库。目录是由包名-1 组成，有时候此处是 -2。这是为了升级使用，升级时会新创建一个-1 或 -2的目录，如果升级成功，则删除原目录并更改packages.xml中codePath到新目录。
-3. ODEX：如果每次应用运行还得去base.apk中取dex文件，效率就太低了。为了提升效率，Android系统在应用安装时还会做些优化操作，把所有可运行的dex文件单独提取放在一块并做些优化。在Dalvik模式下，会使用dexopt把base.apk中的dex文件优化为odex，存储在/data/dalvik-cache中，如果是ART模式，则会使用dex2oat优化成oat文件也存储在该目录下，并且文件名一样，但文件大小会大很多，因为ART模式会在安装时把dex优化为机器码，所以在ART模式下的应用运行更快，但apk安装速度相对Dalvik模式下变慢，并且会占用更多的ROM。
+1. APK 中的 AndroidManifest.xml 被解析，解析的内容会被存储到 `/data/system/packages.xml` 和 `/data/system/packages.list` 中。packages.list 中指明了该应用默认存储的位置`/data/data/cn.ztiany.sample`，packages.xml 中包含了该应用申请的权限、签名和代码所在位置等信息，并且两者都有一个 userId。之所以每个应用都有一个 userId，是因为 Android 在系统设计上把每个应用当作 Linux 系统上的一个用户对待，这样就可以利用已有的 Linux 上用户管理机制来设计 Android 应用，比如应用目录，应用权限，应用进程管理等。
+2. 接下来是保存应用的执行文件，有两种情况：
+    - 4.4及以前：根据 packages.xml 中指定的 codePath，创建一个目录（一般是`data/data/package_name.apk`），，apk 会被拷贝到此，apk的名称是`包名.apk`，有时候会有 `-1` 或 `-2` 的后缀，这是在覆盖安装时添加的，data/app-lib 目录用来存放 native 库。
+    - 5.0开始：根据 packages.xml 中指定的 codePath，创建一个目录（一般是`data/data/package_name/base.apk`），apk 会被命名成 base.apk 并拷贝到此，其中 lib 目录用来存放 native 库。目录是由包名 -1 组成，有时候此处是 -2。这是为了升级使用，升级时会新创建一个 -1 或 -2 的目录，如果升级成功，则删除原目录并更改 packages.xml 中 codePath 到新目录。
+3. ODEX：如果每次应用运行还得去 base.apk 中取 dex 文件，效率就太低了。为了提升效率，Android 系统在应用安装时还会做些优化操作，把所有可运行的 dex 文件单独提取放在一块并做些优化。在 Dalvik 模式下，会使用 dexopt 把 base.apk 中的 dex 文件优化为 odex，存储在 `/data/dalvik-cache` 中，如果是 ART 模式，则会使用 dex2oat 优化成 oat 文件也存储在该目录下，并且文件名一样，但文件大小会大很多，因为 ART 模式会在安装时把 dex 优化为机器码，所以在 ART 模式下的应用运行更快，但 apk 安装速度相对 Dalvik 模式下变慢，并且会占用更多的 ROM。
 
 ![](index_files/f3734e50-a3ed-4e7a-8cbb-1d91b3a8257b.png)
 

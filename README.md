@@ -39,7 +39,6 @@
 - [网络协议](Network/README.md)
 - [数据结构与算法](DataStructure/README.md)
 
-
 编程语言
 
 - [C&CPP](C&CPP/README.md)
@@ -54,10 +53,10 @@
 - [Android](Android/README.md)
 - [Linux](Linux/README.md)
 
-工程构建 & 工具
+工程构建
 
-- [工具](BuildTools/Tools.md)  
-- [Gradle](BuildTools/Gradle.md)  
+- [Gradle](Gradle/README.md)
+
 
 后端
 

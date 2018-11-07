@@ -20,7 +20,6 @@ Retorfit2.0 资料
 - [你真的会用Retrofit2吗?Retrofit2完全教程](http://www.jianshu.com/p/308f3c54abdd)
 - [深入浅出 Retrofit，这么牛逼的框架你们还不来看看？](http://mp.weixin.qq.com/s?__biz=MzA3NTYzODYzMg==&mid=2653577186&idx=1&sn=1a5f6369faeb22b4b68ea39f25020d28&scene=1&srcid=06039K4A2eGkHPxLbKED09Mk#wechat_redirect)
 
-
 ---
 ## 2 Retrofit 2 介绍
 
@@ -28,7 +27,7 @@ Retorfit2.0 资料
 
 ### URL的定义
 
-```
+```java
     Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 .serializeNulls()
                 .create();
@@ -45,7 +44,7 @@ Retorfit2.0 资料
 
 BaseUrl
 
-```
+```java
         @GET("data/福利/20/{page}")
         Call<MeiZiList.MeiZi> getMeiZi(@Path("page") int pageNumber);
     
@@ -72,7 +71,7 @@ BaseUrl
 
 还有一种方式用于实现动态的url，就是一个url注解，这种情况适用于当一系列数据中，下一页的数据地址从上一次请求的header中返回
 
-```
+```java
     @GET
     Call<List<Contributor>> repoContributorsPaginate(@Url String url);
 ```
@@ -85,14 +84,14 @@ BaseUrl
 
 定义方法：
 
-```
+```java
         @GET("data/福利/20/{page}")
         Call<MeiZiList> getMeiZi(@Path("page") int pageNumber);
 ```
 
 同步操作为：
 
-```
+```java
        GanKService ganKService = retrofit.create(GanKService.class);
     
             Call<MeiZiList> meiZi = ganKService.getMeiZi(1);
@@ -107,8 +106,8 @@ BaseUrl
 
 异步操作为：
 
-```
-     GanKService ganKService = retrofit.create(GanKService.class);
+```java
+            GanKService ganKService = retrofit.create(GanKService.class);
     
             Call<MeiZiList> meiZi = ganKService.getMeiZi(1);
             meiZi.enqueue(new Callback<MeiZiList>() {
@@ -139,7 +138,7 @@ BaseUrl
 
 1.9 默认使用Gson来进行对象的序列化与反序列化，现在Converters从Retrofit中移除，如果不显性的声明一个可用的 Converter 的话，Call的泛型只能定义为ResponseBody：
 
-```
+```java
         @GET("http://10.2.20.13:8080/day21FileUpload/test1.json")
         Call<ResponseBody> getMeiZiString();
 
@@ -162,7 +161,7 @@ BaseUrl
 
 当然也可以实现自己的Converter.Factory
 
-```
+```java
     public class TestConverter extends Converter.Factory {
     
         private TestConverter() {
@@ -213,24 +212,18 @@ call adapter 有相同的模式。我们询问一个 call adapter factory 它是
 ### CallAdapter 更多可替换的执行机制
 
 比如一个方法返回Call
-```
+```java
     interface GitHubService {
       @GET("/repos/{owner}/{repo}/contributors")
-      Call<List<Contributor>> repoContributors(
-          @Path("owner") String owner,
-          @Path("repo") String repo);
+      Call<List<Contributor>> repoContributors(@Path("owner") String owner, @Path("repo") String repo);
 ```
 但是也可以定义下面这些方法：
-```
+```java
       @GET("/repos/{owner}/{repo}/contributors")
-      Observable<List<Contributor>> repoContributors2(
-          @Path("owner") String owner,
-          @Path("repo") String repo);
+      Observable<List<Contributor>> repoContributors2(@Path("owner") String owner, @Path("repo") String repo);
     
       @GET("/repos/{owner}/{repo}/contributors")
-      Future<List<Contributor>> repoContributors3(
-          @Path("owner") String owner,
-          @Path("repo") String repo);
+      Future<List<Contributor>> repoContributors3(@Path("owner") String owner, @Path("repo") String repo);
     }
 ```
 CallAdapter跟converter 的工作原理很像
@@ -265,8 +258,9 @@ OKHttp依赖OkIO进行io操作，okio是一个很高效的io操作库
 
 #### 参数化的 Response 类型
 
- Response 对象增加了曾经一直被我们忽略掉的重要元数据：响应码（the reponse code），响应消息（the response message），以及读取相应头（headers）。
-```
+Response 对象增加了曾经一直被我们忽略掉的重要元数据：响应码（the reponse code），响应消息（the response message），以及读取相应头（headers）。
+
+```java
      class Response<T> {
       int code();
       String message();
@@ -284,16 +278,17 @@ OKHttp依赖OkIO进行io操作，okio是一个很高效的io操作库
 #### 对象序列化错误依然会调用 onResponse
 
 当响应成功以后，会把数据解析为对象，然后将解析得到的对象赋值给response的body，就算解析出错，onResponse也会被调用，此时body为null
-```
+```java
       public void onResponse(Response<MeiZiList> response, Retrofit retrofit) {
     
-                    if (response.isSuccess()) {
-                        MeiZiList body = response.body();
+          if (response.isSuccess()) {
+              MeiZiList body = response.body();
+              if (body == null) {
+                  ResponseBody responseBody = response.errorBody();
+              }
+          }
     
-                        if (body == null) {
-                            ResponseBody responseBody = response.errorBody();
-                        }
-                    }
+      }
 ```
 
 ### 如果response存在什么问题，比如404什么的，onResponse也会被调用
@@ -306,7 +301,7 @@ OKHttp依赖OkIO进行io操作，okio是一个很高效的io操作库
 
 >最后，在我有空的时候，我想在 Retrofit 2 里支持 **WebSocket**。在 2.0 里很可能无法实现，但是我想在后续的2.1 版本里会加入支持。
 
-```
+```java
     OkHttpClient client = new OkHttpClient();
     client.interceptors().add(..);
     
@@ -318,7 +313,7 @@ OKHttp依赖OkIO进行io操作，okio是一个很高效的io操作库
 
 注意，如果在拦截器中获取了Response，需要重新设置
 
-```
+```java
     ......
     if (response.body() != null) {
             // 深坑！
@@ -332,7 +327,7 @@ OKHttp依赖OkIO进行io操作，okio是一个很高效的io操作库
 
 ### 添加依赖，开始使用
 
-```
+```groovy
     dependencies {
       compile 'com.squareup.retrofit2:retrofit:2.0.0'
       compile 'com.squareup.retrofit2:converter-gson:2.0.0'
@@ -346,7 +341,7 @@ OKHttp依赖OkIO进行io操作，okio是一个很高效的io操作库
 
 ### GET
 
-```
+```java
         @GET("data/福利/20/{page}")
         Call<MeiZiList> getMeiZi(@Path("page") int pageNumber , @Query("type") String type , @QueryMap(encoded=true) Map<String ,String> stringStringMap);
 ```

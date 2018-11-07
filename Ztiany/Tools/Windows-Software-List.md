@@ -138,9 +138,11 @@
 - 网易云
 - 123看图器
 - Photo Editor
-- Ditto 剪切板增强
 - OneDrive
-- 微软必应词典
+- 商店：微软必应词典
+- 商店：Ditto 剪切板增强
+- 商店：QuickLook
+- 商店：TranslucentTB
 - Cortana搜索预览
 - Win + G 录屏
 - 云剪贴板：`“设置”→“系统”→“剪贴板”`

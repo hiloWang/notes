@@ -2,10 +2,6 @@
 
 Kotlin为Android开发提供了许多的功能，比如Anko库和extension插件，这些都能在很多程度上帮助我们高效开发，但是在我看来，更为重要的是Kotlin本身的一些语言特性，比如**代理、扩展、高阶函数等等**。利用这些灵活的特性或许在Android App的架构上也能引发很多新的思考与实践。以下我在实践过程中的一些记录。
 
-引用：
-
-- [31 天，从浅到深轻松学习 Kotlin](https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&mid=2652046391&idx=1&sn=46efa48076a4533f355af6351b76c012&chksm=808ca472b7fb2d64afc89edf6beba1540e5a6ff49ad6346bd5d72b3957fa5f9323e07b8aab03&mpshare=1&scene=1&srcid=0615eHvcY8XijqYM5CH09baV#rd)
-
 ---
 ## 1  利用Kotlin特性
 

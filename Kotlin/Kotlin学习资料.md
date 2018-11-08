@@ -84,13 +84,15 @@ kotlin 发展简史：
 - [Kotlin coroutines vs RxJava: an initial performance test](https://proandroiddev.com/kotlin-coroutines-vs-rxjava-an-initial-performance-test-68160cfc6723)
 
 ---
-## 5 BennyHuo Kotlin
+## 5 kotlin 跟进...
 
-教材
+教程
 
 - [BennyHuo github](https://github.com/enbandari)
 - [Kotlin 系统入门到进阶 视频教程](http://coding.imooc.com/class/108.html)
 - [基于 GitHub App 业务深度讲解 Kotlin1.2高级特性与框架设计](https://coding.imooc.com/class/232.html)
+- [31 天，从浅到深轻松学习 Kotlin](https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&mid=2652046391&idx=1&sn=46efa48076a4533f355af6351b76c012&chksm=808ca472b7fb2d64afc89edf6beba1540e5a6ff49ad6346bd5d72b3957fa5f9323e07b8aab03&mpshare=1&scene=1&srcid=0615eHvcY8XijqYM5CH09baV#rd)
+- [Kotlin 实战指南 | 如何在大型应用中添加 Kotlin](https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&mid=2652047413&idx=1&sn=d8b248868406fc641b8a11ccc16807a5&scene=21#wechat_redirect)
 
 Kotlin 更新
 

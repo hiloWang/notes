@@ -3,7 +3,7 @@
 
 因为协程还是实验性功能，需要在 gradle 中开启协程：
 
-```
+```kotlin
 //app/build.gradle
 kotlin {
     experimental {
@@ -14,7 +14,7 @@ kotlin {
 
 然后添加相关依赖：
 
-```
+```kotlin
     // coroutines 核心
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
     // coroutines for android
@@ -27,9 +27,7 @@ coroutines-android 中有些什么东西呢？其实只有四个文件：
 - AndroidExceptionPreHandler
 - AndroidExceptionPreHandlerKt.class
 - HandlerContextKt.class
-
-HandlerContext 为 Kotlin 协程提供了 Android平台的 Hander上下文， `UI` 是 HandlerContext 的一个全局实例，让协程运行在 Android 的 UI线程。
-
+- HandlerContext 为 Kotlin 协程提供了 Android平台的 Hander上下文， `UI` 是 HandlerContext 的一个全局实例，让协程运行在 Android 的 UI线程。
 
 ---
 ## 以同步代码的风格 show 一个 Dialog

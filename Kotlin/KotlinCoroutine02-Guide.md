@@ -1,4 +1,4 @@
-[TOC]
+
 
 # Coroutines-Guide
 
@@ -144,7 +144,6 @@ run在Builders中提供，其作用是：启动一个suspending函数，并暂�
 ### 5 给协程设计超时
 
 可以给一个协程设置超时时间，给定时间被协程没有执行完毕，将会抛出异常：TimeoutCancellationException
-
 
 ---
 ## 编写异步风格的代码

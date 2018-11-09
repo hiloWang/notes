@@ -1,6 +1,6 @@
-# 使用Kotlin进行Android开发
+# Kotlin Android 开发实践
 
-Kotlin为Android开发提供了许多的功能，比如Anko库和extension插件，这些都能在很多程度上帮助我们高效开发，但是在我看来，更为重要的是Kotlin本身的一些语言特性，比如**代理、扩展、高阶函数等等**。利用这些灵活的特性或许在Android App的架构上也能引发很多新的思考与实践。以下我在实践过程中的一些记录。
+Kotlin 为 Android 开发提供了许多的特新，比如Anko库和extension插件，这些都能在很多程度上帮助我们高效开发，但是在我看来，更为重要的是Kotlin本身的一些语言特性，比如**代理、扩展、高阶函数等等**。利用这些灵活的特性或许在Android App的架构上也能引发很多新的思考与实践。以下我在实践过程中的一些记录。
 
 ---
 ## 1  利用Kotlin特性
@@ -8,13 +8,13 @@ Kotlin为Android开发提供了许多的功能，比如Anko库和extension插件
 1. 如何与现有的Java库兼容，null类型处理
 2. 熟悉Kotlin的基本语法
 3. 掌握Kotlin的特性功能，是开放更加高效
- - 委托
- - 扩展
+   1. 委托
+   2. 扩展
 
 ---
 ## 2 Kotlin extension
 
-具体参考[extension keep](https://github.com/Kotlin/KEEP/blob/master/proposals/android-extensions-entity-caching.md)
+具体参考 [extension keep](https://github.com/Kotlin/KEEP/blob/master/proposals/android-extensions-entity-caching.md)
 
 1. 在 Activity 和 Fragment 中直接使用 id 引用 view。
 2. 在 1.1.4 版本发布后，支持在 ViewHolder、自定义 View、 甚至是自定义布局容器中直接使用 id 引用 view，只需要实现 LayoutContainer 接口，同时支持使用 `@ContainerOptions` 指定 View 的缓存容器。
@@ -24,7 +24,7 @@ Kotlin为Android开发提供了许多的功能，比如Anko库和extension插件
 
 - 当两个布局中的控件 id 同名时，如何解决冲突：1 重名的 View id；2 使用 as 别名解决冲突
 
-2 和 3 需要配置开启实验性功能：
+上面所说的 2 和 3 需要配置开启实验性功能：
 
 ```groovy
 androidExtensions {
@@ -146,7 +146,6 @@ Anko Layouts 允许使用 DSL 的方式来创建布局，切使用起来非常�
 - Fragments 参数代理（从 arguments 中获取传参）
 - [ObjectPropertyDelegate](https://github.com/enbandari/ObjectPropertyDelegate)
 
-
 ---
 ## 5 实践总结
 
@@ -244,3 +243,116 @@ class RequestAfterSalesViewModel{
 ```kotlin
 inline fun <reified T> Gson.fromJson(json: String) = fromJson(json, T::class.java)
 ```
+
+---
+
+## 6 填坑记录
+
+### 与Retrofit配合使用时存在的问题
+
+Kotlin会给泛型加上通配符，比如`Map<String, RequestBody>`在Java中会被认为是`Map<String, ？ extend RequestBody>`，但是在Retrofit规定接口中的参数不能有通配符，所以使用Kollin接口定于API时就可能会遇到这个问题：[Parameter type must not include a type variable or wildcard](https://github.com/square/retrofit/issues/1805)
+
+解决方案是加上注解`@JvmSuppressWildcards`：
+
+```kotlin
+@PUT("/api/v3/{storeId}/categories/{categoryId}")
+fun update(@Path("storeId") storeId: Int, @Path("categoryId") categoryId: Int?, @Query("token") token: String, @Body category: Map<String, @JvmSuppressWildcards Any>): Observable<OperationResultUpdated>
+```
+
+------
+
+###  RxJava2的combineLatest泛型丢失
+
+```kotlin
+    private var userNameObservable: Observable<CharSequence>? = null
+    private var passwordObservable: Observable<CharSequence>? = null
+
+    fun initialize() {
+        userNameObservable = RxTextView.textChanges(username).skip(1)
+            .debounce(500, TimeUnit.MILLISECONDS)
+        passwordObservable = RxTextView.textChanges(password).skip(1)
+            .debounce(500, TimeUnit.MILLISECONDS) 
+      }
+
+    //下面代码编译无法通过，泛型推导失败
+    Observable.combineLatest(userNameObservable,
+            passwordObservable, 
+            { u: CharSequence, p: CharSequence -> u.isNotEmpty() && p.isNotEmpty() })
+```
+
+参考：[Observable.combineLatest type inference in kotlin](https://stackoverflow.com/questions/42725749/observable-combinelatest-type-inference-in-kotlin)
+
+------
+
+### Suppress 压制警告
+
+kotlin中的压制警告语法变量，具体如下：
+
+- `@Suppress("UNCHECKED_CAST")`
+
+------
+
+###  反编译 Kotlin
+
+Kotlin 反编译时，在 IDEA 上进行 decompile 可能造成 IDEA 卡死，而使用 AndroidStuidio 则不会。
+
+------
+
+### Gson 和 DataClass
+
+DataClass 没有默认的构造函数，而 Gson 却可以通过 `Unsafe.allocateInstance()` 类绕过构造函数实例化对象，这样实例化出来的对象的字段都是没有被初始化的，基于这种情况，就可能存在问题：
+
+```kotlin
+//父类
+abstract class PagingWrapper<T>{
+
+    abstract fun getElements(): List<T>
+
+    /*这里把 getElements 添加到 GitHubPaging中，是为了给上层使用*/
+    val paging by lazy {
+        GitHubPaging<T>().also { it.addAll(getElements()) }
+    }
+}
+
+//基类
+data class SearchRepositories(var total_count: Int,
+                              var incomplete_results: Boolean,
+                              var items: List<Repository>) : PagingWrapper<Repository>() {
+
+    override fun getElements() = items
+
+}
+```
+
+PagingWrapper 中 paging 是懒加载的，反编译之后会发现实现是这样的：
+
+```kotlin
+public abstract class PagingWrapper {
+
+   @NotNull
+   private final Lazy paging$delegate = LazyKt.lazy((Function0)(new Function0() {
+      public Object invoke() {
+         return this.invoke();
+      }
+
+      @NotNull
+      public final GitHubPaging invoke() {
+         GitHubPaging var1 = new GitHubPaging();
+         var1.addAll((Collection)PagingWrapper.this.getElements());
+         return var1;
+      }
+   }));
+
+   @NotNull
+   public abstract List getElements();
+
+   @NotNull
+   public final GitHubPaging getPaging() {
+      Lazy var1 = this.paging$delegate;
+      KProperty var3 = $$delegatedProperties[0];
+      return (GitHubPaging)var1.getValue();
+   }
+}
+```
+
+layz 依赖于 paging$delegate 字段，但是如果是 Unsafe 通过 `Unsafe.allocateInstance()` 实例化 SearchRepositories 的话，paging$delegate 是没有被初始化的，它的值还是null，这样后面调用 paging 必然会抛出 NPE。

@@ -21,7 +21,6 @@ Kotlin 基础：
 Kotlin Android：
 
 - [Kotlin Android 开发实践](Kotlin-Android-开发实践.md)
-- [Kotlin Android 避坑](Kotlin-Android-避坑.md)
 
 Kotlin 协程：
 

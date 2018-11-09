@@ -258,7 +258,10 @@ rebase就是变基的意思，假设master是主分支，dev是某个测试分�
     git config --global alias.last 'log -1'        配置别名  之后用git last
     git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
-    git config --global core.quotepath false 解决log中文文件名乱码问题
+    //解决log中文文件名乱码问题
+    git config --global core.quotepath false 
+    git config --global i18n.commitencoding utf-8
+    git config --global i18n.logoutputencoding utf-8
 
     //利用 shell 配置带参数的别名
     p = "!f() { git push origin HEAD:refs/for/\"$1\"; }; f"

@@ -139,6 +139,7 @@ https
 - [HTTPS 理论基础及其在 Android 中的最佳实践](http://blog.csdn.net/iispring/article/details/51615631)
 - [Android App 安全的HTTPS 通信](https://yq.aliyun.com/articles/64810?spm=5176.8067842.tagmain.41.0LO1b6)
 - [Android HTTPS正传](https://www.jianshu.com/p/458c0ba92026)
+- [为你的Android App实现自签名的 SSL 证书](http://www.open-open.com/lib/view/open1413071600531.html)
 
 防抓包
 

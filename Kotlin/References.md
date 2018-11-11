@@ -94,9 +94,15 @@ kotlin 发展简史：
 - [31 天，从浅到深轻松学习 Kotlin](https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&mid=2652046391&idx=1&sn=46efa48076a4533f355af6351b76c012&chksm=808ca472b7fb2d64afc89edf6beba1540e5a6ff49ad6346bd5d72b3957fa5f9323e07b8aab03&mpshare=1&scene=1&srcid=0615eHvcY8XijqYM5CH09baV#rd)
 - [Kotlin 实战指南 | 如何在大型应用中添加 Kotlin](https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&mid=2652047413&idx=1&sn=d8b248868406fc641b8a11ccc16807a5&scene=21#wechat_redirect)
 
-Kotlin 更新
+插件使用
 
 - [kotlinx.serialization 组件](https://discuss.kotliner.cn/t/topic/226)
+- [NoArg 插件的 invokeInitializers 配置](https://mp.weixin.qq.com/s/0mEpsYfOrZDUdIoeKkL1xg)
+
+Kotlin 更新
+
+- [Kotlin 1.3 RC is Here: Migrate Your Coroutines!](https://blog.jetbrains.com/kotlin/2018/09/kotlin-1-3-rc-is-here-migrate-your-coroutines/)
+- [Kotlin 1.3 Released with Coroutines, Kotlin/Native Beta, and more](https://blog.jetbrains.com/kotlin/2018/10/kotlin-1-3/)
 - [来看看 Kotlin 1.3-M2 都有哪些好玩的东西](https://mp.weixin.qq.com/s?__biz=MzIzMTYzOTYzNA==&mid=2247484229&idx=1&sn=39328734a73ce7033f017fdc9b0dd3a8&chksm=e8a05c78dfd7d56ebdbdce91ba8291f3678de02e522dc6f47118e01cce5335e0593c68441cf0&mpshare=1&scene=1&srcid=0917x8zBcvTHH1gFHLsD6HEI#rd)
 - [Kotlin 1.3 RC 来啦：快迁移您的协程代码吧！](https://mp.weixin.qq.com/s/tYkPr6dKJA0HEAlSZ0CLkg)
-- [NoArg 插件的 invokeInitializers 配置](https://mp.weixin.qq.com/s/0mEpsYfOrZDUdIoeKkL1xg)
+

@@ -10,7 +10,7 @@
         <!-- 边缘弧度数 -->
         <attr name="cardCornerRadius" format="dimension" />
         <!-- Elevation for CardView. -->
-        <!-- 高度 -->
+        <!-- z 轴高度 -->
         <attr name="cardElevation" format="dimension" />
         <!-- Maximum Elevation for CardView. -->
         <!-- 最大高度 -->

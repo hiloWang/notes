@@ -80,6 +80,11 @@ FragmentPagerAdapter 的 destroyItem 中没有 remove Fragment，而是使用的
 - [仿京东、淘宝，自动轮播图。Auto Play ViewPager](https://github.com/xyzlf/AutoPlayViewPager)
 [轮播图View，很强大](https://github.com/sayyam/carouselview)
 
+### tab
+
+- [FlycoTabLayout](https://github.com/H07000223/FlycoTabLayout)
+- [MagicIndicator](https://github.com/hackware1993/MagicIndicator)
+- [SmartTabLayout](https://github.com/ogaclejapan/SmartTabLayout/)
 
 ### Blog
 

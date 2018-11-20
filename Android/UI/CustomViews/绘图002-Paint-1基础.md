@@ -60,12 +60,9 @@ Paint关于绘制效果的API总结如下：
 ---
 ## 2.4 色彩优化
 
-- **setDither(boolean dither)**：用来设置我们在绘制图像时的抖动，也称为递色，将相邻像素之间颜色值进行一种“中和”以呈现一个更细腻的过渡色，<br/>等同于`Paint paint  = new TextPaint(Paint.DITHER_FLAG)`,<br/>其次Paint的参数构造参数支持位运算
-
-- **setShadowLayer(float radius, float dx, float dy, int shadowColor)**：在之后的绘制内容下面加一层阴影
- - 在硬件加速开启的情况下， `setShadowLayer()` 只支持文字的绘制，文字之外的绘制必须关闭硬件加速才能正常绘制阴影。
- - 如果 `shadowColor` 是半透明的，阴影的透明度就使用 `shadowColor` 自己的透明度；而如果 `shadowColor`是不透明的，阴影的透明度就使用 `paint` 的透明度。
-- **setRasterizer (Rasterizer rasterizer)**：设置光栅，不支持HW在API21中被废弃
+- **setDither(boolean dither)**：用来设置我们在绘制图像时的抖动，也称为递色，将相邻像素之间颜色值进行一种“中和”以呈现一个更细腻的过渡色，等同于`Paint paint  = new TextPaint(Paint.DITHER_FLAG)`,其次Paint的参数构造参数支持位运算。
+- **setShadowLayer(float radius, float dx, float dy, int shadowColor)**：在之后的绘制内容下面加一层阴影，在硬件加速开启的情况下， `setShadowLayer()` 只支持文字的绘制，文字之外的绘制必须关闭硬件加速才能正常绘制阴影。如果 `shadowColor` 是半透明的，阴影的透明度就使用 `shadowColor` 自己的透明度；而如果 `shadowColor`是不透明的，阴影的透明度就使用 `paint` 的透明度。
+- **setRasterizer (Rasterizer rasterizer)**：设置光栅，不支持HW在API21中被废弃。
 
 ---
 ## 2.5 setPathEffect

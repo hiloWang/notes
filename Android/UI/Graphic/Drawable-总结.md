@@ -188,7 +188,7 @@ shape表示形状，上面分别是矩形，椭圆，线，圆环，另外ring�
     </layer-list>
 ```
 
-layer-list语法很简单，可以包含多个item，每个item表示一个drawable，top，right，bottom，left分别表示各个方向上的偏移量
+layer-list语法很简单，可以包含多个item，每个item表示一个drawable，top，right，bottom，left分别表示各个方向上的偏移量，这四个偏移量和控件的margin设置差不多，都是外间距的效果。
 
 ### StateListrawable
 
@@ -355,4 +355,5 @@ WebP是Google提供的有损压缩（如JPEG）以及透明度（如PNG）的图
 ## 引用
 
 - [官方文档](http://developer.android.com/intl/zh-cn/guide/topics/resources/drawable-resource.html)
+- [ANDROID样式的开发系列](https://keeganlee.me/post/android/20150909)
 - 《安卓开发艺术探索》

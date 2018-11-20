@@ -171,9 +171,8 @@ private fun localDelegate(computeFoo: () -> String) {
 示例
 
 ```kotlin
-private class ADelegate(property: ReadWriteProperty<ADelegationExample, String>) : ReadWriteProperty<ADelegationExample, String> by property
-
-private val propertyA = object : ReadWriteProperty<ADelegationExample, String> {
+//提供委托的类
+private class ADelegate : ReadWriteProperty<ADelegationExample, String> {
 
     private var value = "abc"
 
@@ -186,8 +185,9 @@ private val propertyA = object : ReadWriteProperty<ADelegationExample, String> {
     }
 }
 
+//使用委托的类
 private class ADelegationExample {
-    var name: String by ADelegate(propertyA)
+    var name: String by ADelegate()
 }
 ```
 

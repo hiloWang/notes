@@ -286,9 +286,8 @@ fun update(@Path("storeId") storeId: Int, @Path("categoryId") categoryId: Int?, 
 
 ### Suppress 压制警告
 
-kotlin中的压制警告语法变量，具体如下：
-
-- `@Suppress("UNCHECKED_CAST")`
+- `@Suppress("UNCHECKED_CAST")`：没有检查的类型转换
+- `@Suppress("DEPRECATION")`：废弃的API
 
 ------
 

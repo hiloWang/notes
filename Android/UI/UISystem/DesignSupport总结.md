@@ -256,11 +256,9 @@ AppBarLayout继承自LinearLayout，勇于配合CoordinatorLayout使用，在互
 ```
     app:layout_scrollFlags="scroll"
     flag包括：
-        scroll: 里面所有的子控件想要当滑出屏幕的时候view都必须设置这个flag，
-            没有设置flag的view将被固定在屏幕顶部。
-        enterAlways:('quick return' pattern)
-        enterAlwaysCollapsed：当你的视图设置了minHeight属性的时候，那么视图只能以最小高度进入，
-                    只有当滚动视图到达顶部时才扩大到完整高度。
+        scroll: 里面所有的子控件想要当滑出屏幕的时候view都必须设置这个flag，没有设置flag的view将被固定在屏幕顶部。
+        enterAlways:('quick return' pattern)。
+        enterAlwaysCollapsed：当你的视图设置了minHeight属性的时候，那么视图只能以最小高度进入， 只有当滚动视图到达顶部时才扩大到完整高度。
         exitUntilCollapsed：滚动退出屏幕，最后折叠在顶端。
         snap：
 ```

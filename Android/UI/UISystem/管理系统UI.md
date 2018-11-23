@@ -55,7 +55,7 @@
 ### 4.0 之后SystemBar相关API的一些变化
 
 - 在3.0(API 11)中，添加了一个重要的方法：`setSystemUiVisibility(int)`，用于控制包括Status Bar在内的一些窗口装饰元素的显示
-- 在4.0(API 14)中，Andorid引入了Navigation Bar，并添加了一个Flag：`SYSTEM_UI_FLAG_HIDDEN_NAVIGATION`用于控制Navigatoin Bar的显示。
+- 在4.0(API 14)中，Andorid引入了Navigation Bar，并添加了一个Flag：`SYSTEM_UI_FLAG_HIDE_NAVIGATION`用于控制Navigatoin Bar的显示。
 
 另外还引入一些Flag用于调整SystemBar
 

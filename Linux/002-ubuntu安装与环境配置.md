@@ -1,4 +1,6 @@
-## 1 安装 ubuntu（双系统）
+## 1 安装 ubuntu
+
+### （双系统）
 
 预备设置：windiws关闭快速启动，bios关闭安全启动。
 
@@ -12,6 +14,16 @@
 4. 安装完毕
 5. 进入windows10，使用easyBCD添加引导项：`grub2-自动选择`
 
+### 单系统
+
+120G ssd + 1T硬盘：
+
+1. 挂载点：109798（SSD）
+1. boot：2046（SSD）
+1. swap分区：7986（SSD）
+1. home：1000203（SSD）
+
+>UEFI 模式需要单独分一个 200M 左右的区给 EFI，格式为 FAT32，然后把 grub 安装在这个分区。不然会出现错误提示『无法将grub-eif-amd64-signed软件包安装到/target/中』。具体参考[UEFI 模式安装 Win10 + Ubuntu 18.04](https://maajiaa.wordpress.com/2018/05/16/installing-win10-ubuntu-in-uefi/)
 
 ---
 ## 2 ubuntu环境搭建与相关配置

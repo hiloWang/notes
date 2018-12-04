@@ -28,6 +28,12 @@
 ---
 ## 2 ubuntu环境搭建与相关配置
 
+### 安装编译环境
+
+```
+sudo apt-get install build-essential
+```
+
 ### install unity tools
 
 ```
@@ -79,13 +85,6 @@ aptitude工具是基于apt的一款安装工具，优点是可以自动解决安
         sudo apt-get install openjdk-8-jdk
 ```
 
-### wiznote
-
-```
-        sudo add-apt-repository ppa:wiznote-team //添加官方源
-        sudo apt-get update //更新源 
-        sudo apt-get install wiznote //安装为知笔记
-```
 
 ### oh-my-zsh
 

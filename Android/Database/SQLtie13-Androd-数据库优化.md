@@ -22,7 +22,7 @@
 可能存在的异常：
 
 - `SQLiteDatabaseLockedException: database is locked`，原因，多个线程打开了多个数据库连接，同时写数据，SQLite3是基于文件锁的，其对于并发的处理机制是允许同一个进程的多个线程同时读取一个数据库，但是任何时刻只允许一个线程/进程写入数据库。解决方案是多个线程共享一个全局的数据库连接。
-- `java.lang.IllegalStateException: attempt to re-open an already-closed object`，多线程条件下，A 线程获取数据库实例对数据库进行操作，同时 B 线程也拿到了该数据库实例，加如当 A 线程操作完数据库后，关闭了数据库链接，而此时 B 线程还在使用数据库实例进行数据库操作，就会抛出次异常，解决方法可以使用`同步+引用计数`方法进行控制。
+- `java.lang.IllegalStateException: attempt to re-open an already-closed object`，多线程条件下，A 线程获取数据库实例对数据库进行操作，同时 B 线程也拿到了该数据库实例，假如当 A 线程操作完数据库后，关闭了数据库链接，而此时 B 线程还在使用数据库实例进行数据库操作，就会抛出此异常，解决方法可以使用`同步+引用计数`方法进行控制。
 
 但是，这种情况下，我们必须规范，必须使用 DatabaseManager 进行 SQLiteDatabase 的关闭操作：
 

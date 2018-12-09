@@ -2,3 +2,4 @@
 - [排序算法总结](https://segmentfault.com/a/1190000004994003)
 - [awesome-java-leetcode](https://github.com/Blankj/awesome-java-leetcode)
 - [BasicExercises](https://github.com/CaMnter/BasicExercises)
+- [30张图带你彻底理解红黑树](https://www.jianshu.com/p/e136ec79235c)

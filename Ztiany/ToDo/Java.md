@@ -29,3 +29,5 @@
     - [Java里面CompletableFuture详解](https://blog.csdn.net/cainiao_user/article/details/76423495)
     - [Java8新的异步编程方式 CompletableFuture](https://juejin.im/post/59eae61b51882549fc512b34)
     - [20个使用 Java CompletableFuture的例子](http://colobu.com/2018/03/12/20-Examples-of-Using-Java%E2%80%99s-CompletableFuture/)
+- [深入剖析ConcurrentHashMap(1)](http://ifeve.com/java-concurrent-hashmap-1/)
+- [深入剖析ConcurrentHashMap(2)](http://ifeve.com/java-concurrent-hashmap-2/)

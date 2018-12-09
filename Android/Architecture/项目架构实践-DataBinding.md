@@ -551,7 +551,7 @@ default用于设置预览显示的文字
 ---
 ## 14 更新
 
-DataBinding v2 编译器用于与 AAC 配合工作。
+DataBinding v2 编译器用于与 AAC 在的 LiveData 配合工作。
 
 ---
 ## 引用
@@ -562,25 +562,3 @@ DataBinding v2 编译器用于与 AAC 配合工作。
 - [Data Binding Component详解 - 换肤什么的只是它的一个小应用](http://blog.zhaiyifan.cn/2016/07/21/data-binding-component/)
 - [DataBindingAdapter](https://github.com/markzhai/DataBindingAdapter/blob/master/README_CN.md)
 - [DataBindingSample](https://github.com/markzhai/DataBindingSample)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

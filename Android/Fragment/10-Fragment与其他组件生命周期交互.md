@@ -3,9 +3,9 @@
 ---
 ## 1 Activity 与 Fragment 生命周期交互
 
-平时做项目一般都会封装一个基类的Activity，比如下面方式：
+平时做项目一般都会封装一个基类的 Activity，比如下面方式：
 
-```
+```java
     public abstract class BaseActivity extends AbsActivity {
     
         @Override
@@ -21,13 +21,13 @@
         }
 ```
 
-一般情况下这样没有什么问题的。但是很多时候Activity中需要和Fragment交互，而有些时候Fragment又需要Activity提供一些依赖，但是Fragment中总不能直接`getActivity()`强转成具体的某一个Activity吧，这样的Fragment就只能和此Activity交互了，耦合性太高了，所以一般我们会在Fragmeg中写一个接口，让需要使用此Fragment的Activity实现此接口，然后Fragment就只需要通过它提供的接口来获取依赖就可以了，但这不是这里的重点。
+一般情况下这样没有什么问题的。但是很多时候 Activity 中需要和 Fragment 交互，而有些时候 Fragment 又需要 Activity 提供一些依赖， Fragment 中总不能直接 `getActivity()` 强转成具体的某一个Activity 吧，这样的 Fragment 就只能和此 Activity 交互了，耦合性太高了，所以一般我们会在 Fragmeg 中写一个接口，让需要使用此 Fragment 的 Activity 实现此接口，然后 Fragment 就只需要通过它提供的接口来获取依赖就可以了，但这不是这里的重点。
 
-**重点是，在Activity中什么时候初始化Fragment需要的依赖。**
+**重点是，在 Activity 中什么时候初始化 Fragment 需要的依赖。**
 
-有时候Fragment需要在onCreate中就获取Activit提供的依赖，比如我们在使用Dagger2时经常这么做：
+有时候 Fragment 需要在 onCreate 中就获取 Activit 提供的依赖，比如我们在使用 Dagger2 时经常这么做：
 
-```
+```java
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -43,7 +43,7 @@
         }
 ```
 
-因为不希望重复的注入，所以在onCreate方法中获取Activity提供的Component()进行注入，而我们也习惯贼Activity封装的initialize方法中初始化容器。这样做一般情况下确实没有什么问题，但是当使用屏幕旋转来模拟Activity后系统回收后重建的情况下，可能就会引发异常，空指针异常。原因在于Activity生命周期方法回调在重建时与一般情况下有一点不一样。
+因为不希望重复的注入，所以在 onCreate 方法中获取 Activity 提供的 Component() 进行注入，而我们也习惯在 Activity 封装的 initialize 方法中初始化容器。这样做一般情况下确实没有什么问题，但是当使用屏幕旋转来模拟 Activity 后系统回收后重建的情况下，可能就会引发异常，空指针异常。原因在于 Activity 生命周期方法回调在重建时与一般情况下有一点不一样。
 
 正常情况下的生命周期调用
 ```
@@ -90,9 +90,9 @@
     MallListFragment-->onResume
 ```
 
-看到这里，我们下意识的就会认为**在重建的时候，Activity 的onCreate方法原来在Fragment之后执行，那么显然就不是在Activity 的onCreate方法中初始化Fragmeng的依赖了**，但是事实并不是如何，因为我们平时的编码习惯关系，一般我们打印Activity生命周期方法都会这样：
+看到这里，我们下意识的就会认为 **在重建的时候，Activity 的 onCreate方 法原来在 Fragment 之后执行，那么显然就不适合在 Activity 的 onCreate 方法中初始化 Fragmeng 的依赖了**，但是事实并不是如此，因为我们平时的编码习惯关系，一般我们打印 Activity 生命周期方法都会这样：
 
-```
+```java
     protected void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             if (printLifeCycle) {
@@ -101,9 +101,9 @@
         }
 ```
 
-但是有没有想过这样呢，有没有考虑过调用 super.onCreate() 时都做了写什么呢？
+但是有没有想过这样呢，有没有考虑过调用 `super.onCreate()` 时都做了写什么呢？
 
-```
+```java
     protected void onCreate(@Nullable Bundle savedInstanceState) {
             if (printLifeCycle) {
                 Log.d(tag(), tag() + "---->onCreate before call super    ");
@@ -179,19 +179,17 @@
     MallFragment-->onResume
 ```
 
-看到生命周期方法的调用之后，发现还时可以在Activity的onCreate方法中初始化Fragment需要的依赖的，因为Activity的onCreate方法必然在Fragment的onCreate方法之前执行，只是需要注意`super.onCreate`方法，当界面重建时，Fragment的onCreate方法在其后面执行。于是把代码修改成如下方式即可：
+通过日志可以发现，原来是在 `super.onCreate()` 中执行了 Fragment 的恢复操作，于是把代码修改成如下方式即可：
 
-```
+```java
      public abstract class BaseActivity extends AbsActivity {
     
             @Override
             protected void onCreate(@Nullable Bundle savedInstanceState) {
-    
-                //初始化一下必要的对象
+                //初始化必要的对象
                 initialize(savedInstanceState);
                 //调用父类的方法
                 super.onCreate(savedInstanceState);
-    
                 //然后才是逻辑
                 int layoutId = layoutId();
                 setContentView(layoutId);
@@ -200,14 +198,12 @@
             }
 ```
 
-另外**在Fragment中嵌套Fragment的情况也是类似的**
+另外 **在 Fragment 中嵌套 Fragment 的情况也是类似的**
 
 ---
 ## 2 ActivityLifecycleCallbacks、FragmentLifecycleCallbacks
 
->补充于 dagger2 android 扩展
-
-dagger2 android 扩展让注入不必那么麻烦了，可以使用 ActivityLifecycleCallbacks、FragmentLifecycleCallbacks实现自动注入，而 Activity 和 Fragment 只需要实现相关的标记接口即可：
+dagger2 android 扩展让注入不必那么麻烦了，如果再配合使用 ActivityLifecycleCallbacks、FragmentLifecycleCallbacks 实现自动注入，就可以实现无侵入式注入，Activity 和 Fragment 只需要实现相关的标记接口即可：
 
 ```kotlin
 interface Injectable
@@ -341,4 +337,4 @@ Application onFragmentCreated MainFragment{bdfc17d #0 id=0x7f080030}
 this on Activity Create after MainActivity@bb1bbd4
 ```
 
-通过日志可以看出 Activity 总会先执行注入，所以不存在什么问题，只是切记在 Fragment 中，不要在 onAttach 方法内使用被注入的对象即可。
+通过日志可以看出 Activity 总会先执行注入，所以不存在什么问题，注意不要在 Fragment 的 onAttach 方法内使用被注入的对象即可。

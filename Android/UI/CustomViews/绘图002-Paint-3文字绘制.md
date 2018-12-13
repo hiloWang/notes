@@ -35,15 +35,16 @@
 ---
 ## 4.1  getFontMetrics()详解
 
-getFontMetrics返回一个FontMetrics，这个FontMetrics描述了字体的测量信息，文字不像一般的图形只要上下左右，FontMetrics内部定义了top,ascent,descent,bottom,leading五个变量，可用如下图表示：
+getFontMetrics返回一个FontMetrics，这个FontMetrics描述了字体的测量信息，文字不像一般的图形只要上下左右，FontMetrics内部定义了top, ascent, descent, bottom,leading 五个变量，可用如下图表示：
 
-![](index_files/9304d4a8-5878-4fee-be0f-0f20108e45f7.png)
+![](index_files/9304d4a8-5878-4fee-be0f-0f20108e45f6.png)
+>[图片来自meaning-of-top-ascent-baseline-descent-bottom-and-leading-in-androids-font](https://stackoverflow.com/questions/27631736/meaning-of-top-ascent-baseline-descent-bottom-and-leading-in-androids-font)
 
-- ascent表示字体的升部
-- descent表示字体的降部
-- leading表示行间距
-- top表示字体的顶部(为了可能需要的音符而预留)
-- bottom 与top类似
+- ascent 表示字体的升部
+- descent 表示字体的降部
+- top表示 字体的顶部(为了可能需要的音符而预留)
+- bottom 与 top 类似
+- leading 表示行间距
 
 升部和降部都是基于baseLine而言的，baseLine以上都是负数，而baseLine以下才是正数。
 

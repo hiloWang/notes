@@ -1,8 +1,3 @@
-## 学习资料
-
-- [学习资料](References.md)
-- [前端介绍](HTML&CSS/前端介绍.md)
-
 ## HTML & CSS
 
 - [001-HTML简介](HTML&CSS/001-HTML简介.md)
@@ -39,7 +34,7 @@
 - [《JavaScript权威指南》6-JS的子集与拓展](JavaScript/《JavaScript权威指南》6-JS的子集与拓展.md)
 - [深入浅出JavaScript-笔记](JavaScript/深入浅出JavaScript-笔记.md)
 
-## References
+## 学习资料
 
 - [第一本 PWA 中文书](https://github.com/SangKa/PWA-Book-CN)
 - WebAssembly

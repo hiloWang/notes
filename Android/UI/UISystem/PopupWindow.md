@@ -6,28 +6,31 @@
 
 ## 构建方法
 
-```
-    PopupWindow ()    // 创建一个空的PopupWindow
+```java
+    // 创建一个空的PopupWindow
+    PopupWindow ()
+    // 创建一个PopupWindow，指定视图
     PopupWindow (View contentView)
+    // 创建一个PopupWindow，指定宽高
     PopupWindow (int width,int height)
-    PopupWindow (View contentView,     // PopupWindow的内容View, 相当于setContentView
-                  int width,     // 宽, 相当于setwidth()
-                  int height,  // 高, 相当于setHeight
-                  boolean focusable) // 是否可获取焦点, 相当于setFocusable()，默认为false
+    // 创建一个PopupWindow，指定视图、宽高和是否可获取焦点
+    PopupWindow (View contentView,
+                  int width,
+                  int height,
+                  boolean focusable)
 ```
 
 **显示PopuWindow必要的三个条件**
 
-```
+```java
     // 因为PopupWindow没有默认布局所以必须指定宽高
     void setHeight (int height)
     void setWidth (int width)
-    void setContentView (View contentView) // 需要显示的内容
+    // 需要显示的内容
+    void setContentView (View contentView)
 ```
 
-上面三个属性必需设置，否则无法显示PopupWindow
-
-示例：下面创建了一个包裹内容的PopupWindow。
+上面三个属性必需设置，否则无法显示 PopupWindow，示例：下面创建了一个包裹内容的PopupWindow。
 
 ```java
     PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -42,31 +45,46 @@
 
 ## 属性
 
-```
-    void setTouchable (boolean touchable) // 设置是否可被点击
-    void setSplitTouchEnabled (boolean enabled)//多点触控
-    void setIgnoreCheekPress () // CheekPress事件处理，默认为false, 即不忽略，当物体触摸在屏幕上的尺寸超过手指尺寸范围, 将被判定为CheekPress事件(脸颊点击).
-    void setOutsideTouchable (boolean touchable) // 设置外部是否可被点击，如果为true点击PopupWindow外部区域可以取消PopupWindow
-    void setAttachedInDecor (boolean enabled)//Android5.0(API22)后添加的方法, 默认为true. 为true时将不会与导航栏重叠.
-    void setFocusable (boolean focusable)//一般控件都不需要焦点. 但是输入框EditText需要先获取焦点才能输入. 最重要的是当PopupWindow可获取焦点时按下手机返回键将不会销毁当前Activity而是关闭当前PopupWindow. 所以我们一般还是设置为true. 更加符合用户操作逻辑. 该方法为true时同时拥有setOutsideTouchable(true)的作用.
-    void setBackgroundDrawable (Drawable background)//设置背景
-    boolean isAboveAnchor ()//该方法只在showAsDropDown()方法执行后才有效. 可以判断PopupWindow和附着View anchor谁的Y轴坐标小
-    void setOverlapAnchor (boolean overlapAnchor)//默认对齐方式从View anchor的左下角变成左上角
-    void setClippingEnabled (boolean enabled)//PopupWindow默认是不会超出屏幕边界的. 但是如果该方法为false时会采用精准位置, 能超出屏幕范围.
-    void setAnimationStyle (int animationStyle)//设置显示动画
+```java
+    // 设置是否可被点击
+    void setTouchable (boolean touchable)
+    //多点触控
+    void setSplitTouchEnabled (boolean enabled)
+    // CheekPress事件处理，默认为false, 即不忽略，当物体触摸在屏幕上的尺寸超过手指尺寸范围, 将被判定为CheekPress事件(脸颊点击).
+    void setIgnoreCheekPress ()
+    // 设置外部是否可被点击，如果为true点击PopupWindow外部区域可以取消PopupWindow
+    void setOutsideTouchable (boolean touchable) 
+    // Android5.0(API22)后添加的方法, 默认为true. 为true时将不会与导航栏重叠.
+    void setAttachedInDecor (boolean enabled)
+    //一般控件都不需要焦点. 但是输入框EditText需要先获取焦点才能输入. 最重要的是当PopupWindow可获取焦点时按下手机返回键将不会销毁当前
+    //Activity而是关闭当前PopupWindow. 所以我们一般还是设置为true. 更加符合用户操作逻辑. 该方法为true时同时拥有setOutsideTouchable(true)的作用.
+    void setFocusable (boolean focusable)
+    //设置背景
+    void setBackgroundDrawable (Drawable background)
+    //该方法只在showAsDropDown()方法执行后才有效. 可以判断PopupWindow和附着View anchor谁的Y轴坐标小
+    boolean isAboveAnchor ()
+    //默认对齐方式从View anchor的左下角变成左上角
+    void setOverlapAnchor (boolean overlapAnchor)
+    //PopupWindow默认是不会超出屏幕边界的. 但是如果该方法为false时会采用精准位置, 能超出屏幕范围.
+    void setClippingEnabled (boolean enabled)
+    //设置显示动画
+    void setAnimationStyle (int animationStyle)
 ```
 
-android6.0以下还是无法点击外部取消Popupwindow. 可以通过设置背景来解决这个Bug：`popupWindow.setBackgroundDrawable(new BitmapDrawable());`
+如果在 android6.0 以下无法点击外部取消 Popupwindow. 可以通过设置背景来解决这个 Bug：
+
+```java
+popupWindow.setBackgroundDrawable(new BitmapDrawable());
+```
 
 ## 更新
 
+```java
+    //该方法不能更新PopupWindow的宽高, 只能更新PopupWindow的状态. 例如更新Focusable和OutsideTouchable
+    void update ()
+    //更新PopupWindow的宽高
+    void update (int width,int height)
 ```
-    void update ()//该方法不能更新PopupWindow的宽高, 只能更新PopupWindow的状态. 例如更新Focusable和OutsideTouchable
-    void update (int width,int height)//// 更新PopupWindow的宽高
-```
-
-- showAtLocation的相对原点是自身位置.
-- showAsDropDown的相对原点是整个屏幕左上角, 包括状态栏
 
 # 3 PopupWidnow实现解析
 

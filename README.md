@@ -50,7 +50,7 @@
 
 基础
 
-- [操作系统](ComputerFoundation/README.md)
+- [操作系统](ComputerBasic/README.md)
 - [网络协议](Network/README.md)
 - [数据结构与算法](DataStructure/README.md)
 

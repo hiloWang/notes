@@ -12,7 +12,7 @@ Base64编码：可以把任何的字节变为可见字符串。算法：3字节-
 ```
 实际上Base64是一个基础码表：
 
-```
+```java
 public static String md5(String str){
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

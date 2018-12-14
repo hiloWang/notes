@@ -6,7 +6,6 @@
 - [Java 后端自学之路](http://objcoding.com/2018/02/07/javaweb-learning/)
 - [Java 工程师的成神之路](https://mp.weixin.qq.com/s/IfqEoFliXotzmI9TtWnYaw)
 
-
 ---
 ## 2 学习资料
 
@@ -24,7 +23,6 @@
 - 请求转发的原理
 - Servlet3.0，注解如何设置Filter的优先级
 - 请求转发的问题：比如Servlet转发到一个jsp，那么jsp中引用的资源是相对于Servlet路径的，如果Servlet的上级路径与jsp的上级路径不一致，那么jsp中引用的资源将会失效
-
 
 ### Spring
 

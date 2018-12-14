@@ -1,12 +1,4 @@
-# Python
-
-学习资料：
-
-- [Python学习资料](Python学习资料.md)
-- [Python2&Python3](Python2.md)
-- [Python标准库](Python标准库.md)
-
-Python3基础：
+## Python 学习笔记 
 
 - [01-Python 简介](01-Python简介.md)
 - [02-基础语法](02-基础语法.md)
@@ -25,3 +17,14 @@ Python3基础：
 - [16-进程](16-进程.md)
 - [17-多线程](17-多线程.md)
 - [18-网络通信](18-网络通信.md)
+
+## 学习资料
+
+- [官方文档](https://www.python.org/doc/)
+- [Python3 入门教程](http://docspy3zh.readthedocs.io/en/latest/tutorial/)
+- [廖雪峰：Python3](http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)
+- [awesome-python-cn](https://github.com/jobbole/awesome-python-cn)
+- [菜鸟教程：Python2](http://www.runoob.com/python/python-tutorial.html)
+- [菜鸟教程：Python3](http://www.runoob.com/python3/python3-tutorial.html)
+- [pep8](https://www.python.org/dev/peps/pep-0008/)
+- 《Python编程从入门到实战》

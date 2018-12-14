@@ -23,3 +23,11 @@
 - [学习算法思维02-排序高级](PlayWithAlgorithms/学习算法思维02-排序高级.md)，To Be Continued
 - [学习算法思维03-堆与堆排序](PlayWithAlgorithms/学习算法思维03-堆排序.md) ，To Be Continued
 - [学习算法思维04-二分搜索树](PlayWithAlgorithms/学习算法思维04-二分搜索树.md) ，To Be Continued
+
+## References
+
+- [程序员必须知道的10大基础实用算法及其讲解](https://www.sdk.cn/news/2321)
+- [排序算法总结](https://segmentfault.com/a/1190000004994003)
+- [awesome-java-leetcode](https://github.com/Blankj/awesome-java-leetcode)
+- [BasicExercises](https://github.com/CaMnter/BasicExercises)
+- [30张图带你彻底理解红黑树](https://www.jianshu.com/p/e136ec79235c)

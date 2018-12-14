@@ -6,7 +6,7 @@
 
 **方式1：在manifest文件的Activity节点中设置**
 
-```
+```xml
       <activity
             android:name=".activity.OrderActivity"
             android:exported="false"
@@ -18,7 +18,7 @@
 
 **方式2：在代码中设置**
 
-```
+```java
 	getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
     View view = activity.getCurrentFocus();
@@ -30,6 +30,10 @@
 ```
 
 通过上面列出的方式就可以对软键盘的模式进行设置了，那么软键盘都有哪些模式呢，都有什么作用呢？
+
+## windowSoftInputMode与windowFullscreen，fitsSystemWindows冲突
+
+如果你在 manifest 中把一个 activity 设置成 `android:windowSoftInputMode="adjustResize"`，那么 `ScrollView`（或者其它可伸缩的 `ViewGroups`）会缩小，从而为软键盘腾出空间。但是，如果你在 activity 的主题中设置了 `android:windowFullscreen="true"`，那么`ScrollView` 不会缩小。这是因为该属性强制 `ScrollView` 全屏显示。然而在主题中设置 `android:fitsSystemWindows="false"` 也会导致 `adjustResize` 不起作用。
 
 ## 软键盘的模式与作用
 
@@ -101,8 +105,6 @@ Activity的屏幕大小并不会调整来保证软键盘的空间，而是采取
 #### adjustNothing
 
 界面不做任何调整
-
-
 
 
 

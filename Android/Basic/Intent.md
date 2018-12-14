@@ -93,9 +93,7 @@ Intent 是一个消息传递对象，可以使用它从其他应用组件请求�
 
 ###  安全的使用
 
-如果系统中没有组件可以处理隐式的Intent，则调用将会失败，且应用会崩溃
-
-正确的使用方式应该为：
+类似打开相机，发送图片等隐式Intent，是并不一定能够在所有的Android设备上都正常运行。例如打开相机的隐式Intent，如果系统相机应用被关闭或者不存在相机应用，又或者是相机应用的某些权限被关闭等等情况都可能导致这个隐式的Intent无法正常工作。一旦发生隐式Intent找不到合适的调用组件的情况，系统就会抛出`ActivityNotFoundException`的异常，如果我们的应用没有对这个异常做任何处理，那应用就会发生Crash。正确的使用方式应该为：
 
 ```java
     Intent sendIntent = new Intent();
@@ -106,7 +104,7 @@ Intent 是一个消息传递对象，可以使用它从其他应用组件请求�
     if (sendIntent.resolveActivity(getPackageManager()) != null) {
         startActivity(sendIntent);
     } 
-    或者可以使用PackageManager的query类方法
+    //或者可以使用PackageManager的query类方法
 ```
 
 ### 强制使用应用选择器

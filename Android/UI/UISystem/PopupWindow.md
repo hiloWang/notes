@@ -1,10 +1,10 @@
-# 1 PopupWindow介绍
+## 1 PopupWindow介绍
 
 使用PopupWindow可在屏幕上自由的添加子窗口，对与位置的控制比Dialog更加灵活。
 
-# 2 使用方式
+## 2 使用方式
 
-## 构建方法
+### 构建方法
 
 ```java
     // 创建一个空的PopupWindow
@@ -36,14 +36,16 @@
     PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 ```
 
-## 显示PopupWindow
+### 显示PopupWindow
 
+```java
     //在指定View的下方显示
     void showAsDropDown (View anchor,int xoff, int yoff)
     //当前窗口(parent所属窗口，parent主要用于获取WindowToken)的任意位置(不包括状态栏)
     void showAtLocation (View parent,int xoff,int yoff,int gravity)
+```
 
-## 属性
+### 属性
 
 ```java
     // 设置是否可被点击
@@ -77,7 +79,7 @@
 popupWindow.setBackgroundDrawable(new BitmapDrawable());
 ```
 
-## 更新
+### 更新
 
 ```java
     //该方法不能更新PopupWindow的宽高, 只能更新PopupWindow的状态. 例如更新Focusable和OutsideTouchable
@@ -86,7 +88,7 @@ popupWindow.setBackgroundDrawable(new BitmapDrawable());
     void update (int width,int height)
 ```
 
-# 3 PopupWidnow实现解析
+## 3 PopupWidnow实现解析
 
 PopupWidnow是一个子窗口，必需依附在一个父窗口上，而PopupWidnow内部的View并没有Window对象的包装，而是根据setContentView方法设置的View创建一个PopupDecorView，然后直通通过WindowManager添加到窗口系统中。
 
@@ -111,7 +113,7 @@ PopupWidnow是一个子窗口，必需依附在一个父窗口上，而PopupWidn
 
 PopupWindow的大小也直接由其内部创建的`WindowManager.LayoutParams`决定。
 
-# 引用
+## 引用
 
 - [最详细的PopopWindow分析](https://juejin.im/post/58ed82c3a22b9d0063469e98)
 - [浅谈PopupWindow在Android开发中的使用](http://www.jianshu.com/p/825d1cc9fa79)

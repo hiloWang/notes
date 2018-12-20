@@ -310,7 +310,7 @@ class MainFragment : Fragment(), Injectable {
 这样子在 Activity 重建时有没有问题呢？
 
 ```
-//重新流程
+//默认流程
 this on Activity Create before MainActivity@80485c3
 Application onActivityCreated  MainActivity@80485c3
 Application inject activity-> MainActivity@80485c3 // activity 注入

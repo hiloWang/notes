@@ -288,6 +288,7 @@ fun update(@Path("storeId") storeId: Int, @Path("categoryId") categoryId: Int?, 
 
 - `@Suppress("UNCHECKED_CAST")`：没有检查的类型转换
 - `@Suppress("DEPRECATION")`：废弃的API
+- `@Suppress("UNUSED_PARAMETER")`：无用的参数
 
 ------
 
@@ -297,9 +298,9 @@ Kotlin 反编译时，在 IDEA 上进行 decompile 可能造成 IDEA 卡死，�
 
 ------
 
-### Gson 和 DataClass
+### DataClass 与 默认构造函数
 
-DataClass 没有默认的构造函数，而 Gson 却可以通过 `Unsafe.allocateInstance()` 类绕过构造函数实例化对象，这样实例化出来的对象的字段都是没有被初始化的，基于这种情况，就可能存在问题：
+如果没有为 DataClass 所有参数指令默认值，那么 DataClass 没有默认的构造函数， 这样通过反射去创建 DataClass 实例是会异常的，Gson 当检查到 class 没有默认构造函数时，会通过 `Unsafe.allocateInstance()` 类绕过构造函数实来例化对象，但是这样实例化出来的对象的字段都是没有被初始化的，基于这种情况，就可能存在问题：
 
 ```kotlin
 //父类
@@ -307,7 +308,6 @@ abstract class PagingWrapper<T>{
 
     abstract fun getElements(): List<T>
 
-    /*这里把 getElements 添加到 GitHubPaging中，是为了给上层使用*/
     val paging by lazy {
         GitHubPaging<T>().also { it.addAll(getElements()) }
     }
@@ -354,4 +354,23 @@ public abstract class PagingWrapper {
 }
 ```
 
-layz 依赖于 paging$delegate 字段，但是如果是 Unsafe 通过 `Unsafe.allocateInstance()` 实例化 SearchRepositories 的话，paging$delegate 是没有被初始化的，它的值还是null，这样后面调用 paging 必然会抛出 NPE。
+layz 依赖于 paging$delegate 字段，但是如果是 Unsafe 通过 `Unsafe.allocateInstance()` 实例化 SearchRepositories 的话，paging$delegate 是没有被初始化的，它的值还是null，这样后面调用 paging 必然会抛出 NPE。解决方案有：
+
+- 在定义的 data class 的构造函数为所有的参数定义默认值，这样该 data class 将会有一个默认的构造函数。
+- 至于 kotlin 提供的 noarg 插件，在脚本中配置 `invokeInitializers = true`，该插件会在合成的构造函数中运行其初始化逻辑（`init`代码块）。
+
+```kotlin
+@NoArg
+data class DataB(
+    //这里不是初始化逻辑
+    var name: String = "DataB",
+    val age: Int
+) {
+    //初始化逻辑
+    init {
+        name = "DataB"
+    }
+}
+```
+
+不过更推荐使用方式 1，因为 noarg 生成的默认构造函数并不会考虑到在构造函数中为参数指定的默认值。

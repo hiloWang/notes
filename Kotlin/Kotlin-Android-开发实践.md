@@ -356,8 +356,8 @@ public abstract class PagingWrapper {
 
 layz 依赖于 paging$delegate 字段，但是如果是 Unsafe 通过 `Unsafe.allocateInstance()` 实例化 SearchRepositories 的话，paging$delegate 是没有被初始化的，它的值还是null，这样后面调用 paging 必然会抛出 NPE。解决方案有：
 
-- 在定义的 data class 的构造函数为所有的参数定义默认值，这样该 data class 将会有一个默认的构造函数。
-- 至于 kotlin 提供的 noarg 插件，在脚本中配置 `invokeInitializers = true`，该插件会在合成的构造函数中运行其初始化逻辑（`init`代码块）。
+- 在定义的 data class 的构造函数中为所有的参数定义默认值，这样该 data class 将会有一个默认的无参构造函数。
+- 至于 kotlin 提供的 noarg 插件，在脚本中配置 `invokeInitializers = true`，该插件会在合成的无参构造函数中运行其初始化逻辑（`init`代码块）。
 
 ```kotlin
 @NoArg

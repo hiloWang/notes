@@ -14,3 +14,8 @@
 - [Android Drawable完全解析（一）：Drawable源码分析（中）](http://www.jianshu.com/p/2213c62e4738)
 - [Android Drawable完全解析（一）：Drawable源码分析（下）](http://www.jianshu.com/p/c56b762210f2)
 - [Drawable高效用法](http://blog.csdn.net/lmj623565791/article/details/43752383)
+
+## 实用技巧
+
+- [Android how to create triangle and rectangle shape programmatically?
+](https://stackoverflow.com/questions/22042603/android-how-to-create-triangle-and-rectangle-shape-programmatically/41094377)

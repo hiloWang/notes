@@ -137,7 +137,7 @@ Kotlin 提供了一种能力，调用一个函数字面值时，可以指定一�
 ---
 ## 8 科里化
 
-把一个多元函数变成多个单元函数调用链的过程
+把`一个`多元函数变成`多个`单元函数调用链的过程
 
 ```kotlin
 private fun log(tag: String, target: OutputStream, message: Any?) {

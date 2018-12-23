@@ -31,7 +31,7 @@ if (condition()) {
 - 2进制以 `0b `开头：`0b00001011`
 - 数字类型位操作：`shl、shr、ushr、and、or、xor、inv`
 - 当需要可空引用时，像数字、字符会被装箱。装箱操作不会保留同一性
-- 允许除浮点0 ：`3 / 0.0 = Float.NaN`
+- 允许除数值为`0F`浮点数 ：`3 / 0.0 = Float.NaN`
 - Kotlin 中不支持隐式类型转换
 
 ### 字符类型
@@ -126,24 +126,17 @@ fun range(){
 - 当某个变量的值可以为 null 的时候，必须在声明处的类型后添加 ? 来标识该引用可为空。
 - `Elvis操作符?:`：示例`obj?.getSome() ?: doSomething()`，`?:`符号会在符号左边为空的情况才会进行下面的处理，不为空则不会有任何操作。
 
-```
+```kotlin
 var s1 : String? = null
-var s2 : String = ""
+var s3 = s1?:return //s1 为 null 时直接返回
+var s4 = s1?:"" //s1 为 null 时设置默认值为 ""
 ```
 
 ### 对象比较
 
-```
-       ==比较：
-           如果作用于基本数据类型的变量，则直接比较其存储的 “值”是否相等
-           对于引用类型： a==b等同于a?.equals(b) ?: (b === null)
-       equals
-           equals方法不能作用于基本数据类型的变量
-           如果没有对equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址；
-           诸如String、Date等类对equals方法进行了重写，比较的是所指向的对象的内容。
-        === 和 !==
-            a===b当且仅当a和b指向同一个对象时返回true
-```
+- `==比较`：如果作用于基本数据类型的变量，则直接比较其存储的 “值”是否相等，对于引用类型： a==b 等同于 a?.equals(b) ?: (b === null)
+- `equals`：equals 方法不能作用于基本数据类型的变量，如果没有对 equals 方法进行重写，则比较的是引用类型的变量所指向的对象的地址；诸如 String、Date 等类对 equals 方法进行了重写，比较的是所指向的对象的内容。
+- `=== 和 !==`：`a===b` 当且仅当 a 和 b 指向同一个对象时返回 true
 
 ### 使用包级函数
 
@@ -173,6 +166,16 @@ NPE 的唯一可能的原因可能是：
 
 ```kotlin
             typealias NodeSet = Set<Network.Node>
+```
+
+### 引入别名
+
+```kotlin
+import java.util.UUID as ID
+
+fun main(args: Array<String>) {
+    ID.randomUUID()
+}
 ```
 
 ### this 表达式

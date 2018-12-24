@@ -6,7 +6,7 @@
 Kotlin 作为一门编程语言，在其标准库中只提供了最低级别的 API，以使各种其他库能够使用协程，与许多其他具有类似功能的语言不同，async 和 await 不是 Kotlin 中的关键字，也不是其标准库的一部分。Kotlin 官方对协程提供的三种级别的能力支持, 分别是:
 
 - 最底层的语言层：susppend 函数、编译器(即编译器对 susppend 的支持)。
-- 协程标准库(kotlin.coroutines)：标准库中的底层 API，除了创建更高级的库之外，不应该使用它。
+- 协程标准库(kotlin.coroutines)：标准库中的底层 API，除了创建更高级的库之外，一般不应该使用它。
 - 最上层应用层(kotlinx.coroutines)：大多数基于协程的应用程序级 API 都作为单独的库发布。
 
 ### 语言层
@@ -15,39 +15,34 @@ Kotlin 作为一门编程语言，在其标准库中只提供了最低级别的 
 
 ### 标准库
 
-标准库仅仅提供了少量创建协程的方法，底层 API 相对较小，并且除了创建更高级的库之外，不应该使用它们，这些方法定义在`kotlin.coroutines.experimental`包中，：
+标准库仅仅提供了少量创建协程的方法，这些底层 API 相对较小，并且除了创建更高级的库之外，不应该使用它们，这些方法定义在`kotlin.coroutines.experimental`包中，API 列表如下 ：
 
-- createCoroutine()
-- startCoroutine()
-- suspendCoroutine()
-- suspendCoroutineOrReturn()
+- `createCoroutine()`
+- `startCoroutine()`
+- `suspendCoroutine()`
+- `suspendCoroutineOrReturn()`
 - 生成器 API
-    - buildSequence()
-    - buildIterator()
-    - yield()
-    - yieldAll()
+    - `buildSequence()`
+    - `buildIterator()`
+    - `yield()`
+    - `yieldAll()`
 
 ### 应用层
 
-只有与协程相关的核心 API 可以从 Kotlin 标准库获得。这主要包括所有基于协程的库可能使用的核心原语与接口。大多数基于协程的应用程序级API都作为单独的库发布，它的实现在 `kotlinx.coroutines` 里面，比如常用的 `launch` 方法, `async` 方法等。
+只有与协程相关的核心 API 可以从 Kotlin 标准库获得。这主要包括所有基于协程的库可能使用的核心原语与接口。大多数基于协程的应用程序级 API 都作为单独的库发布，它的实现在 `kotlinx.coroutines` 里面，比如常用的 `launch` 方法, `async` 方法等。
 
 这个库包括了：
 
-    - kotlinx-coroutines-core
-    - kotlinx-coroutines-jdk8
-    - kotlinx-coroutines-nio
-    - kotlinx-coroutines-reactive
-    - kotlinx-coroutines-reactor
-    - kotlinx-coroutines-rx1
-    - kotlinx-coroutines-rx2
-    - kotlinx-coroutines-javafx
-    - kotlinx-coroutines-android
-    - kotlinx-coroutines-swing
-
-除了 kotlinx-coroutines-core 外，有两个扩展库我们需要熟悉：
-
-- kotlinx-coroutines-android：是 kotlin 协程在 android 上的扩展，比如其提供了一个 UI 线程协程调度器：`Dispatchers.Main`。
+- kotlinx-coroutines-core：是扩展库核心实现。
+- kotlinx-coroutines-jdk8
+- kotlinx-coroutines-nio
+- kotlinx-coroutines-reactive
+- kotlinx-coroutines-reactor
+- kotlinx-coroutines-rx1
 - kotlinx-coroutines-rx2：是 kotlin 协程对 RxJava2 上的扩展，为 RxJava 中的数据源（比如 Observable）提供了一些扩展方法，可以在其上面使用协程 api。
+- kotlinx-coroutines-javafx
+- kotlinx-coroutines-android：是 kotlin 协程在 android 上的扩展，比如其提供了一个 UI 线程协程调度器：`Dispatchers.Main`。
+- kotlinx-coroutines-swing
 
 ---
 ## 2 核心概念
@@ -166,7 +161,7 @@ public interface Continuation<in T> {
 - 分析反编译后的Java代码
 - 打断点debug
 
-总的思路是协程被编译成状态机，(单个函数被编译成多个函数)：
+协程被编译成状态机（单个函数被编译成多个函数）：
 
 ![](images/kotlin_coroutine_01_status.jpg)
 

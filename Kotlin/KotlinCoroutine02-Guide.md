@@ -289,8 +289,106 @@ fun main() = runBlocking {
 
 执行代码可以返现，即使调用了 cancelAndJoin，程序依然在打印信息。
 
-
 ### Making computation code cancellable
+
+这里有两种方式让协程计算代码变得可以被取消，第一个是定义调用一个检测取消的 suspending function，出于这种目的， yield 方法是一个不错的选择；另一个方式是明确地检测取消状态，让我们来试试后一种。
+
+把之前实例中的 `while (i < 5)` 替换为 `while (isActive)` 并且从新运行它：
+
+```kotlin
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+//sampleStart
+    val startTime = System.currentTimeMillis()
+    val job = launch(Dispatchers.Default) {
+        var nextPrintTime = startTime
+        var i = 0
+        while (isActive) { // cancellable computation loop
+            // print a message twice a second
+            if (System.currentTimeMillis() >= nextPrintTime) {
+                println("I'm sleeping ${i++} ...")
+                nextPrintTime += 500L
+            }
+        }
+    }
+    delay(1300L) // delay a bit
+    println("main: I'm tired of waiting!")
+    job.cancelAndJoin() // cancels the job and waits for its completion
+    println("main: Now I can quit.")
+//sampleEnd    
+}
+```
+
+正如你所见，现在循环被取消了，isActive 是一个扩展属性，可通过 CoroutineScope 对象在 coroutine 代码中使用。
+
 ### Closing resources with finally
+
+在取消一个可以被取消的 suspending functions（处于暂停状态的） 时将会抛出 CancellationException ，可以用一种通常的方式来处理，比如：`try {...} finally {...} ` 表达式，当取消协程时，Kotlin使用函数正常执行其终结操作：
+
+```kotlin
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+//sampleStart
+    val job = launch {
+        try {
+            repeat(1000) { i ->
+                println("I'm sleeping $i ...")
+                delay(500L)
+            }
+        } finally {
+            println("I'm running finally")
+        }
+    }
+    delay(1300L) // delay a bit
+    println("main: I'm tired of waiting!")
+    job.cancelAndJoin() // cancels the job and waits for its completion
+    println("main: Now I can quit.")
+//sampleEnd    
+}
+```
+
+join 和 cancelAndJoin都等待所有完成操作完成，所以上面的示例产生如下输出：
+
+    I'm sleeping 0 ...
+    I'm sleeping 1 ...
+    I'm sleeping 2 ...
+    main: I'm tired of waiting!
+    I'm running finally
+    main: Now I can quit.
+
 ### Run non-cancellable block
+
+任何在前一个示例的 finally 块中使用挂起函数的尝试都会导致 CancellationException，因为运行此代码的协程已经取消了，通常，这并不是一个问题，因为所有表现良好的关闭操作（关闭文件，取消 job或关闭任何类型的通信通道）通常都是非阻塞并且不涉及其他 suspending functions，然而，在罕见的情况下，当你需要在取消的协程中暂停时，你可以使用withContext 函数和 NonCancellable 上下文将相应的代码包装在 `withContext(NonCancellable){...}`中，如下例所示：
+
+
+```kotlin
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+//sampleStart
+    val job = launch {
+        try {
+            repeat(1000) { i ->
+                println("I'm sleeping $i ...")
+                delay(500L)
+            }
+        } finally {
+            withContext(NonCancellable) {
+                println("I'm running finally")
+                //如果不使用 withContext(NonCancellable) {}，则下面两行代码不会执行
+                delay(1000L)
+                println("And I've just delayed for 1 sec because I'm non-cancellable")
+            }
+        }
+    }
+    delay(1300L) // delay a bit
+    println("main: I'm tired of waiting!")
+    job.cancelAndJoin() // cancels the job and waits for its completion
+    println("main: Now I can quit.")
+//sampleEnd    
+}
+```
+
 ### Timeout

@@ -392,3 +392,152 @@ fun main() = runBlocking {
 ```
 
 ### Timeout
+
+在实践中，取消一个执行的协程的原因是其执行超出了一定时间，虽然你可以手动追踪相应协程的 Job 引用，并且启动一个单独的协程， 以便在延迟后去取消所追踪的协程。但这里已经有一个 withTimeout 的函数用于做这些操作，查看下面代码：
+
+```kotlin
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+//sampleStart
+    withTimeout(1300L) {
+        repeat(1000) { i ->
+            println("I'm sleeping $i ...")
+            delay(500L)
+        }
+    }
+//sampleEnd
+}
+```
+
+它产生如下输出：
+
+```
+I'm sleeping 0 ...
+I'm sleeping 1 ...
+I'm sleeping 2 ...
+Exception in thread "main" kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 1300 ms
+```
+
+由 withTimeout 抛出的 TimeoutCancellationException 异常是 CancellationException 子类，我们之前没有在控制台看到它的栈追踪被打印，这是因为在取消的协程中，CancellationException 被认为是协程完成的正常原因（即 cancel 一个协程时，即使不用 try-catch 包裹对应的协程代码，也不会抛出 CancellationException 异常导致程序崩溃，但是 withTimeout 是会抛出异常导致程序崩溃的）。然而，在这个实例中，我们在 main 函数中使用了 withTimeout 函数。
+
+因为 cancellation 只是一个异常，所有的资源都会正常地关闭了，如果你需要在任何类型的协程超时上做一些额外的操作，你可以使用 `try {...} catch (e: TimeoutCancellationException) {...} `来包裹带有超时协程的代码，或者使用  withTimeoutOrNull ，它跟 withTimeout 类似，但是在超时时以返回一个 null 值来代替抛出异常。
+
+```kotlin
+import kotlinx.coroutines.*
+
+fun main() = runBlocking {
+//sampleStart
+    val result = withTimeoutOrNull(1300L) {
+        repeat(1000) { i ->
+            println("I'm sleeping $i ...")
+            delay(500L)
+        }
+        "Done" // will get cancelled before it produces this result
+    }
+    println("Result is $result")
+//sampleEnd
+}
+```
+
+执行这段代码不再有异常输出了：
+
+    I'm sleeping 0 ...
+    I'm sleeping 1 ...
+    I'm sleeping 2 ...
+    Result is null
+
+## Composing suspending functions
+
+本章介绍各种 suspending functions 的组合方法。
+
+### Sequential by default
+
+假设我们有两个 suspending functions 定义在其他地方，用来做一些比如远程服务访问或者计算的工作，我们就假设它们可以被使用，但实际上这个示例中它们只是为这个假设的目标而各自延迟了 1 秒钟：
+
+```kotlin
+suspend fun doSomethingUsefulOne(): Int {
+    delay(1000L) // pretend we are doing something useful here
+    return 13
+}
+
+suspend fun doSomethingUsefulTwo(): Int {
+    delay(1000L) // pretend we are doing something useful here, too
+    return 29
+}
+```
+
+如果需要按顺序调用它们，我们该怎么办？首先调用 doSomethingUsefulOne ，然后再调用 doSomethingUsefulTwo ，然后计算它们的结果之和？在实践中，如果我们需要使用第一个函数的结果来决定是否调用第二个或者决定如何调用第二个函数时（即第二个函数的调用依赖第一个函数的调用结果），我们会这么做。
+
+我们使用通常的顺序调用，因为协程代码就像常规的代码一样，默认是顺序调用的，下面的示例通过测量两个 suspending functions 执行的总时间来演示：
+
+```kotlin
+fun main() = runBlocking {
+    //sampleStart
+    val time = measureTimeMillis {
+        val one = doSomethingUsefulOne()
+        val two = doSomethingUsefulTwo()
+        println("The answer is ${one + two}")
+    }
+    println("Completed in $time ms")
+//sampleEnd
+}
+
+private suspend fun doSomethingUsefulOne(): Int {
+    delay(1000L) // pretend we are doing something useful here
+    return 13
+}
+
+private suspend fun doSomethingUsefulTwo(): Int {
+    delay(1000L) // pretend we are doing something useful here, too
+    return 29
+}
+```
+
+它产生类似下面的输出
+
+    The answer is 42
+    Completed in 2017 ms
+
+### Concurrent using async
+
+如果 doSomethingUsefulOne 和 doSomethingUsefulTwo 两个函数之间的调用并没有依赖关系，并且我们想更快地得到答案，如何并行执行两个函数呢？这就是 async 函数来提供帮助的场景。
+
+在概念上，async 函数与 launch 相似，它启动一个单独的协程（一个轻量级线程）与其他所有协程并行工作，不同的是 launch 返回一个 Job 并且不会携带任何返回值，而 async 返回一个 Deferred，一个轻量级非阻塞的 future，其表示一个稍后返回结果的保证，你可以使用 Deferred 的 `.await()` 方法来获取其最终的结果，而且 Deferred 也是一个 Job，如果需要，你可以取消它。
+
+```kotlin
+import kotlinx.coroutines.*
+import kotlin.system.*
+
+fun main() = runBlocking<Unit> {
+//sampleStart
+    val time = measureTimeMillis {
+        val one = async { doSomethingUsefulOne() }
+        val two = async { doSomethingUsefulTwo() }
+        println("The answer is ${one.await() + two.await()}")
+    }
+    println("Completed in $time ms")
+//sampleEnd    
+}
+
+suspend fun doSomethingUsefulOne(): Int {
+    delay(1000L) // pretend we are doing something useful here
+    return 13
+}
+
+suspend fun doSomethingUsefulTwo(): Int {
+    delay(1000L) // pretend we are doing something useful here, too
+    return 29
+}
+```
+
+它产生类似下面的输出：
+
+    The answer is 42
+    Completed in 1017 ms
+
+这是上面示例的两倍快，因为我们并行地执行了两个协程，注意，协程的并发性始终是显式的。
+
+### Lazily started async
+### Async-style functions
+### Structured concurrency with async

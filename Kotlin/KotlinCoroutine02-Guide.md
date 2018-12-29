@@ -539,5 +539,194 @@ suspend fun doSomethingUsefulTwo(): Int {
 这是上面示例的两倍快，因为我们并行地执行了两个协程，注意，协程的并发性始终是显式的。
 
 ### Lazily started async
+
+async 有一个惰性选项（是否惰性启动协程），向可选 start 参数传递 CoroutineStart.LAZY 值开启的协程，只有在调用其返回的 Deferred 对象的 `.await()` 方法或者 `.start()` 方法时，协程才会真正运行：运行下面代码
+
+```kotlin
+import kotlinx.coroutines.*
+import kotlin.system.*
+
+fun main() = runBlocking<Unit> {
+//sampleStart
+    val time = measureTimeMillis {
+        val one = async(start = CoroutineStart.LAZY) { doSomethingUsefulOne() }
+        val two = async(start = CoroutineStart.LAZY) { doSomethingUsefulTwo() }
+        // some computation
+        one.start() // start the first one
+        two.start() // start the second one
+        println("The answer is ${one.await() + two.await()}")
+    }
+    println("Completed in $time ms")
+//sampleEnd    
+}
+
+suspend fun doSomethingUsefulOne(): Int {
+    delay(1000L) // pretend we are doing something useful here
+    return 13
+}
+
+suspend fun doSomethingUsefulTwo(): Int {
+    delay(1000L) // pretend we are doing something useful here, too
+    return 29
+}
+```
+
+产生类似如下输出：
+
+    The answer is 42
+    Completed in 1017 ms
+
+所以，这里上面的示例定义了两个协程但是并没有被执行，而是将控制权交给了编程者，使用 start 方法明确地开始运行协程，我们首先开启了 one，然后开启了 two，然后等待各个协程完成。
+
+注意，如果我们在 println 中调用的是 await 方法并且而忽略了 start 方法， 我们将会得到一个顺序执行的行为（这两个协程是顺序执行的），因为 await 会启动协程并且等待其执行完成，这不是惰性的预期用例，异步用例 `async(start = CoroutineStart.LAZY)` 是标准库函数 lazy 的替代，当值的计算设计到 suspending 功能时。
+
 ### Async-style functions
+
+我们可以使用 async coroutine builder 和一个明确的  GlobalScope 对象定义异步风格的函数来异步地调用 doSomethingUsefulOne 和 doSomethingUsefulTwo 方法。
+
+```kotlin
+// The result type of somethingUsefulOneAsync is Deferred<Int>
+fun somethingUsefulOneAsync() = GlobalScope.async {
+    doSomethingUsefulOne()
+}
+
+// The result type of somethingUsefulTwoAsync is Deferred<Int>
+fun somethingUsefulTwoAsync() = GlobalScope.async {
+    doSomethingUsefulTwo()
+}
+```
+
+注意，这些 `xxxAsync` 函数并不是 suspending functions，它们可以在任何地方使用，然后，它们的使用总是暗示着异步执行（这里表示并发）。
+
+以下示例显示了它们在协同程序之外的用法：
+
+```kotlin
+import kotlinx.coroutines.*
+import kotlin.system.*
+
+//sampleStart
+// note, that we don't have `runBlocking` to the right of `main` in this example
+fun main() {
+    val time = measureTimeMillis {
+        // we can initiate async actions outside of a coroutine
+        val one = somethingUsefulOneAsync()
+        val two = somethingUsefulTwoAsync()
+        // but waiting for a result must involve either suspending or blocking.
+        // here we use `runBlocking { ... }` to block the main thread while waiting for the result
+        runBlocking {
+            println("The answer is ${one.await() + two.await()}")
+        }
+    }
+    println("Completed in $time ms")
+}
+//sampleEnd
+
+fun somethingUsefulOneAsync() = GlobalScope.async {
+    doSomethingUsefulOne()
+}
+
+fun somethingUsefulTwoAsync() = GlobalScope.async {
+    doSomethingUsefulTwo()
+}
+
+suspend fun doSomethingUsefulOne(): Int {
+    delay(1000L) // pretend we are doing something useful here
+    return 13
+}
+
+suspend fun doSomethingUsefulTwo(): Int {
+    delay(1000L) // pretend we are doing something useful here, too
+    return 29
+}
+```
+
+>这里提供了具有异步功能的编程风格仅用于说明，因为它是其他编程语言中的流行风格。由于下面解释的原因，强烈建议不要将这种风格与 Kotlin 协程一起使用。
+
+考虑一下，如果在 `val one = somethingUsefulOneAsync()` 和 `one.await()` 表达式之间存在一些逻辑错误，会导致程序抛出异常并且正在执行的操作被中止会怎样？通常情况下，一个全局的错误处理器会捕获这个异常，然后打印和报告这个错误给开发者，但是该程序可能会继续执行其他的操作，在这里 somethingUsefulOneAsync 方法仍然在后台执行，尽管启动它的操作中止了。而这种问题不会在 structured concurrency 中发生，如下面的部分所示。
+
+>这里的问题是不能对 somethingUsefulOneAsync 启动的协程作很好的控制，由 somethingUsefulOneAsync 方法开启的协程一直停留在后台，虽然它没有被真正开启。
+
 ### Structured concurrency with async
+
+让我们以 Concurrent using async 为例，抽取一个函数来并发地执行 doSomethingUsefulOne 和 doSomethingUsefulTwo 函数并且返回它们的结果之和，因为 async coroutines builder 是作为 CoroutineScope 的扩展，所以我们需要将其置于作用域中，而这正是  coroutineScope 函数所提供的功能：
+
+```kotlin
+suspend fun concurrentSum(): Int = coroutineScope {
+    val one = async { doSomethingUsefulOne() }
+    val two = async { doSomethingUsefulTwo() }
+     one.await() + two.await()
+}
+```
+
+这种方式，如果在 concurrentSum 里发生了一些错误并且抛出了一个异常，所有在这个作用域中启动的协程将会被取消：
+
+```kotlin
+import kotlinx.coroutines.*
+import kotlin.system.*
+
+fun main() = runBlocking<Unit> {
+//sampleStart
+    val time = measureTimeMillis {
+        println("The answer is ${concurrentSum()}")
+    }
+    println("Completed in $time ms")
+//sampleEnd    
+}
+
+suspend fun concurrentSum(): Int = coroutineScope {
+    val one = async { doSomethingUsefulOne() }
+    val two = async { doSomethingUsefulTwo() }
+     one.await() + two.await()
+}
+
+suspend fun doSomethingUsefulOne(): Int {
+    delay(1000L) // pretend we are doing something useful here
+    return 13
+}
+
+suspend fun doSomethingUsefulTwo(): Int {
+    delay(1000L) // pretend we are doing something useful here, too
+    return 29
+}
+```
+
+从上面的 main 函数的输出可以看出，我们仍然可以并发执行这两个操作：
+
+    The answer is 42
+    Completed in 1017 ms
+
+取消行为始终通过协程的层次结构传播：
+
+```kotlin
+import kotlinx.coroutines.*
+
+fun main() = runBlocking<Unit> {
+    try {
+        failedConcurrentSum()
+    } catch(e: ArithmeticException) {
+        println("Computation failed with ArithmeticException")
+    }
+}
+
+suspend fun failedConcurrentSum(): Int = coroutineScope {
+    val one = async<Int> { 
+        try {
+            delay(Long.MAX_VALUE) // Emulates very long computation
+            42
+        } finally {
+            println("First child was cancelled")
+        }
+    }
+    val two = async<Int> { 
+        println("Second child throws an exception")
+        throw ArithmeticException()
+    }
+        one.await() + two.await()
+}
+```
+
+Note, how both first async and awaiting parent are cancelled on the one child failure:
+
+    Second child throws an exception
+    First child was cancelled
+    Computation failed with ArithmeticException

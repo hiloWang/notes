@@ -40,14 +40,14 @@ Kotlin 基础：
 
 Kotlin Android：
 
-- [Kotlin Android 开发实践](Kotlin-Android-开发实践.md)
+- [Kotlin Android 开发实践](Kotlin-Android-Practice.md)
 
 Kotlin 协程：
 
-- [Kotlin 协程概述](KotlinCoroutine01-概述.md)
+- [Kotlin 协程概述](KotlinCoroutine01-Overview.md)
 - [Kotlin Guide](KotlinCoroutine02-Guide.md)
-- [Kotlin 协程总结](KotlinCoroutine03-总结.md)
-- [Kotlin 协程实践](KotlinCoroutine04-实践.md)
+- [Kotlin 协程总结](KotlinCoroutine03-Summary.md)
+- [Kotlin 协程实践](KotlinCoroutine04-Practice.md)
 
 ## 3 Kotlin 学习资料
 
@@ -69,7 +69,7 @@ Kotlin 协程：
 - [kotlin-for-android-developers](https://wangjiegulu.gitbooks.io/kotlin-for-android-developers-zh/guan_yu_ben_shu.html)
 - [Kotlin on Android FAQ](https://developer.android.com/kotlin/faq.html)
 - [官方：anko库](https://github.com/Kotlin/anko)
-- [kovenant](http://kovenant.komponents.nl/)：Kotlin的简单异步库
+- [kovenant](http://kovenant.komponents.nl/)：Kotlin 的简单异步库
 - [Kotlin Android Extensions: Say goodbye to findViewById](https://antonioleiva.com/kotlin-android-extensions/)
 
 ### 3 项目
@@ -92,8 +92,8 @@ Kotlin 协程：
 
 文档与示例：
 
-- [kotlin coroutines 文档](https://www.kotlincn.net/docs/reference/coroutines.html)
-- [kotlin-coroutines 描述](https://github.com/Kotlin/kotlin-coroutines)
+- [kotlin coroutines 指南](https://www.kotlincn.net/docs/reference/coroutines.html)
+- [kotlin-coroutines 示例](https://github.com/Kotlin/kotlin-coroutines)
 - [kotlinx.coroutines 库](https://github.com/Kotlin/kotlinx.coroutines)
 - [kotlinx.coroutines 翻译](https://saplf.gitbooks.io/kotlinx-coroutines/content/)
 - [深入理解 Kotlin Coroutine](https://blog.kotliner.cn/tags/Coroutine/)

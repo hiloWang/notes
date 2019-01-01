@@ -1,4 +1,4 @@
-# Coroutines-Guide
+# Coroutines-Guide（deprecated）
 
 - [Guide to kotlinx.coroutines by example](https://github.com/Kotlin/kotlinx.coroutines/blob/master/docs/coroutines-guide.md)
 
@@ -447,7 +447,7 @@ fun main() = runBlocking {
     I'm sleeping 2 ...
     Result is null
 
-## Composing suspending functions
+## Composing suspending functions（组合暂停函数）
 
 本章介绍各种 suspending functions 的组合方法。
 
@@ -642,7 +642,7 @@ suspend fun doSomethingUsefulTwo(): Int {
 
 >这里提供了具有异步功能的编程风格仅用于说明，因为它是其他编程语言中的流行风格。由于下面解释的原因，强烈建议不要将这种风格与 Kotlin 协程一起使用。
 
-考虑一下，如果在 `val one = somethingUsefulOneAsync()` 和 `one.await()` 表达式之间存在一些逻辑错误，会导致程序抛出异常并且正在执行的操作被中止会怎样？通常情况下，一个全局的错误处理器会捕获这个异常，然后打印和报告这个错误给开发者，但是该程序可能会继续执行其他的操作，在这里 somethingUsefulOneAsync 方法仍然在后台执行，尽管启动它的操作中止了。而这种问题不会在 structured concurrency 中发生，如下面的部分所示。
+考虑一下，如果在 `val one = somethingUsefulOneAsync()` 和 `one.await()` 之间存在一些逻辑错误，会导致程序抛出异常并且正在执行的操作被中止会怎样？通常情况下，一个全局的错误处理器会捕获这个异常，然后打印和报告这个错误给开发者，但是反之该程序可能会继续执行其他的操作，在这里 somethingUsefulOneAsync 方法仍然在后台执行，尽管如此，启动它的那次操作也会被终止。这个程序将不会进行结构化并发，如下一小节所示。
 
 >这里的问题是不能对 somethingUsefulOneAsync 启动的协程作很好的控制，由 somethingUsefulOneAsync 方法开启的协程一直停留在后台，虽然它没有被真正开启。
 

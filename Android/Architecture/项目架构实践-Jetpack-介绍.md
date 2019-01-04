@@ -2,7 +2,7 @@
 
 Google IO 2018推出了全新的Android开发组件库：`今天，我们高兴地推出 Android Jetpack，这是我们的新一代组件、工具和架构指导，旨在加快您的 Android 应用开发速度。`Android Jetpack 完美兼容 Kotlin 语言，利用 Android KTX 大幅节省代码量。
 
-Android Jetpack 是一套组件、工具、指导思想的集合，其件将现有的**Support库**与**架构组件库**联系起来，分成了四个类别：
+Android Jetpack 是一套组件、工具、指导思想的集合，其件将现有的 **Support库** 与 **架构组件库** 联系起来，分成了四个类别：
 
 ![](index_files/1526464911342jetpack.png)
 
@@ -23,6 +23,7 @@ Android Jetpack 是一套组件、工具、指导思想的集合，其件将现�
 
 AndroidStudio3.2以上新增了编辑器和模板等，可以很好的配合Jetpack工作。相关介绍参考：
 
+- [Android 架构组件](https://developer.android.com/jetpack/arch/?hl=zh-cn)
 - [Google I/O 2018：Android 中的新功能](http://developers.googleblog.cn/2018/05/google-io-2018android.html "Google I/O 2018：Android 中的新功能")
 - [使用 Android Jetpack 加快应用开发速度](http://developers.googleblog.cn/2018/05/android-jetpack.html "使用 Android Jetpack 加快应用开发速度")
 

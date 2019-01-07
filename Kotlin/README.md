@@ -45,9 +45,8 @@ Kotlin Android：
 Kotlin 协程：
 
 - [Kotlin 协程概述](KotlinCoroutine01-Overview.md)
-- [Kotlin Guide](KotlinCoroutine02-Guide.md)
-- [Kotlin 协程总结](KotlinCoroutine03-Summary.md)
-- [Kotlin 协程实践](KotlinCoroutine04-Practice.md)
+- [Kotlin 协程总结](KotlinCoroutine02-Summary.md)
+- [Kotlin 协程实践](KotlinCoroutine03-Practice.md)
 
 ## 3 Kotlin 学习资料
 
@@ -90,12 +89,16 @@ Kotlin 协程：
 - [协程(廖雪峰)](http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/0013868328689835ecd883d910145dfa8227b539725e5ed000)
 - [协程的好处有哪些？](https://www.zhihu.com/question/20511233/answer/24260355)
 
-文档与示例：
+文档：
 
-- [kotlin coroutines 指南](https://www.kotlincn.net/docs/reference/coroutines.html)
-- [kotlin-coroutines 示例](https://github.com/Kotlin/kotlin-coroutines)
-- [kotlinx.coroutines 库](https://github.com/Kotlin/kotlinx.coroutines)
-- [kotlinx.coroutines 翻译](https://saplf.gitbooks.io/kotlinx-coroutines/content/)
+- [kotlin coroutines 指南 cn](https://www.kotlincn.net/docs/reference/coroutines.html)
+- [kotlin coroutines api doc](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/)
+- [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)
+- [kotlinx.coroutines cn](https://github.com/hltj/kotlinx.coroutines-cn)
+- [kotlinx.coroutines cn](https://saplf.gitbooks.io/kotlinx-coroutines/content/)
+
+博客：
+
 - [深入理解 Kotlin Coroutine](https://blog.kotliner.cn/tags/Coroutine/)
 - [Kotlin Primer·协程库](https://www.kymjs.com/code/2017/11/24/01/)
 - [Kotlin Coroutines(协程)](https://blog.dreamtobe.cn/kotlin-coroutines/)

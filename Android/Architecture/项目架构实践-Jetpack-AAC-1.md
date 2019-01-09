@@ -317,5 +317,5 @@ NetworkBoundResource通过观察资源的数据库。当首次从数据库加载
 ## 引用
 
 - [Guide to app architecture](https://developer.android.com/jetpack/docs/guide)
+- [Guide to app architecture cn](https://developer.android.com/jetpack/docs/guide?hl=zh-cn)
 - [android-architecture-components-sample](https://github.com/googlesamples/android-architecture-components)
-- [architecture 翻译](https://juejin.im/post/5937b1d7a22b9d005810b877)

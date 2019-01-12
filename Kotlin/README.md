@@ -100,14 +100,15 @@ Kotlin 协程：
 博客：
 
 - [深入理解 Kotlin Coroutine](https://blog.kotliner.cn/tags/Coroutine/)
-- [Kotlin Primer·协程库](https://www.kymjs.com/code/2017/11/24/01/)
 - [Kotlin Coroutines(协程)](https://blog.dreamtobe.cn/kotlin-coroutines/)
-- [Kotlin 协程使用手册](https://juejin.im/post/5a90e3836fb9a063592bebe2)
-- [coroutine-recipes 协程风格代码](https://github.com/dmytrodanylyk/coroutine-recipes)
-
-博客：
-
+- [深入浅出Kotlin协程](https://cloud.tencent.com/developer/article/1334825)
+- [google-codelabs：kotlin-coroutines](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/#0)
 - [Kotlin coroutines vs RxJava: an initial performance test](https://proandroiddev.com/kotlin-coroutines-vs-rxjava-an-initial-performance-test-68160cfc6723)
+- [Forget RxJava: Kotlin Coroutines are all you need. Part 1/2](https://proandroiddev.com/forget-rxjava-kotlin-coroutines-are-all-you-need-part-1-2-4f62ecc4f99b)
+
+Demo：
+
+- [coroutine-recipes 协程风格代码](https://github.com/dmytrodanylyk/coroutine-recipes)
 
 ### 5 kotlin 跟进...
 

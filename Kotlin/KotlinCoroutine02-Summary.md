@@ -356,7 +356,7 @@ CoroutineScope 上的扩展方法：
 
 CoroutineScope 的子类：
 
-- GlobalScope：全局的 CoroutineScope，不受任何工作约束。
+- GlobalScope：全局的 CoroutineScope，不受任何约束。
 - ActorScope：actor 协程构建器的 CoroutineScope。
 - ProducerScope： produce 协程构建器的 CoroutineScope。
 
@@ -558,3 +558,9 @@ select 表达式可以同时等待多个挂起函数，并选择第一个可用�
 - 使用一个单线程的调度器来调度所有协程，这样就不会有线程安全问题。
 - 作为 synchronized 或者 ReentrantLock 的替代，协程提供了 Mutex 。它具有 lock 和 unlock 方法， 可以隔离关键的部分。关键的区别在于 Mutex.lock() 是一个挂起函数，它不会阻塞线程。
 - actor 也可以用于解决线程安全问题，在 actor 启动的协程内部，对变量的操作是线程安全的，而外界可以有多个协程同时向 actor 启动的协程发送数据，actor 在高负载下比锁更有效，因为在这种情况下它总是有工作要做，而且根本不需要切换到不同的上下文。
+
+
+---
+## 6 总结
+
+- 如何启动协程？找协程构建器，即 `coroutine builder`，常用的构建器，launch、async

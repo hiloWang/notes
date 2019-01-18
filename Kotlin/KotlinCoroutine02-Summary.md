@@ -265,7 +265,7 @@ public fun <R, T> (suspend R.() -> T).createCoroutine(receiver: R,completion: Co
 public fun <T> (suspend () -> T).createCoroutine( completion: Continuation<T>): Continuation<Unit> 
 ```
 
-suspendCoroutine 是一个 suspending 函数，所以它只能在协程中调用，suspendCoroutine 的作用是将当前执行流挂起, 在适合的时机再将协程恢复执行。suspendCoroutine 方法接受一个 lambda，这个 lambda 的返回值就是该函数的返回值，block 有一个参数 continuation，当 block 执行完毕后，调用 continuation 的 resumeWith 方法则返回结果，这个结果就是 suspendCoroutine 的返回值，然后 Kotlin 会切换回之前的挂起点继续调度。
+suspendCoroutine 是一个 suspending 函数，所以它只能在协程中调用，suspendCoroutine 的作用是将当前执行流挂起, 在适合的时机再将协程恢复执行。suspendCoroutine 方法接受一个 lambda，这个 lambda 的返回值就是该函数的返回值，block 有一个参数 continuation，当 block 执行完毕后，调用 continuation 的 resumeWith 方法则可以使用它来恢复被暂停协程并返回结果，返回结果就是 suspendCoroutine 的返回值，之后 Kotlin 会切换回之前的挂起点继续调度。使用 suspendCoroutine 可以用于将基于回调的 API 转换为 suspending 函数。如果需要支持取消，则可以使用 suspendCancellableCoroutine。
 
 ```kotlin
 public inline suspend fun <T> suspendCoroutine(crossinline block: (Continuation<T>) -> Unit): T =
@@ -274,6 +274,16 @@ public inline suspend fun <T> suspendCoroutine(crossinline block: (Continuation<
             block(safe)
             safe.getResult()
         }
+
+public suspend inline fun <T> suspendCancellableCoroutine(
+    crossinline block: (CancellableContinuation<T>) -> Unit
+): T =
+    suspendCoroutineUninterceptedOrReturn { uCont ->
+        val cancellable = CancellableContinuationImpl(uCont.intercepted(), resumeMode = MODE_CANCELLABLE)
+        cancellable.initCancellability()
+        block(cancellable)
+        cancellable.getResult()
+    }
 ```
 
 ### 5 SequenceBuilder
@@ -340,7 +350,7 @@ CoroutineScope 封装了协程的内部状态：`isActive 和 coroutineContext` 
 
 每个 coroutine 生成器 (如launch、async 等) 和每个作用域函数 (如 coroutinscope、 withContext 等) 都将自己的作用域与自己的 Job 实例一起提供到它运行的内部代码块中。按照惯例, 它们全都会等待块内的所有子协程完成后再完成自己，从而强制执行结构化并发的规则。
 
-CoroutineScope 应该在具有明确定义的生命周期的实体上实现，这些实体负责启动子协同程序。 Android 上的此类实体的示例是 Activity。
+CoroutineScope 应该在具有明确定义的生命周期的实体上实现，这些实体负责启动子协程。 Android 上的此类实体的示例是 Activity。
 
 CoroutineScope 上的扩展方法：
 

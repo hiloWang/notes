@@ -1,3 +1,4 @@
+# Kotlin 实践
 
 ---
 ## 在 Android 上使用协程
@@ -32,7 +33,6 @@ coroutines-android 中有些什么东西呢？其实只有四个文件：
 
 ---
 ## 以同步代码的风格 show 一个 Dialog
-
 
 ```kotlin
 //在 UIContext 启动一个协程
@@ -72,7 +72,7 @@ launchUI {
 ---
 ## 序列与协程
 
-序列可以避免类似 map、filter 等操作符创建过多的临时集合，协程 `kotlin.coroutines.experimental.SequenceBuilder` 中的 buildSequence 可以放序列与协程协同工作。buildSequence 接收一个 suspend 函数，其文档说明为：`Builds a [Sequence] lazily yielding values one by one.`即构建一个序列，惰性的一个接着一个地生产变量。
+序列可以避免类似 map、filter 等操作符创建过多的临时集合，协程 `kotlin.coroutines.experimental.SequenceBuilder` 中的 buildSequence 可以让序列与协程协同工作。buildSequence 接收一个 suspend 函数，其文档说明为：`Builds a [Sequence] lazily yielding values one by one.`即构建一个序列，惰性的一个接着一个地生产变量。
 
 关于序列与协程可以参考 [build-sequence](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines.experimental/build-sequence.html)，主要的函数为：
 
@@ -111,7 +111,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-下面是一个不断向上遍历，查找指定泛型的例子：
+下面是一个不断向上遍历，查找泛型的实际类型参数的例子：
 
 ```kotlin
 private fun createPresenterKt(): P {
@@ -131,28 +131,6 @@ private fun createPresenterKt(): P {
                 it.type?.jvmErasure?.isSubclassOf(IPresenter::class) ?: false
             }.let {
                 return it.type!!.jvmErasure.primaryConstructor!!.call() as P
-            }
-}
-```
-
-java api 版本
-
-```kotlin
-private fun createPresenter(): P {
-    buildSequence<Type> {
-                var thisClass: Class<*> = this@BaseFragment.javaClass
-                while (true) {
-                    yield(thisClass.genericSuperclass)
-                    thisClass = thisClass.superclass ?: break
-                }
-            }.filter {
-                it is ParameterizedType
-            }.flatMap {
-                (it as ParameterizedType).actualTypeArguments.asSequence()
-            }.first {
-                it is Class<*> && IPresenter::class.java.isAssignableFrom(it)
-            }.let {
-                return (it as Class<P>).newInstance()
             }
 }
 ```

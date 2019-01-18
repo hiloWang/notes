@@ -1,6 +1,6 @@
 # RxJava to Kotlin coroutines: Observing suspenders
 
-原文链接：[RxJava to Kotlin coroutines](https://medium.com/androiddevelopers/rxjava-to-kotlin-coroutines-1204c896a700) 。
+原文链接：[RxJava to Kotlin coroutines](https://medium.com/androiddevelopers/rxjava-to-kotlin-coroutines-1204c896a700)
 
 这篇文章总结了我如何重构一个使用 RxJava 的应用程序，具体来说，我将讨论将 Single/Maybe/Completable 源切换到协同程序。
 
@@ -18,11 +18,11 @@ interface Call<in Param, Output> {
 正如你所看到的，每一个 call 都有两个主要的责任：
 
 1. 它的 `data()`方法，它暴露与调用相关的数据流。返回一个 Flowable，大部分时候，它只是一个从 Room 返回的一个 Flowable，然后一个 ViewModule 会订阅它并且传递数据到 UI 层，等。
-2. 它的 `refresh()`方法，它触发一次数据刷新，大部分实现会从网络获取数据，转换数据实体并且把它们更新到 Room 数据库中，现在它返回一个 Completable，一个ViewModule 会订阅它的 action。（Room的更新会自动触发上面 data 返回的流）
+2. 它的 `refresh()`方法，它触发一次数据刷新，大部分实现会从网络获取数据，转换数据实体并且把它们更新到 Room 数据库中，现在它返回一个 Completable，一个 ViewModule 会订阅它的 action。（Room 的更新会自动触发上面 data 返回的流）
 
 ## So where did I plan on fitting coroutines into this?
 
-我的目标是使`refresh()`成为一个挂起函数：
+我的目标是使 `refresh()` 成为一个挂起函数：
 
 ```kotlin
 interface Call<in Param, Output> {
@@ -37,11 +37,11 @@ interface Call<in Param, Output> {
 
 现在我们非常粗糙地和愚蠢地使用 Kotlin Coroutines，但是这只是第一步。而且一切都可以工作。
 
-下一步是开始转换`refresh()`coroutine aware 下面的所有代码，并删除不需要它的 RxJava。在这一点上，你可能想知道我所说的 coroutine aware 是什么。好吧，这与线程有关。
+下一步是开始转换 `refresh()` "coroutine aware" 下面的所有代码，并删除不需要它的 RxJava。在这一点上，你可能想知道我所说的 "coroutine aware" 是什么，好吧，这与线程有关。
 
 ## Threading
 
-在 RxJava 中，我有用于不同类型任务的不同的 Scheduler ，这是通过 data class 来实现的，该  data class  被注入到将 Rx 运算符链接在一起的任何地方。
+在 RxJava 中，我有用于不同类型任务的不同的 Scheduler ，这是通过 data class 来实现的，该 data class 被注入到将 Rx 运算符链接在一起的任何地方。
 
 ```kotlin
 data class AppRxSchedulers(
@@ -61,9 +61,9 @@ fun provideRxSchedulers() = AppRxSchedulers(
 )
 ```
 
-在我看来最重要的一点是数据库的 Scheduler，这是因为我希望想要强制单线程读取，确保数据完整性并且不对SQLite 加锁。
+在我看来最重要的一点是数据库的 Scheduler，这是因为我希望想要强制单线程读取，确保数据完整性并且不对 SQLite 加锁。
 
-对于 Coroutines 我也想做同样的事，却好 RxJava 和 Coroutines 底层使用同样的线程池，使用 kotlinx-coroutines-rx2 扩展库，这相对容易实现。它给 Scheduler 添加了扩展函数将其包装为一个 CoroutineDispatcher，使用它我将我的 Sceduler 转换为 CoroutineDispatcher 并注入它们。
+对于 Coroutines 我也想做同样的事，确保 RxJava 和 Coroutines 底层使用同样的线程池，使用 kotlinx-coroutines-rx2 扩展库，这相对容易实现。它给 Scheduler 添加了扩展函数将其包装为一个 CoroutineDispatcher，使用它我将我的 Sceduler 转换为 CoroutineDispatcher 并注入它们。
 
 ```kotlin
 data class AppCoroutineDispatchers(
@@ -80,7 +80,7 @@ fun provideDispatchers(schedulers: AppRxSchedulers) =
         database = schedulers.database.asCoroutineDispatcher(),
         disk = schedulers.disk.asCoroutineDispatcher(),
         network = schedulers.network.asCoroutineDispatcher(),
-        main = UI//在kotlin 1.3 中应该事 Dispatchers.Main
+        main = UI//在kotlin 1.3 中应该是 Dispatchers.Main
     )
 ```
 
@@ -88,7 +88,7 @@ fun provideDispatchers(schedulers: AppRxSchedulers) =
 
 ## Changing threads
 
-现在，我让我的 Scheduler 和 Dispatcher共享同样的线程池，但是如何在我的操作中使用它们呢？ RxJava 使用它的 `subscribeOn()` 和 `observeOn()` 方法非常容易的将不同的线程观察者链在一起，这里是 `refresh()`方 法的一个实例，我用我的 network scheduler 从网络获取数据并且将它转换内部实体，然后使用 data scheduler 来存储结果。
+现在，我让我的 Scheduler 和 Dispatcher 共享同样的线程池，但是如何在我的操作中使用它们呢？ RxJava 使用它的 `subscribeOn()` 和 `observeOn()` 方法非常容易的将不同的线程观察者链在一起，这里是 `refresh()` 方法的一个实例，我用我的 network scheduler 从网络获取数据并且将它转换内部实体，然后使用 data scheduler 来存储结果。
 
 ```kotlin
 override fun refresh(): Completable {
@@ -114,7 +114,7 @@ override fun data(): Flowable<TraktUser> {
 
 ## First attempt
 
-当你读过 [coroutines guide](https://github.com/Kotlin/kotlinx.coroutines/blob/master/coroutines-guide.md) 后，你的脑海中大概有两个函数：`launch()` 和`async()`，大概你也能猜到，我的第一次尝试集中在使用这些将事物链接在一起：
+当你读过 [coroutines guide](https://github.com/Kotlin/kotlinx.coroutines/blob/master/coroutines-guide.md) 后，你的脑海中大概有两个函数：`launch()` 和 `async()`，大概你也能猜到，我的第一次尝试集中在使用这些将事物链接在一起：
 
 ```kotlin
 override suspend fun refresh(param: Unit) {
@@ -184,9 +184,9 @@ override suspend fun refresh(param: Unit) {
 
 ## But the docs say that coroutines are really lightweight. Why can’t I just async/launch?
 
-coroutines  确实是非常轻量级的，但是创建它们依然需要一些消耗，你需要记住的是，运行我们程序的 Android ，是一个资源受限的系统，所以我们应该尽可能的来压缩我们的步骤，而使用 `withContext`满足我们的需求，与使用 `async` 或 `launch` 创建新协程相比，它只是单个函数调用和最小对象分配。
+coroutines 确实是非常轻量级的，但是创建它们依然需要一些消耗，你需要记住的是，运行我们程序的 Android ，是一个资源受限的系统，所以我们应该尽可能的来压缩我们的步骤，而使用 `withContext` 满足我们的需求，与使用 `async` 或 `launch` 创建新协程相比，它只是单个函数调用和最小对象分配。
 
-还有一个事实是，异步和启动是针对异步的任务。大多数时候你有一个主要的异步任务，但是在其内部你将会调度子的异步任务，通过使用 `async` 或 `launch` 你将被迫使用 `await()` 和 `join()`，这是不必要的阅读复杂性。
+还有一个事实是，异步和启动是针对异步的任务。大多数时候你有一个主要的异步任务，但是在其内部你将会调度子的异步任务，通过使用 `async` 或 `launch` 你将被迫使用 `await()` 和 `join()`，这是不必要的阅读复杂性（此时 kotlin coroutine 还没有提供结构化并发）。
 
 另一方面，如果你的子任务是不相关的（与其他任务没有关联性），使它们与 `async` 同时运行是一种有效的方法。
 
@@ -221,7 +221,7 @@ override fun refresh(param: Unit): Completable {
 
 这里我们实际上描述的是一个并行的映射，`map()`的运行时并发的，JDK8 提供了一些类似 操作：`list.parallel().map(*/\* map function */*).collect(toList())`。
 
-在 Kotlin 中没有使用 coroutines  的内建版本（我能找到的范围中），但幸运的是，它很容易被实现：
+在 Kotlin 中没有使用 coroutines 的内建版本（我能找到的范围中），但幸运的是，它很容易被实现：
 
 ```kotlin
 suspend fun <A, B> Collection<A>.parallelMap(
@@ -270,13 +270,11 @@ override suspend fun refresh(param: Unit) {
 
 希望您可以看到从 RxJava 的 Single / Maybe / Completable 切换到协同程序实际上相对容易。目前，我仍在使用 RxJava 来传输可观察数据，但我可能会转向 LiveData 或 coroutine channel。
 
-
-
 ## 补充说明
 
 集成 kotlinx-coroutines-rx2：
 
-```groo
+```groovy
 // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-rx2
 compile group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-rx2', version: '1.0.1'
 ```

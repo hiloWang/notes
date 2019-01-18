@@ -40,3 +40,4 @@ HTTP本身是不安全的通讯协议，HTTPS在HTTP的基础上对双方传输�
 
 - [native层实现安全关键信息保护：把敏感数据写入so库](http://www.jianshu.com/p/2576d064baf1)
 - [安卓安全开发](http://www.jianshu.com/p/500f1fd13b9b)
+- [你的App正在裸奔！](https://mp.weixin.qq.com/s/Kz7XJPimggPJbk1iZ4g2RQ)

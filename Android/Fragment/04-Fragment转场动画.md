@@ -6,14 +6,14 @@
 在Fragment的切换过程中添加动人的动画，可以让界面跳转更加自然，当然Fragment是支持动画的，而且方式还有很多，但是这些方式中很多是事有问题的。
 
 ---
-### 1.1     setCustomAnimations(int enter, int exit)
+### 1.1 setCustomAnimations(int enter, int exit)
 
 两个参数 setCustomAnimations(int enter, int exit)方法，参数为动画的xml，支持View动画和属性动画。
 
 此方法给Fragment的添加和切换设置动画，enter表示进入的动画，exit表示退出界面的动画。比如当一个Fragment被添加到容器中，它的View会执行enter动画，当它被replace时它的view执行exit动画。但是直接remove一个Fragment是不会执行exit动画的。
 
 ---
-### 1.2 setCustomAnimations(int enter, int exit , int popEnter , int popExit)
+### 1.2 setCustomAnimations(int enter, int exit, int popEnter, int popExit)
 
 这个方法多次两个参数，从参数名就可以看出，多了的两个参数用于给backStack操作设置动画。
 
@@ -21,16 +21,16 @@ popEnter表上栈顶的Fragment出栈后，重新回到栈顶的Fragment所执�
 popExit表示栈顶的Fragment的出栈动画。
 
 ---
-### 1.3 setCustomAnimations的Bug
+### 1.3 setCustomAnimations 的 Bug
 
-setCustomAnimations方法有一个很大的bug，就是在**内存重启**后所有设置的动画都将失效。
+setCustomAnimations 方法有一个很大的 bug，就是在 **内存重启** 后所有设置的动画都将失效。
 
 ---
-### 1.4 setTranseion和onCreateAnimation
+### 1.4 setTranseion 和 onCreateAnimation
 
-setTranseion是FragmentTransaction的方法，而onCreateAnimation是Fragment的方法，一般两个方法需要配合使用。而且它们不会像`setCustomAnimations`一样，即使是**内存重启**也不会失效，因为他们是动态调用的。
+setTranseion 是 FragmentTransaction 的方法，而 onCreateAnimation 是 Fragment 的方法，一般两个方法需要配合使用。而且它们不会像`setCustomAnimations`一样，即使是 **内存重启** 也不会失效，因为它们是动态调用的。
 
-先来看一下`setTranseion`方法：
+先来看一下 `setTranseion` 方法：
 
 ```
         setTransition(@Transit int transit);
@@ -40,7 +40,7 @@ setTranseion是FragmentTransaction的方法，而onCreateAnimation是Fragment的
         private @interface Transit {}
 ```
 
-很明显，要实现动画，我们只能传`TRANSIT_FRAGMENT_OPEN`和`TRANSIT_FRAGMENT_CLOSE`，他们分别表示进场和退场，首先使用FragmentTransaction设置Transeion：
+很明显，要实现动画，我们只能传 `TRANSIT_FRAGMENT_OPEN` 和 `TRANSIT_FRAGMENT_CLOSE`，它们分别表示进场和退场，首先使用FragmentTransaction 设置 Transeion：
 
 ```
      mFragmentManager.beginTransaction()
@@ -50,7 +50,7 @@ setTranseion是FragmentTransaction的方法，而onCreateAnimation是Fragment的
     .commit();
 ```
 
-单独使用`setTranseion`的话，FragmentManager会生成默认的动画，源码如下：
+单独使用 `setTranseion` 的话，FragmentManager 会生成默认的动画，源码如下：
 
 ```
         //根据transit或动作拿animAttr
@@ -86,13 +86,13 @@ setTranseion是FragmentTransaction的方法，而onCreateAnimation是Fragment的
             }
 
 
-setTranseion和和Fragment的onCreateAnimation配合使用：
+setTranseion 和 Fragment 的 onCreateAnimation 配合使用：
 
         public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
             if (transit == FragmentTransaction.TRANSIT_FRAGMENT_OPEN) {//表示是一个进入动作，比如add.show等
                 if (enter) {//普通的进入的动作
                     return AnimationUtils.loadAnimation(getContext(), R.anim.anim_bottom_in);
-                } else {//比如一个已经Fragmen被另一个replace，是一个进入动作，被replace的那个就是false
+                } else {//比如一个已经 Fragment 被另一个 replace，是一个进入动作，被 replace 的那个就是 false
                     return AnimationUtils.loadAnimation(getContext(), R.anim.anim_out);
                 }
             } else if (transit == FragmentTransaction.TRANSIT_FRAGMENT_CLOSE) {//表示一个退出动作，比如出栈，hide，detach等
@@ -106,18 +106,18 @@ setTranseion和和Fragment的onCreateAnimation配合使用：
         }
 ```
 
-transit对应FragmentTransaction设置的动作，`onCreateAnimation`在Fragment的每个操作动作中都会被回调，最好是配合FragmentTransaction的`setTranseion`方法使用，才能更加灵活的实现各种动画，不然`onCreateAnimation`方法的transit参数永远是0，而`nextAnim`与`setCustomAnimations`有关，而我一般不使用`setCustomAnimations`。
+transit 对应 FragmentTransaction 设置的动作，`onCreateAnimation` 在 Fragment 的每个操作动作中都会被回调，最好是配合 FragmentTransaction的 `setTranseion` 方法使用，才能更加灵活的实现各种动画，不然 `onCreateAnimation` 方法的 transit 参数永远是 0，`nextAnim` 与 `setCustomAnimations` 有关。
 
 ---
 ### 1.5 setTransitionStyle
 
-setTransitionStyle也是可以实现动画的，但是Support包中的FragmentManager不支持，对比Support 包中的FragmentManager和系统的FragmentManager。
+setTransitionStyle 也可以实现转场动画，但是 Support 包中的 FragmentManager 不支持，对比 Support 包中的 FragmentManager 和系统的FragmentManager。
 
 Support FragmentManager：
 
-这个Support FragmentManager的`loadAnimaion`的源码的最后一段，当没有加载到任何动画时才根据`transitionStyle`加载动画，但是源码都把这段给注释了，嘿嘿-_-!。
+这个 Support FragmentManager 的 `loadAnimaion` 的源码的最后一段，当没有加载到任何动画时才根据 `transitionStyle` 加载动画，但是源码都把这段给注释了，嘿嘿-_-!。
 
-```
+```java
         if (transitionStyle == 0 && mHost.onHasWindowAnimations()) {
                 transitionStyle = mHost.onGetWindowAnimations();
             }
@@ -138,7 +138,7 @@ Support FragmentManager：
 ```
 
 ---
-### 1.6 Android 5.0后的ShareElement
+### 1.6 Android 5.0 后的 ShareElement
 
 利用ShareElement可以实现很绚丽的效果哦，不过这只在5.0以上才支持，具体的做法如下：
 
@@ -149,7 +149,7 @@ GridFragment中的关键代码：
 
 在列表中给ItemView设置transitionName：
 
-```
+```java
                 public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
                     ImageView iv = (ImageView) holder.itemView.findViewById(R.id.item_grid_iv);
                     iv.setImageResource(mImages[position]);
@@ -161,14 +161,13 @@ GridFragment中的关键代码：
 
 当需要打开新的Fragment时，回调Activity打开新的界面：
 
-```
-       //注意做好版本判断
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+```java
+            //注意做好版本判断
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       
                 detailFragment.setSharedElementEnterTransition(new DetailsTransition());
-                
                 detailFragment.setEnterTransition(new Slide());
-               getSupportFragmentManager()
+                getSupportFragmentManager()
                         .findFragmentByTag(GridLayoutFragment.class.getName())
                         .setExitTransition(new Slide());
     
@@ -182,7 +181,6 @@ GridFragment中的关键代码：
                     .commit();
 
 
-    
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         private class DetailsTransition extends TransitionSet {
             DetailsTransition() {

@@ -3,17 +3,17 @@
 ---
 ## 1 BasicSample
 
-演示如何使用SQLite数据库和Room保存数据。
+演示如何使用 SQLite 数据库和 Room 保存数据。
 
 ### 1.1 Room
 
-- Database注解 将一个类标记为RoomDatabase
-- Dao注解 用于生成Dao对象
-- Entity注解 表示数据库中的一张表
-- TypeConverter注解 用于添加类型转功能
-- DataBase的查询默认在ArchTaskExecutor提供的执行中执行，可以通过ArchTaskExecutor的setDelegate来设置其他的执行器。
+- Database 注解将一个类标记为 RoomDatabase
+- Dao 注解用于生成 Dao 对象
+- Entity 注解表示数据库中的一张表
+- TypeConverter 注解用于添加类型转功能
+- DataBase 的查询默认在 ArchTaskExecutor 提供的执行中执行，可以通过 ArchTaskExecutor 的 setDelegate 来设置其他的执行器。
 
-### 1.2 Repository层如何返回数据
+### 1.2 Repository 层如何返回数据
 
 ```java
 public class DataRepository {
@@ -64,9 +64,9 @@ public class DataRepository {
 }
 ```
 
-MediatorLiveData是LiveData子类，它可以观察其他LiveData对象并对它们的OnChanged事件做出反应，使用MediatorLiveData连接其他数据源，从而Repository可以直接同步返回可观察的LiveData，避免复杂的异步回调。
+MediatorLiveData 是 LiveData 子类，它可以观察其他 LiveData 对象并对它们的 OnChanged 事件做出反应，使用 MediatorLiveData 连接其他数据源，从而 Repository 可以直接同步返回可观察的 LiveData，避免复杂的异步回调。
 
-### 1.3 ViewModel如何连接UI和Repository
+### 1.3 ViewModel 如何连接 UI 和 Repository
 
 ```java
 public class ProductViewModel extends AndroidViewModel {
@@ -99,13 +99,13 @@ public class ProductViewModel extends AndroidViewModel {
 ---
 ## 2 BasicRxJavaSample
 
-演示Room如何配合RxJava 2来使用
+演示 Room 如何配合 RxJava2 来使用
 
 ### 2.1 Room
 
-Room中定义的Dao可以直接返回Flowable，当然这需要Room的RxJava2扩展支持。
+Room 中定义的 Dao 可以直接返回 Flowable，当然这需要 Room 的 RxJava2 扩展支持。
 
-```
+```java
 @Dao
 public interface UserDao {
     //Insert操作在调用线程执行。
@@ -117,7 +117,7 @@ public interface UserDao {
 }
 ```
 
-### 2.2 View中使用Completable类封装一次用户数据的更新
+### 2.2 View 中使用 Completable 类封装一次用户数据的更新
 
 ```java
 //ViewModel
@@ -142,13 +142,13 @@ mViewModel.updateUserName(userName)
                         throwable -> Log.e(TAG, "Unable to update username", throwable))
 ```
 
-ViewModel中通过Completable的fromAction优雅的封装了一个插入操作，然后返回给UI订阅。
+ViewModel 中通过 Completable 的 fromAction 优雅的封装了一个插入操作，然后返回给 UI 订阅。
 
 
 ---
 ## 3 PagingSample(Kotlin)-从数据库加载数据
 
-演示如何使用Paging library 和 Room来加载数据。
+演示如何使用 Paging library 和 Room 来加载数据。
 
 ###  3.1 使用Room 支持 PagingLibrary
 
@@ -326,7 +326,7 @@ interface RedditApi {
 
 Repository层返回的数据都是包装过的数据，因为不仅仅要处理数据的展示，还要处理好网络请求时的状态转换。所以通过一个包装对象把数据实体和各种请求状态封装在一起，然后由Repository统一组合返回是一个不错的实践。
 
-```
+```kotlin
 //表示状态
 enum class Status {
     RUNNING,
@@ -364,7 +364,7 @@ data class Listing<T>(
 
 由于 `Listing<T>` 封了请求的数据和状态，Repository只需要返回Listing实例即可，然后交由 ViewModel 层处理。ViewModel转换和分离Listing中的数据与状态，并包装为LiveData提供给UI层。
 
-```java
+```kotlin
 class SubRedditViewModel(private val repository: RedditPostRepository) : ViewModel() {
 
     private val subredditName = MutableLiveData<String>()
@@ -412,7 +412,7 @@ class SubRedditViewModel(private val repository: RedditPostRepository) : ViewMod
 
 UI层从ViewModel获取观察的对象，处理数据、网络状态的变化。
 
-```java
+```kotlin
 class RedditActivity : AppCompatActivity() {
 
      ...省略一些非核心代码
@@ -469,7 +469,7 @@ class RedditActivity : AppCompatActivity() {
 
 该示例有有三种不同列表加载场景，所有三种不同的实现，有一个工厂方法用于根据不同场景来创建不同的Repository：
 
-```java
+```kotlin
    //仓库接口
    interface RedditPostRepository {
       fun postsOfSubreddit(subReddit: String, pageSize: Int): Listing<RedditPost>
@@ -498,7 +498,7 @@ class RedditActivity : AppCompatActivity() {
 
 该模式的仓库使用 `PagedList.BoundaryCallback` 监听数据库何时数据不足。然后从网络中获取更多项目并将其插入数据库。
 
-```java
+```kotlin
 class SubredditBoundaryCallback(
         private val subredditName: String,    //搜索的主题名
         private val webservice: RedditApi,    //API
@@ -584,7 +584,7 @@ class SubredditBoundaryCallback(
 
 DbRedditPostRepository的核心实现：
 
-```java
+```kotlin
 class DbRedditPostRepository(
 
         val db: RedditDb,//数据库实例
@@ -1076,7 +1076,7 @@ class SearchViewModel @Inject constructor(repoRepository: RepoRepository) : View
 ---
 ## 其他
 
-- PersistenceContentProviderSample：演示ContentProvider如何使用Room来暴露数据
-- PersistenceMigrationsSample ：演示如何从SQLite迁移到Room
-- BasicRxJavaSampleKotlin：演示如何与Kotlin配合使用
+- PersistenceContentProviderSample：演示 ContentProvider 如何使用 Room 来暴露数据
+- PersistenceMigrationsSample ：演示如何从 SQLite 迁移到 Room
+- BasicRxJavaSampleKotlin：演示 RxJava2 如何与 Kotlin 配合使用
 

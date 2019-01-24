@@ -1,6 +1,6 @@
 # Jetpack
 
-Google IO 2018推出了全新的Android开发组件库：`今天，我们高兴地推出 Android Jetpack，这是我们的新一代组件、工具和架构指导，旨在加快您的 Android 应用开发速度。`Android Jetpack 完美兼容 Kotlin 语言，利用 Android KTX 大幅节省代码量。
+Google IO 2018 推出了全新的Android开发组件库：`今天，我们高兴地推出 Android Jetpack，这是我们的新一代组件、工具和架构指导，旨在加快您的 Android 应用开发速度。`Android Jetpack 完美兼容 Kotlin 语言，利用 Android KTX 大幅节省代码量。
 
 Android Jetpack 是一套组件、工具、指导思想的集合，其件将现有的 **Support库** 与 **架构组件库** 联系起来，分成了四个类别：
 
@@ -10,7 +10,7 @@ Android Jetpack 是一套组件、工具、指导思想的集合，其件将现�
 
 ### 现有组件改进
 
-- Data Binding更新了编译插件V2，使用V2版本可以配置LiveData一起工作
+- Data Binding 更新了编译插件 V2，使用 V2 版本可以让 DataBinding 和 LiveData 一起工作
 
 ### 新组件介绍
 

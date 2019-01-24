@@ -9,7 +9,7 @@ Clean架构由uncle-bob的[这篇文章](https://8thlight.com/blog/uncle-bob/201
 ---
 ## 1 Presenter
 
-Presenter**不应该包含任何Android层的代码**，只能通过接口与View进行交互，这样做的目的是解耦ui层的逻辑层，对于测试而言，就是可以**直接在本地JVM上进行Presenter层的测试**，而不需要在Android设备上进行测试。
+Presenter **不应该包含任何 Android 层的代码**，只能通过接口与View进行交互，这样做的目的是解耦ui层的逻辑层，对于测试而言，就是可以 **直接在本地JVM上进行Presenter层的测试**，而不需要在 Android 设备上进行测试。
 
 ---
 ## 2 Domain

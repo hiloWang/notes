@@ -163,7 +163,7 @@ app:layout_optimizationLevel="direct|barrier|dimensions"
 barrierDirection：设置 Barrier  所创建的位置。可设置的有：bottom、end、left、right、start、top。
 
 constraint_referenced_ids：设置 Barrier 引用的控件。可设置多个，设置的方式是：id, id。（无需加 @id/）
-
+barrierDirection：设置方向，在该方向上使用 referenced_ids 中设置的 View 的最大 size
 barrierAllowsGoneWidgets：默认为 true，即当 Barrier 引用的控件被 GONE 掉时，则 Barrier 默认的创建行为是在已 GONE 掉控件的已解析位置上进行创建。如果设置为 false，则不会将 GONE 掉的控件考虑在内。
 ```
 

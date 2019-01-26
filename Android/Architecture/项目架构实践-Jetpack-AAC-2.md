@@ -1,10 +1,9 @@
 # ACC组件介绍
 
-
 ---
 ## 1 Lifecycle
 
-**Lifecycle**是生命周期感知组件，提供了对Android组件(Activity、Service)和Fragment的生命周期的感知(监听)能力。其他类型通过注解(或者定义接口)的方式来感知Android组件的生命周期变化。
+**Lifecycle** 是生命周期感知组件，提供了对Android组件(Activity、Service)和Fragment的生命周期的感知(监听)能力。其他类型通过注解(或者定义接口)的方式来感知Android组件的生命周期变化。
 
 LifecycleOwner表示一个具有Android生命周期的类。通过其返回的 Lifecycle 对象可以注册一个LifecycleObserver，还可以通过Lifecycle获取组件当前的状态，LifecycleOwner的实现有：
 
@@ -96,8 +95,6 @@ public class NameActivity extends AppCompatActivity {
     }
 }
 ```
-
-
 
 ### 更新LiveData对象
 

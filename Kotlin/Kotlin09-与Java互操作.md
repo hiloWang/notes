@@ -37,7 +37,7 @@ Kotlin与java的交互： Kotlin 在设计时就考虑了Java 互操作性。
 
  - 包：在 `org.foo.bar` 包内的` example.kt `文件中声明的所有的函数和属性，包括扩展函数， 都编译成一个名为 `org.foo.bar.ExampleKt `的 Java 类的静态方法
 
-### NoArg和AllOpen插件
+### NoArg 和 AllOpen 插件
 
  - NoArg为data class生成无参构造方法
  - AllOpen为标注的类去掉final，允许被继承

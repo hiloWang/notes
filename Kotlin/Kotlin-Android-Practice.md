@@ -74,7 +74,7 @@ Anko Layouts 允许使用 DSL 的方式来创建布局，切使用起来非常�
 
 1. Anko库给 Activity 添加了很多的扩展方法
 2. 在Fragment中需要先调用 `UI` 方法获取 AnkoContext 才能进行DSL布局编程
-3. DSLMarker 用于解决嵌套的作用域引用混乱的问题，被 DSLMarker元注解标注的注解，用于在某些类或类型作标注，防止 implicit receiver(隐式接收器)：所有被 DSLMarker 标注的类的子类，子类间的嵌套 implicit receiver 是互斥的
+3. DSLMarker 用于解决嵌套的作用域引用混乱的问题，被 DSLMarker 元注解标注的注解，用于在某些类或类型作标注，防止 implicit receiver(隐式接收器)：所有被 DSLMarker 标注的类的子类，子类间的嵌套 implicit receiver 是互斥的
 4. 在 `verticalLayout` 中发现接收者是 `_LinearLayout`，要多定义一个子类这种方式？为了在内部给它的子 View 添加拓展，具体可以参考`_LinearLayout`源码
 
 #### 注意事项
@@ -141,15 +141,15 @@ Anko Layouts 允许使用 DSL 的方式来创建布局，切使用起来非常�
 ---
 ## 4 代理 + 扩展的应用
 
-- SharedPreference 扩展 + 代理：但是也存在弊端，如果使用字段名作为 key，那么如果字段名变更的话将导致之前的存储无效，这就可能不适用于 SharedPreference 了
+- SharedPreference 扩展 + 代理
 - Properties 扩展：`属性代理、反射`，多个字段可以共享同一个代理
 - Fragments 参数代理（从 arguments 中获取传参）
-- [ObjectPropertyDelegate](https://github.com/enbandari/ObjectPropertyDelegate)
+- 等等
 
 ---
 ## 5 实践总结
 
-### 在data类中使用可null类型
+### 在 data 类中使用可 null 类型
 
 在处理服务器返回的数据时，对于不确定返回的数据类型，使用可 null 类型接收，然后在使用此数据时，可以有效的避免空指针。
 
@@ -157,24 +157,20 @@ Anko Layouts 允许使用 DSL 的方式来创建布局，切使用起来非常�
 
 object实现单例非常简便
 
-### anko库中的协程部分，优雅的切换线程
+### 使用协程，优雅地切换线程
 
 ```kotlin
-async {
+CoroutineScope(Dispatchers.IO).launch {
     val response = longTimeGet()
-    uiThread {
+    withContext(Dispatchers.Main) {
         textView.text = response
     }
 }
 ```
 
-### anko库中的dsl构建布局
+### apply 等扩展方法
 
-使用dsl构建布局或许也是一个不错的选择
-
-### apply 方法
-
-调用某对象的apply函数，在函数块内可以通过 this 指代该对象。返回值为该对象自己。
+调用对象的 apply 函数，在函数块内可以通过 this 指代该对象。返回值为该对象自己，类似还有 `let、run、also 、use`等方便的方法。
 
 ```kotlin
         val list = mutableListOf<String>()
@@ -204,8 +200,9 @@ inline fun ignoreCarsh(code: () -> Unit){
 
 ### 为对象添加扩展方法
 
-- 比如为String添加判断非空的方法
-- 比如为TextInputLayout添加直接获取text的方法
+- 比如为 String 添加判断非空的方法
+- 比如为 TextInputLayout 添加直接获取 text 的方法
+- 等等，尽管发挥自己的想象力。
 
 
 ### 使用 sealed 类
@@ -217,7 +214,7 @@ Kotlin 的 sealed 类可以实现轻松的处理错误数据，常见应用：
 
 ### 使用懒加载
 
-使用懒加载 `xx by layz{}` 可以先声明变量，然后在第一使用此变量的时候才会去初始化改变量。
+使用懒加载 `val xx by layz{}` 可以先声明变量，然后在第一使用此变量的时候才会去初始化改变量。
 
 ### 暴露不可变属性
 
@@ -244,11 +241,17 @@ class RequestAfterSalesViewModel{
 inline fun <reified T> Gson.fromJson(json: String) = fromJson(json, T::class.java)
 ```
 
+### 避免过度使用 tuples
+
+tuples 可以返回三个钟，还支持解构，但是在语义上 tuples 本身没有任何意义，过度使用反而导致代码不够明了。
+
+
+
 ---
 
 ## 6 填坑记录
 
-### 与Retrofit配合使用时存在的问题
+### 与 Retrofit 配合使用时存在的问题
 
 Kotlin会给泛型加上通配符，比如`Map<String, RequestBody>`在Java中会被认为是`Map<String, ？ extend RequestBody>`，但是在Retrofit规定接口中的参数不能有通配符，所以使用Kollin接口定于API时就可能会遇到这个问题：[Parameter type must not include a type variable or wildcard](https://github.com/square/retrofit/issues/1805)
 
@@ -261,7 +264,7 @@ fun update(@Path("storeId") storeId: Int, @Path("categoryId") categoryId: Int?, 
 
 ------
 
-###  RxJava2的combineLatest泛型丢失
+###  RxJava2 的 combineLatest 泛型丢失
 
 ```kotlin
     private var userNameObservable: Observable<CharSequence>? = null
@@ -292,13 +295,7 @@ fun update(@Path("storeId") storeId: Int, @Path("categoryId") categoryId: Int?, 
 
 ------
 
-###  反编译 Kotlin
-
-Kotlin 反编译时，在 IDEA 上进行 decompile 可能造成 IDEA 卡死，而使用 AndroidStuidio 则不会。
-
-------
-
-### DataClass 与 默认构造函数
+### data class 与 默认构造函数
 
 如果没有为 DataClass 所有参数指令默认值，那么 DataClass 没有默认的构造函数， 这样通过反射去创建 DataClass 实例是会异常的，Gson 当检查到 class 没有默认构造函数时，会通过 `Unsafe.allocateInstance()` 类绕过构造函数实来例化对象，但是这样实例化出来的对象的字段都是没有被初始化的，基于这种情况，就可能存在问题：
 
@@ -357,7 +354,9 @@ public abstract class PagingWrapper {
 layz 依赖于 paging$delegate 字段，但是如果是 Unsafe 通过 `Unsafe.allocateInstance()` 实例化 SearchRepositories 的话，paging$delegate 是没有被初始化的，它的值还是null，这样后面调用 paging 必然会抛出 NPE。解决方案有：
 
 - 在定义的 data class 的构造函数中为所有的参数定义默认值，这样该 data class 将会有一个默认的无参构造函数。
-- 至于 kotlin 提供的 noarg 插件，在脚本中配置 `invokeInitializers = true`，该插件会在合成的无参构造函数中运行其初始化逻辑（`init`代码块）。
+- 至于 kotlin 提供的 noarg 插件，并且在脚本中配置 `invokeInitializers = true`(invokeInitializers  保证在 init 中的成员初始化)，该插件会在合成的无参构造函数中运行其初始化逻辑（`init`代码块）。 但是 noarg 插件无法处理在 data class 的构造函数中为参数指定的默认值。
+- 使用更懂 kotlin 的 [moshi](https://github.com/square/moshi)，适用于 JVM。
+- 使用 kotlinx.serializable，适用于多平台。
 
 ```kotlin
 @NoArg
@@ -373,4 +372,7 @@ data class DataB(
 }
 ```
 
-不过更推荐使用方式 1，因为 noarg 生成的默认构造函数并不会考虑到在 data class 的构造函数中为参数指定的默认值。
+### data class 的拷贝
+
+data class 提供了 copy 方法，但其拷贝方式是浅拷贝，而有些时候我们需要做 deep copy，这时可以使用 [KotlinDeepCopy](https://github.com/enbandari/KotlinDeepCopy)
+

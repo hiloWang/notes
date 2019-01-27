@@ -22,33 +22,8 @@ kotlin 发展简史：
 - 2016.9 支持 apt
 - kotlin 生成的字节码默认支持 java6
 
-## 2 Kotlin 学习笔记
 
-Kotlin 基础：
-
-- [Kotlin 基础语法](Kotlin01-基础语法.md)
-- [Kotlin 面向对象](Kotlin02-面向对象.md)
-- [Kotlin 函数与扩展](Kotlin03-函数与扩展.md)
-- [Kotlin Lambda编程](Kotlin04-Lambda编程.md)
-- [Kotlin 类型系统](Kotlin05-类型系统.md)
-- [Kotlin 运算符重载](Kotlin06-运算符重载.md)
-- [Kotlin 委托](Kotlin07-委托.md)
-- [Kotlin 泛型](Kotlin08-泛型.md)
-- [Kotlin 与 Java 互操作](Kotlin09-与Java互操作.md)
-- [Kotlin 反射](Kotlin10-反射.md)
-- [Kotlin API 总结](Kotlin-API总结.md)
-
-Kotlin Android：
-
-- [Kotlin Android 开发实践](Kotlin-Android-Practice.md)
-
-Kotlin 协程：
-
-- [Kotlin 协程概述](KotlinCoroutine01-Overview.md)
-- [Kotlin 协程总结](KotlinCoroutine02-Summary.md)
-- [Kotlin 协程实践](KotlinCoroutine03-Practice.md)
-
-## 3 Kotlin 学习资料
+## 2 Kotlin 学习资料
 
 ### 1 文档与资料
 
@@ -75,11 +50,10 @@ Kotlin 协程：
 
 - [awesome-kotlin](https://github.com/KotlinBy/awesome-kotlin)
 - [awesome-kotlin-cn](https://github.com/kymjs/awesome-kotlin-cn)
-- [Exposed](https://github.com/JetBrains/Exposed) Kotlin SQL Framework
 - [Kodein](https://github.com/SalomonBrys/Kodein/) Kotlin 依赖注入框架
 - [Fuel](https://github.com/kittinunf/Fuel) Kotlin 网络请求库
-- [kotlintest](https://github.com/kotlintest/kotlintest) 测试项目
 - [kotlinpoet](https://github.com/square/kotlinpoet) 类似 square 的 javapoet，用于生成 kotlin 代码
+- [Apt-Utils](https://github.com/enbandari/Apt-Utils) 与相关教程 [Apt-Tutorials](https://github.com/enbandari/Apt-Tutorials)
 
 ### 4 协程
 

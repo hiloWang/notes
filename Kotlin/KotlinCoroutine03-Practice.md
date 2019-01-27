@@ -32,6 +32,48 @@ coroutines-android 中有些什么东西呢？其实只有四个文件：
 - HandlerContext 为 Kotlin 协程提供了 Android平台的 Hander上下文， `UI` 是 HandlerContext 的一个全局实例，让协程运行在 Android 的 UI线程。
 
 ---
+## 传统的异步编程如何重构为协程风格
+
+使用 CompletableDeferred
+
+```kotlin
+interface Callback {
+    fun onSuccess(result: String)
+    fun onError(e: Throwable)
+}
+
+/*传统异步编程如果重构为协程*/
+fun loadAsync(callback: Callback) {
+    thread {
+        try {
+            Thread.sleep(1000)
+            if (Math.random() > 0.5f) {
+                callback.onSuccess("HelloWorld")
+            } else {
+                throw IllegalStateException("This is a Demonstration Error.")
+            }
+        } catch (e: Throwable) {
+            callback.onError(e)
+        }
+    }
+}
+
+suspend fun load(): String {
+    val completableDeferred = CompletableDeferred<String>()
+    loadAsync(object : Callback {
+        override fun onSuccess(result: String) {
+            completableDeferred.complete(result)
+        }
+
+        override fun onError(e: Throwable) {
+            completableDeferred.completeExceptionally(e)
+        }
+    })
+    return completableDeferred.await()
+}
+```
+
+---
 ## 以同步代码的风格 show 一个 Dialog
 
 ```kotlin
@@ -39,7 +81,7 @@ coroutines-android 中有些什么东西呢？其实只有四个文件：
 fun launchUI(start: CoroutineStart = CoroutineStart.DEFAULT, parent: Job? = null, block: suspend CoroutineScope.() -> Unit) =
         launch(UI, start, parent, block)
 
-//展示一个 Dialog，然后可以直接获取其结果，suspendCoroutine用于暂停当前协程，等待新的协程执行结束
+//展示一个 Dialog，然后可以直接获取其结果，suspendCoroutine 用于暂停当前协程，等待新的协程执行结束
 suspend fun Context.confirm(title: String, message: String = "") = suspendCoroutine<Boolean> { continuation ->
     alert {
         this.title = title
@@ -82,7 +124,7 @@ launchUI {
 
 下面是一个延迟计算斐波那契数列的列子：
 
-```
+```kotlin
 /**
 斐波那契数列公式：
     F0 =0
@@ -111,68 +153,81 @@ fun main(args: Array<String>) {
 }
 ```
 
-下面是一个不断向上遍历，查找泛型的实际类型参数的例子：
+### 协程的使用姿势（[google-codelabs：kotlin-coroutines](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/#0)）
+
+在 Repository 层提供 LiveData，用于让上层监听数据加载的结果。
 
 ```kotlin
-private fun createPresenterKt(): P {
-    buildSequence {
-                var thisClass: KClass<*> = this@BaseFragment::class
-                while (true){
-                    //发送当前class的超类型
-                    yield(thisClass.supertypes)
-                    //jvmErasure：返回表示在JVM上将此类型擦除到的运行时类的KClass实例
-                    thisClass = thisClass.supertypes.firstOrNull()?.jvmErasure?: break
-                }
-            }.flatMap {//这里是 Sequence 的 flatMap，要求 lambda 必须返回一个 Sequence
-                //arguments 是类型参数数组
-                it.flatMap { it.arguments }.asSequence()//返回一个 Sequence
-            }.first {
-                //KTypeProjection 表示类型投影
-                it.type?.jvmErasure?.isSubclassOf(IPresenter::class) ?: false
-            }.let {
-                return it.type!!.jvmErasure.primaryConstructor!!.call() as P
-            }
-}
+  val title: LiveData<String> by lazy<LiveData<String>>(NONE) {
+        Transformations.map(titleDao.loadTitle()) { it?.title }
+   }
 ```
 
----
-## 传统的异步编程如果重构为协程风格
-
-使用 CompletableDeferred
+Repository  提供加载数据的方法，然后通过协程来执行耗时方法：
 
 ```kotlin
-interface Callback {
-    fun onSuccess(result: String)
-    fun onError(e: Throwable)
+//刷新标题
+suspend fun refreshTitle() {
+        withContext(Dispatchers.IO) {
+            try {
+                val result = network.fetchNewWelcome().await()
+                titleDao.insertTitle(Title(result))
+            } catch (error: FakeNetworkException) {
+                throw TitleRefreshError(error)
+            }
+        }
 }
 
-/*传统异步编程如果重构为协程*/
-fun loadAsync(callback: Callback) {
-    thread {
-        try {
-            Thread.sleep(1000)
-            if (Math.random() > 0.5f) {
-                callback.onSuccess("HelloWorld")
-            } else {
-                throw IllegalStateException("This is a Demonstration Error.")
+//suspendCoroutine 可以让异步风格的代码转化为同步风格的代码
+suspend fun <T> FakeNetworkCall<T>.await(): T {
+    return suspendCoroutine { continuation ->
+        addOnResultListener { result ->
+            when (result) {
+                is FakeNetworkSuccess<T> -> continuation.resume(result.data)
+                is FakeNetworkError -> continuation.resumeWithException(result.error)
             }
-        } catch (e: Throwable) {
-            callback.onError(e)
         }
     }
 }
+```
 
-suspend fun load(): String {
-    val completableDeferred = CompletableDeferred<String>()
-    loadAsync(object : Callback {
-        override fun onSuccess(result: String) {
-            completableDeferred.complete(result)
-        }
+在 ViewModel 中使用 Repository 
 
-        override fun onError(e: Throwable) {
-            completableDeferred.completeExceptionally(e)
+```kotlin
+class MainViewModel(private val repository: TitleRepository) : ViewModel() {
+    
+    //用于关联生命周期
+    private val viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    override fun onCleared() {
+        super.onCleared()
+        //取消协程的执行
+        viewModelJob.cancel()
+    }
+    
+    //直接暴露 Repository 层的 LiveData 给 UI
+    val title = repository.title
+    
+    fun refreshTitle() {
+        launchDataLoad {
+            repository.refreshTitle()
         }
-    })
-    return completableDeferred.await()
+    }
+    
+    private fun launchDataLoad(block: suspend () -> Unit): Job {
+        return uiScope.launch {
+            try {
+                _spinner.value = true
+                block()
+            } catch (error: TitleRefreshError) {
+                _snackBar.value = error.message
+            } finally {
+                _spinner.value = false
+            }
+        }
+    }
+    
 }
 ```
+

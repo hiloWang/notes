@@ -11,10 +11,10 @@
 - [安卓 OpenGL ES 2.0 完全入门（二）：矩形、图片、读取显存等](https://blog.piasy.com/2016/06/14/Open-gl-es-android-2-part-2/)
 - **[AndroidOpenGLDemo](https://github.com/doggycoder/AndroidOpenGLDemo)**
 
-
 ## 音视频
 
 - [Android 音视频开发学习思路](https://www.cnblogs.com/renhui/p/7452572.html)
+- [Android 音视频开发学习思路（备份）](https://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650826247&idx=1&sn=b25846e36cb43ba7ea8b1ce694e9690d&chksm=80b7b299b7c03b8fec61fdf33de9b8e75be4086238a1e34a8cba880bcff23aac33a6686f6481&mpshare=1&scene=1&srcid=0911HWolb2gq1uNYxoFzu260#rd)
 
 ## OpenCV
 

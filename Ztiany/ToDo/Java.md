@@ -31,3 +31,5 @@
     - [20个使用 Java CompletableFuture的例子](http://colobu.com/2018/03/12/20-Examples-of-Using-Java%E2%80%99s-CompletableFuture/)
 - [深入剖析ConcurrentHashMap(1)](http://ifeve.com/java-concurrent-hashmap-1/)
 - [深入剖析ConcurrentHashMap(2)](http://ifeve.com/java-concurrent-hashmap-2/)
+- [形形色色的锁-1](https://cloud.tencent.com/developer/article/1337960)
+- [形形色色的锁-2](https://cloud.tencent.com/developer/article/1334828)

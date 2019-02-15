@@ -2,20 +2,22 @@
 
 ## 源码分析
 
-- Advance RxJava
-- [xUtils3](https://github.com/wyouflf/xUtils3/) 源码分析
-- [ARouter](https://github.com/alibaba/ARouter) 源码分析
-- [RxDownload](https://github.com/ssseasonnn/RxDownload) 源码分析
-- [FileDownloader](https://github.com/lingochamp/FileDownloader) 源码分析
-- [Aria](https://github.com/AriaLyy/Aria) 源码分析
-- [okdownload](https://github.com/lingochamp/okdownload) 源码分析
-- [PRDownloader](https://github.com/MindorksOpenSource/PRDownloader) 源码分析
+- [Advance RxJava](https://blog.piasy.com/AdvancedRxJava/index.html)
+- [xUtils3](https://github.com/wyouflf/xUtils3/)
+- [ARouter](https://github.com/alibaba/ARouter)
+- [MultiThreadDownloader](https://github.com/AigeStudio/MultiThreadDownloader)
+- [RxDownload](https://github.com/ssseasonnn/RxDownload)
+- [FileDownloader](https://github.com/lingochamp/FileDownloader)
+- [Aria](https://github.com/AriaLyy/Aria)
+- [okdownload](https://github.com/lingochamp/okdownload)
+- [PRDownloader](https://github.com/MindorksOpenSource/PRDownloader)
 
 ## View
 
 - [Android实现圆弧滑动效果之ArcSlidingHelper篇](https://blog.csdn.net/u011387817/article/details/80313184)
 - [Introduction to MotionLayout (part I)](https://medium.com/google-developers/introduction-to-motionlayout-part-i-29208674b10d)
 - [Android 探究 LayoutInflater setFactory](https://blog.csdn.net/lmj623565791/article/details/51503977)
+- [NestedScrolling 机制](https://juejin.im/post/5c3c8d2ae51d4552475fcef7)
 
 ## bitmap
 
@@ -39,8 +41,7 @@
 
 ## task 恢复
 
-- [Android运行时Crash自动恢复框架-Recovery](http://zhengxiaoyong.me/2016/09/05/Android%E8%BF%90%E8%A1%8C%E6%97%B6Crash%E8%87%AA%E5%8A%A8%E6%81%A2%E5%A4%8D%E6%A1%86%E6%9E%B6-Recovery/)
-
+- [Android 运行时 Crash 自动恢复框架-Recovery](http://zhengxiaoyong.me/2016/09/05/Android%E8%BF%90%E8%A1%8C%E6%97%B6Crash%E8%87%AA%E5%8A%A8%E6%81%A2%E5%A4%8D%E6%A1%86%E6%9E%B6-Recovery/)
 
 ## Activity
 
@@ -56,13 +57,6 @@
 
 - [Android存储挖坑记](http://blog.desmondyao.com/2016/05/04/android-storage/)
 
-## AppLink
-
-在Android M 之前，点击一个`符合规范的链接`会产生一个弹出框，询问用户打开哪个应用。但是 Android M 实现了一个自动认证（auto-verify）机制，让开发者可以避开这个弹出框，使用户不必去选择一个列表，直接跳转到他们的app。
-
-- [Android应用安全开发之浅谈网页打开APP](https://jaq.alibaba.com/community/art/show?articleid=265 "Android应用安全开发之浅谈网页打开APP")
-- [Android M App Links: 实现, 缺陷以及解决办法](http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0718/3200.html "Android M App Links: 实现, 缺陷以及解决办法")
-
 ## 刘海屏适配
 
 - Android P 提供了刘海屏适配 API
@@ -75,7 +69,6 @@
 - [Android P 刘海屏适配全攻略](https://mp.weixin.qq.com/s?__biz=MzIwMTAzMTMxMg==&mid=2649492726&idx=1&sn=b65984db6ac52ae806f8f0ad9dc7c9c3&chksm=8eec8709b99b0e1f7cbf03ae09117b24aa82595d16d9f6e6dc269e8e3beccfc64f154aca3d25&mpshare=1&scene=1&srcid=06109Xgd4CobknV69eI4EDOX#rd)
 - [Android P 凹口屏支持，打造全面屏体验](https://mp.weixin.qq.com/s/LyInks673YdHbXsDOD4inA)
 
-
 ## 非 SDK 接口问题
 
 - [非 SDK 接口常见问题](https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&mid=2652046529&idx=1&sn=ca2dd3e41d3e0459a2f18987ec849b7f&chksm=808ca484b7fb2d92b41a16c5f9d0dd2fda4ee68d0ac192dde83509a8e33310a11ad252c27b66&mpshare=1&scene=1&srcid=06195xxeD4kSdPUevs26ZYTS#rd)
@@ -87,3 +80,23 @@
 ## Android 换肤
 
 - [Android-skin-support](https://github.com/ximsfei/Android-skin-support)
+
+## NDK
+
+- [xHook](https://github.com/iqiyi/xHook)
+- [关于在Android中使用CMake你所需要了解的一切](https://mp.weixin.qq.com/s/WAb4uGs0CMSpplXS9zZG-Q)
+- [一起玩转Android项目中的字节码](https://juejin.im/entry/5c0cc7c15188257d5e39647d)
+
+## AOP
+
+- [sdk-editor-plugin](https://github.com/iwhys/sdk-editor-plugin)
+- [AOP 最后一块拼图 | AST 抽象语法树 —— 最轻量级的AOP方法](https://juejin.im/post/5c45bce5f265da612c5e2d3f)
+- [capt 全称 Class Annotation Processor Tool，是作者基于 ASM 和 Android Transform API 打造的 Android 平台的字节码的注解处理工具。](https://mp.weixin.qq.com/s/8_88oUB2MJi27BJJOb-2_Q)
+
+## 架构
+
+- [MVI](http://hannesdorfmann.com/android/mosby3-mvi-1)
+
+## 网络
+
+- [Android端打开HttpDns的正确姿势](https://www.jianshu.com/p/b0c154215b48)

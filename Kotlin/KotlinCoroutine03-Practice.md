@@ -153,7 +153,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-### 协程的使用姿势（[google-codelabs：kotlin-coroutines](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/#0)）
+## 协程的使用姿势（[google-codelabs：kotlin-coroutines](https://codelabs.developers.google.com/codelabs/kotlin-coroutines/#0)）
 
 在 Repository 层提供 LiveData，用于让上层监听数据加载的结果。
 

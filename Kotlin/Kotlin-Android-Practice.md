@@ -3,28 +3,28 @@
 Kotlin 为 Android 开发提供了许多的特新，比如Anko库和extension插件，这些都能在很多程度上帮助我们高效开发，但是在我看来，更为重要的是Kotlin本身的一些语言特性，比如 **代理、扩展、高阶函数等等**。利用这些灵活的特性或许在Android App的架构上也能引发很多新的思考与实践。以下我在实践过程中的一些记录。
 
 ---
-## 1  利用Kotlin特性
+## 1  掌握 Kotlin 语法特性
 
-1. 如何与现有的Java库兼容，null类型处理
-2. 熟悉Kotlin的基本语法
-3. 掌握Kotlin的特性功能，是开放更加高效
-   1. 委托
-   2. 扩展
+1. 如何与现有的 Java 库兼容，null 类型处理
+2. 熟悉 Kotlin 的基本语法
+3. 掌握 Kotlin 的特性功能，使开发更加高效
+   1. 属性委托
+   2. 函数扩展
 
 ---
-## 2 Kotlin extension
+## 2 使用 Kotlin extension
 
 具体参考 [extension keep](https://github.com/Kotlin/KEEP/blob/master/proposals/android-extensions-entity-caching.md)
 
 1. 在 Activity 和 Fragment 中直接使用 id 引用 view。
 2. 在 1.1.4 版本发布后，支持在 ViewHolder、自定义 View、 甚至是自定义布局容器中直接使用 id 引用 view，只需要实现 LayoutContainer 接口，同时支持使用 `@ContainerOptions` 指定 View 的缓存容器。
-3. 支持 Parcelable 注解：通过 Parcelize 自动生成 Parcleable 实现。
+3. 支持 Parcelable 注解：通过 `@Parcelize` 自动生成 Parcleable 实现。
 
 遇到的问题与解决方法：
 
 - 当两个布局中的控件 id 同名时，如何解决冲突：1 重名的 View id；2 使用 as 别名解决冲突
 
-上面所说的 2 和 3 需要配置开启实验性功能：
+上面所说的第 2 和 3 点需要配置开启实验性功能：
 
 ```groovy
 androidExtensions {
@@ -37,16 +37,15 @@ androidExtensions {
 
 ### 3.1 Common库
 
-- 快速的构建Dialog
-- 使用intentFor方面的打开Activity
-- 更加方便的Log库
-- `applyRecursively()`方法遍历View树
-- `0xff0000.opaque`颜色值方法
+- 快速的构建 Dialog
+- 使用 intentFor 方便地打开 Activity
+- 更加方便的 Log 库
+- `applyRecursively()`方法遍历 View 树
 - 各种 Dimensions 的转换
 
 ### 3.2 协程
 
-anko 基于 `kotlin协程` 和 `android协程库` 做了扩展，提供了下面两个函数：
+anko 基于 `kotlin协程` 和 `android协程库` 做了扩展，提供了下面函数：
 
 - `asReference()`用于避免内存泄漏
 - `bg{}`用于在异步线程执行任务
@@ -54,21 +53,21 @@ anko 基于 `kotlin协程` 和 `android协程库` 做了扩展，提供了下面
 ---
 ### 3.3 Anko Layouts
 
-Anko Layouts 允许使用 DSL 的方式来创建布局，切使用起来非常方便，**同时还提供了带协程上下文的 onClick 扩展**
+Anko Layouts 允许使用 DSL 的方式来创建布局，使用起来非常方便，**同时还提供了带协程上下文的 onClick 扩展**
 
 #### 基本功能
 
-1. Layouts可扩展，只需要在ViewManager上添加对应View的扩展
-2. 可以使用Gradle继承Anko所有的库，也可以单独继承Anko的Layouts库
-3. 使用AnkoComponent可以支持布局的预览，当然这需要Anko的插件支持，且插件只支持AndroidStudio2.4以上
-4. Layouts的Listeners支持使用协程
-5. Listeners支持自定义coroutine context
-6. 在内部类中，使用 `ctx` 就可以引用外部类的this引用(Activity中)
-7. Anko Layouts的DSL支持include xml布局
+1. Layouts 可扩展，只需要在 ViewManager上添加对应 View 的扩展
+2. 可以使用 Gradle 集成 Anko 所有的库，也可以单独集成 Anko 的 Layouts 库
+3. 使用 AnkoComponent 可以支持布局的预览，当然这需要Anko的插件支持，且插件只支持 AndroidStudio2.4 以上
+4. Layouts 的 Listeners 支持使用协程
+5. Listeners 支持自定义 coroutine context
+6. 在内部类中，使用 `ctx` 就可以引用外部类的 this 引用(Activity中)
+7. Anko Layouts 的 DSL 支持 include xml 布局
 8. Anko的插件有两个功能
-    - DSL布局预览
-    - xml布局转换为DSL布局
-9. 在Activity中使用DSL布局，不需要再调用setContentView方法，框架自动完成
+    - DSL 布局预览
+    - xml 布局转换为 DSL 布局
+9. 在 Activity 中使用 DSL 布局，不需要再调用 setContentView 方法，框架自动完成
 
 #### DSL 的原理与 DSLMarker 元注解
 
@@ -93,7 +92,7 @@ Anko Layouts 允许使用 DSL 的方式来创建布局，切使用起来非常�
 
 ```kotlin
  thread {
-            //避免类加载导致的性能损失，包装对比的公平性
+     //避免类加载导致的性能损失，包装对比的公平性
      PerformanceFragmentUI().createView(AnkoContext.create(container!!.context, this))
             inflater.inflate(R.layout.activity_login, container, false)
             System.nanoTime()
@@ -232,7 +231,6 @@ class RequestAfterSalesViewModel{
 }
 ```
 
-
 ### 使用内联函数 + reified
 
 使用内联函数时，在泛型类似加上 reified，可以在方法体中直接通过泛型类型参数获取 class
@@ -244,8 +242,6 @@ inline fun <reified T> Gson.fromJson(json: String) = fromJson(json, T::class.jav
 ### 避免过度使用 tuples
 
 tuples 可以返回三个钟，还支持解构，但是在语义上 tuples 本身没有任何意义，过度使用反而导致代码不够明了。
-
-
 
 ---
 

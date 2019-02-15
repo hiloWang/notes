@@ -1,11 +1,10 @@
-
-
 ## Kotlin coroutine work with retrofit
 
+## how to do
 
+## use rxjava or coroutine
 
 ## references
-
 
 - [retrofit-coroutines](https://github.com/tinsukE/retrofit-coroutines)
 - [retrofit2-kotlin-coroutines-adapter](https://github.com/JakeWharton/retrofit2-kotlin-coroutines-adapter)

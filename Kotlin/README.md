@@ -65,9 +65,9 @@ kotlin 发展简史：
 
 文档：
 
-- [kotlin coroutines 指南 cn](https://www.kotlincn.net/docs/reference/coroutines.html)
-- [kotlin coroutines api doc](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/)
-- [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)
+- [kotlinx.coroutines guide en](https://github.com/Kotlin/kotlinx.coroutines)
+- [kotlinx coroutines guide cn](https://www.kotlincn.net/docs/reference/coroutines.html)
+- [kotlinx coroutines api doc](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/)
 - [kotlinx.coroutines cn](https://github.com/hltj/kotlinx.coroutines-cn)
 - [kotlinx.coroutines cn](https://saplf.gitbooks.io/kotlinx-coroutines/content/)
 
@@ -91,4 +91,3 @@ Sample：
 
 - [Kotlin 系统入门到进阶 视频教程](http://coding.imooc.com/class/108.html)
 - [基于 GitHub App 业务深度讲解 Kotlin1.2高级特性与框架设计](https://coding.imooc.com/class/232.html)
-

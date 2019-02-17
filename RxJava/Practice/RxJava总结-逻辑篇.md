@@ -220,6 +220,8 @@ fun <T> composeMultiSource(remote: Observable<Optional<T>>, local: Observable<Op
 
 ### 使用 startWith + distinctUntilChanged
 
+>参考[RxJava 沉思录（二）：空间维度](https://juejin.im/post/5b8f5470e51d450e3d2c8ddf)
+
 ```java
 Observable<Data> cachedObservable = getFromLocal();
 
@@ -235,5 +237,3 @@ networkApi.getRemoteData()
         publishDataToUI(data)
     });
 ```
-
-参考[RxJava 沉思录（二）：空间维度](https://juejin.im/post/5b8f5470e51d450e3d2c8ddf)

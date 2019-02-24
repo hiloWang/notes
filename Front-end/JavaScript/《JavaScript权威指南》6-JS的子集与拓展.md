@@ -1,4 +1,3 @@
-
 ---
 # 11 JavaScript的子集和拓展
 
@@ -21,7 +20,7 @@
 - ES for xml
 
 ---
-#  12 服务都 JS
+#  12 服务端 JS
 
 ## Rhino
 

@@ -1,8 +1,6 @@
 ## Kotlin coroutine work with retrofit
 
-## how to do
-
-## use rxjava or coroutine
+todo
 
 ## references
 

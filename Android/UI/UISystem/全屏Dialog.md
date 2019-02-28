@@ -1,8 +1,8 @@
-# 全屏的Dialog
+## 实现全屏的 Dialog
 
-Dialog和Activity一样，内部都有一个窗口，用于控制视图的显示，默认情况下，Dialog并不是全屏的，因为Dialog的应用的theme中包含的`android:windowIsFloating`属性为false，当`windowIsFloating=true`时，PhoneWindow内的ViewTree测量的起始测量模式就是`wrap_content`的
+Dialog 和 Activity一样，内部都有一个窗口，用于控制视图的显示，默认情况下 Dialog 并不是全屏的，因为 Dialog 应用的 theme 中包含的 `android:windowIsFloating` 属性值为 false，当`windowIsFloating=true` 时，PhoneWindow 内的 ViewTree 测量的起始测量模式就是 `wrap_content` 的。
 
-PhoneWindow的源码中对isFloating的处理
+PhoneWindow 的源码中对 isFloating 的处理：
 
 ```java
      mIsFloating = a.getBoolean(com.android.internal.R.styleable.Window_windowIsFloating, false);
@@ -14,7 +14,7 @@ PhoneWindow的源码中对isFloating的处理
                 setFlags(FLAG_LAYOUT_IN_SCREEN|FLAG_LAYOUT_INSET_DECOR, flagsToUpdate);
             }
 
-Window中setLayout方法
+Window 中 setLayout 方法
 
     public void setLayout(int width, int height){
             final WindowManager.LayoutParams attrs = getAttributes();
@@ -26,7 +26,7 @@ Window中setLayout方法
     }
 ```
 
-再ViewRootImpl的performTraversals方法中调用getRootMeasureSpec方法，根据生成起始的测量模式：
+了解 ViewTree 绘制过程的话，在 ViewRootImpl 的 performTraversals 方法中会调用 getRootMeasureSpec 方法，为 ViewTree 的 width 和 height 生成起始的 mode 和 Size，getRootMeasureSpec 的 rootDimension 参数其实就是 Window 的 setLayout 方法设置的。
 
 ```java
      private int getRootMeasureSpec(int windowSize, int rootDimension) {
@@ -50,10 +50,11 @@ Window中setLayout方法
         }
 ```
 
-那么使Dialog全屏的方法总结如下：
+那么使 Dialog 全屏的方法如下：
 
 ```java
     public class FullScrreenDialog extends Dialog {
+
         public FullScrreenDialog(Context context) {
             super(context);
         }
@@ -74,22 +75,26 @@ Window中setLayout方法
     }
 ```
 
-需要注意的是步骤3和4一定要再步骤2之后设置，这是因为在调用` setContentView(view);`的逻辑中，会重新覆盖已经设置好的LayoutParams参数，导致3和4没有效果。同理在DialogFragment中，也需要注意，实在onActivityCreate之后再设置Window的参数，因为DialogFragment中是在onActivityCreate方法中调用Window的`setContentView(view)`。
->当然如果setContentView中inflation的布局参数与期望设置的参数一致则可以省略Window的参数设置
+需要注意的是步骤3和4一定要再步骤2之后设置，这是因为在调用` setContentView(view);`的逻辑中，会重新覆盖已经设置好的 LayoutParams 参数，导致 3 和 4 没有效果。同理在 DialogFragment 中，也需要注意，是在 onActivityCreate 之后再设置 Window 的参数，因为 DialogFragment 中是在 onActivityCreate 方法中调用Window的 `setContentView(view)`。当然如果 setContentView 中 inflation 的布局参数与期望设置的参数一致则可以省略Window的参数设置。
 
 除了代码设置之外，我们还可以使用style设置
 
 ```java
     <style name="Dialog.FullScreen" parent="Theme.AppCompat.Dialog">
-        <item name="android:windowNoTitle">true</item>
+        /**为了兼容 AppTheme，不要使用 android:windowNoTitle */
+        <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowIsFloating">false</item>
     </style>
 ```
 
-这样的效果也是一样的。同样对于Dialog样式的Activity，上面代码同样使用，毕竟内部都是一样的PhoneWindow。
+以上三个步骤缺一不可，否则可能达不到理想的效果：
+
+- 设置 windowIsFloating 为 flase，改变初始的测量模式。
+- 覆盖 windowBackground，因为系统默认的 windowBackground 可能有 InsetDrawable 占据了一定的边缘空间。
+- windowNoTitle，方 Window 选择不带 title 的根布局。
 
 
-# 引用
+## 引用
 
 - [三句代码创建全屏Dialog或者DialogFragment：带你从源码角度实现](https://juejin.im/post/58de0a9a44d904006d04cead)

@@ -167,6 +167,7 @@ import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.
 
 常用插件：
 
+- A File Icon
 - Localization
 - CTag
 - Git
@@ -175,6 +176,10 @@ import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.
 - SublimeLinter
 - Terminal
 - markdown edting
+- markdownLivePreview
+- MarkdownTOC
+- Material Theme
+
 ```
 "draw_centered": false
 ```

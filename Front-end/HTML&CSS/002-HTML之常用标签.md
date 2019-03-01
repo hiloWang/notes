@@ -192,7 +192,7 @@ meta 除了可以设置字符集，还可以设置关键字和页面描述。
 <meta http-equiv="refresh" content="秒数;url=地址"  />
 ```
 
-
+---
 
 ## 4 HTML杂项
 

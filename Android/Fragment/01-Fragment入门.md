@@ -53,7 +53,7 @@ onAttach()回调将在Fragment与其Activity关联之后调用,  onCreate方法�
 初始化参数包（Bundle）可以从碎片的**`getArguments()`**方法获得。
 
 
-```
+```java
     public void onAttach(Context context) {
         super.onAttach(context);
         Bundle arguments = getArguments();
@@ -69,11 +69,10 @@ onAttach()回调将在Fragment与其Activity关联之后调用,  onCreate方法�
 
 此回调方法用于构建Fragment将管理的视图，不要将视图添加到ViewGroup中，系统会自定执行。视图可以返回null，表示Fragment不需要管理视图，而是作为一个逻辑执行者。
 
-```
+```java
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_replace, container, false);//注意最后一个参数是false
     }
 ```
@@ -90,7 +89,7 @@ onAttach()回调将在Fragment与其Activity关联之后调用,  onCreate方法�
 
 ### onStart()\onResume()\onPause()\onStop()
 
-接下来的onStart()\onResume()\onPause()\onStop()回调方法将和Activity的回调方法进行绑定，也就是说与Activity中对应的生命周期相同
+接下来的 `onStart()\onResume()\onPause()\onStop()` 回调方法将和Activity的回调方法进行绑定，也就是说与Activity中对应的生命周期相同
 
 ### onDestoryView
 
@@ -135,7 +134,7 @@ Fragment生命周期最后回调函数，调用后，Fragment不再与Activity�
 
 默认的屏幕旋转（类似Activity在后台被回收），Fragment也会跟着Activity一样被销毁和重建，当Activity被重建Fragment也会被自动重建并和Activity关联，也就是说我们应该先判断fragment是否已经被添加，如果已经添加，则没有必要再次创建Fragment对象，而是通过tag在 fragmentManager中找到fragment，如下面代码所示
 
-```
+```java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,7 +165,7 @@ Fragment有一个非常强大的功能——就是可以在Activity重新创建�
 
 如果在嵌套的Fragment中使用，会有如下错误。
 
-```
+```java
    public void setRetainInstance(boolean retain) {
          if (retain && mParentFragment != null) {
                throw new IllegalStateException(
@@ -181,14 +180,14 @@ Fragment有一个非常强大的功能——就是可以在Activity重新创建�
 
 一般添加一个Fragment的操作为：
 
-```
+```java
        getSupportFragmentManager()
                         .beginTransaction()
                         .add(R.id.act_main_container_rl, page.newFragment(this), page.getTag())
                         .commit();
 ```
 
-可以看到需要调用一连串的方法，还有事务。这是因为FragmentManager对于fragment的操作是一系列有顺序步骤的操作。就像数据库一样，任何一个环节都不能出错，否则会造成意想不到的后果，所以系统对fragment的操作是基于事务的
+可以看到需要调用一连串的方法，还有事务。这是因为 FragmentManager 对于 fragment 的操作是一系列有顺序步骤的操作。就像数据库一样，任何一个环节都不能出错，否则会造成意想不到的后果，所以系统对fragment的操作是基于事务的
 
 ### commit 方法
 

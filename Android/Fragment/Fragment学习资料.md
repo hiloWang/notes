@@ -21,6 +21,7 @@
 - [FragmentAnimation](https://github.com/kakajika/FragmentAnimations)
 - [SwipeBackFragment](https://github.com/YoKeyword/SwipeBackFragment)
 - [SafelyAndroid](https://github.com/Piasy/SafelyAndroid)
+- [Fragmentation](https://github.com/YoKeyword/Fragmentation)
 
 ## 生命周期
 

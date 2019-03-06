@@ -17,12 +17,10 @@
 
 ## 框架
 
-- [Activity+多个Fragment搭建框架](http://hackeris.me/2015/06/10/buid_your_framework/)
-- [FragmentStack](https://github.com/Mr-wangyong/FragmentStack)
-- [FragmentNavigator](https://github.com/Aspsine/FragmentNavigator)
 - [FragmentTransactionExtended](https://github.com/DesarrolloAntonio/FragmentTransactionExtended)
 - [FragmentAnimation](https://github.com/kakajika/FragmentAnimations)
 - [SwipeBackFragment](https://github.com/YoKeyword/SwipeBackFragment)
+- [SafelyAndroid](https://github.com/Piasy/SafelyAndroid)
 
 ## 生命周期
 

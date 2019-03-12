@@ -8,17 +8,13 @@
 ---
 ### 1.1 setCustomAnimations(int enter, int exit)
 
-两个参数 setCustomAnimations(int enter, int exit)方法，参数为动画的xml，支持View动画和属性动画。
-
-此方法给Fragment的添加和切换设置动画，enter表示进入的动画，exit表示退出界面的动画。比如当一个Fragment被添加到容器中，它的View会执行enter动画，当它被replace时它的view执行exit动画。但是直接remove一个Fragment是不会执行exit动画的。
+两个参数 `setCustomAnimations(int enter, int exit)` 方法，参数为动画的 xml，支持View动画和属性动画。此方法给 Fragment 的添加和切换设置动画，enter 表示进入的动画，exit 表示退出界面的动画。比如当一个 Fragment 被添加到容器中，它的 View 会执行 enter 动画，当它被 replace 时它的 view 执行 exit 动画。但是直接 remove 一个 Fragment 是不会执行 exit 动画的。
 
 ---
 ### 1.2 setCustomAnimations(int enter, int exit, int popEnter, int popExit)
 
-这个方法多次两个参数，从参数名就可以看出，多了的两个参数用于给backStack操作设置动画。
-
-popEnter表上栈顶的Fragment出栈后，重新回到栈顶的Fragment所执行的动画
-popExit表示栈顶的Fragment的出栈动画。
+这个方法多次两个参数，从参数名就可以看出，多了的两个参数用于给 backStack 操作设置动画。popEnter 表示栈顶的 Fragment 出栈后，重新回到栈顶的 Fragment 所执行的动画
+popExit 表示栈顶的 Fragment 的出栈动画。
 
 ---
 ### 1.3 setCustomAnimations 的 Bug
@@ -32,7 +28,7 @@ setTranseion 是 FragmentTransaction 的方法，而 onCreateAnimation 是 Fragm
 
 先来看一下 `setTranseion` 方法：
 
-```
+```java
         setTransition(@Transit int transit);
     
         @IntDef({TRANSIT_NONE, TRANSIT_FRAGMENT_OPEN, TRANSIT_FRAGMENT_CLOSE})
@@ -42,7 +38,7 @@ setTranseion 是 FragmentTransaction 的方法，而 onCreateAnimation 是 Fragm
 
 很明显，要实现动画，我们只能传 `TRANSIT_FRAGMENT_OPEN` 和 `TRANSIT_FRAGMENT_CLOSE`，它们分别表示进场和退场，首先使用FragmentTransaction 设置 Transeion：
 
-```
+```java
      mFragmentManager.beginTransaction()
     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
     .add(mLayoutId, mCurrentFragment, mCurrentFragment.getClass().getName());
@@ -52,7 +48,7 @@ setTranseion 是 FragmentTransaction 的方法，而 onCreateAnimation 是 Fragm
 
 单独使用 `setTranseion` 的话，FragmentManager 会生成默认的动画，源码如下：
 
-```
+```java
         //根据transit或动作拿animAttr
         public static int transitToStyleIndex(int transit, boolean enter) {
             int animAttr = -1;
@@ -86,7 +82,7 @@ setTranseion 是 FragmentTransaction 的方法，而 onCreateAnimation 是 Fragm
             }
 
 
-setTranseion 和 Fragment 的 onCreateAnimation 配合使用：
+//setTranseion 和 Fragment 的 onCreateAnimation 配合使用：
 
         public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
             if (transit == FragmentTransaction.TRANSIT_FRAGMENT_OPEN) {//表示是一个进入动作，比如add.show等

@@ -24,6 +24,7 @@ Open Source
 
 - [OpenFlutter](https://github.com/OpenFlutter)
 - [Awesome Flutter：带你从入门到进阶的 Flutter 指南](https://juejin.im/post/5b2869e66fb9a00e5f3e861f)
+- [fish-redux](https://github.com/alibaba/fish-redux)，[Flutter 应用框架 Fish Redux](https://mp.weixin.qq.com/s/JiCsU6qoIFJPct0FyYn8eA)
 
 Sample
 

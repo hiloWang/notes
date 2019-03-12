@@ -1,6 +1,6 @@
 
 
-# background、字号
+# css 常用属性
 
 ## 1 行高和字号
 
@@ -242,5 +242,4 @@ background: url(images/taobao.png) no-repeat 0 -133px  //精灵的使用
 在 IE6 中对图片格式 png24 支持度不高，如果使用的图片格式是 png24，则会导致透明效果无法正常显示，解决方法：
 
 1. 可以使用 png8 来代替 png24，即可解决问题，但是使用 png8 代替 png24 以后，图片的清晰图会有所下降。
-
 2. 使用 JavaScript 来解决该问题，需要向页面中引入一个外部的  JavaScript 文件，然后在写一下简单的 JS 代码，来处理该问题。

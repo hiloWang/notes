@@ -1,19 +1,19 @@
 # HTML之常用标签
 
 ---
-## 1 基本语法
+## 1 基本语法与表现
 
 - HTML 对换行不敏感，对 tab 不敏感
-- **空白折叠现象**：HTML中所有的文字之间，如果有空格、换行、tab都将被折叠为一个空格显示。
+- **空白折叠现象**：HTML中所有的文字之间，如果有空格、换行、tab 都将被折叠为一个空格显示。
 - 标签要严格封闭
 
 ---
 ## 2 常用标签
 
-具体参考[W3 HTML 参考手册](http://www.w3school.com.cn/tags/index.asp)，HTML 标签可以分为 **容器级的标签** 和 **文本级的标签**。
+具体参考 [W3 HTML 参考手册](http://www.w3school.com.cn/tags/index.asp)，HTML 标签可以分为 **容器级的标签** 和 **文本级的标签**。
 
-- 常见容器级的标签: `div h ul ol dl li dt dd ...`
-- 常见文本级的标签:`span p buis strong em ins del ...`
+- 常见容器级的标签: `div h系列 ul ol dl li dt dd 等...`
+- 常见文本级的标签:`span p buis strong em ins del 等...`
 
 它们的区别在于：
 
@@ -79,24 +79,24 @@ HTML将所有的标签分为两种：**容器级、文本级。**
 
 有序列表
 
-- ordered list  有序列表，用ol表示
+- ordered list  有序列表，用 ol 表示
 
 定义列表
 
-- dl表示definition list 定义列表
-- dt表示definition title    定义标题
-- dd表示definition description 定义表述词儿
-- dt、dd只能在dl里面；dl里面只能有dt、dd
-- dt、dd都是容器级标签，想放什么都可以。
+- dl表示 definition list 定义列表
+- dt表示 definition title 定义标题
+- dd表示 definition description 定义表述词儿
+- dt、dd 只能在 dl 里面；dl 里面只能有 dt、dd
+- dt、dd 都是容器级标签，想放什么都可以。
 
 ### div 和 span
 
-div 和 span 是非常重要的标签，div 的语义是 division；span的语义就是 span ，这两个东西，都是最重要的 **盒子**。
+div 和 span 是非常重要的标签，div 的语义是 division；span 的语义就是 span ，这两个东西，都是最重要的 **盒子**。
 
 - div 在浏览器中，默认是不会增加任何的效果改变的，但是语义变了，div 中的所有元素是一个小区域
 - div 标签是一个容器级标签，里面什么都能放，甚至可以放 div 自己
-- span 也是表达“小区域、小跨度”的标签，但是是一个“文本级”的标签。
-- span 里面只能放置文字、图片、表单元素。 span 里面不能放 `p、h、ul、dl、ol、div。`
+- span 也是表达“小区域、小跨度”的标签，但是是一个“文本级”的标签
+- span 里面只能放置文字、图片、表单元素。 span 里面不能放 `p、h、ul、dl、ol、div`
 - span 里面是放置小元素的，div 里面放置大东西的
 
 ### 表单
@@ -217,7 +217,7 @@ HTML中的标签有许多属性，用于控制标签的展示样式 或 提供�
 
 ### 特殊字符实体
 
-用于展示一些特殊的字符 或 转义html语法使用的字符，具体参考 [W3 HTML ISO-8859-1 参考手册](http://www.w3school.com.cn/tags/html_ref_entities.html)
+用于展示一些特殊的字符 或 转义 html 语法使用的字符，具体参考 [W3 HTML ISO-8859-1 参考手册](http://www.w3school.com.cn/tags/html_ref_entities.html)
 
 ### HTML废弃标签介绍
 

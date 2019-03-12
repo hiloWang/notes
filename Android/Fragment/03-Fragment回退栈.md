@@ -7,7 +7,7 @@
 
 使用`addToBackStack`即可以把Fragment加入到BackStack中，这个方法可以接受一个String，可以作为Fragment在BackStack中的标识，如果不需要标识，可以传null,但是我一般都会使用。
 
-```
+```java
      mFragmentManager.beginTransaction().
     .replace(mLayoutId, mCurrentFragment,mCurrentFragment.getClass().getName());
     .replace.addToBackStack(mCurrentFragment.getClass().getName());
@@ -19,7 +19,7 @@
 
 还有两个方法也与Fragment的BackStack操作有关，但是不常用：
 
-```
+```java
     setBreadCrumbShortTitle(CharSequence/StringRes)
     setBreadCrumbTitle(CharSequence/StringRes)
 ```
@@ -31,7 +31,7 @@
 
 FragmentManager就是Fragment的管理者了(是不是废话)，所有的Fragment操作以及信息的获取都要通过FragmentManager。
 
-```
+```java
     getFragments()//获取FragmentManager管理的Fragments(不管是否在栈中)
     mFragmentManager.getBackStackEntryCount();//获取BackStack中Fragment的个数
     mFragmentManager.getBackStackEntryAt(1);//通过索引获取BackStack中对应Fragment的信息
@@ -42,7 +42,7 @@ FragmentManager就是Fragment的管理者了(是不是废话)，所有的Fragmen
 
 `getBackStackEntryAt(1)`返回一个BackStackEntry对象，这个通过这个BackStackEntry可以获取Fragment在BackStack中的一些信息
 
-```
+```java
     backStackEntryAt.getName()//对应addToBackStack是设置的参数
     backStackEntryAt.getBreadCrumbShortTitle()//对应setBreadCrumbShortTitle(CharSequence)
     backStackEntryAt.getBreadCrumbShortTitleRes()//对应 setBreadCrumbShortTitle(StringRes)
@@ -87,7 +87,7 @@ getFragments返回有FragmentManager管理的Fragment列表，不要以为这个
 
 比如我把四个Fragment添加的backStack中，然后让两个Fragment出栈，再去调用getFragments，这时就getFragments返回的一个size为4的list，其中有两个null值哦！
 
-```
+```java
       List<Fragment> fragments = mFragmentManager.getFragments();
             if (!Checker.isEmpty(fragments)) {
                 for (Fragment fragment : fragments) {
@@ -128,3 +128,7 @@ getFragments返回有FragmentManager管理的Fragment列表，不要以为这个
 - 被replace的Fragment(非backStack中)不会被remove，而是被销毁视图，当Fragment出栈后，被replace的Fragment会自动重建视图。
 
 - add一个Fragment到backStack中，然后多次replace同一个Fragment，不会出错，被repalce了多少次，就可以响应多少次onBackPress
+
+## 3 show/hide 与 back stack
+
+如果涉及到 back stack 操作，那么应该尽量使用 show/hide，因为如果使用 replace 或 detach 操作的话，那么被压栈的 fragment 的视图将会被销毁，当其重新回到栈顶时，其 UI 将被重建。

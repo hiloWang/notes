@@ -1,3 +1,5 @@
+# [深入浅出JavaScript](https://www.imooc.com/learn/277)
+
 ## 类型检测
 
 判断对象类型的方法
@@ -108,7 +110,3 @@ AO(test) = {
     e:undefined
 }
 ```
-
-## 引用
-
-- [JavaScript深入浅出](https://www.imooc.com/learn/277)

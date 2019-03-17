@@ -99,7 +99,7 @@ text-transform:none
 aqua、black、blue、fuchsia、gray、green、lime、maroon、navy、olive、orange、 purple、red、silver、teal、white、yellow
 ```
 
-- 有147种 svg 颜色。
+- 有 147 种 svg 颜色。
 - 十六进制颜色：用的最多的颜色是十六进制符号。比如`#6600FF`。
 - RGB 值：也可以使用计算机中常用的 RGB 值来表示 颜色。可以使用 0~255 的数值，也可以使 用 0%~100% 的百分比数。 ` RGB(100%,0%,0%) ` 或 ` RGB(0,255,0) ` 。
 - RGBA 值：RGBA 表示一个颜色和 RGB 类似，只不过比 RGB 多了一个A（alpha）来表示透明度， 透明度需要一个0-1的值。0表示完全透明，1表示完全不透明。比如： `RGBA(255,100,5,0.5)`。

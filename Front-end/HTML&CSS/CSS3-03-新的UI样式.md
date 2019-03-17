@@ -1,10 +1,10 @@
-# 新的UI方案
+# 新的 UI 样式
 
 ## 1 文本新增样式
 
 ### opacity
 
-opacity 属性指定了一个元素的透明度，默认值：1.0，不可继承。
+opacity 属性指定了一个元素的透明度，默认值：`1.0`，不可继承。
 
 ### 新增颜色模式 rgba
 
@@ -13,21 +13,6 @@ opacity 属性指定了一个元素的透明度，默认值：1.0，不可继承
 ### 文字阴影
 
 text-shadow 用来为文字添加阴影，而且可以添加多层，阴影值之间用逗号隔开。（多个阴影时，第一个阴影在最上边），默认值：none，该属性不可继承。
-
-```css
-    <color>
-       可选。可以在偏移量之前或之后指定。如果没有指定颜色，则使用UA（用户代理）选择的颜色。
-
-    <offset-x> <offset-y>
-       必选。这些长度值指定阴影相对文字的偏移量。
-       <offset-x> 指定水平偏移量，若是负值则阴影位于文字左边。        
-       <offset-y> 指定垂直偏移量，若是负值则阴影位于文字上面。
-       如果两者均为0，则阴影位于文字正后方(如果设置了<blur-  radius> 则会产生模糊效果)。
-
-    <blur-radius>
-       可选。这是 <length> 值。如果没有指定，则默认为0。
-       值越大，模糊半径越大，阴影也就越大越淡
-```
 
 相关效果：
 
@@ -60,35 +45,17 @@ text-overflow=ellipsis
 
 box-shadow：以逗号分割列表来描述一个或多个阴影效果，可以用到几乎任何元素上。如果元素同时设置了 `border-radius` ，阴影也会有圆角效果。多个阴影时和多个 `text shadows` 规则相同(第一个阴影在最上面)。默认值: `none` 不可继承。
 
-可选值：
-```css
-    inset
-       默认阴影在边框外。
-       使用inset后，阴影在边框内。
+具体参考：
 
-    <offset-x> <offset-y>
-       这是头两个 <length> 值，用来设置阴影偏移量。
-        <offset-x> 设置水平偏移量，如果是负值则阴影位于元素左边。
-        <offset-y> 设置垂直偏移量，如果是负值则阴影位于元素上面。
-       如果两者都是0，那么阴影位于元素后面。
-       这时如果设置了<blur-radius> 或<spread-radius> 则有模糊效果。
-
-    <blur-radius>
-       这是第三个 <length> 值。值越大，模糊面积越大，阴影就越大越淡。 
-       不能为负值。默认为0，此时阴影边缘锐利。
-    <spread-radius>
-
-       这是第四个 <length> 值。取正值时，阴影扩大；取负值时，阴影.收缩。默认为0，此时阴影与元素同样大。
-
-    <color>
-       阴影颜色，如果没有指定，则由浏览器决定
-```
+- [W3C：CSS3 box-shadow 属性](http://www.w3school.com.cn/cssref/pr_box-shadow.asp)
+- [MDN：CSS3 box-shadow 属性](https://developer.mozilla.org/zh-CN/docs/Web/CSS/box-shadow)
+- [CSS3 box-shadow](https://www.w3cplus.com/content/css3-box-shadow)
 
 ### 倒影
 
 `-webkit-box-reflect` 设置元素的倒影，默认值`:none`，不可继承。
 
-值：（必须是123的顺序）
+值必须是 123 的顺序：
 
 - 倒影的方向：第一个值，above, below, right, left
 - 倒影的距离：第二个值，长度单位
@@ -124,7 +91,7 @@ resize CSS 属性允许你控制一个元素的可调整大小性。**（一定�
 
 ### 圆角
 
-传统的圆角生成方案，必须使用多张图片作为背景图案，CSS3圆角的出现，使得我们再也不必浪费时间去制作这些图片了，而且还有其他多个优点：
+传统的圆角生成方案，必须使用多张图片作为背景图案，CSS3 圆角的出现，使得我们再也不必浪费时间去制作这些图片了，而且还有其他多个优点：
 
 * 减少维护的工作量。图片文件的生成、更新、编写网页代码，这些工作都不再需要了。
 * 提高网页性能。由于不必再发出多余的HTTP请求，网页的载入速度将变快。
@@ -187,3 +154,48 @@ resize CSS 属性允许你控制一个元素的可调整大小性。**（一定�
     - 值 `stretch`（拉伸）
     - 值 `repeat，round`（平铺）
 
+### 背景
+
+#### CSS2 背景
+
+- background-color：会设置元素的背景色，默认值：`transparent`，不可继承。
+- background-image：用于为一个元素设置一个或多个背景图像，图像在绘制时，以z轴方向堆叠的方式进行。先指定的图像会在之后指定的图像上面进行绘制。注意：background-color 会在 image 之下进行绘制，边框和内容会在 image 之上进行绘制。默认值：`none`，不可继承。
+- background-repeat：定义背景图像的重复方式。背景图像可以沿着水平轴，垂直轴，两个轴重复，或者根本不重复。默认值：`repeat`，不可继承。
+- background-position：指定背景位置的初始位置。
+- background-attachment：决定背景是在视口中固定的还是随包含它的区块滚动的。
+    - fixed 此关键字表示背景相对于视口固定。即使一个元素拥有滚动机制，背景也不会随着元素的内容滚动。
+    - scroll 此关键字表示背景相对于元素本身固定， 而不是随着它的内容滚动。
+
+#### CSS3 背景
+
+- background-origin：设置背景的渲染的起始位置。
+- background-clip：设置背景裁剪位置。
+- background-size：设置背景图片大小。
+    - 默认值：auto auto  不可继承。
+    - 值使用百分比时：指定背景图片相对背景区（background positioning area）的百分比。背景区由background-origin设置，默认为盒模型的内容区与内边距。
+    - 值使用auto 时：以背景图片的比例缩放背景图片。
+    - 注意：单值时，这个值指定图片的宽度，图片的高度隐式的为 auto，两个值时: 第一个值指定图片的宽度，第二个值指定图片的高度。   
+- background：是CSS简写属性，用来集中设置各种背景属性。background 可以用来设置一个或多个属性：`background-color, background-image, background-position, background-repeat, background-size, background-attachment`。 
+
+默认值：
+
+```css
+background-image: none
+background-position: 0% 0%
+background-size: auto auto
+background-repeat: repeat
+background-origin: padding-box
+background-clip: border-box
+background-attachment: scroll
+background-color: transparent
+```
+
+### 渐变
+
+- linear-gradient：线性渐变
+- radial-gradient：径向渐变
+
+参考
+
+- [mdn linear-gradient](https://developer.mozilla.org/zh-CN/docs/Web/CSS/linear-gradient)
+- [mdn radial-gradient](https://developer.mozilla.org/zh-CN/docs/Web/CSS/radial-gradient)

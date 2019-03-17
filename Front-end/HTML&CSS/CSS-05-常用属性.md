@@ -155,8 +155,7 @@ a 标签在使用的时候，非常的难。因为不仅仅要控制 a 这个盒
     background-color: #ff0000;
 ```
 
-十六进制可以简化为3位，所有#aabbcc的形式，能够简化为#abc;
-
+十六进制可以简化为3位，所有`#aabbcc`的形式，能够简化为 `#abc`;
 
 ### 3.2 background-image
 

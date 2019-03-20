@@ -55,13 +55,17 @@ Aspectj需要使用专门的ajc编译器，所以要在gradle中加入ajc编译�
 ## 引用
 
 文档：
+
 - [user guide](https://www.eclipse.org/aspectj/doc/released/progguide/index.html)
 - [ajc-ref](http://www.eclipse.org/aspectj/doc/next/devguide/ajc-ref.html)
 
 博客：
+
+
 - [看AspectJ在Android中的强势插入](http://www.jianshu.com/p/5c9f1e8894ec)
 - [跟我学aspectj](http://blog.csdn.net/zl3450341/article/category/1169602)
 - [深入理解AndroidAOP](http://blog.csdn.net/innost/article/details/49387395)
 - [AspectJ编程学习笔记](https://blog.gmem.cc/aspectj-study-note)
 - [Aspect Oriented Programming in Android](https://fernandocejas.com/2014/08/03/aspect-oriented-programming-in-android/)
 - [android面向切面AOP编程精华总结](https://blog.csdn.net/qq_25943493/article/details/52524573)
+- [AspectJ in Android （三），AspectJ 两种用法以及常见问题](http://johnnyshieh.me/posts/aspectj-in-android-usage/)

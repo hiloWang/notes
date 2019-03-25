@@ -11,7 +11,6 @@ MDN
 - [Web 开发技术](https://developer.mozilla.org/zh-CN/docs/Web)
 - [学习 Web 开发](https://developer.mozilla.org/zh-CN/docs/Learn)
 
-
 W3 school $ W3C school
 
 - [W3 SCHOOL HTML/CSS 系列教程](http://www.w3school.com.cn/h.asp)
@@ -23,6 +22,8 @@ W3 school $ W3C school
 - [前端九部 - 入门者手册2019](https://www.yuque.com/fe9/basic)
 - [第一本 PWA 中文书](https://github.com/SangKa/PWA-Book-CN)
 - [typescript-tutorial](https://github.com/xcatliu/typescript-tutorial)
+- [CSS 奇技淫巧](https://github.com/chokcoco/iCSS)
+- [CSS2.1规范](http://www.ayqy.net/doc/css2-1/cover.html)
 
 ## 3 笔记
 

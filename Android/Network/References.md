@@ -34,6 +34,7 @@
 ## IM
 
 - [IM开源项目收集](https://github.com/CameloeAnthony/Perfect_IM_SNS)
+- [开源免费的即时通讯软件](https://github.com/wildfirechat/server)
 - [一款以兴趣为驱动的陌生人社交app](https://github.com/Chenantao/PlayTogether)
 - [MessageDisplayKit 一个类似微信App的IM应用，拥有发送文字、图片、语音、视频、地理位置消息，管理本地通信录、分享朋友圈、漂流交友、摇一摇和更多有趣的功能](https://github.com/xhzengAIB/MessageDisplayKit)
 - [TeamTalk](https://github.com/mogujie/TeamTalk)

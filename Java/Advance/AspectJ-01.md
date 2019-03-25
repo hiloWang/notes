@@ -31,15 +31,15 @@ AspectJ支持的织入方式
 ---
 ## 3 Android中使用AspectJ
 
-Aspectj需要使用专门的ajc编译器，所以要在gradle中加入ajc编译，当然，也可以使用沪江开源的[gradle_plugin_android_aspectjx](https://github.com/HujiangTechnology/gradle_plugin_android_aspectjx)插件
+Aspectj 需要使用专门的 ajc 编译器，所以要在 gradle 中加入 ajc 编译，可以自己编写 gradle 插件，当然也可以使用一些开源的插件，比如 [gradle_plugin_android_aspectjx](https://github.com/HujiangTechnology/gradle_plugin_android_aspectjx)
 
 ---
 ## 4 Ajc编译器参数
 
-- `-inPath`：将被编织的的类或jar文件，这个参数将决定哪些类被aspject切入，输出将包含这些类，路径是一个参数包含一个zip文件或目录的路径列表,由平台特定的路径分隔符分隔
+- `-inPath`：将被编织的的类或 jar 文件，这个参数将决定哪些类被 aspject 切入，输出将包含这些类，路径是一个参数包含一个 zip 文件或目录的路径列表，由平台特定的路径分隔符分隔
 - `-d`：指定输出目录
-- `-bootclasspath`：覆盖VM的引导类路径的位置，以便在编译时评估类型。
-- `-aspectPath`：将jar文件和目录中的二进制方法从路径整理到所有源文件中
+- `-bootclasspath`：覆盖 VM 的引导类路径的位置，以便在编译时评估类型
+- `-aspectPath`：将 jar 文件和目录中的二进制方法从路径整理到所有源文件中
 - `-classpath`：指定在哪里可以找到用户类文件
 
 
@@ -50,18 +50,27 @@ Aspectj需要使用专门的ajc编译器，所以要在gradle中加入ajc编译�
 
 权限、检测登录注册，性能统计，埋点统计等。
 
-
 ---
 ## 引用
 
 文档：
+
 - [user guide](https://www.eclipse.org/aspectj/doc/released/progguide/index.html)
 - [ajc-ref](http://www.eclipse.org/aspectj/doc/next/devguide/ajc-ref.html)
 
 博客：
+
 - [看AspectJ在Android中的强势插入](http://www.jianshu.com/p/5c9f1e8894ec)
 - [跟我学aspectj](http://blog.csdn.net/zl3450341/article/category/1169602)
 - [深入理解AndroidAOP](http://blog.csdn.net/innost/article/details/49387395)
 - [AspectJ编程学习笔记](https://blog.gmem.cc/aspectj-study-note)
 - [Aspect Oriented Programming in Android](https://fernandocejas.com/2014/08/03/aspect-oriented-programming-in-android/)
 - [android面向切面AOP编程精华总结](https://blog.csdn.net/qq_25943493/article/details/52524573)
+- [AspectJ in Android （三），AspectJ 两种用法以及常见问题](http://johnnyshieh.me/posts/aspectj-in-android-usage/)
+
+android gradle 插件
+
+- [gradle_plugin_android_aspectjx](https://github.com/HujiangTechnology/gradle_plugin_android_aspectjx)，不支持 desuger，支持 desuger
+- [android-gradle-aspectj](https://github.com/Archinamon/android-gradle-aspectj)，支持 .aj 文件，不支持 desuger
+- [one-android-gradle-aspectj](https://github.com/thunderheadone/one-android-gradle-aspectj)，支持 .aj 文件，不支持 desuger，支持 AndroidStudio 3.0.1
+- [tomato](https://github.com/PachyrhizusRen/tomato)，支持 .aj 文件

@@ -157,6 +157,7 @@ transform方法参数说明:
 - [Transform API](http://tools.android.com/tech-docs/new-build-system/transform-api)
 - [通过自定义Gradle插件修改编译后的class文件](http://blog.csdn.net/huachao1001/article/details/51819972)
 - [gradle transform api 初探](http://www.jianshu.com/p/c9ce643e2f22)
+- [transform-api-a-real-world-example-cfd49990d3e1](https://medium.com/grandcentrix/transform-api-a-real-world-example-cfd49990d3e1)
 
 
 

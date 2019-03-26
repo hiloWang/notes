@@ -1,26 +1,26 @@
 # APT 编译时注解处理器
 
-JSR-269（Pluggable Annotation Processing API）中引入APT，APT(Annotation Processor Tool)用于在编译时期扫描和处理注解信息，一个特定的注解处理器以java源码文件或编译后的class文件作为输入，然后输出另一些文件，可以是`.java`文件，也可以是`.class`文件，但通常我们输出的是`.java`文件.(不是对源文件修改，而且无法修改原文件)，如果输出的是`.java`文件，这些`.java`文件会和其他源码文件一起被javac编译.
+[JSR-269](https://jcp.org/en/jsr/detail?id=269)（Pluggable Annotation Processing API）中引入了 APT，APT(Annotation Processor Tool)用于在编译时期扫描和处理注解信息。
 
-注解最早是在java 5引入，主要包含apt和`com.sum.mirror`包中相关mirror api，此时apt和javac是各自独立的。从java 6开始，注解处理器正式标准化，apt工具也被直接集成在javac当中。
+JSR-269 把 method, package, constructor, type, variable, enum, annotation 等 Java 语言元素映射为 Types 和 Elements，从而将 Java 语言的语义映射成为对象，我们可以在 `javax.lang.model`包下面找到这些类。APT 不是运行时的，可以把 APT 看作一个编译插件，在编译过程中，javac 会将特定注解处理器关心的标有特定注解的 **Java 语言的语义对象** 传递给它，然后注解注解处理器对这些元素进行处理，如果注解处理器处理元素时（执行process方法）产生了新的 Java 代码，编译器会再调用一次注解处理器，如果第二次处理还有新代码产生，就会接着调用，直到没有新代码产生为止。每执行一次 `process()` 方法被称为一个 round。注意，APT 不是对源代码进行修改，且 APT 无法修改原源代码。
 
+注解最早是在 java5 引入，主要包含 apt 和 `com.sum.mirror` 包中相关的 mirror api，此时 apt 和 javac 是各自独立的。从 java6 开始，注解处理器正式标准化，apt 工具也被直接集成在 javac 当中。
 
 **编译一个编译时注解处理主要分两步：**
 
-1. 继承AbstractProcessor，实现自己的注解处理器
-2. 注册处理器，并打成jar包
+1. 继承 AbstractProcessor，实现自己的注解处理器。
+2. 注册处理器，并打成 jar 包。
 
-
-## 1 相关API讲解
+## 1 相关 API 介绍
 
 编译时注解设计到的API有:
 
 - AbstractProcessor： 抽象的注解处理器，我们需要继承它来实现自己的处理器
 - ProcessingEnvironment： 用于获取相关工具对象，我们可以通过它获取下面工具对象
- - Elements：包含用于操作Element的工具方法
- - Messager：用来报告错误，警告和其他提示信息
- - Filer：用来创建新的源文件，class文件以及辅助文件
- - Types：包含用于操作TypeMirror的工具方法
+    - Elements：包含用于操作Element的工具方法
+    - Messager：用来报告错误，警告和其他提示信息
+    - Filer：用来创建新的源文件，class文件以及辅助文件
+    - Types：包含用于操作TypeMirror的工具方法
 - RoundEnvironment：**这是一个非常重要的类，通过它我们获取被注解标注的对象(方法、字段、类等)**
 - Element：表示一个程序元素，比如包、类或者方法。每个元素都表示一个静态的语言级构造
 - TypeMirror：表示Java编程语言中的类型，这些类型包括基本类型、声明类型（类和接口类型）、数组类型、类型变量和null类型。还可以表示通配符类型参数、executable的签名和返回类型，以及对应于包和关键字 `void` 的伪类型。
@@ -191,7 +191,6 @@ int TypeUtils.typeExchange(Element)
 
 ![](index_files/Class_20Diagram0.png)
 
-
 ----
 ## 3 打包注解并注册
 
@@ -221,21 +220,18 @@ public class RouterProcessor extends AbstractProcessor {
 ---
 ## 4 Gradle APT插件
 
-AndroidStudio应该使用**Anroid-apt**或者**annotationProcessor**，APT插件的作用是：
+AndroidStudio 应该使用 **Anroid-apt** 或者 **annotationProcessor**，APT 插件的作用是：
 
- - 只允许配置编译时注解处理器依赖，但在最终APK或者Library中不包含注解处理器的代码。
- - 设置源路径，以便由注解处理器生成的代码能被Android Studio识别。
+ - 只允许配置编译时注解处理器依赖，但在最终 APK 或者 Library 中不包含注解处理器的代码。
+ - 设置源路径，以便由注解处理器生成的代码能被 AndroidStudio 识别。
 
-IDEA应该使用[gradle-apt-plugin](https://github.com/tbroyer/gradle-apt-plugin)
-
+在 IDEA 上使用 APT， 可以参考 [gradle-apt-plugin](https://github.com/tbroyer/gradle-apt-plugin)。
 
 ---
 ## 5 开发实践
 
-一般开发都有套路可循，APT也不例外，一般步骤如下：
-
-- 1 在`init(ProcessingEnvironment processingEnv)`方法中做一些初始化工作，然后通过processingEnv获取需要用到的工具类。
-```
+- 1 在`init(ProcessingEnvironment processingEnv)`方法中做一些初始化工作，然后通过 processingEnv 获取需要用到的工具类。
+```java
 @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
@@ -249,8 +245,8 @@ IDEA应该使用[gradle-apt-plugin](https://github.com/tbroyer/gradle-apt-plugin
 ```
 
 - 2 在`process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment)`方法中一般有如下步骤：
- - 获取所有的应用了目标注解的元素，用定义的数据类型封装其他，统一存放在列表中
- - 遍历列表，处理每个元素，生成对应的代码
+    - 获取所有的应用了目标注解的元素，用定义的数据类型封装其他，统一存放在列表中
+    - 遍历列表，处理每个元素，生成对应的代码
 
 ---
 ## 6 使用标准类库提供的访问者
@@ -260,23 +256,21 @@ IDEA应该使用[gradle-apt-plugin](https://github.com/tbroyer/gradle-apt-plugin
 ---
 ## 7 使用 javapoet
 
-APT生成的代码需要用字符串一个一个的拼接，其实是比较繁琐的，还好square开源了javapoet，大大的提升了开发效率。
-
+APT 生成的代码需要用字符串一个一个的拼接，其实是比较繁琐的，还好 square 开源了 javapoet，大大的提升了开发效率。
 
 ----
-## 参考
+## 引用
 
+博客
 
 - [基础篇：带你从头到尾玩转注解](http://blog.csdn.net/dd864140130/article/details/53875814)
 - [拓展篇：注解处理器最佳实践](http://blog.csdn.net/dd864140130/article/details/53957691)
-- [javapoet](https://github.com/square/javapoet)
-- [auto service](https://github.com/google/auto/tree/master/service)
 - [万能的APT！编译时注解的妙用](http://zjutkz.net/2016/04/07/%E4%B8%87%E8%83%BD%E7%9A%84APT%EF%BC%81%E7%BC%96%E8%AF%91%E6%97%B6%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%A6%99%E7%94%A8/)
 - [浅析ButterKnife](http://mp.weixin.qq.com/s?__biz=MzI1NjEwMTM4OA==&mid=2651232205&idx=1&sn=6c24e6eef2b18f253284b9dd92ec7efb&chksm=f1d9eaaec6ae63b82fd84f72c66d3759c693f164ff578da5dde45d367f168aea0038bc3cc8e8&scene=0#wechat_redirect)
+- [Java奇技淫巧-插件化注解处理API(Pluggable Annotation Processing API)](https://www.cnblogs.com/throwable/p/9139908.html)
 
+工具
 
-
-
-
-
-
+- [javapoet](https://github.com/square/javapoet)
+- [auto service](https://github.com/google/auto/tree/master/service)
+- [android-lite-tidy](https://github.com/litesuits/android-lite-tidy)

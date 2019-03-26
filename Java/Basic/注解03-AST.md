@@ -7,7 +7,7 @@
 
 ![](index_files/javac-flow.png)
 
-`Java源代码->词语法分析-> 生成AST -> 语义分析 -> 编译成字节码`
+`Java源代码-> 词语法分析-> 生成AST -> 语义分析 -> 编译成字节码`
 
 上面编译的过程由 JavaCompiler 类处理：
 

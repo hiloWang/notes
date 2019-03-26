@@ -101,3 +101,7 @@
 ## 网络
 
 - [Android端打开HttpDns的正确姿势](https://www.jianshu.com/p/b0c154215b48)
+
+## CI
+
+- [Jenkins实践文档](https://github.com/zeyangli/Jenkins-docs)

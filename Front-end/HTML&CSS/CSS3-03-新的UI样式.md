@@ -84,7 +84,7 @@ resize CSS 属性允许你控制一个元素的可调整大小性。**（一定�
     - 默认值，标准盒子模型。 width 与 height 只包括内容的宽和高， 不包括边框（border），内边距（padding），外边距（margin）。注意: 内边距, 边框 & 外边距 都在这个盒子的外部。 比如：如果 `.box {width: 350px};` 而且 `{border: 10px solid black;}` 那么在浏览器中的渲染的实际宽度将是 370px;
     - 尺寸计算公式：`width = 内容的宽度`，`height = 内容的高度`。宽度和高度都不包含内容的边框（border）和内边距（padding）。
 - border-box
-    - width 和 height 属性包括内容，内边距和边框，但不包括外边距。这是当文档处于 Quirks 模式 时Internet Explorer使用的盒模型。
+    - width 和 height 属性包括内容，内边距和边框，但不包括外边距。这是当文档处于 Quirks 模式时 Internet Explorer 使用的盒模型。
     - 这里的维度计算为：`width = border + padding + 内容的 width`，`height = border + padding + 内容的 height`。
 
 ## 3 新增 UI 样式

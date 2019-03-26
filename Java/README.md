@@ -8,7 +8,7 @@
 - [Java编译API](Basic/Java编译API.md) 
 - [注解01-运行时注解](Basic/注解01-运行时注解.md) 
 - [注解02-APT](Basic/注解02-APT.md) 
-- [注解03-应用AST](Basic/注解03-应用AST.md) 
+- [注解03-AST](Basic/注解03-AST.md) 
 
 ## EffectiveJava
 

@@ -1,6 +1,6 @@
 #  编译器 API
 
-随着 `Java 6` 的发布，java编译器已经有了开源的版本了。开源的编译器是OpenJDK项目的一部分，可以从Java编译器小组的网站下载 `http://www.openjdk.org/groups/compiler/` 。
+随着 `Java 6` 的发布，java编译器已经有了开源的版本了。开源的编译器是 OpenJDK 项目的一部分，可以从Java编译器小组的网站下载 `http://www.openjdk.org/groups/compiler/` 。
 
 
 Javac 的 API 随着 JDK 的发展有许多的变更，比如：

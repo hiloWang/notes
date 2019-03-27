@@ -1,4 +1,4 @@
-## Custom View
+## Custom View Course
 
 - [自定义控件其实很简单系列](http://blog.csdn.net/aigestudio?viewmode=contents)
 - [AndroidNote 系列](https://github.com/GcsSloop/AndroidNote)
@@ -7,7 +7,7 @@
 - [查看哪些方法不支持硬件加速](http://developer.android.com/intl/zh-cn/guide/topics/graphics/hardware-accel.html#unsupported)
 - [android-gesture-detectors-Android 手势检测库](https://github.com/Almeros/android-gesture-detectors)
 
-## 下拉刷新
+## Pull to Refresh Libraries
 
 - [Ultra-Pull-To-Refresh](https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh)
 - [android-Ultra-Pull-To-Refresh-With-Load-More](https://github.com/captainbupt/android-Ultra-Pull-To-Refresh-With-Load-More)
@@ -27,3 +27,4 @@
 - [Android-ParallaxRefresh](https://github.com/devsoulwolf/Android-ParallaxRefresh)
 - [SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout)
 - [SpringView](https://github.com/liaoinstan/SpringView)
+- [SmoothRefreshLayout](https://github.com/dkzwm/SmoothRefreshLayout)

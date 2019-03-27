@@ -7,7 +7,6 @@ Android项目使用gradle进行构建，具体由`Android gradle plugin`实现�
 
 **自定义的Transform一经注册便会自动添加到Task执行序列中，并且正好是项目被打包成dex之前。**
 
-
 ---
 ## 2 Transform
 
@@ -148,14 +147,14 @@ transform方法参数说明:
 ---
 ## 3 其他
 
-- 自定义的transform是不能处理Dex文件的,因为对应的DexTransform和MultiDexTransform注册在最后面。
-- **避免文件重复**：Transform会根据Transform插件为本次transform生成对应的文件夹，在transform方法中利用outputProvider生成的文件夹都在此文件夹中，在下一次的Transform中，又会把改文件夹中所有的内容作为transform方法的输入。如果我们在一次变换中，经过操作生成生成另一种形态的相同的内容(比如把Class打包成jar)，务必要原始的形态的内容删除。
+- 自定义的 transform 是不能处理 Dex 文件的,因为对应的 DexTransform 和 MultiDexTransform 注册在最后面。
+- **避免文件重复**：Transform 会根据 Transform 插件为本次 transform 生成对应的文件夹，在 transform 方法中利用 outputProvider 生成的文件夹都在此文件夹中，在下一次的 Transform 中，又会把该文件夹中所有的内容作为 transform 方法的输入。如果我们在一次变换中，经过操作生成生成另一种形态的相同的内容(比如把Class打包成jar)，务必要原始的形态的内容删除。
 
 ---
 ## 引用
 
 - [Transform API](http://tools.android.com/tech-docs/new-build-system/transform-api)
-- [通过自定义Gradle插件修改编译后的class文件](http://blog.csdn.net/huachao1001/article/details/51819972)
+- [通过自定义 Gradle 插件修改编译后的 class文件](http://blog.csdn.net/huachao1001/article/details/51819972)
 - [gradle transform api 初探](http://www.jianshu.com/p/c9ce643e2f22)
 - [transform-api-a-real-world-example-cfd49990d3e1](https://medium.com/grandcentrix/transform-api-a-real-world-example-cfd49990d3e1)
 

@@ -14,7 +14,6 @@
 - [一个基于Glide的transformation库，拥有裁剪，着色，模糊，滤镜等多种转换效果 ]( https://github.com/wasabeef/glide-transformations)
 - [一个可以在Glide加载时很方便使用Palette的库 ]( https://github.com/florent37/GlidePalette)
 
-
 ---
 ## Google Auto
 

@@ -22,11 +22,11 @@
 辅助类：
 
 - ImageLoadingInfo 描述了一个加载任务的信息，key，uri，监听器等
- - ImageSize 图片尺寸的抽象
- - ImageAware 抽象显示显示图片、获取显示尺寸，缩放类型的接口
- - DefaultConfigurationFactory 整个库的一些默认配置工厂
- - DisplayImageOptions 任务的配置类
- - ImageDecodingInfo 需要被解码的图片的信息，如uri,key,imageScaleType等
+    - ImageSize 图片尺寸的抽象
+    - ImageAware 抽象显示显示图片、获取显示尺寸，缩放类型的接口
+    - DefaultConfigurationFactory 整个库的一些默认配置工厂
+    - DisplayImageOptions 任务的配置类
+    - ImageDecodingInfo 需要被解码的图片的信息，如uri,key,imageScaleType等
 
 工具类：
 

@@ -183,7 +183,7 @@ css：
 
 ### 3.2 交集选择器：`s1.s2.s3`
 
-```
+```css
     h3.special{
       color:red;3
     }
@@ -191,7 +191,7 @@ css：
 上面css选择的元素是同时满足两个条件：1，必须是h3标签；2，必须是special标签。
 
 交集选择器可以连续交（一般不要这么写）
-```
+```css
     h3.special.zhongyao{
        color:red;3
     }

@@ -82,7 +82,6 @@
 
 - [xHook](https://github.com/iqiyi/xHook)
 - [关于在Android中使用CMake你所需要了解的一切](https://mp.weixin.qq.com/s/WAb4uGs0CMSpplXS9zZG-Q)
-- [一起玩转Android项目中的字节码](https://juejin.im/entry/5c0cc7c15188257d5e39647d)
 
 ## AOP
 
@@ -90,6 +89,7 @@
 - [AOP 最后一块拼图 | AST 抽象语法树 —— 最轻量级的AOP方法](https://juejin.im/post/5c45bce5f265da612c5e2d3f)
 - [capt 全称 Class Annotation Processor Tool，是作者基于 ASM 和 Android Transform API 打造的 Android 平台的字节码的注解处理工具。](https://mp.weixin.qq.com/s/8_88oUB2MJi27BJJOb-2_Q)
 - [字节码插桩](https://juejin.im/entry/5c886d786fb9a049f1550d65)
+- [一起玩转Android项目中的字节码](https://juejin.im/entry/5c0cc7c15188257d5e39647d)
 
 ## 架构
 

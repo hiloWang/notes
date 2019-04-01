@@ -1,10 +1,4 @@
-## 1 总结
-
-- 如何学习 HTML/CSS？
-- 如何学习 JavaScript？
-- 如何学习 JavaScript 框架？
-
-## 2 学习资料
+## 1 学习资料
 
 MDN
 
@@ -17,7 +11,7 @@ W3 school $ W3C school
 - [W3 SCHOOL JavaScript 系列教程](http://www.w3school.com.cn/b.asp)
 - [W3C School](https://www.w3cschool.cn/%20)
 
-其他
+博客教程
 
 - [前端九部 - 入门者手册2019](https://www.yuque.com/fe9/basic)
 - [第一本 PWA 中文书](https://github.com/SangKa/PWA-Book-CN)
@@ -25,7 +19,15 @@ W3 school $ W3C school
 - [CSS 奇技淫巧](https://github.com/chokcoco/iCSS)
 - [CSS2.1规范](http://www.ayqy.net/doc/css2-1/cover.html)
 
-## 3 笔记
+视频教程
+
+- 尚硅谷免费视频教程
+- 黑马程序员视频教程
+- 珠峰视频教程
+
+>网上的资源还是很多的，再咸鱼、淘宝等都可以找到一套不错的视频教程。
+
+## 2 笔记
 
 ### 1 HTML & CSS
 

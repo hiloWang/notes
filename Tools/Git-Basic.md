@@ -357,4 +357,5 @@ git remote set-url origin [url]
 
 - [git.oschina ](http://git.oschina.net/progit/1-起步.html#1.5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE)
 - [史上最浅显易懂的Git教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
-- [Git Community Book 中文版]( http://gitbook.liuhui998.com/ )
+- [Git Community Book 中文版](http://gitbook.liuhui998.com/ )
+- [猴子都能懂的 Git 入门](https://backlog.com/git-tutorial/cn/)

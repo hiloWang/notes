@@ -1,6 +1,6 @@
-# AndroidStudio
+# Android Tools
 
-## 快捷键
+## AndroidStudio 快捷键
 
 功能|快捷键(名称)
 ---|---
@@ -42,7 +42,7 @@ ctrl+alt+shift+T|打开重构窗口(可以重构java代码，也可以重构xml�
 shift + F4|在新的窗口编辑文件
 
 
-## 设置选项
+## AndroidStudio 设置选项
 
 1. **打开文件位置**：
 右键文件--show in explorer
@@ -79,8 +79,7 @@ Editor-General-->Smart Keys-->Use CameHumps Words
 比如java：
 Editor--> Color&Font-->  Android Log
 
-
-## 相关工具
+## Android 相关工具
 
 ### 反编译
 
@@ -89,7 +88,6 @@ Editor--> Color&Font-->  Android Log
 - [Google官方出品的将Dalvik字节码转换为等价的Java字节码的工具](https://github.com/google/enjarify)
 - [FontZip字体资源文件压缩神器](https://github.com/forJrking/FontZip)
 
-
 ### Keystore 密码恢复
 
 - [Android Keystore Password Recovery](http://maxcamillo.github.io/android-keystore-password-recover/)
@@ -97,11 +95,3 @@ Editor--> Color&Font-->  Android Log
 ### AndroidStudio 3.0 DDMS
 
 3.0 的 DDMS 已经被废弃，如果有需要，可以在 SDK 中打开，`android-sdk/tools/monitor.bat`
-
-
-
-
-
-
-
-

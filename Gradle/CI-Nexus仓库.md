@@ -1,4 +1,4 @@
-# Nexus仓库使用
+# Nexus 仓库使用
 
 ---
 ## 1 下载并安装Nexus
@@ -105,7 +105,3 @@ dependencies {
 
 - [搭建Maven私有仓库](https://pcyan.github.io/2017/04/08/use-nexus-to-create-private-maven-repo/)
 - [Nexus文档](http://books.sonatype.com/nexus-book/3.0/reference/install.html#installation-archive)
-
-
-
-

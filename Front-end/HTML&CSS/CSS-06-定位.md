@@ -91,7 +91,8 @@
     position: absolute;
     left: 50%;
     top: 0;
-    margin-left: -300px;   → 宽度的一半
+    /* 宽度的一半 */
+    margin-left: -300px; 
 ```
 
 ### 2.5 特性总结

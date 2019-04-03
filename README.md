@@ -1,15 +1,15 @@
-# Programming Notes
+# Ztiany's programming notes
 
 - 笔记内容来源于读书、开发实践总结、阅读他人博客、翻译等。
 - 笔记中的引用一般会标明出处并加上链接、如有纰漏，请联系我及时补充。
 - 笔记难免存在错误，如有发现，请帮我指出，不甚感激。
-- 相关代码可以在这里找到：[Programming-Notes-Code](https://github.com/Ztiany/Programming-Notes-Code)
+- 相关代码可以在 [Programming-Notes-Code](https://github.com/Ztiany/Programming-Notes-Code) 找到。
 
 ## 总结
 
 如何解决问题?
 
-- 切忌焦躁，静心思考
+- 切忌焦躁，静下心来思考
 - 从日志找答案
 - Debug
 - 从源码分析
@@ -70,7 +70,7 @@
 
 工程构建
 
-- [Gradle](Gradle/README.md)
+- [Gradle](Build-System/Gradle/README.md)
 
 后端
 

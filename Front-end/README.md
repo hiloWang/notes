@@ -18,6 +18,7 @@ W3 school $ W3C school
 - [typescript-tutorial](https://github.com/xcatliu/typescript-tutorial)
 - [CSS 奇技淫巧](https://github.com/chokcoco/iCSS)
 - [CSS2.1规范](http://www.ayqy.net/doc/css2-1/cover.html)
+- [微软前端-集训](https://github.com/Microsoft/frontend-bootcamp)
 
 视频教程
 

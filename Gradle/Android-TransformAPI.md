@@ -221,6 +221,7 @@ public enum Status {
     - 对于状态为 REMOVED 的文件，则需要将其从指定目标目录中删除。
     -  对于状态为 ADDED 和 CHANGED 的文件，需要重新 transform 后再复制到指定目标目录中。
 
+**需要注意的是：如果先 clean 再编译时， jar 的状态是 NOTCHANGED，而 changedFiles 是空的**。
 
 ## 4 注意
 
@@ -238,7 +239,7 @@ public enum Status {
 - [gradle transform api 初探](http://www.jianshu.com/p/c9ce643e2f22)
 - [如何理解 Transform API](https://juejin.im/entry/59776f2bf265da6c4741db2b)
 
-可以参考的 Transform
+可以参考的 Transform 实现
 
 - [AutoRegister](https://github.com/luckybilly/AutoRegister)
 - [gradle_plugin_android_aspectjx](https://github.com/HujiangTechnology/gradle_plugin_android_aspectjx)

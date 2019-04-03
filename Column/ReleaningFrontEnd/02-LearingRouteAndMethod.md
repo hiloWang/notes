@@ -1,4 +1,4 @@
-> 重学前端](https://time.geekbang.org/column/intro/154)，每天10分钟，重构你的前端知识体系。
+> [重学前端](https://time.geekbang.org/column/intro/154)，每天10分钟，重构你的前端知识体系。
 
 # 明确你的前端学习路线与方法
 

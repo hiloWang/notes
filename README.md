@@ -50,9 +50,9 @@
 
 基础
 
-- [操作系统](Computer-Basic/README.md)
+- [操作系统](Computer-System-Basic/README.md)
 - [网络协议](Network/README.md)
-- [数据结构与算法](DataStructure/README.md)
+- [数据结构与算法](DataStructure-Algorithms/README.md)
 
 编程语言
 

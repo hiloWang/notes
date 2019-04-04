@@ -56,7 +56,7 @@
 
 编程语言
 
-- [C&CPP](C&CPP/README.md)
+- [C-CPP](C&CPP/README.md)
 - [Java](Java/README.md)
 - [RxJava](RxJava/README.md)
 - [Groovy](Groovy/README.md)

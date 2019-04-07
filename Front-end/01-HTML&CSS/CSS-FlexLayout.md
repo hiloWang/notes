@@ -173,6 +173,22 @@ flex-basis: auto 
     flex：1;/* 1 1 0% */
 ```
 
+## 4 应用场景
+
+### 等分布局
+
+```css
+flex-shrink: 1;
+flex-grow: 1;
+flex-basis: 0;
+```
+
+等同于
+
+```css
+flex : 1;
+```
+
 ## 可参考资料
 
 - [阮一峰：Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)

@@ -30,26 +30,4 @@ W3 school $ W3C school
 
 ## 2 笔记
 
-### 1 HTML & CSS
-
 todo
-
-### 2 JS 基础
-
-- [JavaScript-Ajax](02-JavaScript/JavaScript-Ajax.md)
-- [JavaScript-Bom](02-JavaScript/JavaScript-Bom.md)
-- [JavaScript-Dom](02-JavaScript/JavaScript-Dom.md)
-- [JavaScript-严格模式](02-JavaScript/JavaScript-严格模式.md)
-- [JavaScript-原型](02-JavaScript/JavaScript-原型.md)
-- [JavaScript简介](02-JavaScript/JavaScript简介.md)
-- [Lib-Bootstrap](02-JavaScript/Lib-Bootstrap.md)
-- [Lib-jQuery基础](02-JavaScript/Lib-jQuery基础.md)
-- [Lib-zeptojs](02-JavaScript/Lib-zeptojs.md)
-- [References](02-JavaScript/References.md)
-- [《JavaScript权威指南》1-基础](02-JavaScript/《JavaScript权威指南》1-基础.md)
-- [《JavaScript权威指南》2-对象](02-JavaScript/《JavaScript权威指南》2-对象.md)
-- [《JavaScript权威指南》3-数组](02-JavaScript/《JavaScript权威指南》3-数组.md)
-- [《JavaScript权威指南》4-函数](02-JavaScript/《JavaScript权威指南》4-函数.md)
-- [《JavaScript权威指南》5-类和模块](02-JavaScript/《JavaScript权威指南》5-类和模块.md)
-- [《JavaScript权威指南》6-JS的子集与拓展](02-JavaScript/《JavaScript权威指南》6-JS的子集与拓展.md)
-- [深入浅出JavaScript-笔记](02-JavaScript/深入浅出JavaScript-笔记.md)

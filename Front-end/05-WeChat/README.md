@@ -10,4 +10,4 @@
 
 - [微信小程序入门与实战：从0到1进行细致讲解 涵盖小程序开发核心技能](https://coding.imooc.com/class/75.html)
 - [微信小程序商城构建全栈应用：教你打造iOS、Android,Web多端适配的服务端标准API](https://coding.imooc.com/class/97.html)
-- [微信小程序商城构建全栈应用：教你打造iOS、Android,Web多端适配的服务端标准API](https://coding.imooc.com/class/251.html)
+- [纯正商业级应用-微信小程序开发实战：](https://coding.imooc.com/class/251.html)

@@ -1,4 +1,4 @@
-# Javassist
+# Javassist 入门
 
 Javassist 是一个字节码操作库，Javascript（Java编程助手）使Java字节码操作变得简单。它使Java程序能够在运行时定义一个新类，并在JVM加载时修改类文件，Javassist提供了两个级别的API：source level 和 bytecode level。
 
@@ -1309,7 +1309,7 @@ Javassist的使用方式：
 ---
 ## 引用
 
-- [tutorial](http://jboss-javassist.github.io/javassist/tutorial/tutorial.html)
+- [tutorial](https://jboss-javassist.github.io/javassist/tutorial/tutorial.html)
 - [javassist-gradle-plugin](https://github.com/darylteo/javassist-gradle-plugin)
 - [Javassist 使用指南 中文](https://www.jianshu.com/p/43424242846b)
 

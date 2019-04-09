@@ -187,7 +187,7 @@ int TypeUtils.typeExchange(Element)
 ```
 
 ----
-## 2 编译时注解API相关类图
+## 2 编译时注解 API 相关类图
 
 ![](index_files/Class_20Diagram0.png)
 
@@ -225,7 +225,7 @@ AndroidStudio 应该使用 **Anroid-apt** 或者 **annotationProcessor**，APT �
  - 只允许配置编译时注解处理器依赖，但在最终 APK 或者 Library 中不包含注解处理器的代码。
  - 设置源路径，以便由注解处理器生成的代码能被 AndroidStudio 识别。
 
-在 IDEA 上使用 APT， 可以参考 [gradle-apt-plugin](https://github.com/tbroyer/gradle-apt-plugin)。
+在 IDEA 上使用 APT， Gradle 4.7 以后已经内置支持了 annotationProcessor。
 
 ---
 ## 5 开发实践
@@ -261,7 +261,7 @@ APT 生成的代码需要用字符串一个一个的拼接，其实是比较繁�
 ----
 ## 引用
 
-博客
+博客：
 
 - [基础篇：带你从头到尾玩转注解](http://blog.csdn.net/dd864140130/article/details/53875814)
 - [拓展篇：注解处理器最佳实践](http://blog.csdn.net/dd864140130/article/details/53957691)
@@ -269,7 +269,7 @@ APT 生成的代码需要用字符串一个一个的拼接，其实是比较繁�
 - [浅析ButterKnife](http://mp.weixin.qq.com/s?__biz=MzI1NjEwMTM4OA==&mid=2651232205&idx=1&sn=6c24e6eef2b18f253284b9dd92ec7efb&chksm=f1d9eaaec6ae63b82fd84f72c66d3759c693f164ff578da5dde45d367f168aea0038bc3cc8e8&scene=0#wechat_redirect)
 - [Java奇技淫巧-插件化注解处理API(Pluggable Annotation Processing API)](https://www.cnblogs.com/throwable/p/9139908.html)
 
-工具
+工具：
 
 - [javapoet](https://github.com/square/javapoet)
 - [auto service](https://github.com/google/auto/tree/master/service)

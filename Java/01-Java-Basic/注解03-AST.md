@@ -30,7 +30,7 @@
 - AST 转换：是在编译过程中用来修改抽象语法树结构的代码的名称。
 - AST 修改：通过在将其转换为字节码之前增加附加节点以达到增加代码的目的。
 
-Java 编译过程中的第一步中，源码就被解析为 AST 了，接下来的处理都是基于这个 AST 的，比如注解处理，JSR269 中并没有提供修改 AST 的 API，而 javac 的内部工具提供了修改 AST 的 API，除此之外还有一些修改 AST 的开源类库
+Java 编译过程中的第一步中，源码就被解析为 AST 了，接下来的处理都是基于这个 AST 的，比如注解处理，JSR269 中并没有提供修改 AST 的 API，而 javac 的内部工具提供了修改 AST 的 API，除此之外还有一些修改 AST 的开源类库。
 
 #### 使用 Javac 内部 API 进行 AST 转换
 
@@ -61,8 +61,8 @@ Java 源码的编译是由 javac 处理的，除了使用命令行工具编译 J
 
 #### 使用第三方库 进行 AST 转换
 
-- 借助`Rewrite、JavaParser`等开源类库，更加简单的操作 AST
-- 扩展 Lombok 自定义注解处理器
+- 借助 [Rewrite](https://github.com/Netflix-Skunkworks/rewrite)、[JavaParser](https://github.com/Javaparser/Javaparser) 等开源类库，更加方便地操作 AST。
+- 扩展 Lombok 自定义注解处理器。
 
 ---
 ## 3 javac.AST 节点
@@ -111,7 +111,8 @@ public class App {
 
 ```java
 @SupportedSourceVersion(SourceVersion.RELEASE_7)
-@SupportedAnnotationTypes("*")//这里我们针对所有的源码做替换，而不是标注了某一个类型注解的元素
+//这里我们针对所有的源码做替换，而不是标注了某一个类型注解的元素
+@SupportedAnnotationTypes("*")
 public class ForceAssertions extends AbstractProcessor {
 
     private JavacProcessingEnvironment env;
@@ -289,37 +290,22 @@ public class App {
 3. 把转换结果赋值给 `TreeTranslator.result`。结果的类型不一定要和传进来的参数的类型一样。相反，只要 java 编译器允许，我们可以返回任何类型的节点。这里 TreeTranslator 本身没有限制类型，但是如果返回了错误的类型，那么就很有在后续过程中产生灾难性后果。
 
 ---
-## 6 JSR-269 扩展
+## 6 JSR-269 应用与扩展
 
-### Lombok
-
-依赖 JSR-269 开发的典型的第三方库有：代码自动生成的 [Lombok](https://projectlombok.org/) 和 Google [Auto](https://github.com/google/auto)，代码检查的 [Checker](https://checkerframework.org/) 和 Google [Error Prone](http://errorprone.info/)，编译阶段完成依赖注入的 Google [Dagger 2](https://github.com/google/dagger)等。
-
-### Eclipse JDT
-
-JDT是 `Java Development Tools` 的缩写，是 Eclipse 支持 java 开发的核心插件。JDT Core 是 jdt 插件中的一部分，它的主要功能包括：
-
-- 格式化java代码。
-- 将 java 代码构建成一个 AST 的语法树，如果 java 代码中有错误，找出其中的错误。
-- 重写 java 代码，比如把一部分 java 代码抽取成一个方法。
-
-抽象语法树是 Eclipse IDE 许多强大工具的基础框架，包括重构，Quick Fix 和Quick Assist。抽象语法树以树形式映射纯Java源代码，这种树比基于文本的源代码更方便可靠地进行编程分析和修改。
-
-### 其他应用
-
+- [Lombok](https://projectlombok.org/)
+- [Eclipse JDT](https://www.eclipse.org/jdt/)
+- 自定义 Lint，实现 CodeReview 自动化
 - 插入模板代码
-- 自定义Lint，实现CodeReview自动化
-
 
 ---
 ## 引用
 
 原理：
 
-- [Java编译过程：Compilation Overview](http://openjdk.java.net/groups/compiler/doc/compilation-overview/index.html)
-- [Eclipse JDT AST 介绍](http://www.eclipse.org/articles/Article-JavaCodeManipulation_AST/)
+- [OpenJDK：Java编译过程 Compilation Overview](http://openjdk.java.net/groups/compiler/doc/compilation-overview/index.html)
+- [Eclipse JDT：AST 介绍](http://www.eclipse.org/articles/Article-JavaCodeManipulation_AST/)
 
-AST 操作框架
+AST 操作框架：
 
 - [Rewrite](https://github.com/Netflix-Skunkworks/rewrite)
 - [JavaParser](https://github.com/Javaparser/Javaparser)
@@ -332,6 +318,5 @@ AST 操作框架
 
 Javac API：
 
-- [Java 编译器 javac 笔记](http://nullwy.me/2017/04/javac-api/)
-- [The Hacker’s Guide to Javac](chrome-extension://oemmndcbldboiebfnladdacbdfmadadm/http://scg.unibe.ch/archive/projects/Erni08b.pdf)
-- [The Hacker’s Guide to Javac 中文翻译](https://my.oschina.net/superpdm/blog/129715)
+- [Java 编译器 javac 笔记](https://nullwy.me/2017/04/javac-api/)
+- [The Hacker’s Guide to Javac](http://scg.unibe.ch/archive/projects/Erni08b.pdf)

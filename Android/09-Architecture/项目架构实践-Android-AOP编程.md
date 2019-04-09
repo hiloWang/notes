@@ -48,21 +48,31 @@ Android 平台的虚拟机运行的是 dex 文件，dex 文件的生成需要下
 ---
 ## AOP 相关学习资料
 
-博客：
+AOP 系列博客：
 
-- [AOP 最后一块拼图 | AST 抽象语法树 —— 最轻量级的AOP方法](https://juejin.im/post/5c45bce5f265da612c5e2d3f)
 - [一文读懂 AOP | 你想要的最全面 AOP 方法探讨](https://www.jianshu.com/p/0799aa19ada1)
 - [一文应用 AOP | 最全选型考量 + 边剖析经典开源库边实践，美滋滋](https://www.jianshu.com/p/42ce95450adb)
 - [会用就行了？你知道 AOP 框架的原理吗？](https://www.jianshu.com/p/cfa16f4cf375)
-- [一起玩转Android项目中的字节码](https://juejin.im/entry/5c0cc7c15188257d5e39647d)
-- [Android AOP编程的四种策略探讨：Aspectj，cglib+dexmaker，Javassist，epic+dexposed](https://www.jianshu.com/p/524dbfc6a4e1)
-- [字节码插桩](https://juejin.im/entry/5c886d786fb9a049f1550d65)
+- [AOP 最后一块拼图 | AST 抽象语法树 —— 最轻量级的AOP方法](https://juejin.im/post/5c45bce5f265da612c5e2d3f)
+
+AST：
+
 - [java注解处理器——在编译期修改语法树](https://blog.csdn.net/a_zhenzhen/article/details/86065063)
+
+字节码
+
+- [一起玩转Android项目中的字节码](https://juejin.im/entry/5c0cc7c15188257d5e39647d)
+- [字节码插桩](https://juejin.im/entry/5c886d786fb9a049f1550d65)
+- [Android AOP编程的四种策略探讨：Aspectj，cglib+dexmaker，Javassist，epic+dexposed](https://www.jianshu.com/p/524dbfc6a4e1)
 
 笔记：
 
 - [Java-APT](../../Java/01-Java-Basic/注解02-APT.md)
 - [Java-AST](../../Java/01-Java-Basic/注解03-AST.md)
+- [AspectJ-01](../../Java/02-Advance-Java/AspectJ-01.md)
+- [AspectJ-02](../../Java/02-Advance-Java/AspectJ-02.md)
+- [ASM 入门](../../Java/02-Advance-Java/ASM入门.md)
+- [Javassist 入门](../../Java/02-Advance-Java/Javassist入门.md)
 
 库：
 

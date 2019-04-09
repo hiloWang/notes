@@ -9,7 +9,8 @@ Dart
 
 - [flutter 官网](https://flutter.dev/)
 - [flutter github](https://github.com/flutter/flutter)
-- [flutter 中文官网](http://doc.flutter-dev.cn/)
+- [Flutter 中文网](http://doc.flutter-dev.cn/)
+- [flutter 中文官网](https://flutterchina.club/)
 - [flutter 中文社区](https://flutter-io.cn/)
 
 入门体验

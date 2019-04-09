@@ -48,8 +48,23 @@ Android 平台的虚拟机运行的是 dex 文件，dex 文件的生成需要下
 ---
 ## AOP 相关学习资料
 
+博客：
+
 - [AOP 最后一块拼图 | AST 抽象语法树 —— 最轻量级的AOP方法](https://juejin.im/post/5c45bce5f265da612c5e2d3f)
-- [capt 全称 Class Annotation Processor Tool，是作者基于 ASM 和 Android Transform API 打造的 Android 平台的字节码的注解处理工具。](https://mp.weixin.qq.com/s/8_88oUB2MJi27BJJOb-2_Q)
-- [字节码插桩](https://juejin.im/entry/5c886d786fb9a049f1550d65)
+- [一文读懂 AOP | 你想要的最全面 AOP 方法探讨](https://www.jianshu.com/p/0799aa19ada1)
+- [一文应用 AOP | 最全选型考量 + 边剖析经典开源库边实践，美滋滋](https://www.jianshu.com/p/42ce95450adb)
+- [会用就行了？你知道 AOP 框架的原理吗？](https://www.jianshu.com/p/cfa16f4cf375)
 - [一起玩转Android项目中的字节码](https://juejin.im/entry/5c0cc7c15188257d5e39647d)
+- [Android AOP编程的四种策略探讨：Aspectj，cglib+dexmaker，Javassist，epic+dexposed](https://www.jianshu.com/p/524dbfc6a4e1)
+- [字节码插桩](https://juejin.im/entry/5c886d786fb9a049f1550d65)
+- [java注解处理器——在编译期修改语法树](https://blog.csdn.net/a_zhenzhen/article/details/86065063)
+
+笔记：
+
+- [Java-APT](../../Java/01-Java-Basic/注解02-APT.md)
+- [Java-AST](../../Java/01-Java-Basic/注解03-AST.md)
+
+库：
+
+- [capt 全称 Class Annotation Processor Tool，是作者基于 ASM 和 Android Transform API 打造的 Android 平台的字节码的注解处理工具。](https://mp.weixin.qq.com/s/8_88oUB2MJi27BJJOb-2_Q)
 - [sdk-editor-plugin](https://github.com/iwhys/sdk-editor-plugin)

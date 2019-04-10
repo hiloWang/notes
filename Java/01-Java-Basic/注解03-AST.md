@@ -1,5 +1,6 @@
 # AST 抽象语法树简介与应用
 
+
 ---
 ## 1 Java 编译过程简介
 
@@ -19,22 +20,17 @@
 ---
 ## 2 AST 介绍
 
-### 抽象语法树概念
+### AST——抽象语法树概念
 
 在计算机科学中，抽象语法树（Abstract Syntax Tree，AST），或简称语法树（Syntax tree），是源代码语法结构的一种抽象表示。它以树状的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。之所以说语法是“抽象”的，是因为这里的语法并不会表示出真实语法中出现的每个细节。比如，嵌套括号被隐含在树的结构中，并没有以节点的形式呈现；而类似于 if-condition-then 这样的条件跳转语句，可以使用带有两个分支的节点来表示。——[《维基百科》](https://zh.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E8%AA%9E%E6%B3%95%E6%A8%B9)
 
 抽象语法树并不是针对某一种语言，而是计算机科学中编译相关的基础技术，在编程语言的编译过程中，文本形式的源代码被转转换为语法树。**抽象语法树使用树状结构来表示源代码的抽象语法结构**，树上的每一个节点都对应源代码中的一种结构，它作为程序代码的一种中间表示形式，在代码分析、代码重构、语言翻译等领域得到广泛的应用。现有的一些相关工具中，都会存在自行将源代码转换为抽象语法树的模块。至于将哪些语法节点进行转换，不同的工具会有不同的定义。
 
-###  AST 转换
+#### 使用 Javac 内部 API 修改 AST
 
-- AST 转换：是在编译过程中用来修改抽象语法树结构的代码的名称。
-- AST 修改：通过在将其转换为字节码之前增加附加节点以达到增加代码的目的。
+AST 修改是通过在将其转换为字节码之前增加附加节点以达到增加代码的目的。
 
-Java 编译过程中的第一步中，源码就被解析为 AST 了，接下来的处理都是基于这个 AST 的，比如注解处理，JSR269 中并没有提供修改 AST 的 API，而 javac 的内部工具提供了修改 AST 的 API，除此之外还有一些修改 AST 的开源类库。
-
-#### 使用 Javac 内部 API 进行 AST 转换
-
-AST 是可以被修改的，那么修改 AST 的时机如何选择，从编译的三个步骤来看，第一步已经生成了 AST，而第二步是编译期注解处理器，可以让开发者可以参与到一部分的编译工作，在这个步骤中可以对 AST 进行修改。
+Java 编译过程中的第一步中，源码就被解析为 AST 了，接下来的处理都是基于这个 AST 了，那么修改 AST 的时机如何选择，从编译的三个步骤来看，第一步已经生成了 AST，而第二步是编译期注解处理器，可以让开发者可以参与到一部分的编译工作，在这个步骤中可以对 AST 进行修改。虽然标准 API 中并没有提供修改 AST 的类库，但 javac 的内部工具提供了修改 AST 的 API，除此之外还有一些修改 AST 的开源类库。
 
 ![](index_files/ast_time.png)
 
@@ -46,7 +42,7 @@ Java 源码的编译是由 javac 处理的，除了使用命令行工具编译 J
 - **黄色**标注的包为（Supported API）
 - **紫色**标注的包代码全部在 `com.sun.tools.javac.*` 包下，为内部 API（Internal API）和编译器的实现类。**这部分 API 不属于 JSR 269**
 
-具体 API 分包如下：
+具体 API 如下：
 
 - `javax.annotation.processing`：注解处理 (JSR-296)
 - `javax.lang.model`：注解处理和编译器 Tree API 使用的语言模型 (JSR-296)
@@ -59,10 +55,10 @@ Java 源码的编译是由 javac 处理的，除了使用命令行工具编译 J
 
 因此使用 javac 内部的API `com.sun.tools.javac.*`可以实现在编译期修改或插入代码
 
-#### 使用第三方库 进行 AST 转换
+#### 使用第三方库修改 AST
 
-- 借助 [Rewrite](https://github.com/Netflix-Skunkworks/rewrite)、[JavaParser](https://github.com/Javaparser/Javaparser) 等开源类库，更加方便地操作 AST。
-- 扩展 Lombok 自定义注解处理器。
+- [Rewrite](https://github.com/Netflix-Skunkworks/rewrite)
+- [JavaParser](https://github.com/Javaparser/Javaparser)
 
 ---
 ## 3 javac.AST 节点
@@ -85,9 +81,9 @@ Java 源码的编译是由 javac 处理的，除了使用命令行工具编译 J
 通过 API 操作 AST，我们需要了解节点树的解构与各个节点的映射关系，其次要转变思想，平时我们直观的操作 Java Source，现在我们操作的是一颗表示 Java Source 的树。树上的每一个节点表示 Java Source 中的某一个部分。比如我们要创建一个方法，那么这个方法用树表示的话会有哪些节点，然后怎么拼接这些节点。
 
 ---
-## 5 AST 示例
+## 5 AST 修改示例
 
-通过 AST 变化，把代码中的 assert 语句替换为 `if throw` 语句，这是有应用场景的，因为在很多环境下，assert 语句会被直接忽略。
+因为在很多环境下，assert 语句会被直接忽略，我们可以通过修改 AST ，把代码中的 assert 语句替换为 `if throw` 语句。
 
 被编译的类：
 
@@ -206,7 +202,7 @@ public class ForceAssertions extends AbstractProcessor {
                     args,
                     null);
 
-            //这是一个 if(condition){...}else 语句
+            //这是一个 if(condition){...} else 语句
             return maker.If(
                     maker.Unary(JCTree.Tag.NOT, node.cond),//if的条件
                     maker.Throw(expr), //条件满足时执行的语句，这里抛出一个异常
@@ -225,25 +221,39 @@ public class ForceAssertions extends AbstractProcessor {
     private static final String TARGET_DIR = "JavaCompiler/build/manual";
     
 
-    private static void assertToIfThrow() {
-        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+    private static void doCompile(List<File> source, List<String> args, List<Processor> processors) {
+        //编译器
+        JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();
+        //编译过程中诊断信息收集器
         DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
-        StandardJavaFileManager manager = compiler.getStandardFileManager(diagnostics, null, null);
+        //标准Java文件管理器
+        StandardJavaFileManager standardFileManager = javaCompiler.getStandardFileManager(diagnostics, null, null);
 
-        File file = new File(APP_SOURCE_DIR);
-        Iterable<? extends JavaFileObject> sources = manager.getJavaFileObjectsFromFiles(Arrays.asList(file));
-        List<String> options = Arrays.asList(TARGET_OPTION, TARGET_DIR);
+        //构建编译任务
+        Iterable<? extends JavaFileObject> compilationUnits = standardFileManager.getJavaFileObjectsFromFiles(source);
+        JavaCompiler.CompilationTask task = javaCompiler.getTask(null, standardFileManager, diagnostics, args, null, compilationUnits);
 
-        JavaCompiler.CompilationTask task = compiler.getTask(null, manager, diagnostics, options, null, sources);
-        ForceAssertions processor = new ForceAssertions();
-        task.setProcessors(Arrays.asList(processor));
+        //设置编译处理器
+        if (processors != null) {
+            task.setProcessors(processors);
+        }
+
+        //执行编译任务
         task.call();
 
-        try {
-            manager.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        //打印编译过程中的诊断信息
+        System.out.println();
+        System.out.println("--------------------------------------------------------------------------------");
+        for (Diagnostic<? extends JavaFileObject> diagnostic : diagnostics.getDiagnostics()) {
+            System.out.format("Error on line %d in %s\n%s\n", diagnostic.getLineNumber(), diagnostic.getSource(), diagnostic.getMessage(null));
         }
+
+        //关闭资源
+        close(standardFileManager);
+    }
+
+    private static void assertToIfThrow() {
+        doCompile(Collections.singletonList(new File(APP_SOURCE_DIR)), Arrays.asList(TARGET_OPTION, TARGET_DIR), Collections.singletonList(new AssertToIfThrowProcessor()));
     }
 ```
 
@@ -290,22 +300,26 @@ public class App {
 3. 把转换结果赋值给 `TreeTranslator.result`。结果的类型不一定要和传进来的参数的类型一样。相反，只要 java 编译器允许，我们可以返回任何类型的节点。这里 TreeTranslator 本身没有限制类型，但是如果返回了错误的类型，那么就很有在后续过程中产生灾难性后果。
 
 ---
-## 6 JSR-269 应用与扩展
+## 5 JSR-269/AST 应用与扩展
 
 - [Lombok](https://projectlombok.org/)
 - [Eclipse JDT](https://www.eclipse.org/jdt/)
 - 自定义 Lint，实现 CodeReview 自动化
-- 插入模板代码
+- AOP 编程，插入切面代码
 
 ---
 ## 引用
 
 原理：
 
-- [OpenJDK：Java编译过程 Compilation Overview](http://openjdk.java.net/groups/compiler/doc/compilation-overview/index.html)
-- [Eclipse JDT：AST 介绍](http://www.eclipse.org/articles/Article-JavaCodeManipulation_AST/)
+- [OpenJDK：Java编译过程 Compilation Overview](https://openjdk.java.net/groups/compiler/doc/compilation-overview/index.html)
+- [Eclipse JDT：AST 介绍](https://www.eclipse.org/articles/Article-JavaCodeManipulation_AST/)
 
-AST 操作框架：
+AST 操作：
+
+- [java注解处理器——在编译期修改语法树](https://blog.csdn.net/a_zhenzhen/article/details/86065063)
+
+AST 操作类库：
 
 - [Rewrite](https://github.com/Netflix-Skunkworks/rewrite)
 - [JavaParser](https://github.com/Javaparser/Javaparser)
@@ -319,4 +333,4 @@ AST 操作框架：
 Javac API：
 
 - [Java 编译器 javac 笔记](https://nullwy.me/2017/04/javac-api/)
-- [The Hacker’s Guide to Javac](http://scg.unibe.ch/archive/projects/Erni08b.pdf)
+- [The Hacker’s Guide to Javac](https://scg.unibe.ch/archive/projects/Erni08b.pdf)

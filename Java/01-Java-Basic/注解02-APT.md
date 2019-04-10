@@ -164,7 +164,6 @@ public interface Element extends javax.lang.model.AnnotatedConstruct {
 - TypeElement            代表类或接口元素
 - ExecutableElement      代码方法，构造函数，类或接口的初始化代码块等元素，也包括注解类型元素
 
-
 ### TypeMirror
 
 表示 Java 编程语言中的类型。这些类型包括基本类型、声明类型（类和接口类型）、数组类型、类型变量和 null 类型。还可以表示通配符类型参数、executable 的签名和返回类型，以及对应于包和关键字 void 的伪类型。 应该使用 Types 中的实用工具方法比较这些类型。不保证总是使用相同的对象表示某个特定的类型。TypeMirror类中最重要的是getKind()方法，该方法返回TypeKind类型(kind:种类)，**getKind()方法返回的是TypeKind，TypeKind是枚举类型，表示类型镜像的种类。**
@@ -220,12 +219,7 @@ public class RouterProcessor extends AbstractProcessor {
 ---
 ## 4 Gradle APT插件
 
-AndroidStudio 应该使用 **Anroid-apt** 或者 **annotationProcessor**，APT 插件的作用是：
-
- - 只允许配置编译时注解处理器依赖，但在最终 APK 或者 Library 中不包含注解处理器的代码。
- - 设置源路径，以便由注解处理器生成的代码能被 AndroidStudio 识别。
-
-在 IDEA 上使用 APT， Gradle 4.7 以后已经内置支持了 annotationProcessor。
+APT 插件的作用是只允许配置编译时注解处理器依赖，但在最终 APK 或者 Library 中不包含注解处理器的代码，设置源路径，以便由注解处理器生成的代码能被 AndroidStudio 识别。在 AndroidStudio 和 IDEA 中使用 apt 非常方便，目前它们都已经内置了 apt 功能。
 
 ---
 ## 5 开发实践
@@ -248,13 +242,11 @@ AndroidStudio 应该使用 **Anroid-apt** 或者 **annotationProcessor**，APT �
     - 获取所有的应用了目标注解的元素，用定义的数据类型封装其他，统一存放在列表中
     - 遍历列表，处理每个元素，生成对应的代码
 
----
-## 6 使用标准类库提供的访问者
+###  使用标准类库提供的访问者
 
-在 `javax.lang.model.util` 中  中提供了 ElementVisitor 接口用来遍历所有被编译的 Java 源码的元素，这是一个访问者设计模式的实现。
+在 `javax.lang.model.util` 中提供了 ElementVisitor 接口用来遍历所有被编译的 Java 源码的元素，这是一个访问者设计模式的实现。
 
----
-## 7 使用 javapoet
+### 使用 javapoet
 
 APT 生成的代码需要用字符串一个一个的拼接，其实是比较繁琐的，还好 square 开源了 javapoet，大大的提升了开发效率。
 
@@ -272,5 +264,5 @@ APT 生成的代码需要用字符串一个一个的拼接，其实是比较繁�
 工具：
 
 - [javapoet](https://github.com/square/javapoet)
-- [auto service](https://github.com/google/auto/tree/master/service)
+- [auto-service](https://github.com/google/auto/tree/master/service)
 - [android-lite-tidy](https://github.com/litesuits/android-lite-tidy)

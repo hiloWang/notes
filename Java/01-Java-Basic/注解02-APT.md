@@ -6,7 +6,7 @@ JSR-269 把 method, package, constructor, type, variable, enum, annotation 等 J
 
 注解最早是在 java5 引入，主要包含 apt 和 `com.sum.mirror` 包中相关的 mirror api，此时 apt 和 javac 是各自独立的。从 java6 开始，注解处理器正式标准化，apt 工具也被直接集成在 javac 当中。
 
-**编译一个编译时注解处理主要分两步：**
+**实现一个编译时注解处理器主要分两步：**
 
 1. 继承 AbstractProcessor，实现自己的注解处理器。
 2. 注册处理器，并打成 jar 包。

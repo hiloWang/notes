@@ -334,3 +334,7 @@ Javac API：
 
 - [Java 编译器 javac 笔记](https://nullwy.me/2017/04/javac-api/)
 - [The Hacker’s Guide to Javac](https://scg.unibe.ch/archive/projects/Erni08b.pdf)
+
+书籍：
+
+- [现代编译器的Java实现(第二版).pdf](http://read.pudn.com/downloads218/ebook/1025478/现代编译器的Java实现(第二版).pdf)

@@ -25,6 +25,7 @@ Dart
 - [Flutter从配置安装到填坑指南详解](https://www.jianshu.com/p/399c01657920)
 - [Flutter-learning](https://github.com/AweiLoveAndroid/Flutter-learning)
 - [flutter专栏教程](http://blog.csdn.net/column/details/13593.html)
+- [贾鹏辉的技术博客官网-Fluter](http://www.devio.org/tags/#Flutter)
 
 Open Source
 
@@ -40,3 +41,4 @@ Sample
 
 - [如何评价 Google 的 Fuchsia、Android、iOS 跨平台应用框架 Flutter？](https://www.zhihu.com/question/50156415)
 - [Flutter的原理及美团的实践](https://mp.weixin.qq.com/s?__biz=MjM5NjQ5MTI5OA==&mid=2651748565&idx=1&sn=f92ce52627b680529c3c31e393779168&chksm=bd12a1988a65288eec838dbe64a31990f64baff2093f85ba8c75f581fcd5883947867d7a20a0&mpshare=1&scene=1&srcid=08095QIv3usd64vN4liBBi1c#rd)
+- [闲鱼技术-Flutter](https://juejin.im/user/5ac2db47f265da2393774122/posts)

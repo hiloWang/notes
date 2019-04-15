@@ -83,9 +83,9 @@ Dart基础：
 - 程序入口：main 方法
 - 创建分配变量：`var` 或 `具体类型`
 - 默认值：`null`
-- 检车 null 值：从 Dart 1.12 开始，null-aware(`??`) 运算符可用帮助我们做 null 检查
-- 在Dart中，只有布尔值“true”被视为true。
-- Dart 使用 fn 定义函数
+- 检车 null 值：从 Dart 1.12 开始，使用`?.` 或 `??` 运算符可用帮助我们做 null 检查
+- 在 Dart 中，只有布尔值“true”被视为true。
+- Dart 中定义函数不需要关键字，直接定义即可。
 - 异步编程：Future 对象、async 和 await 函数。
 
 具体参考[Flutter开发之Dart必备基础知识](https://www.imooc.com/article/282910)

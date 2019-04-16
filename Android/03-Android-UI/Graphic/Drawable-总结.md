@@ -127,7 +127,7 @@ GradientDrawable对应的xml标签是shape
             android:bottomLeftRadius="integer"
             android:bottomRightRadius="integer" />
 
-            //渐变属性，只对rectangle，oval有效
+        //渐变属性，只对rectangle，oval有效
         <gradient
             android:angle="integer" //只有linear类型的渐变才有效,表示渐变角度,必须为45的倍数
             android:centerX="integer"  //渐变中间颜色的X坐标,取值范围为:0~1
@@ -138,20 +138,24 @@ GradientDrawable对应的xml标签是shape
             android:startColor="color"
             android:type=["linear" | "radial" | "sweep"]//线性渐变(可设置渐变角度),发散渐变(中间向四周发散),平铺渐变
             android:useLevel=["true" | "false"] />//当drawable作为StateListDrawable时为true，是否根据level绘制渐变效果
-            //表示的是view的空白，而不是自身的空白
+
+        //表示的是view的空白，而不是自身的空白
         <padding
             android:left="integer"
             android:top="integer"
             android:right="integer"
             android:bottom="integer" />
-            //表示shape的宽高，表示shape的固定大小intrinsicWidth和intrinsHeight，但并不是shape的最终显示高度，当shape作为view的背景时，会被拉伸或缩小为view的大小，
+
+        //表示shape的宽高，表示shape的固定大小intrinsicWidth和intrinsHeight，但并不是shape的最终显示高度，当shape作为view的背景时，会被拉伸或缩小为view的大小，
         <size
             android:width="integer"
             android:height="integer" />
-            //填充颜色
+
+        //填充颜色
         <solid
             android:color="color" />
-            //描边与填充互斥
+
+        //描边与填充互斥
         <stroke
             android:width="integer" //线的厚度
             android:color="color"// 颜色
@@ -168,7 +172,6 @@ shape表示形状，上面分别是矩形，椭圆，线，圆环，另外ring�
     android:thicknessRatio 厚度占整个宽度的比例，默认为3，如果是n，那么 厚度=宽度/n
     android:useLevel 一般都为false，除非被当作LevelDrawable
 ```
-
 
 ### LayerDrawable
 

@@ -3,9 +3,9 @@
 ---
 ## 1 泛型(Generic)简介
 
-泛型是java1.5推出的一个新特性，是一种安全机制，同时也使程序更具有扩展性。
+泛型是 JDK1.5 推出的新特性，是一种安全机制，同时也使程序更具有扩展性。
 
-- 把运行时的ClassCastException转移到编译时期，从而简化开发
+- 把运行时的 ClassCastException 转移到编译时期，从而简化开发
 - 避免了强制类型转换的麻烦
 - 泛型程序意味着编写的代码可以被很多不同类型的对象所重用
 
@@ -16,13 +16,13 @@
 
 一个泛型类就是具有一个或多个类型变量的类，比如`List<T>`
 
-```
-    ArrayList<E> 类定义和ArrayList<Integer>类引用中涉及如下术语：
-    ArrayList<E>可以成为一个泛型类型集合
-    ArrayList<E>中的E称为类型变量或者类型参数
-    ArrayList<Integer>称为参数化类型
-    ArrayList<Integer>中的Integer称为E的实际类型参数
-    ArrayList<Integer>中的<>念做type of
+```java
+    ArrayList<E> 类定义和 ArrayList<Integer> 类引用中涉及如下术语：
+    ArrayList<E> 可以成为一个泛型类型集合
+    ArrayList<E> 中的E称为类型变量或者类型参数
+    ArrayList<Integer> 称为参数化类型
+    ArrayList<Integer> 中的Integer称为E的实际类型参数
+    ArrayList<Integer> 中的<>念做type of
 ```
 
 ### 泛型类
@@ -68,7 +68,7 @@
 
 定义`Pari<T>`泛型类：
 
-```
+```java
     public class Pair<T> {
 
         private T mFirst;
@@ -90,7 +90,7 @@
 
 使用泛型类：
 
-```
+```java
     Pair<Employee> pairEmployee = new Pair<>();
     pairEmployee.setFirst(new Employee());
     pairEmployee.setSecond(new Employee()
@@ -98,7 +98,7 @@
 
 ### 泛型方法
 
-泛型同样可以定义在方法中，但是static修饰的方法或者变量无法使用类上泛型参数，因为类上的泛型参数只有在示例话对象时才能确定，而静态随着类的加载而加载。
+泛型同样可以定义在方法中，但是 static 修饰的方法或者变量无法使用类上泛型参数，因为类上的泛型参数只有在示例话对象时才能确定，而静态随着类的加载而加载。
 
 ```java
     class ArrayAlg{
@@ -110,13 +110,13 @@
 
 当需要调用泛型方法时，在方法名前面的尖括号中放入实际类型参数：
 
-```
+```java
     String middle = ArrayAlg.<String>getMiddle("john","Q","public");
 ```
 
 大多数情况下编译器可以推断出实际类型参数，所以上面方法可以简化为：
 
-```
+```java
     String middle = ArrayAlg.getMiddle("john","Q","public");
 ```
 
@@ -125,12 +125,10 @@
 
 ### 泛型的擦除
 
-**虚拟机没有泛型类型对象**所有的对象都属于普通类。无论何时定义个泛型类型，在运行时泛型类型都会被擦除。
+**虚拟机没有泛型类型对象**所有的对象都属于普通类。无论何时定义个泛型类型，在运行时泛型类型都会被擦除。Java 语言中的泛型基本上完全是在编译器中实现的，用于编译器执行类型检查和类型推断，然后生成普通的非泛型的字节码 这种实现技术称之为**擦除**
 
-JAVA语言中的泛型基本上完全是在编译器中实现的，用于编译器执行类型检查和类型推断，然后生成普通的非泛型的字节码 这种实现技术称之为**擦除**
-
-```
-         //泛型只在编译时期有效，用过反射可以跳过泛型
+```java
+        //泛型只在编译时期有效，用过反射可以跳过泛型
         Collection<String> v=newVector<String>();
         v.getClass().getMethod("add",Object.class).invoke(v, 8);
 ```
@@ -141,13 +139,14 @@ JAVA语言中的泛型基本上完全是在编译器中实现的，用于编译�
 
 泛型中没有逻辑上的父子关系，如`List<Object>`并不是` List<String>`的父类。两者擦除之后都是List，所以形如下面的代码，编译器会报错：
 
-```
+```java
     //不能同时存在这样的两个方法。
     void method(List<Object> numbers) {
     }
     void method(List<String> strings) {
     }
 ```
+
 或者从另一种情况也可以说明Java为什么要禁用容器的协变性
 
 ```Java
@@ -156,7 +155,7 @@ List<Object> objs = strs; // ！！！即将来临的问题的原因就在这里
 objs.add(1); // 这里我们把一个整数放入一个字符串列表
 String s = strs.get(0); // ！！！ ClassCastException：无法将整数转换为字符串
 ```
-从代码可以看出，如果允许泛型协变性，则会出现类型安全的问题，因此Java禁止这样的事情以保证运行时的安全。
+从代码可以看出，如果允许泛型协变性，则会出现类型安全的问题，因此 Java 禁止这样的事情以保证运行时的安全。
 
 **泛型的这种情况称为不可变性，与之对应的概念是协变、逆变**
 
@@ -169,9 +168,9 @@ String s = strs.get(0); // ！！！ ClassCastException：无法将整数转换�
 
 ### 翻译泛型表达式
 
-Java编辑器会将泛型代码中的类型完全擦除，使其变成原始类型，编译器会在编译的字节码中插入类型转换的代码。
+Java 编辑器会将泛型代码中的类型完全擦除，使其变成原始类型，编译器会在编译的字节码中插入类型转换的代码。
 
-```
+```java
     List<String> stringList = new ArrayList<>();
     String str = stringList.get(0);
     //被编译后的代码应该是这样的
@@ -181,7 +180,7 @@ Java编辑器会将泛型代码中的类型完全擦除，使其变成原始类�
 
 翻译泛型方法：
 
-```
+```java
     class DateInterval extends Pair<Date> {
             @Override
             public void setSecond(Date second) {
@@ -194,7 +193,7 @@ Java编辑器会将泛型代码中的类型完全擦除，使其变成原始类�
 
 这个类被擦除后变成：
 
-```
+```java
     class DateInterval extends Pair {
           public void setSecond(Date second) {
           }
@@ -203,11 +202,13 @@ Java编辑器会将泛型代码中的类型完全擦除，使其变成原始类�
 
 但是存在另一个从Pair继承过来的方法`public void setSecond(Object scond)`，这显然不是同一个方法，Object与Data不是同一个类型的。
 
+```java
     DateInterval dateInterval = new DateInterval();
     Pair<Date> pair = dateInterval;
     pair.setSecond(new Date());
+```
 
-这里希望对setSecond的调用具有多态性，并调用最合适的方法(不考虑泛型，当然是调用的`setSecond(Object scond)`方法)，由于pair引用的是dateInterval，所有应该调用DateInterval的setSecond方法，但是问题在于类型擦除与多态发发生了冲突，这时编译器在DateInterval中插入一个桥方法：`public void setSecond(Object second){setSecond((Date)second)}`，这些都是编译器做的事。
+这里希望对 setSecond 的调用具有多态性，并调用最合适的方法(不考虑泛型，当然是调用的`setSecond(Object scond)`方法)，由于pair引用的是dateInterval，所有应该调用 DateInterval 的 setSecond 方法，但是问题在于类型擦除与多态发发生了冲突，这时编译器在 DateInterval 中插入一个桥方法：`public void setSecond(Object second){setSecond((Date)second)}`，这些都是编译器做的事。
 
 总之：
 
@@ -220,7 +221,7 @@ Java编辑器会将泛型代码中的类型完全擦除，使其变成原始类�
 
 编译器判断泛型方法的实际参数的过程称为类型推断，类型推断是相对于知觉推断的，其实现方法是一种非常复杂的过程。比如：当某个变量在整个参数类表中的所有参数和返回值中都被应用到，调用方法时这多处实际类型参数不一样 ，这时候取这多个参数的最大交集:
 
-```
+```java
         public static void main(String... args) {
             Number add = add(1, 1.2);
         }
@@ -235,31 +236,34 @@ Java编辑器会将泛型代码中的类型完全擦除，使其变成原始类�
 
 ### 基本类型不用作为类型参数
 
-    Pair<int>是不合法的
+```java
+    //不合法的声明
+    Pair<int> pair;
+```
 
 ### 运行时类型查询只适用于原始类型
 
-```
-        if (args instanceof List<String>) {//不合法
+```java
+    if (args instanceof List<String>) {//不合法
 
-        }
+    }
 ```
 
 ### 不能创建参数化类型的数组
 
 `Pair<String>[] pairs = new Pair<String>[];`是不合法的，为什么呢？，
 
-```
-            Pair<String>[] pairs = new Pair<String>[4];//假设合法
-            Object[] objects = pairs;/数组具有的协变性
-            //数组会记住它的元素类型，如果试图存入其他类型的元素，就会抛出一个ArrayStoreException异常
-            objects[0] = "Hello";//运行时错误，component type is Pair
+```java
+        Pair<String>[] pairs = new Pair<String>[4];//假设合法
+        Object[] objects = pairs;/数组具有的协变性
+        //数组会记住它的元素类型，如果试图存入其他类型的元素，就会抛出一个ArrayStoreException异常
+        objects[0] = "Hello";//运行时错误，component type is Pair
 ```
 
 由于数组具有协变性，导致泛型数组的不安全性，不允许创建参数化类型的数组。
 
 >扩展：在用到反射时，使用 `java.lang.reflect.Array` 类来创建数组
-```
+```java
         //演示用Array类来创建数组
         public static <T> T[] newInstance(Class<T> componentType,int length){
             return (T[])Array.newInstance(componentType, length);
@@ -270,7 +274,7 @@ Java编辑器会将泛型代码中的类型完全擦除，使其变成原始类�
 
 下面的语句是非法的：
 
-```
+```java
     public Pair(){
         first = new T[];//实例化T
         T.class//应用T的class
@@ -281,7 +285,7 @@ Java编辑器会将泛型代码中的类型完全擦除，使其变成原始类�
 
 不合法
 
-```
+```java
     public static <T extends Exception> void testCatchException() throws T {
             try {
             } catch (T e) {
@@ -292,7 +296,7 @@ Java编辑器会将泛型代码中的类型完全擦除，使其变成原始类�
 
 可以抛出泛型异常
 
-```
+```java
         public static <T extends Exception> void testThrowException() throws T {
             try {
 
@@ -306,7 +310,7 @@ Java编辑器会将泛型代码中的类型完全擦除，使其变成原始类�
 
 使用泛型可以消除对已检查异常的检查(参考自CoreJava)
 
-```
+```java
         private static void testThrowAs(Exception e) {
             throwAs(e);
         }
@@ -329,7 +333,7 @@ Java泛型系统允许在泛型上加入类型限定：
 
 有时需要在类或方法上对类型变量加以约束，比如下面`<T extends Comparable>`表示类型T被限定为Comparable的子类。所以可以调用Comparable的compareTo方法。
 
-```
+```java
           public <T extends Comparable> T min(T[] a) {
             if (a == null || a.length == 0) {
                 return null;
@@ -346,7 +350,7 @@ Java泛型系统允许在泛型上加入类型限定：
 
 下面类定义一个泛型类型，其必须是Number的子类，并且是实现了Serializable接口，使用这种语法时，类上限必须放在第一位，因为父类只有一个，接口可以有多个
 
-```
+```java
     class GenericClass<T extends Number & Serializable> {
 
     }
@@ -360,11 +364,13 @@ Java泛型系统允许在泛型上加入类型限定：
 
 ### 5.1 通配符上限
 
+```java
     List<? extends Employee> genList2 = new ArrayList<>();
+```
 
 表示任何的泛型List类型，它的类型参数必须是Employee的子类，比如`List<Manager>`,而不是`List<String>`,比较下面两个方法，printNumberList更加灵活。
 
-```
+```java
         //只能传入Manager列表
         private static void printManagerList(List<Manager> managers) {
             for (Manager manager : managers) {
@@ -381,18 +387,20 @@ Java泛型系统允许在泛型上加入类型限定：
 
 看下面代码：
 
+```java
             List<? extends Employee> list;
             List<Manager> managerList = new ArrayList<>();
             //可以理解为List<? extends Employee>现在是List<Manager>的父类型
             list = managerList;
             //list.add(new Employee()); 编译错误
             managerList.add(new Manager());//ok
+```
 
 `List<Manager>`是`List<? extends Employee>`的子类型。
 
 对`list.add(new Employee())`调用有一个编译错误，对于`List<? extends Employee>`的方法可以理解为：
 
-```
+```java
     ? extends Employee get()
     void add( ? extends Employee )
 ```
@@ -408,9 +416,11 @@ Java泛型系统允许在泛型上加入类型限定：
 
 `Pair<? super Manager>`有如下方法：
 
+```java
      void setFirst(? super Manager)//编译器不知道setFirst的确切类型，但是可以调用任意的Manger对象和Manager的子类对象，但不能是Employee。
 
      ? super Manager getFirst()//调用getFirst返回的对象不能保证确切的类型，只能返回一个Object
+```
 
 通配符下限能力：
 
@@ -490,6 +500,7 @@ Java泛型系统允许在泛型上加入类型限定：
 为了获得最大限度的灵活性，要在表示 **生产者或者消费者** 的输入参数上使用通配符，使用的规则就是：生产者有上限、消费者有下限.上面Comparator则可以理解为消费者。
 
 示例：
+
 ```java
      public static class Stack<E>{
             private E[] objects;
@@ -540,7 +551,7 @@ Java泛型系统允许在泛型上加入类型限定：
 
 下面编译错误
 
-```
+```java
     List<?> genList = new ArrayList<>();
     genList.add(new Object());
 ```
@@ -787,5 +798,3 @@ Java泛型系统允许在泛型上加入类型限定：
 
 - [Java中的逆变与协变](http://www.cnblogs.com/en-heng/p/5041124.html)
 - [Effective Java——泛型](http://72df4c66.fromwiz.com/share/s/1OTQNC2rEQoF2SSa6c0VIC9-2S4Ysi1Uak8T2eXrEU3YKL4C)
-
-

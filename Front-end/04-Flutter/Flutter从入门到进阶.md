@@ -197,15 +197,72 @@ Flutter 使用 Dart 构建系统和 Pub 包管理器来处理依赖。这些工�
 
 ### 3.8 状态管理
 
+- 什么是 StatelessWidget？
+- 什么是StatefulWidget？
+- StatefulWidget 和 StatelessWidget 有哪些最佳实践？
+
+具体参考[两分钟带你掌握Flutter的StatelessWidget与StatefulWidget](http://www.devio.org/2019/03/23/flutter-statelesswidget-statefulwidget/)
+
 ### 3.9 路由与导航
+
+- 在 Flutter 中如何实现不同页面跳转（导航）？
+- 如何获取路由跳转返回的结果？
+- 如何在 Flutter 中处理来自外部应用程序传入的 Intents？(Android)
+- 怎么跳转到其他 App？
 
 ### 3.10 线程与异步
 
+- 怎么编写异步的代码？
+- 怎么把工作放到后台线程执行？
+- 如何进行网络请求？
+- 如何为长时间运行的任务添加一个进度指示器？
+
+具体参考[「快速上手Flutter开发系列教程」之线程和异步UI](http://www.devio.org/2019/03/16/thread-and-asynchronous-ui/)
+
 ### 3.11 手势检测与触摸事件处理
+
+- 某些组件直接支持点击事件，比如：`onPressed`
+- 使用 GestureDetector
 
 ### 3.12 主体与文字处理
 
+- 在 pubspec.yaml 中配置字体
+- 使用 MaterialDesignAp
+
 ### 3.13 表单输入与富文本
+
+- 表单输入：TextField、TextFormField
+- 如何设置输入框提是文字？
+- 如何现实表单验证信息？
+- 实现富文本展示：RechText
 
 ### 3.14 调用硬件、第三方服务以及平台交互、通知
 
+- 如何调用硬件、第三方服务：通过集成对应的插件完成，比如：
+  - geolocator
+  - image_picker
+  - SharedPreferences plugin
+- 如何构建集成 Native SDK?
+
+## 4 Flutter 入门：Flutter 必备基础
+
+### 4.1 实例参考
+
+- [flutter-official-examples](https://github.com/flutter/flutter/blob/master/examples/README.md)
+- [flutter-official-samples](https://github.com/flutter/samples)
+- [Simple basic isolated apps, for budding flutter devs.](https://github.com/nisrulz/flutter-examples)
+- [Basic Flutter apps, for flutter devs.](https://github.com/iampawan/FlutterExampleApps)
+
+### 4.2 图片控件
+
+- ImageWidget 的使用
+- FadeInImage 的使用
+- path_provider 插件
+- transparent_image 插件
+- cached_newwork_image 插件
+- Icon 使用, material_icon 插件
+- 自定义 Icon, IconData 使用
+
+### 4.3 动画 Animation 开发指南
+
+### 4.4 调试技巧

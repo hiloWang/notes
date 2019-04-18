@@ -1,4 +1,4 @@
-## Custom View Course
+## Custom View Courses
 
 - [自定义控件其实很简单系列](http://blog.csdn.net/aigestudio?viewmode=contents)
 - [AndroidNote 系列](https://github.com/GcsSloop/AndroidNote)
@@ -6,6 +6,7 @@
 - [Android 自定义控件三部曲文章索引](http://blog.csdn.net/harvic880925/article/details/50995268)
 - [查看哪些方法不支持硬件加速](http://developer.android.com/intl/zh-cn/guide/topics/graphics/hardware-accel.html#unsupported)
 - [android-gesture-detectors-Android 手势检测库](https://github.com/Almeros/android-gesture-detectors)
+- [安卓高级UI](https://github.com/zincPower/UI2018)
 
 ## Pull to Refresh Libraries
 

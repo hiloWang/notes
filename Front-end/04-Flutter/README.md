@@ -51,3 +51,7 @@ Open Source
 Flutter In StackOverflow
 
 - [Where does the title of Material App used in flutter?](https://stackoverflow.com/questions/50615006/where-does-the-title-of-material-app-used-in-flutter)
+
+Libraries
+
+- [flutter_boost](https://github.com/alibaba/flutter_boost)

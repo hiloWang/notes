@@ -45,6 +45,7 @@ kotlin 发展简史：
 - [官方：anko库](https://github.com/Kotlin/anko)
 - [kovenant](http://kovenant.komponents.nl/)：Kotlin 的简单异步库
 - [Kotlin Android Extensions: Say goodbye to findViewById](https://antonioleiva.com/kotlin-android-extensions/)
+- [kotlin in medium](https://medium.com/androiddevelopers/tagged/kotlin)
 
 ### 3 项目
 
@@ -91,3 +92,10 @@ Sample：
 
 - [Kotlin 系统入门到进阶 视频教程](http://coding.imooc.com/class/108.html)
 - [基于 GitHub App 业务深度讲解 Kotlin1.2高级特性与框架设计](https://coding.imooc.com/class/232.html)
+
+破解协程系列：
+
+- [破解 Kotlin 协程 - 入门篇](https://mp.weixin.qq.com/s/XAZCzxTDc8XISfWzsjpsng)
+- [破解 Kotlin 协程(2) - 协程启动篇](https://mp.weixin.qq.com/s/nE2fW5ZBkbX2z_JeQmqkrA)
+- [破解 Kotlin 协程(3) - 协程调度篇](https://mp.weixin.qq.com/s/Kn1yhxslRIzwykpf_FsWEA)
+- [破解 Kotlin 协程(4) - 异常处理篇](https://mp.weixin.qq.com/s/WMFQuffyIq00Ai-XM5ISOA)

@@ -3,9 +3,7 @@
 ---
 ## ViewPager FragmentPagerAdapter 刷新问题
 
-FragmentPagerAdapter 的 destroyItem 中没有 remove Fragment，而是使用的 detach，这样的实现对 Adapter 的刷新肯定是存在问题的。
-
-一种解决方法是把 FragmentPagerAdapter 源码复制到另一个包，然后重写其 destroyItem 方法
+FragmentPagerAdapter 的 destroyItem 中没有 remove Fragment，而是使用的 detach，这样的实现对 Adapter 的刷新肯定是存在问题的，一种解决方法是把 FragmentPagerAdapter 源码复制到另一个包，然后重写其 destroyItem 方法
 
 ```java
   @Override
@@ -21,7 +19,7 @@ FragmentPagerAdapter 的 destroyItem 中没有 remove Fragment，而是使用的
     }
 ```
 
-然后子类在实现新的 FragmentPagerAdapter 时视情况来复写 getItemPosition 方法：
+然后子类在实现新的 FragmentPagerAdapter 时视情况确当 getItemPosition 方法的返回值：
 
 ```kotlin
   override fun getItemPosition(fragment: Any): Int {
@@ -63,11 +61,11 @@ FragmentPagerAdapter 的 destroyItem 中没有 remove Fragment，而是使用的
 - [LinkedViewPager——ViewPager联动](https://github.com/jianghejie/LinkedViewPager)
 - [四个方向的ViewPager](https://github.com/DevLight-Mobile-Agency/InfiniteCycleViewPager)
 
-### ViewPager同时显示多个Pager
+### ViewPager 同时显示多个 Pager
 
 - [florent37 / HollyViewPager](https://github.com/florent37/HollyViewPager)
 - [Pixplicity / MultiViewPager](https://github.com/Pixplicity/MultiViewPager)
-- [CleverRecyclerView 是一个基于RecyclerView的扩展库，提供了与ViewPager类似的滑动效果并且添加了一些有用的特性。](https://github.com/luckyandyzhang/CleverRecyclerView)
+- [CleverRecyclerView 是一个基于 RecyclerView 的扩展库，提供了与 ViewPager 类似的滑动效果并且添加了一些有用的特性。](https://github.com/luckyandyzhang/CleverRecyclerView)
 
 
 ###  ViewPager 动画详解

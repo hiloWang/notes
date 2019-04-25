@@ -16,9 +16,10 @@ Kotlin 为 Android 开发提供了许多的特新，比如Anko库和extension插
 
 具体参考 [extension keep](https://github.com/Kotlin/KEEP/blob/master/proposals/android-extensions-entity-caching.md)
 
-1. 在 Activity 和 Fragment 中直接使用 id 引用 view。
-2. 在 1.1.4 版本发布后，支持在 ViewHolder、自定义 View、 甚至是自定义布局容器中直接使用 id 引用 view，只需要实现 LayoutContainer 接口，同时支持使用 `@ContainerOptions` 指定 View 的缓存容器。
-3. 支持 Parcelable 注解：通过 `@Parcelize` 自动生成 Parcleable 实现。
+1. 在 Activity 和 Fragment 以及自定义的 View 中可以直接使用 id 引用 view。其内部实现了 View 的缓存逻辑，不会每次都调用 findViewById。
+2. 对于 ViewHolder 和 自定义的布局管理类，需要实现 LayoutContainer 接口。
+3. 对于直接使用 id 引用 view 功能，支持使用 `@ContainerOptions` 指定 View 的缓存容器，默认是 HashMap。
+4. 支持 Parcelable 注解：通过 `@Parcelize` 自动生成 Parcleable 实现。
 
 遇到的问题与解决方法：
 

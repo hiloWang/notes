@@ -51,7 +51,10 @@ FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
 具体参考[interactive](https://flutter.dev/docs/development/ui/interactive)
 
-### Flutter for Android 开发者
+### Flutter VS Android
+
+- [Flutter for Android 开发者](https://flutterchina.club/flutter-for-android/#%E5%9C%A8android%E4%B8%AD%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87viewanimate%E5%AF%B9%E8%A7%86%E5%9B%BE%E8%BF%9B%E8%A1%8C%E5%8A%A8%E7%94%BB%E5%A4%84%E7%90%86%E9%82%A3%E5%9C%A8flutter%E4%B8%AD%E6%80%8E%E6%A0%B7%E6%89%8D%E8%83%BD%E5%AF%B9widget%E8%BF%9B%E8%A1%8C%E5%A4%84%E7%90%86)
+- [https://flutter.dev/docs/get-started/flutter-for/android-devs](https://flutter.dev/docs/get-started/flutter-for/android-devs)
 
 Views
 

@@ -54,4 +54,4 @@ Flutter In StackOverflow
 
 Libraries
 
-- [flutter_boost](https://github.com/alibaba/flutter_boost)
+- [flutter_boost](https://github.com/alibaba/flutter_boost)：新一代Flutter-Native混合解决方案。 FlutterBoost是一个Flutter插件，它可以轻松地为现有原生应用程序提供Flutter混合集成方案。

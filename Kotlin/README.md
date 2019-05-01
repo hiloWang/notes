@@ -99,3 +99,4 @@ Sample：
 - [破解 Kotlin 协程(2) - 协程启动篇](https://mp.weixin.qq.com/s/nE2fW5ZBkbX2z_JeQmqkrA)
 - [破解 Kotlin 协程(3) - 协程调度篇](https://mp.weixin.qq.com/s/Kn1yhxslRIzwykpf_FsWEA)
 - [破解 Kotlin 协程(4) - 异常处理篇](https://mp.weixin.qq.com/s/WMFQuffyIq00Ai-XM5ISOA)
+- [破解 Kotlin 协程(5) - 协程取消篇](https://mp.weixin.qq.com/s/l17Jc_FvQ44WYopx867xeA)

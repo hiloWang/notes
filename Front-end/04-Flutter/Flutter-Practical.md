@@ -1,6 +1,4 @@
-## 构建篇
-
-### Flutter resolve dependencies 很慢
+## Flutter resolve dependencies 很慢
 
 切换到 Android 工程，去掉无用的测试框架，添加国内代理：
 
@@ -15,7 +13,7 @@
     }
 ```
 
-### Waiting for another flutter command to release the startup lock
+## Waiting for another flutter command to release the startup lock
 
 解决方法：
 
@@ -23,7 +21,7 @@
 2. 删除lockfile文件 
 3. 重启AndroidStudio
 
-### Flutter 卡在 package get 的解决办法
+## Flutter 卡在 package get 的解决办法
 
 替换国内镜像：
 
@@ -48,141 +46,203 @@ FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 - 自己管理。
 - parent 管理。
 - 混合方式管理。
+- 全局状态管理。
 
-具体参考[interactive](https://flutter.dev/docs/development/ui/interactive)
+具体参考
 
-### Flutter VS Android
+- [interactive](https://flutter.dev/docs/development/ui/interactive)
+- [Widget简介](https://book.flutterchina.club/chapter3/flutter_widget_intro.html)
+
+## Flutter 调试工具
+
+具体参考[调试 Flutter 应用](https://book.flutterchina.club/chapter2/flutter_app_debug.html)
+
+- Dart Analyze
+- Dart Observatory (语句级的单步调试和分析器)
+- 引入 `import 'dart:developer'`，使用 `debugger()` 声明
+- 调试语句与属性：`print、debugPrint、debugDumpApp、toStringDeepwidget、debugFillProperties、toString、toStringShort、toStringDeep、runtimeType`
+- 调试模式断言：
+  - 使用 `flutter run` 运行程序。在这种模式下，Dart assert语句被启用，并且Flutter框架使用它来执行许多运行时检查来验证是否违反一些不可变的规则。
+  - 使用 `flutter run --release` 运行程序，会关闭试模式并使用发布模式。
+  - 使用 `flutter run --profile` 运行程序，会关闭除Observatory之外所有调试辅助工具。
+
+## Flutter VS Android
 
 - [Flutter for Android 开发者](https://flutterchina.club/flutter-for-android/#%E5%9C%A8android%E4%B8%AD%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87viewanimate%E5%AF%B9%E8%A7%86%E5%9B%BE%E8%BF%9B%E8%A1%8C%E5%8A%A8%E7%94%BB%E5%A4%84%E7%90%86%E9%82%A3%E5%9C%A8flutter%E4%B8%AD%E6%80%8E%E6%A0%B7%E6%89%8D%E8%83%BD%E5%AF%B9widget%E8%BF%9B%E8%A1%8C%E5%A4%84%E7%90%86)
 - [https://flutter.dev/docs/get-started/flutter-for/android-devs](https://flutter.dev/docs/get-started/flutter-for/android-devs)
 
-Views
+## Flutter In StackOverflow
 
-- Flutter 和 Android中的 View： 
-  - Flutter 中一切都是 Widget。
-- 如何更新 widget：
-  - 唯一的方式——调用 setState 触发 UI 重新构建。
-- 如何布局？ XML layout 文件跑哪去了？
-  - Flutter 中是使用代码进行布局。
-- 如何在布局中添加或删除组件
-  - 无法添加或删除组件，调用 setState 触发 UI 重新构建，然后根据状态决定插件哪些 Widget。
-- 在 Android 中，可以通过 View.animate() 对视图进行动画处理，那在 Flutter 中怎样才能对Widget进行处理
-  - 将 widget 包装到 Animation 中，Flutter 提供一系列可以实现动画的 Widget，比如 FadeTransition。使用 AnimationController 控制动画的致性。
-- 如何使用 Canvas draw/paint
-  - 使用 CustomPaint 和 CustomPainter。
-  - 参考：https://stackoverflow.com/questions/44396075/equivalent-of-relativelayout-in-flutter
-- 如何构建自定义 Widgets
-  - 在 Flutter 中采用继承 StatelessWidget/StatefulWidget 以组合其他 Widget 的方式，来实现自定义 Widgets。
+- [如何模拟 RelativeLayout 布局](https://stackoverflow.com/questions/44396075/equivalent-of-relativelayout-in-flutter)
+- [Where does the title of Material App used in flutter?](https://stackoverflow.com/questions/50615006/where-does-the-title-of-material-app-used-in-flutter)
+- [navigator-pass-arguments-with-pushnamed](https://stackoverflow.com/questions/53304340/navigator-pass-arguments-with-pushnamed)
+- [如何绘制](https://stackoverflow.com/questions/46241071/create-signature-area-for-mobile-app-in-dart-flutter)
 
+## 理解 Flutter 的单线程模型与异常捕获
 
-Intents：
+单线程模型：
 
-- Intent在Flutter中等价于什么？
-  -  Flutter 不具有 Intents 的概念，但如果需要的话，Flutter 可以通过 Native 整合来触发 Intents。
-  -  在 Flutter 中切换屏幕使用 Route 和 Navigator。
-- 如何在Flutter中处理来自外部应用程序传入的Intents
-  - 继承 FlutterActivity，处理外部 Intent，然后使用 MethodChannel 与 Flutter 进行通讯。
-- startActivityForResult 在 Flutter 中等价于什么
-  - Flutter 中有自己的返回数据给上一个 Widget 的方式，使用 Navigator 即可。
+- Dart 在单线程中是以消息循环机制来运行的，其中包含两个任务队列，一个是“微任务队列” microtask queue，另一个叫做“事件队列” event queue，微任务队列的执行优先级高于事件队列。
+- 在Dart中，所有的外部事件任务都在事件队列中，如IO、计时器、点击、以及绘制事件等，而微任务通常来源于Dart内部，并且微任务非常少。
+- 我们可以通过 Future.microtask(…) 方法向微任务队列插入一个任务。
+- 由于是单线程模型任务模型，一个任务的失败不会导致另一个任务的实现，所以当某个任务发生异常并没有被捕获时，程序并不会退出，而直接导致的结果是当前任务的后续代码就不会被执行了。
 
-异步UI
+捕获异常：
 
-- runOnUiThread 在 Flutter 中等价于什么
-  - Dart 是单线程执行模型，支持 Isolates（在另一个线程上运行 Dart 代码的方式）、事件循环和异步编程。 除非启动一个 Isolate，否则你的 Dart 代码将在主 UI 线程中运行，并由事件循环驱动。
-- AsyncTask和IntentService在Flutter中等价于什么
-    - 由于 Flutter 是单线程的，所以不必担心线程管理或者使用AsyncTasks、IntentServices。要异步运行代码，可以将函数声明为异步函数，然后调用即可。
-- OkHttp 在 Flutter 中等价于什么
-  - Flutter 中也有 Http 请求相关库，比如 http/dio。
-- 如何在Flutter中显示进度指示器
-    - 调用 setState 触发 UI 重新构建，然后根据状态决定插件哪些 Widget，比如没有数据时展示 Loading Widget。
+- 自定义错误处理器：FlutterError.onError
+- try-catch 捕获不到异步任务的异常，可以使用 `runZoned(...)`，这类似让任务运行在一个沙箱中，我们可以捕获沙箱中的任何异常信息。
 
-项目结构和资源：
+## 理解 Widget
 
-- 在哪里存储分辨率相关的图片文件? HDPI/XXHDPI
-  - Flutter 遵循像 iOS 这样简单的 3 种分辨率格式: 1x, 2x, and 3x，创建一个名为 images 的文件夹，并为每个图像文件生成一个 `@2x` 和 `@3x` 文件，并将它们放置在如下这样的文件夹中。
-- 在哪里存储字符串? 如何存储不同的语言
-  - 没有特定的资源文件，目前，最好的做法是创建一个名为 Strings 的类专门用于存储字符串。
-  - Flutter对Android的可访问性提供了基本的支持(尚在进行中)，可以参考[intl](https://pub.dartlang.org/packages/intl)
-- Android Gradle vs Flutter pubspec.yaml
-  - 在 Flutter 中，虽然在 Flutter 项目中的 Android 文件夹下有 Gradle 文件，但只有在添加平台相关所需的依赖关系时才使用这些文件。 否则，应该使用 pubspec.yaml 声明用于 Flutter 的外部依赖项。
+[Widget简介](https://book.flutterchina.club/chapter3/flutter_widget_intro.html)
 
-Activities 和 Fragments：
+- Widget其实并不是表示最终绘制在设备屏幕上的显示元素，而只是显示元素的一个配置数据。真正的UI渲染树是由Element构成；不过，由于Element是通过Widget生成，所以它们之间有对应关系。
+- 一个Widget对象可以对应多个Element对象。根据同一份配置（Widget），可以创建多个实例（Element）。
 
-- Activity 和 Fragment 在 Flutter 中等价于什么
-  - 可以认为式 Widget。
-- 如何监听 Android Activity 生命周期事件
-  - 通过挂接到 WidgetsBinding 观察并监听 didChangeAppLifecycleState 更改事件来监听生命周期事件。
+Widget 的相关属性：
 
-Layouts：
+```dart
+@immutable
+abstract class Widget extends DiagnosticableTree {
+    
+  const Widget({ this.key });
 
-- LinearLayout在Flutter中相当于什么
-  - 使用 Row 或 Co​​lumn 可以实现相同的结果。
-- RelativeLayout 在 Flutter 中等价于什么。
-  - 通过使用 Column、Row 和 Stack 的组合来实现 RelativeLayout 的效果。
-  - 参考：https://stackoverflow.com/questions/44396075/equivalent-of-relativelayout-in-flutter
-- ScrollView 在 Flutter 中等价于什么
-  - Android 中的 ScrollView/ListView/RecyclerView 等，在 Flutter 都等价于 LiveView。
+  final Key key;
 
+  @protected
+  Element createElement();
 
-手势检测和触摸事件处理：
+  @override
+  String toStringShort() {
+    return key == null ? '$runtimeType' : '$runtimeType-$key';
+  }
 
-- 如何将一个 onClick 监听器添加到 Flutter 中的 widget
-  - 某些 Widget 支持 onPressed。
-  - 如果 Widget 不支持事件监听，则可以将该 Widget 包装到 GestureDetector 中，并将处理函数传递给 onTap 参数。
-- 如何处理widget上的其他手势
-  - 将 Widget 包装到 GestureDetector 中，GestureDetector 支持各种手势动作。
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.defaultDiagnosticsTreeStyle = DiagnosticsTreeStyle.dense;
+  }
 
-Listview & Adapter：
+  static bool canUpdate(Widget oldWidget, Widget newWidget) {
+    return oldWidget.runtimeType == newWidget.runtimeType
+        && oldWidget.key == newWidget.key;
+  }
+}
+```
 
-- ListView 在 Flutter 中相当于什么
-  - Flutter 中也提供了 ListView。
-- 怎么知道哪个列表项被点击
-  - 在构建 Item 的时候设置监听函数。
-- 如何动态更新ListView
-  - 依然是使用 setState 方法。
+- Widget 类继承自 DiagnosticableTree，DiagnosticableTree 即“诊断树”，主要作用是提供调试信息。
+- key：主要的作用是决定是否在下一次 build 时复用旧的 widget，决定的条件在 canUpdate() 方法中
+- Flutter Framework 在构建 UI 树时，会先调用此方法生成对应节点的 Element 对象。
+- `canUpdate()`：用于判断是否用新的Widget对象去更新旧UI树上所对应的 Element 对象的配置，只要 newWidget 与 oldWidget 的 runtimeType 和 key 同时相等时就会用 newWidget 去更新 Element 对象的配置，否则就会创建新的 Element。
 
-使用 Text：
+继承 Stateless Widget 和 Stateful Widget：
 
-- 如何在 Text widget 上设置自定义字体
-  - 把字体文件放在项目文件夹中。
-  - 在 pubspec.yaml文件中，声明字体。
-  - 使用 TextStyle 将字体应用到Text widget。
-- 如何在 Text 上定义样式
-    - TextStyle
+- 按照惯例，widget 的构造函数应使用命名参数，命名参数中的必要参数要添加 `@required` 标注，这样有利于静态代码分析器进行检查。
+- 在继承 widget 时，第一个参数通常应该是Key。
+- 如果接受子 widget 的 child 参数，那么通常应该将它放在参数列表的最后。
+- 同样是按照惯例，widget 的属性应被声明为 final，防止被意外改变。
 
-表单输入：
+StatelessWidget：
 
-- Input的”hint”在flutter中相当于什么
-  - 通过向 Text Widget 的装饰构造函数参数添加 InputDecoration 对象，轻松地为输入框显示占位符文本。
-- 如何显示验证错误
-  - 通过向Text Widget 的装饰构造函数参数添加 InputDecoration 对象，轻松地为输入框显示错误信息。
+- 与 StatelessElement 对应。
 
+Stateful Widget:
 
-Flutter 插件：
+- 与 StatefulElement 对于。
+- 一个 StatefulElement 对应一个 State 实例，State 表示与其对应的 StatefulWidget 要维护的状态。
 
-- 如何使用 GPS sensor
-  - 使用相关插进： https://pub.dartlang.org/packages/location
-- 如何访问相机
-  - 使用相关插进：https://pub.dartlang.org/packages/image_picker
-- 如何使用Faceboo k登陆
-  - https://pub.dartlang.org/packages/flutter_facebook_connect
-- 如何构建自定义集成 Native 功能
-  - 参考 [开发packages](https://flutterchina.club/developing-packages)
-- 如何在我的 Flutter 应用程序中使用 NDK
-  - 自定义插件
+State 的属性：
+ 
+- `state.widget`：表示与该 State 实例关联的 widget 实例，由 Flutter framework 动态设置。**注意：**当在重新构建时，如果widget被修改了，Flutter framework会动态设置State.widget为新的widget实例。
+- `state.context`：表示 BuildContext 类的一个实例，表示构建 widget 的上下文，它是操作widget在树中位置的一个句柄，它包含了一些查找、遍历当前 Widget 树的一些方法。每一个widget都有一个自己的 context 对象。
 
+State 的生命周期：
 
-主题：
+- `initState`：当 Widget 第一次插入到 Widget 树时会被调用。
+- `didChangeDependencies`：`当 State 对象的依赖发生变化时会被调用。
+- `build`：用于构建组件
+- `reassemble`：此回调是专门为了开发调试而提供的，在热重载(hot reload)时会被调用，此回调在 Release 模式下永远不会被调用。
+- `didUpdateWidget`：在 widget 重新构建时，Flutter framework 会调用 Widget.canUpdate 来检测 Widget 树中同一位置的新旧节点，然后决定是否需要更新，如果 Widget.canUpdate 返回 true 则会调用此回调。
+- `deactivate`：当 State 对象从树中被移除时，会调用此回调。
+- `dispose`：当 State 对象从树中被永久移除时调用；通常在此回调中释放资源。
 
-- 如何构建 Material 主题风格的 app
-  - MaterialApp 是一个方便的 widget，它包装了许多 Material Design 应用通常需要的 widget，它通过添加 Material 特定功能构建在 WidgetsApp上。
-  - 只有使用的 MaterialApp 才能使用 Material 中的 Widget。
+build 方法的调用时机：
 
-数据库和本地存储：
+- 在调用 initState() 之后。
+- 在调用 didUpdateWidget() 之后。
+- 在调用 setState() 之后。
+- 在调用 didChangeDependencies() 之后。
+- 在State对象从树中一个位置移除后（会调用 deactivate）又重新插入到树的其它位置之后。
 
-- 如何在Flutter中访问 Shared Preferences ?
-  - 使用相关插件：https://pub.dartlang.org/packages/shared_preferences
-  - 自定义插件
-- 如何在 Flutter 中访问 SQLite
-  - 使用相关插件：https://pub.dartlang.org/packages/sqflite
-  - 自定义插件
+## 关于文本
+
+- 掌握文本属性：textAlign、maxLines、overflow、textScaleFactor 等。
+- 文档样式 TextStyle。
+- 同一个 Text 下实现不同样式的段落：TextSpan。
+- DefaultTextStyle Widget 的使用。
+- 自定义字体。
+
+## 关于图片
+
+- ImageProvider：是一个抽象类，主要定义了图片数据获取的接口 `load()` 方法 ，有 AssetImage 和 NetworkImage。
+- Image widget 有一个必选的 image 参数，它对应一个 ImageProvider。
+- 掌握 Image 的 fit 属性：该属性用于在图片的显示空间和图片本身大小不同时指定图片的适应模式。
+- 掌握 icon 的使用，在 Fluter 中使用字体图标。
+
+## 关于表单
+
+具体参考[输入框及表单](https://book.flutterchina.club/chapter3/input_and_form.html)
+
+- TextField用于文本输入，它提供了很多关于输入框的属性。
+- 获取输入内容：通过 onChange 获取，通过 TextEditingController  获取。
+- 控制焦点：焦点可以通过 FocusNode 和 FocusScopeNode 来控制
+- 自定义输入框样式。
+- 表单校验：Form
+
+## Widget、StatelessWidget、StatefulWidget 继承结构
+
+根据 Widget 是否需要包含子节点将 Widget 分为了三类，分别对应三种 Element：LeafRenderObjectWidget(叶子节点)、SingleChildRenderObjectWidget(一个子Widget)、MultiChildRenderObjectWidget(包含多个子Widget)。
+
+继承关系：
+
+```
+DiagnosticableTree
+    Widget 
+        > StatelessWidget
+        > StatefulWidget
+        > RenderObjectWidget 
+            > LeafRenderObjectWidget
+            > SingleChildRenderObjectWidget
+            > MultiChildRenderObjectWidget
+```
+
+- StatelessWidget 和 StatefulWidget 的本质：两个用于组合 Widget 的基类，它们本身并不关联最终的渲染对象（RenderObjectWidget）。
+- 布局类 Widget 就是指直接或间接继承(包含) MultiChildRenderObjectWidget 的 Widget，它们一般都会有一个 children 属性用于接收子 Widget。
+- RenderObjectWidget 类中定义了创建、更新 RenderObject 的方法，子类必须实现他们，RenderObject 是最终布局、渲染UI界面的对象，也就是说，对于布局类 Widget 来说，其布局算法都是通过对应的 RenderObject 对象来实现的，所以如果对某个布局类 Widget 原理感兴趣，可以查看其 RenderObject 的实现。
+
+## 关于布局
+
+- 线性布局 Row 和 Column
+- Expanded：可以按比例“扩伸”Row、Column和Flex子widget所占用的空间。
+- Flex 弹性布局：弹性布局允许子 widget 按照一定比例来分配父容器空间，弹性布局的概念在其UI系统中也都存在，如H5中的弹性盒子布局，Android 中的FlexboxLayout。Flutter 中的弹性布局主要通过 Flex 和 Expanded 来配合实现。
+- 超出屏幕显示范围会自动折行的布局称为流式布局。Flutter 中通过 Wrap 和 Flow 来支持流式布局。Flow 主要用于一些需要自定义布局策略或性能要求较高的场景（自定义布局）。
+- Stack 允许子 widget 堆叠，而Positioned可以给子 widget 定位
+
+## 关于容器
+
+布局类 Widget 一般都需要接收一个widget数组（children），他们直接或间接继承自（或包含）MultiChildRenderObjectWidget；而容器类 Widget 一般只需要接受一个子 Widget（child），它们直接或间接继承自（或包含）SingleChildRenderObjectWidget。
+
+- Padding 可以给其子节点添加补白（填充），对于 padding，我们一般使用 EdgeInsets，它是 EdgeInsetsGeometry 的一个子类，定义了一些设置补白的便捷方法。
+- ConstrainedBox 和 SizedBox
+  - ConstrainedBox 和 SizedBox都是通过 RenderConstrainedBox 来渲染的。SizedBox只是 ConstrainedBox 一个定制。
+  - ConstrainedBox 用于对其子 widget 添加额外的约束。
+  - SizedBox 用于给子 widget 指定固定的宽高。
+- 多重限制：如果某一个 widget 有多个父 ConstrainedBox 限制，最终会是哪个生效？
+  - 对于 minWidth 和 minHeight 来说，是取父子中相应数值较大的。实际上，只有这样才能保证父限制与子限制不冲突。
+  - 对于 minWidth 和 minHeight 来说，是取父子中相应数值较小的。实际上，只有这样才能保证父限制与子限制不冲突。
+  - UnconstrainedBox 不会对子 Widget 产生任何限制，它允许其子Widget按照其本身大小绘制。一般情况下，我们会很少直接使用此widget，但在"去除"多重限制的时候也许会有帮助。
+- DecoratedBox 可以在其子 widget 绘制前(或后)绘制一个装饰 Decoration（如背景、边框、渐变等）。DecoratedBox 的 decoration 属性代表将要绘制的装饰，它类型为 Decoration，我们通常会直接使用BoxDecoration，它是一个Decoration的子类，实现了常用的装饰元素的绘制。
+- Transform 可以在其子 Widget 绘制时对其应用一个矩阵变换（transformation），Matrix4 是一个 4D 矩阵，通过它我们可以实现各种矩阵操作，不如平移、旋转、缩放、错切等。
+- RotatedBox：RotatedBox 和 Transform.rotate 功能相似，它们都可以对子widget进行旋转变换，但是有一点不同：RotatedBox 的变换是在 layout 阶段，会影响在子 widget 的位置和大小。
+- Container：其本身不对应具体的RenderObject，它是DecoratedBox、ConstrainedBox、Transform、Padding、Align等widget的一个组合widget。
+- 

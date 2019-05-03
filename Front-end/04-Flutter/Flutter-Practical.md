@@ -1,4 +1,8 @@
-## Flutter resolve dependencies 很慢
+# Fluter Practical
+
+## 环境、项目构建
+
+### Flutter resolve dependencies 很慢
 
 切换到 Android 工程，去掉无用的测试框架，添加国内代理：
 
@@ -13,47 +17,35 @@
     }
 ```
 
-## Waiting for another flutter command to release the startup lock
+### Waiting for another flutter command to release the startup lock
 
 解决方法：
 
-1. 打开flutter的安装目录/bin/cache/ 
-2. 删除lockfile文件 
-3. 重启AndroidStudio
+1. 打开flutter的安装目录 `/bin/cache/`
+2. 删除 lockfile 文件
+3. 重启 AndroidStudio
 
-## Flutter 卡在 package get 的解决办法
+### Flutter 卡在 package get 的解决办法
 
 替换国内镜像：
 
 linux：
 
-```
+```shell
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 ```
 
 Windows 添加下面环境变量：
 
-```
+```shell
 PUB_HOSTED_URL=https://pub.flutter-io.cn
 FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 ```
 
 具体参考 [Using Flutter in China](https://flutter.dev/community/china)
 
-## Widget 如何管理自己的状态
-
-- 自己管理。
-- parent 管理。
-- 混合方式管理。
-- 全局状态管理。
-
-具体参考
-
-- [interactive](https://flutter.dev/docs/development/ui/interactive)
-- [Widget简介](https://book.flutterchina.club/chapter3/flutter_widget_intro.html)
-
-## Flutter 调试工具
+### Flutter 调试工具
 
 具体参考[调试 Flutter 应用](https://book.flutterchina.club/chapter2/flutter_app_debug.html)
 
@@ -66,33 +58,27 @@ FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
   - 使用 `flutter run --release` 运行程序，会关闭试模式并使用发布模式。
   - 使用 `flutter run --profile` 运行程序，会关闭除Observatory之外所有调试辅助工具。
 
-## Flutter VS Android
+## UI
+
+### Widget 如何管理自己的状态
+
+- 自己管理。
+- parent 管理。
+- 混合方式管理。
+- 全局状态管理。
+
+具体参考
+
+- [interactive](https://flutter.dev/docs/development/ui/interactive)
+- [Widget简介](https://book.flutterchina.club/chapter3/flutter_widget_intro.html)
+
+### Flutter VS Android
 
 - [Flutter for Android 开发者](https://flutterchina.club/flutter-for-android/#%E5%9C%A8android%E4%B8%AD%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87viewanimate%E5%AF%B9%E8%A7%86%E5%9B%BE%E8%BF%9B%E8%A1%8C%E5%8A%A8%E7%94%BB%E5%A4%84%E7%90%86%E9%82%A3%E5%9C%A8flutter%E4%B8%AD%E6%80%8E%E6%A0%B7%E6%89%8D%E8%83%BD%E5%AF%B9widget%E8%BF%9B%E8%A1%8C%E5%A4%84%E7%90%86)
 - [https://flutter.dev/docs/get-started/flutter-for/android-devs](https://flutter.dev/docs/get-started/flutter-for/android-devs)
+- ViewPager 对应 PageView
 
-## Flutter In StackOverflow
-
-- [如何模拟 RelativeLayout 布局](https://stackoverflow.com/questions/44396075/equivalent-of-relativelayout-in-flutter)
-- [Where does the title of Material App used in flutter?](https://stackoverflow.com/questions/50615006/where-does-the-title-of-material-app-used-in-flutter)
-- [navigator-pass-arguments-with-pushnamed](https://stackoverflow.com/questions/53304340/navigator-pass-arguments-with-pushnamed)
-- [如何绘制](https://stackoverflow.com/questions/46241071/create-signature-area-for-mobile-app-in-dart-flutter)
-
-## 理解 Flutter 的单线程模型与异常捕获
-
-单线程模型：
-
-- Dart 在单线程中是以消息循环机制来运行的，其中包含两个任务队列，一个是“微任务队列” microtask queue，另一个叫做“事件队列” event queue，微任务队列的执行优先级高于事件队列。
-- 在Dart中，所有的外部事件任务都在事件队列中，如IO、计时器、点击、以及绘制事件等，而微任务通常来源于Dart内部，并且微任务非常少。
-- 我们可以通过 Future.microtask(…) 方法向微任务队列插入一个任务。
-- 由于是单线程模型任务模型，一个任务的失败不会导致另一个任务的实现，所以当某个任务发生异常并没有被捕获时，程序并不会退出，而直接导致的结果是当前任务的后续代码就不会被执行了。
-
-捕获异常：
-
-- 自定义错误处理器：FlutterError.onError
-- try-catch 捕获不到异步任务的异常，可以使用 `runZoned(...)`，这类似让任务运行在一个沙箱中，我们可以捕获沙箱中的任何异常信息。
-
-## 理解 Widget
+### 理解 Widget
 
 [Widget简介](https://book.flutterchina.club/chapter3/flutter_widget_intro.html)
 
@@ -104,7 +90,7 @@ Widget 的相关属性：
 ```dart
 @immutable
 abstract class Widget extends DiagnosticableTree {
-    
+
   const Widget({ this.key });
 
   final Key key;
@@ -152,7 +138,7 @@ Stateful Widget:
 - 一个 StatefulElement 对应一个 State 实例，State 表示与其对应的 StatefulWidget 要维护的状态。
 
 State 的属性：
- 
+
 - `state.widget`：表示与该 State 实例关联的 widget 实例，由 Flutter framework 动态设置。**注意：**当在重新构建时，如果widget被修改了，Flutter framework会动态设置State.widget为新的widget实例。
 - `state.context`：表示 BuildContext 类的一个实例，表示构建 widget 的上下文，它是操作widget在树中位置的一个句柄，它包含了一些查找、遍历当前 Widget 树的一些方法。每一个widget都有一个自己的 context 对象。
 
@@ -174,7 +160,7 @@ build 方法的调用时机：
 - 在调用 didChangeDependencies() 之后。
 - 在State对象从树中一个位置移除后（会调用 deactivate）又重新插入到树的其它位置之后。
 
-## 关于文本
+### 关于文本
 
 - 掌握文本属性：textAlign、maxLines、overflow、textScaleFactor 等。
 - 文档样式 TextStyle。
@@ -182,14 +168,14 @@ build 方法的调用时机：
 - DefaultTextStyle Widget 的使用。
 - 自定义字体。
 
-## 关于图片
+### 关于图片
 
 - ImageProvider：是一个抽象类，主要定义了图片数据获取的接口 `load()` 方法 ，有 AssetImage 和 NetworkImage。
 - Image widget 有一个必选的 image 参数，它对应一个 ImageProvider。
 - 掌握 Image 的 fit 属性：该属性用于在图片的显示空间和图片本身大小不同时指定图片的适应模式。
 - 掌握 icon 的使用，在 Fluter 中使用字体图标。
 
-## 关于表单
+### 关于表单
 
 具体参考[输入框及表单](https://book.flutterchina.club/chapter3/input_and_form.html)
 
@@ -199,18 +185,18 @@ build 方法的调用时机：
 - 自定义输入框样式。
 - 表单校验：Form
 
-## Widget、StatelessWidget、StatefulWidget 继承结构
+### Widget、StatelessWidget、StatefulWidget 继承结构
 
 根据 Widget 是否需要包含子节点将 Widget 分为了三类，分别对应三种 Element：LeafRenderObjectWidget(叶子节点)、SingleChildRenderObjectWidget(一个子Widget)、MultiChildRenderObjectWidget(包含多个子Widget)。
 
 继承关系：
 
-```
+```dart
 DiagnosticableTree
-    Widget 
+    Widget
         > StatelessWidget
         > StatefulWidget
-        > RenderObjectWidget 
+        > RenderObjectWidget
             > LeafRenderObjectWidget
             > SingleChildRenderObjectWidget
             > MultiChildRenderObjectWidget
@@ -220,7 +206,7 @@ DiagnosticableTree
 - 布局类 Widget 就是指直接或间接继承(包含) MultiChildRenderObjectWidget 的 Widget，它们一般都会有一个 children 属性用于接收子 Widget。
 - RenderObjectWidget 类中定义了创建、更新 RenderObject 的方法，子类必须实现他们，RenderObject 是最终布局、渲染UI界面的对象，也就是说，对于布局类 Widget 来说，其布局算法都是通过对应的 RenderObject 对象来实现的，所以如果对某个布局类 Widget 原理感兴趣，可以查看其 RenderObject 的实现。
 
-## 关于布局
+### 关于布局（multi child）
 
 - 线性布局 Row 和 Column
 - Expanded：可以按比例“扩伸”Row、Column和Flex子widget所占用的空间。
@@ -228,7 +214,7 @@ DiagnosticableTree
 - 超出屏幕显示范围会自动折行的布局称为流式布局。Flutter 中通过 Wrap 和 Flow 来支持流式布局。Flow 主要用于一些需要自定义布局策略或性能要求较高的场景（自定义布局）。
 - Stack 允许子 widget 堆叠，而Positioned可以给子 widget 定位
 
-## 关于容器
+### 关于容器（single child）
 
 布局类 Widget 一般都需要接收一个widget数组（children），他们直接或间接继承自（或包含）MultiChildRenderObjectWidget；而容器类 Widget 一般只需要接受一个子 Widget（child），它们直接或间接继承自（或包含）SingleChildRenderObjectWidget。
 
@@ -243,6 +229,52 @@ DiagnosticableTree
   - UnconstrainedBox 不会对子 Widget 产生任何限制，它允许其子Widget按照其本身大小绘制。一般情况下，我们会很少直接使用此widget，但在"去除"多重限制的时候也许会有帮助。
 - DecoratedBox 可以在其子 widget 绘制前(或后)绘制一个装饰 Decoration（如背景、边框、渐变等）。DecoratedBox 的 decoration 属性代表将要绘制的装饰，它类型为 Decoration，我们通常会直接使用BoxDecoration，它是一个Decoration的子类，实现了常用的装饰元素的绘制。
 - Transform 可以在其子 Widget 绘制时对其应用一个矩阵变换（transformation），Matrix4 是一个 4D 矩阵，通过它我们可以实现各种矩阵操作，不如平移、旋转、缩放、错切等。
-- RotatedBox：RotatedBox 和 Transform.rotate 功能相似，它们都可以对子widget进行旋转变换，但是有一点不同：RotatedBox 的变换是在 layout 阶段，会影响在子 widget 的位置和大小。
-- Container：其本身不对应具体的RenderObject，它是DecoratedBox、ConstrainedBox、Transform、Padding、Align等widget的一个组合widget。
-- 
+- RotatedBox：RotatedBox 和 Transform.rotate 功能相似，它们都可以对子 widget 进行旋转变换，但是有一点不同：RotatedBox 的变换是在 layout 阶段，会影响在子 widget 的位置和大小。
+- Container：其本身不对应具体的RenderObject，它是DecoratedBox、ConstrainedBox、Transform、Padding、Align 等 widget 的一个组合 widget。
+
+### 可滚动布局
+
+当内容超过显示视口(ViewPort)时，如果没有特殊处理，Flutter则会提示Overflow错误。为此，Flutter提供了多种可滚动widget（Scrollable Widget）用于显示列表和长布局。
+
+- Scrollable widget：是可滚动布局的基础封装，包括 axisDirection、controller、physics 等通用属性。
+- Scrollbar 是一个 Material 风格的滚动指示器（滚动条）。
+- ViewPort 视口：在 Flutter 中，术语 ViewPort（视口），如无特别说明，则是指一个Widget的实际显示区域。
+- SingleChildScrollView 类似于 Android中的 ScrollView，它只能接收一个子 Widget。
+- ListView 是最常用的可滚动 widget，它可以沿一个方向线性排布所有子 widget。
+  - 其对应的 ListView.builder 适合列表项比较多（或者无限）的情况，因为只有当子 Widget 真正显示的时候才会被创建。
+  - ListView.separated 可以生成列表项之间的分割器，它比 ListView.builder 多了一个 separatorBuilder 参数。
+- GridView 可以构建一个二维网格列表。
+- CustomScrollView 是可以使用 sliver 来自定义滚动模型（效果）的 widget。它可以包含多种滚动模型。
+- ScrollController 用于控制可滚动 widget 的滚动位置，以及监听滚动事件。
+
+### 功能型 Widget
+
+功能型Widget指的是不会影响UI布局及外观的Widget，它们通常具有一定的功能，如事件监听、数据存储等。
+
+- 导航返回拦截 WillPopScope
+- InheritedWidget 是 Flutter 中非常重要的一个功能型 Widget，它可以高效的将数据在 Widget 树中向下传递、共享。
+- Theme Widget 可以为 Material APP 定义主题数据（ThemeData），Material 组件库里很多 Widget 都使用了主题数据。
+
+## 架构模式
+
+- [ ] todo
+
+## 网络与存储
+
+- [ ] todo
+
+## 异步
+
+### 理解 Flutter 的单线程模型与异常捕获
+
+单线程模型：
+
+- Dart 在单线程中是以消息循环机制来运行的，其中包含两个任务队列，一个是“微任务队列” microtask queue，另一个叫做“事件队列” event queue，微任务队列的执行优先级高于事件队列。
+- 在Dart中，所有的外部事件任务都在事件队列中，如IO、计时器、点击、以及绘制事件等，而微任务通常来源于Dart内部，并且微任务非常少。
+- 我们可以通过 Future.microtask(…) 方法向微任务队列插入一个任务。
+- 由于是单线程模型任务模型，一个任务的失败不会导致另一个任务的实现，所以当某个任务发生异常并没有被捕获时，程序并不会退出，而直接导致的结果是当前任务的后续代码就不会被执行了。
+
+捕获异常：
+
+- 自定义错误处理器：FlutterError.onError
+- try-catch 捕获不到异步任务的异常，可以使用 `runZoned(...)`，这类似让任务运行在一个沙箱中，我们可以捕获沙箱中的任何异常信息。

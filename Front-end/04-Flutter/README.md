@@ -22,6 +22,12 @@
 - 第三方库
 - 平台交互
 
+学习路线：
+
+- 浏览一遍 Flutter 官方文档。
+- 阅读 《Flutter实战》
+- 阅读 Flutter 开源项目
+
 ## References
 
 Dart
@@ -45,6 +51,7 @@ Dart
 系列博客
 
 - [Flutter 实战](https://book.flutterchina.club/)
+- [Flutter 系列博客](https://juejin.im/user/5b5d45f4e51d453526175c06/posts)
 - [flutter-study](https://github.com/yang7229693/flutter-study)
 - [Flutter系列博文](https://www.jianshu.com/p/399c01657920)
 - [Flutter-learning](https://github.com/AweiLoveAndroid/Flutter-learning)
@@ -62,10 +69,9 @@ Dart
 - [Flutter 您需要知道的知识点 | FAQ・第二期](https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&mid=2652048715&idx=1&sn=c8346d2603f311301d719d5374cc77ea&chksm=808cad0eb7fb241864557d2bc08cacc2efeb76a27d3a6b849d2df44ccbddfa13c3e1b1db0f85&scene=21#wechat_redirect)
 - [Flutter 您需要知道的知识点 | FAQ・第三期](https://mp.weixin.qq.com/s/qXNbT-pJ4wnKANhUsyn2xw)
 
-Open Source
+plugin
 
 - [OpenFlutter](https://github.com/OpenFlutter)
-- [Awesome Flutter：带你从入门到进阶的 Flutter 指南](https://juejin.im/post/5b2869e66fb9a00e5f3e861f)
 - [fish-redux](https://github.com/alibaba/fish-redux)，[Flutter 应用框架 Fish Redux](https://mp.weixin.qq.com/s/JiCsU6qoIFJPct0FyYn8eA)
 - [flutter_boost](https://github.com/alibaba/flutter_boost)：新一代Flutter-Native混合解决方案。 FlutterBoost是一个Flutter插件，它可以轻松地为现有原生应用程序提供Flutter混合集成方案。
 - [best-flutter](https://github.com/best-flutter)一群热爱flutter的开发者，开源了许多插件。
@@ -80,6 +86,7 @@ Open Source
 - [Kotlin + MVP + Flutter ，让你可以在自己的项目中集成 Flutter 并使用](https://juejin.im/post/5b7cf52e51882542c963f0f1)
 - [Flutter豆瓣客户端](https://github.com/kaina404/FlutterDouBan)
 - [flutter-go](https://github.com/alibaba/flutter-go)
+- [Awesome Flutter：带你从入门到进阶的 Flutter 指南](https://juejin.im/post/5b2869e66fb9a00e5f3e861f)
 
 视频教程：
 
@@ -98,3 +105,4 @@ Open Source
 - [navigator-pass-arguments-with-pushnamed](https://stackoverflow.com/questions/53304340/navigator-pass-arguments-with-pushnamed)
 - [如何绘制](https://stackoverflow.com/questions/46241071/create-signature-area-for-mobile-app-in-dart-flutter)
 - [how-can-flutter-handle-dpi-text-and-image-size-differences](https://stackoverflow.com/questions/44173641/how-can-flutter-handle-dpi-text-and-image-size-differences)
+- [how-to-use-dependecy-injection-in-flutter](https://stackoverflow.com/questions/44131766/how-to-use-dependecy-injection-in-flutter)

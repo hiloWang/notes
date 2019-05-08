@@ -441,7 +441,7 @@ public interface Deferred<out T> : Job {
 由协程启动函数 async 创建并返回，其多一个 await 函数，当协程执行完毕，await 方法会被调用并返回值(但并不是回调方式)。Deferred 继承自 Job，比 Job 多了一种状态：isCompletedExceptionally：
 
 | 状态 | isActive | isCompleted |isCompletedExceptionally| isCancelled |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | New (可选的初始状态)|`false`|`false`|`false`|`false`|
 | Active (默认的初始状态)|`true`|`false`|`false`|`false`|
 | Completing(可选的瞬时状态)|`true`|`false`|`false`|`false`|

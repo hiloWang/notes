@@ -1,4 +1,4 @@
-# 大厂资深面试官 带你破解Android高级面试——NOTE01
+# 大厂资深面试官 带你破解Android高级面试——NOTE02
 
 [大厂资深面试官 带你破解Android高级面试](https://coding.imooc.com/class/317.html)
 

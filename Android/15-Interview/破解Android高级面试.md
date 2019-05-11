@@ -417,6 +417,7 @@ class SubClass extends SuperClass<String>{
   - 阐述观点，给出实际案例，例如 Gson、Retrofit
   - 实战中需要混淆，选哟注意哪些点以及原理
 
+---
 ### 2.6 Activity 的 onActivityResult 为什么不设计成回调
 
 #### 考察什么？
@@ -466,6 +467,7 @@ startActivityForResult(intent, onResultCallback(){
 ---
 ## 3 熟悉并发编程吗
 
+---
 ### 3.1 如何停止一个线程
 
 #### 考察什么？
@@ -520,6 +522,7 @@ for(int i = 0; i < 1000000; i++){
 - 注意使用 volatile 修饰标志位。
 - 性能上个更好，不需要 JNI 调用。
 
+---
 ### 3.2 如何写出线程安全的程序
 
 #### 考察什么？
@@ -592,6 +595,7 @@ Hash 计算 | 神奇数字的倍数 | 对象 Hash 值再散列
 - atomic
 - 并发容器
 
+---
 ### 3.3 ConcurrentHashMap 如何支持并发访问
 
 #### 考察什么？
@@ -658,6 +662,7 @@ Hash 计算 | 神奇数字的倍数 | 对象 Hash 值再散列
 - 粗化高频锁
 - 消除无用锁，或用 volatile 代替
 
+---
 ### 3.4 AtomicReference 和 AtomicReferenceFieldUpdater 有何区别
 
 #### 考察什么？
@@ -678,6 +683,7 @@ Hash 计算 | 神奇数字的倍数 | 对象 Hash 值再散列
 - BufferedInputStream 中有使用到 AtomicReferenceFieldUpdater。
 - kotlin 中的 `val by lazy` 也有使用到 AtomicReferenceFieldUpdater。
 
+---
 ### 3.5 如何在 Android 中写出优雅的异步代码
 
 #### 考察什么？
@@ -715,6 +721,7 @@ Hash 计算 | 神奇数字的倍数 | 对象 Hash 值再散列
 ---
 ## 4 JNI 编程的细节
 
+---
 ### 4.1 CPU 架构适配需要注意哪些问题？
 
 #### 考察什么？
@@ -776,6 +783,7 @@ Hash 计算 | 神奇数字的倍数 | 对象 Hash 值再散列
 - 尽量优化 Native 库的体积
 - 必须提供完整的 CPU 架构依赖
 
+---
 ### 4.2 Java Native 方法与 Native 函数是怎么绑定的？
 
 #### 考察什么？
@@ -802,6 +810,7 @@ Hash 计算 | 神奇数字的倍数 | 对象 Hash 值再散列
 - 性能由于静态绑定，无需查找
 - 重构方便
 
+---
 ### 4.3 JNI 如何实现数据传递？
 
 #### 考察什么？
@@ -855,6 +864,7 @@ Hash 计算 | 神奇数字的倍数 | 对象 Hash 值再散列
 - 不需要拷贝
 - 需要自己处理字节序
 
+---
 ### 4.4 如何全局捕获 Native 异常？
 
 #### 考察什么？
@@ -903,6 +913,7 @@ jint setUpClassLoader(JNIEnv *env){
     - `5.0+`使用自己编译的 `libnuwind`
 - 通过线程关联 Native 异常对应的 Java 堆栈
 
+---
 ### 4.5 只有 C、C++ 可以编写 JNI 的 Native 库吗？
 
 #### 考察什么？

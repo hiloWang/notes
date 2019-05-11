@@ -914,7 +914,7 @@ jint setUpClassLoader(JNIEnv *env){
 
 - Native 程序与 Java 关联的本质是什么？
 
-**JNMI 对 Native 函数的要求**：
+**JVM 对 Native 函数的要求**：
 
 - 静态绑定
   - 符号绑定

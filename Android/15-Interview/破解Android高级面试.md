@@ -355,3 +355,585 @@ public static void printHello(SubClass subClass){
   - 体现扎实的语言功底
   - 体现对编程语言特性的专研精神
   - 现得专业
+
+---
+### 2.5 Java 泛型机制
+
+#### 考察什么？
+
+- 对 Java 泛型使用是否停留在集合框架的使用(初级)
+- 对 Javc 泛型的实现机制的认知和理解（中级）
+- 是否有足够的项目开发实战经验和“踩坑”经验（中级）
+- 对泛型（或模板）编程是否有深入的对比研究（高级）
+- 对常见的框架原理是否有过深入剖析（高级）
+
+#### 题目剖析
+
+- 题目区分度比较大
+- 回答需要提及以下几个点才能突出亮点：
+  - 类型擦除从编译角度的细节
+  - 类型擦除对运行时的影响
+  - 类型擦除对发射的影响
+  - 对比类型不擦处的语言(C++/C#)
+  - 为什么 Java 选择类型擦除
+- 可从类型擦除的优劣来着手分析
+
+**类型擦除的优势**：
+
+- 运行时内存负担小
+- 兼容性好，Java1.5 才推出泛型，此时 Java 的使用者已经很多。
+
+**Java 泛型劣势**：
+
+- 基本类型无法作为泛型实参，有装箱插箱的开销。
+- 泛型类型无法用作方法重载（类型擦除后一致）
+- 泛型类型无法当作真实的类型
+  - 无法 new T()
+  - 无法使用 instanceof 判断泛型类型
+- 静态方法无法引用类泛型参数
+- 类型强转的运行时开销（编译时插入强转代码）
+  
+**Java 泛型的附加的签名信息**：
+
+- Gson 中的 TypeTOken
+- Retrofit
+
+```java
+class SuperClass<T>{}
+
+//反射 SubClass 时，是可以拿到 SuperClass 上的泛型实参 String 的信息的
+class SubClass extends SuperClass<String>{
+
+}
+```
+
+**关于 Koltin**：
+
+- 扩展：Kotlin 中的反射更强大，有 mate 注解保留了很多编译期信息
+
+#### 技巧点拨
+
+- 结合项目实战
+  - 阐述观点，给出实际案例，例如 Gson、Retrofit
+  - 实战中需要混淆，选哟注意哪些点以及原理
+
+### 2.6 Activity 的 onActivityResult 为什么不设计成回调
+
+#### 考察什么？
+
+- 是否熟悉 onActivityResult 的用法（初级）
+- 是否思考过用回调代替 onActivityResult（中级）
+- 是否实践过用回调代替 onActivityResult（中级）
+- 是否意识到回调存在的问题（高级）
+- 是否能给出匿名内部类对外部类引用的解决方案（高级）
+
+#### 题目剖析
+
+Activity 的 onActivityResult 使用起来菲常麻烦，为什么不设计成回调？
+
+- onActivityResult 的作用
+- 回调在这样的场景下适用么？
+- 如果适用，那为什么不适用回调？
+- 如果不适用，给出理由
+
+**onActivityResult 作用**：
+
+- startActivityForResult --> onActivityResult
+
+**onActivityResult 为什么麻烦**：
+
+- 代码逻辑分离，容易出现遗漏和不一致问题（startActivityForResult 后需要在 onActivityResult 继续处理逻辑，使用回调可以解决该问题）
+- 写法不够直观，且结果数据没有类型安全的保障（setResult，使用回调无法解决该问题）
+- 结果种类较多时，onActivityResult 就会逐渐臃肿且难以维护（使用回调可以解决该问题）
+
+```java
+startActivityForResult(intent, onResultCallback(){
+
+})
+```
+
+**回调不适用，为什么**：
+
+- Activity 在后台是可能被回收的，如果被回收那么回收前后的 Activity 是不同的实例。
+
+**解决方案**：
+
+- 基于注解处理器和 DummyFragment 的解决方案。
+- 使用一个 DummyFragment，转发 Activity 的 onActivityResult。
+- 注意在 Activity 回收后，通过 DummyFragment 替换之前 Activity 的引用。
+- Fragment 的 mWho 的字段用于标识自身。
+
+---
+## 3 熟悉并发编程吗
+
+### 3.1 如何停止一个线程
+
+#### 考察什么？
+
+- 是否对线程的用法有所了解？（初级）
+- 是否对线程的 stop 方法有所了解（初级）
+- 是否对线程 stop 过程中存在的问题有认识（中级）
+- 是否熟悉 interupt 中断的用法（中级）
+- 是否能解释清楚使用 boolean 标志位的好处（高级）
+- 是否知道 interrupt 底层的细节（高级）
+- 通过该题目能否将话题转移到线程安全，并阐述无误（高级）
+
+#### 题目剖析
+
+如何停止一个线程
+
+- 官方停止线程的方法被废弃，所以不能直接简单的停止线程
+- 如何设计可以随时被终端而取消的任务线程
+
+**为什么不能直接简单的停止线程**：
+
+- 线程可能在占用某些资源，如果直接停止，那么其占用的资源将无法被使用。
+- 线程的直接终止，将导致逻辑上的不确定性（某些逻辑执行到一半），很容易造成问题。
+
+**协作的任务执行模式**：
+
+- 通过目标线程自行结束，而不是强制停止。
+- 目标线程应该处理中断的能力。
+- 中断方式：
+  - interrupt 方式
+  - boolean 标志位
+
+**interrupt 方式**：
+
+- 原生支持
+- 使用 `interrupted()` 方法和 `interrupt()` 方法
+- interrupted 和 isInterrupted 方法的区别
+  - interrupted 静态方法，获取当前线程的中断状态，并清空。
+  - isInterrupted 实例方法，获取该线程的中断状态，不清空。
+- interrupted 状态，在 JNI 底层是被加锁保护的。
+
+```java
+for(int i = 0; i < 1000000; i++){
+    if(interrupted()){
+        break;
+    }
+}
+```
+
+**boolean 标志位**：
+
+- 注意使用 volatile 修饰标志位。
+- 性能上个更好，不需要 JNI 调用。
+
+### 3.2 如何写出线程安全的程序
+
+#### 考察什么？
+
+- 是否对线程安全有初步了解（初级）
+- 是否线程安全产生的原因有所思考（中级）
+- 是否知道 final、volatile 关键字的作用（中级）
+- 是否清楚 1.5 之前 Java DCL 为什么有缺陷（中级）
+- 是否清楚地知道如何编写线程安全的程序（高级）
+- 是否对 ThreadLocal 的使用注意事项有认识（高级）
+
+#### 题目剖析
+
+如何写出线程安全的程序
+
+- 什么是线程安全？
+- 如何实现线程安全？
+
+**什么是线程安全**？
+
+- 线程安全只关注可变可共享的内存
+- 线程有自己的工作内存
+- 对变量的操作不是原子性的
+
+**如何实现线程安全**？
+
+- 不共享资源
+  - ThreadLocal
+- 共享不可变资源
+  - final
+- 工作可变资源
+  - 可见性
+  - 原子性
+  - 禁止重排序
+
+**ThreadLocal**：
+
+- ThreadLcoal 存储的变量是绑定到线程上的
+- 内部使用的是 ThreadLocalMap
+- ThreadLocalMap 与 WeakHashMap 对比
+
+---| ThreadLocalMap | WeakHashMap
+--- | --- | ---
+对象持有 | 弱引用 | 弱引用
+对象 GC | 不影响 | 不影响
+引用清除 | 1 主动移除<br/>2 线程退出时退出 | 1 主动移除<br/>2 GC后移除
+Hash 冲突 | 开放地址法 | 单链表法
+Hash 计算 | 神奇数字的倍数 | 对象 Hash 值再散列
+使用场景 | 对象较少 | 通用
+
+**ThreadLocal使用建议**：
+
+- 声明为静态的 final 成员
+- 避免存储大量对象
+- 用完后及时移除对象
+
+**final** 字段
+
+- final 字段有禁止重排序的功能
+- 不要在构造方法中暴露 final 字段
+
+**volatile** 字段
+
+- 保证可见性
+- 禁止重排序
+
+**JUC 工作包**
+
+- lock 等
+- atomic
+- 并发容器
+
+### 3.3 ConcurrentHashMap 如何支持并发访问
+
+#### 考察什么？
+
+- 是否数量掌握线程安全的概念（高级）
+- 是否深入理解 CHM 的各项并发优化原理（高级）
+- 是否掌握锁的优化方法（高级）
+
+#### 题目剖析
+
+- 并发访问即考察线程安全问题
+- 回调 ConcurrentHashMap 的原理即可
+
+**如果对 ConcurrentHashMap 不了解**：
+
+- 分析 HashMap 为什么线程不安全
+- 阐述说明你在编写并发程序时，你会怎么做
+
+**CHM 的优化历程**：
+
+- 1.5 分段锁，必要时加锁
+  - hash(key)，高位找 segment 锁，低位找 `table[]`。
+  - 如果使用整数作为 key，会导致 key 的分布极为不均匀，甚至退化为 HashTable。
+- 1.6 优化二次 Hash 算法
+  - single-word 二次 hash 优化
+- 1.7 段懒加载，volatile & cas
+  - getObjectVolatile() 保证锁的可见性
+- 1.8 摒弃段，基于 HashMap 原理的并发实现
+
+**CHM 如何计数**：
+
+- JDK5-7 基于段元素个数求和，二次不同就加锁
+- JDK8 引入 CounterCell，本质上也是分段计算
+
+**CHM 的弱一致性**：
+
+- 添加元素后不一定能马上读到
+- 清空元素后可能仍然有元素
+- 遍历之前的段元素的变化会读到
+  - 遍历到 14，此时修改了 15，是可以读到 15 的变化的
+- 遍历之后的段元素变化读不到
+  - 遍历到 15，此时修改了 13，是不可以读到 13 的变化的
+- 遍历时元素发生变化不抛异常
+
+**HashTable 的问题**:
+
+- 大锁：对 HashTable 整体加锁
+- 长锁：直接对方法加锁
+- 读写锁共用：只有一把锁，从头锁到尾
+
+**CHM 的解法**：
+
+- 小锁：分段锁(5-7)、桶节点锁(8)
+- 短锁：先尝试获取，失败再加锁
+- 分离读写锁：读失败再加锁(5-7)，volatile 读，CAS 写(7-8)
+
+**锁的优化建议**：
+
+- 长锁不如短锁
+- 大锁不如小锁
+- 共锁不如私锁
+- 嵌套锁不如扁平锁
+- 分离读写锁
+- 粗化高频锁
+- 消除无用锁，或用 volatile 代替
+
+### 3.4 AtomicReference 和 AtomicReferenceFieldUpdater 有何区别
+
+#### 考察什么？
+
+- 是否熟练掌握原子操作的概念（中级）
+- 是否熟悉 AR 和 ARFU 这两个类的用法和原理（中级）
+- 是否对 Java 对象的内存占用有认识（高级）
+- 是否有较强的敏感度和深入探索的精神（高级）
+
+#### 题目剖析
+
+- AtomicReference 的使用
+  - AtomicReference 本身是对对象的引用，对应每个属性，都要创建一个 AtomicReference 对象。
+  - 32 位和 64 位(启用指针压缩)，每次创建，都需要消耗 16 个字节的空间，不启用指针压缩的 64 位对象，占用 24 个字节。
+- AtomicReferenceFieldUpdater 的使用
+  - 需要将那些希望被原子更新的对象属性声明为 volatile。
+  - AtomicReferenceFieldUpdater 使用时，不需要针对每个属性创建对象，由此节约了内存。
+- BufferedInputStream 中有使用到 AtomicReferenceFieldUpdater。
+- kotlin 中的 `val by lazy` 也有使用到 AtomicReferenceFieldUpdater。
+
+### 3.5 如何在 Android 中写出优雅的异步代码
+
+#### 考察什么？
+
+- 是否熟练编写异步同步代码（中级）
+- 是否熟悉回调地狱（中级）
+- 是否能够熟练使用 RxJava（中级）
+- 是否对 Kotlin 协程有所了解（高级）
+- 是否具备编写良好代码的意识和能力（高级）
+
+#### 题目剖析
+
+如何在 Android 中写出优雅的异步代码
+
+**什么是异步**：
+  
+- 取决于代码是否顺序执行，而不是线程数。
+  
+**为什么需要异步**：
+
+- 提高 CPU 利用率（CPU密集型，IO密集型）
+- 提升 GUI 程序的响应速度
+- 异步不一定快、
+
+**RxJava 异常处理**：
+
+- 没有传入 onError 会导致程序崩溃
+- 注意页面销毁时取消 RxJava
+- AutoDispose 的使用
+
+**kotlin 协程**：
+
+- 将异步代码转变位同步代码
+
+---
+## 4 JNI 编程的细节
+
+### 4.1 CPU 架构适配需要注意哪些问题？
+
+#### 考察什么？
+
+- 是否有 Native 开发经验（中级）
+- 是否关注过 CPU 架构适配（中级）
+- 是否有过含 Native 代码的 SDK 开发经历（中级）
+- 是否针对 CPU 架构适配做出过包体积优化（高级）
+
+#### 题目剖析
+
+- native 开发才需要关注 CPU 架构适
+- 不同 cpu 架构之间的兼容性
+- so 太多，如何优化 apk 体积
+- sdk 开发者应该提供哪些 so 库
+
+**cpu 架构之间的兼容性**：
+
+- mip（已经废弃）
+- mips 64（已经废弃）
+- x86
+- x86_64
+- armeabi
+- armeabi_v7a
+- arm64_v8a
+- armeabi 兼容 x86 和 其他 arm 架构
+
+**系统加载 so 库的顺序**:
+
+- 系统优先加载对应架构目录下的 so 库
+- 要提供就提供一整套
+
+**兼容模式的一些问题**：
+
+- 兼容模式运行的 Native 无法获得最佳性能
+  - 所以 x86 的电脑上运行 arm 的虚拟机会很慢
+- 兼容模式容易出现一些难以排除的内存问题
+- 系统优先加载对应架构目录下的 so 库
+
+**如果优化 APP 体积**
+
+- 结果目标用户群体的设备 cpu 架构来选择合适的 so 库。
+- 目前兼容性最好的是 armeabi_v7a，大部分机器都是这个。
+- 根据设备 cpu 架构动态加载 so 库。
+- 线上监控问题，针对性提供 Native 库
+- 非启动加载库可云端下发
+
+**优化 so 体积**：
+
+- 默认隐藏所有符号，只暴露必须公开的
+- 禁用 C++ Exception 和 RTTI，用处不大
+- 不要使用 iostream，优先使用 Android Log
+- 使用 gcc-sections 去掉无用代码
+- 构建时分包，借助应用市场分发对应的 APK
+
+**SDK 开发注意**
+
+- 尽量不要使用  Natrive 开发
+- 尽量优化 Native 库的体积
+- 必须提供完整的 CPU 架构依赖
+
+### 4.2 Java Native 方法与 Native 函数是怎么绑定的？
+
+#### 考察什么？
+
+- 是否有 Native 开发经验（中级）
+- 是否面对知识善于发现背后的原因（高级）
+
+#### 题目剖析
+
+- 静态绑定：命名规则
+- 动态绑定：JVM 注册
+
+**静态绑定**：
+
+- java_类路径名_方法名
+- `extern C` 的作用，告诉编译器，编译 Native 函数时，保留名字按照 C 的规则，不能去混淆名字(c++为了避免命名冲突，默认会混淆命名)。
+- JNIEXPORT 用于告知编译器，公开该方法符号(即 visibility 位 default)，这样才能被 JVM 发现。
+- JNICALL 处理兼容性问题，最好加上。
+
+**动态绑定**：
+
+- 动态绑定任何时候都可以触发。
+- 可以借此来实现 so 替换，动态绑定可以覆盖静态绑定。
+- 性能由于静态绑定，无需查找
+- 重构方便
+
+### 4.3 JNI 如何实现数据传递？
+
+#### 考察什么？
+
+- 是否有 Native 开发经验（中级）
+- 是否对 JNI 数据传递中的细节有认识（高级）
+- 是否能够合理地设计 JNI 的界限（高级）
+
+#### 题目剖析
+
+**通过 long 类型传递对象指针**：
+
+- Bitmap 在 Native 层也有一个类对应，Bitmap 类中有一个 `long mNativePtr` 用于引用底层的 bitmap 指针。
+
+**字符串的操作**：
+
+- GetStringUTFChars/ReleaseStringUTFChars
+  - 返回 `const char*` 型，类似 java 中的 byte
+  - 拷贝出 `Modified-UTF-8` 的字节流
+  - `\0`编码成 `0xC080`，不会影响 C 字符串结尾
+- GetStringChars/ReleaseStringChars
+  - 返回 `const jchar*` 类型
+  - JNI 函数自动处理字节序转换
+- GetStringUTFRegion/GetStringRegion
+  - 先在 C 层创建足够容量的空间
+  - 将字符串的某一个部分拷贝到开辟好的空间
+  - 针对性复制，少量读取时效率更优
+- GetStringCritical/ReleaseStringCritical
+  - 调用对中间会停止 JVM GC
+  - 调用对之间不可有其他的 JNI 操作
+  - 调用对可嵌套
+
+**字符串操作的 isCopy**：
+
+- `const char * GetStringUTFChars(JNIEnv *env, jstring string, jboolean *isCopy);`
+- `const jchar * GetStringChars(JNIEnv *env, jstring string, jboolean *isCopy);`
+- `const jchar * GetStringCritical(JNIEnv *env, jstring string, jboolean *isCopy);`
+
+- `isCopy = false` 表示 native 中的指针指向的字符串就是在 Java 内存分配的。JVM GC 应该保证该内存块不被回收，大部分 JVM 都不会这样实现，因为很繁琐。
+- `isCopy = true` 表示 native 中的指针指向的字符串不是在 Java 内存分配的。而是复制一份到 native 内存中。
+- 拷贝与否，取决于 JVM 实现。
+
+**对象数组传递**：
+
+- LocalReference 在方法结束后会被自动使用。
+- 但 LocalReference 有数量限制，如果一个方法中需要大量创建 LocalReference(比如 for 循环中)，则应该一边释放旧的 LocalReference，一边创建新的 LocalReference。
+
+**DirectBuffer**：
+
+- `ByteBuffer.allocateDirect()`
+- 不需要拷贝
+- 需要自己处理字节序
+
+### 4.4 如何全局捕获 Native 异常？
+
+#### 考察什么？
+
+- 是否熟悉 Linux 的信号（中级）
+- 是否熟悉 Native 层任意位置获取 jclass 的方法（高级）
+- 是否熟悉底层线程与 Java 虚拟机的关系（高级）
+- 通过实现细节的考察，确认候选人的项目经验（高级）
+
+#### 题目剖析
+
+- 如果捕获异常
+- 如何清理 Native 层和 Java 层的资源
+- 如何排除定位问题
+
+**捕获 Native 异常**：
+
+- `sigaction()` 函数
+
+**传递异常到 Java 层**：
+
+- javaVM 全局不会变
+- 通过  javaVM 可以获取到 JNIEnv 指针
+- 返回通过反射调用 Java 层
+- 注意：Native 线程需要 attach 到 JVM，才能通过 javaVM 获取 JNIEnv，只有 detach 才能清理期间创建的 Jvm 对象
+- ClassLoader 一定要保证一致，可以在初始化时设置全局的 ClassLoader。
+
+```c
+static jobject classLoader;
+
+jint setUpClassLoader(JNIEnv *env){
+    jclass applicationClass = ent->FindClass("xxx/xxx/xxx/AppContext");//获取 AppContext.class
+    jclass classClass = getObjectClass(applicationClass);//获取 java.lang.Class 对象
+    jmethodID getClassLoaderMethod = env->GetMethodID(classClass, "getClassLoader", "()Ljava/lang/ClassLoader;");
+    classLoader = env->NewGlobalRef(env->CallObjectMethod(applicationClass, getClassLoaderMethod));
+    return classLoade == NULL? JNI_ERR:JNI_OK;
+}
+```
+
+**捕获 Native 异常堆栈**：
+
+- 设备备用栈，防止 SIGSEGV 因栈溢出而出现堆栈被破坏。
+- 创建独立线程专门用于堆栈收集并回收至 Java 层。
+- 收集堆栈信息：
+    - `[4.4.1, 5.0]` 使用内置 `libcorkscrew.so`
+    - `5.0+`使用自己编译的 `libnuwind`
+- 通过线程关联 Native 异常对应的 Java 堆栈
+
+### 4.5 只有 C、C++ 可以编写 JNI 的 Native 库吗？
+
+#### 考察什么？
+
+- 是否对 JNI 函数绑定的原理有深入认识（高级）
+- 是否有底层开发有丰富经验
+
+#### 题目剖析
+
+- Native 程序与 Java 关联的本质是什么？
+
+**JNMI 对 Native 函数的要求**：
+
+- 静态绑定
+  - 符号绑定
+  - 符号符合 Java Native 方法的 `包名_类名_方法名`
+  - 符号名按照 C 语言的规则修饰
+- 动态绑定
+  - 函数本身无要求
+  - JNI 可识别入口函数如 JNI_OnLoad 进行注册即可
+
+**可选的 Native 语言**：
+
+- Golang
+- Rust
+- Kotlin Native
+- Scala Native
+- 其他语言，理论上都可以
+
+**认识 Kotlin Native**
+
+- kotlin jvm
+- kotlin js
+- kotlin native

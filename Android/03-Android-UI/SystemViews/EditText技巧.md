@@ -138,8 +138,3 @@ EditTxt.setImeOptions
 android:focusable="true"
 android:focusableInTouchMode="true"
 ```
-
-问题完美解决。
-
-
-

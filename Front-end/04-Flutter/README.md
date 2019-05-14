@@ -87,6 +87,7 @@ plugin
 - [Flutter豆瓣客户端](https://github.com/kaina404/FlutterDouBan)
 - [flutter-go](https://github.com/alibaba/flutter-go)
 - [Awesome Flutter：带你从入门到进阶的 Flutter 指南](https://juejin.im/post/5b2869e66fb9a00e5f3e861f)
+- [超完整的Flutter项目，功能丰富，适合学习和日常使用。](https://github.com/CarGuo/GSYGithubAppFlutter)
 
 视频教程：
 

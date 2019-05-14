@@ -31,7 +31,7 @@
 ### 安装编译环境
 
 ```
-sudo apt-get install build-essential
+        sudo apt-get install build-essential
 ```
 
 ### install unity tools
@@ -47,49 +47,49 @@ sudo apt-get install build-essential
 aptitude工具是基于apt的一款安装工具，优点是可以自动解决安装和卸载时候的依赖关系。
 
 ```
-        sudo apt install aptitude
+sudo apt install aptitude
 ```
 
 ### 安装工具
 
 ```
-        sudo aptitude install shutter//安装截屏软件shutter
-        sudo apt install docky//docky工具栏：使用 apt/apt-get 可能需要重启才能生效，用aptitude安装后可以直接使用
+sudo aptitude install shutter//安装截屏软件shutter
+sudo apt install docky//docky工具栏：使用 apt/apt-get 可能需要重启才能生效，用aptitude安装后可以直接使用
 ```
 
 ### 安装主题
 
 ```
-        //主题
-        sudo add-apt-repository ppa:noobslab/themes
-        sudo apt-get update
-        sudo apt-get install flatabulous-theme
-        //配套图标
-        sudo add-apt-repository ppa:noobslab/icons
-        sudo apt-get update
-        sudo apt-get install ultra-flat-icons
+//主题
+sudo add-apt-repository ppa:noobslab/themes
+sudo apt-get update
+sudo apt-get install flatabulous-theme
+//配套图标
+sudo add-apt-repository ppa:noobslab/icons
+sudo apt-get update
+sudo apt-get install ultra-flat-icons
 ```
 
 ### install jdk
 
 ```
-        //首先安装软件包管理工具
-        sudo apt-get install python-software-properties
-        sudo apt-get install software-properties-common
-        //Oracle
-        sudo add-apt-repository ppa:webupd8team/java
-        sudo apt-get update
-        sudo apt-get install oracle-java8-installer
-        //open jdk
-        sudo apt-get update
-        sudo apt-get install openjdk-8-jdk
+//首先安装软件包管理工具
+sudo apt-get install python-software-properties
+sudo apt-get install software-properties-common
+//Oracle
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+//open jdk
+sudo apt-get update
+sudo apt-get install openjdk-8-jdk
 ```
 
 
 ### oh-my-zsh
 
 ```
-      sudo apt-get install zsh
+sudo apt-get install zsh
 ```
 
 ### vim
@@ -98,16 +98,17 @@ aptitude工具是基于apt的一款安装工具，优点是可以自动解决安
 sudo apt-get install vim-gtk
 vim /etc/vim/vimrc #编辑配置文件，加入以下配置
 
-    set nu
-    set tabstop
-    set cursorline
-    set ruler
+        //config:
+        set nu
+        set tabstop
+        set cursorline
+        set ruler
 ```
 
 ### dos2unix
 
 ```
-    sudo apt-get install dos2unix
+sudo apt-get install dos2unix
 ```
 
 ### Tomcat
@@ -205,7 +206,6 @@ sudo service nginx start
 sudo service nginx stop
 sudo service nginx restart
 ```
-
 
 ### 开放端口号
 

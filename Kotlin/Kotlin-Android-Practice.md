@@ -261,7 +261,7 @@ fun update(@Path("storeId") storeId: Int, @Path("categoryId") categoryId: Int?, 
 
 ------
 
-###  RxJava2 的 combineLatest 泛型丢失
+### RxJava2 的 combineLatest 泛型丢失
 
 ```kotlin
     private var userNameObservable: Observable<CharSequence>? = null
@@ -292,7 +292,7 @@ fun update(@Path("storeId") storeId: Int, @Path("categoryId") categoryId: Int?, 
 
 ------
 
-### data class 与 默认构造函数
+### data class 与默认构造函数
 
 如果没有为 DataClass 所有参数指令默认值，那么 DataClass 没有默认的构造函数， 这样通过反射去创建 DataClass 实例是会异常的，Gson 当检查到 class 没有默认构造函数时，会通过 `Unsafe.allocateInstance()` 类绕过构造函数实来例化对象，但是这样实例化出来的对象的字段都是没有被初始化的，基于这种情况，就可能存在问题：
 
@@ -373,3 +373,6 @@ data class DataB(
 
 data class 提供了 copy 方法，但其拷贝方式是浅拷贝，而有些时候我们需要做 deep copy，这时可以使用 [KotlinDeepCopy](https://github.com/enbandari/KotlinDeepCopy)
 
+### kotlin 接口默认函数
+
+kotlin 支持接口默认函数，但是其最终还是编译为字节码，而对于 JVM 来说，Java1.8 才支持在接口上定义默认方法，因此当 kotlin 编译目标字节码低于 1.8 时，使用 kotlin 接口上的默认函数可能会带来问题。

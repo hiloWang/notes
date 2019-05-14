@@ -1,6 +1,6 @@
 ## 1 安装 ubuntu
 
-### （双系统）
+### 双系统
 
 预备设置：windiws关闭快速启动，bios关闭安全启动。
 
@@ -31,15 +31,15 @@
 ### 安装编译环境
 
 ```
-        sudo apt-get install build-essential
+sudo apt-get install build-essential
 ```
 
 ### install unity tools
 
 ```
-        sudo add-apt-repository ppa:freyja-dev/unity-tweak-tool-daily
-        sudo apt-get update
-        sudo apt-get install unity-tweak-tool
+sudo add-apt-repository ppa:freyja-dev/unity-tweak-tool-daily
+sudo apt-get update
+sudo apt-get install unity-tweak-tool
 ```
 
 ### install aptitude

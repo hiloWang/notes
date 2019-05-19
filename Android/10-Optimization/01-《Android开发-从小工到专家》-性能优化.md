@@ -1,4 +1,4 @@
-# Android性能优化
+# 《Android开发——从小工到专家》Android性能优化
 
 >无论你的应用多么酷多么有用，如果它运行缓慢，或者非常消耗内存，那么没有人会乐意使用它。
 
@@ -74,10 +74,7 @@ RandomAccessMemory(RAM) 在任何软件开发中都是很宝贵的资源，这�
 
 >onTrimMemeroy 是在 Android4.0 系统中被加入的，对于老的版本可以使用 onLowMemory 回调来实现兼容，onLowMemory 相当于 TRIM_MEMROY_COMPLETE。
 
-
 当系统开始进程 LR 缓存中进程时，尽管它首先按照 LRU 的顺序来操作，但是，它同样会考虑进程的内存使用量，因此消耗较少的进程则容易被保留下来。
-
-
 
 ### 2.4 检查你应该使用多少内存
 
@@ -116,16 +113,23 @@ RandomAccessMemory(RAM) 在任何软件开发中都是很宝贵的资源，这�
 
 ### 2.9 使用nano protobufs
 
+- 略
+
 ### 2.10 避免使用依赖注入框架
 
-这里说的依赖注入框架是运行时依赖注入框架。
+- 略
 
 ### 2.11 谨慎使用第三方库
 
+- 略
+
 ### 2.12 使用ProGuard来剔除不需要的代码
+
+- 略
 
 ### 2.13 对最终的Apk使用zipAlign
 
+- 略
 
 ---
 ## 3 内存泄漏
@@ -159,16 +163,16 @@ Android系统每隔16ms发出VSYNC信号，触发对UI进行渲染，如果每�
 
 使用下面工具可以对UI性能进行调试：
 
-*   HierarchyViewer来查找Activity中的布局是否过于复杂
-*   开发者选项，打开Show GPU Overdraw
-*   使用TraceView来观察CPU的执行情况，更加快捷的找到性能瓶颈
+- HierarchyViewer来查找Activity中的布局是否过于复杂
+- 开发者选项，打开Show GPU Overdraw
+- 使用TraceView来观察CPU的执行情况，更加快捷的找到性能瓶颈
 
 #### Clip
 
 非可见的UI组件进行绘制更新会导致Overdraw，对于系统控件Android系统会通过避免绘制那些完全不可见的组件来尽量减少Overdraw。那些Nav Drawer里面不可见的View就不会被执行浪费资源。但是过于复杂的自定义的View(重写了onDraw方法)，Android系统无法检测具体在onDraw里面会执行什么操作，系统无法监控并自动优化。
 
-*   使用`canva.clipRect()`裁剪canvas，这是只有被裁减的区域才会被绘制。
-*   使用`canvas.quickreject()`来判断是否没和某个矩形相交，从而跳过那些非矩形区域内的绘制操作
+- 使用`canva.clipRect()`裁剪canvas，这是只有被裁减的区域才会被绘制。
+- 使用`canvas.quickreject()`来判断是否没和某个矩形相交，从而跳过那些非矩形区域内的绘制操作
 
 ### 4.2 数据采集和分析工具——TraceView
 
@@ -181,7 +185,7 @@ TraceView是Android平台特有的数据采集和分析工具，他主要用于�
 
 ```java
     public class MainActivity extends AppCompatActivity {
-    
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -189,8 +193,7 @@ TraceView是Android平台特有的数据采集和分析工具，他主要用于�
     //android_database.trace用于指定存储的文件名，最终生成的文件路径将会是： mmt/sdcard/android_database.trace
             Debug.startMethodTracing("android_database.trace");
         }
-    
-    
+
         @Override
         protected void onResume() {
             super.onResume();
@@ -208,7 +211,6 @@ TraceView是Android平台特有的数据采集和分析工具，他主要用于�
 
 如是上图所示，选中一个正在运行的进程，点击红色箭头指想的按钮，开始运行代码，当你觉得收集了足够的信息后再次点击按钮，DDMS就会自动打开trace文件，如下图所示：
 
-
 ![](index_files/514f9070-6225-4805-ae64-86c1d49794d0.png)
 
 trace分析界面分为上下两个面板，分别为Timeline Panel(时间线面板)和 Profile Panel(函数分析面板)。
@@ -220,7 +222,6 @@ Timeline Panel又可以细分为左右两个面板，左边面板显示测试数
 ##### Profile Panel
 
 Profile Panel是TraceView的核心面板，其数据参数、参数非常多，主要展示某个线程中各个函数调用的情况，包括cpu执行时间，调用次数，函数真实执行时间等信息，这些信息正是查找性能瓶颈的关键依据，所以了解分析面板中各个参数的意义是使用TraceView的关键，图下面所示：
-
 
 | 参数名  | 含义  |
 | ------------ | ------------ |
@@ -234,7 +235,6 @@ Profile Panel是TraceView的核心面板，其数据参数、参数非常多，�
 | Call+Recur<br/>Calls/Total  |某函数调用次数，递归调用次数，总调用次数   |
 | Cpu Time/Call  | 某函数的CPU执行时间与调用次数的比，相当于该函数的平均执行时间  |
 | Real Time/Call|某函数的CPU执行时间与调用次数的比，相当于该函数的平均执行时间，这个时间中包含了内部调用其它函数的执行时间|
-
 
 TraceView的参数较多，其中Incl的全称为(Inclusive)代表包含某函数中调用子函数的执行时间，而Excl(全部称为Exclusive)，代表不包含子函数调用的执行时间。
 
@@ -250,15 +250,12 @@ TraceView的参数较多，其中Incl的全称为(Inclusive)代表包含某函�
 
 由于request的耗时为10毫秒，加速request值调用了一次，而我们收集数据的执行时间为100毫秒，那么request的Incl Real Time%就是10%，Incl Real Time就是10毫秒，Excl Real Time代表的是除了子函数的执行时间之外的耗时，因此requset的时间的1毫秒，这就是说request本身耗时是比较少的，真正耗时的是它内部调用的子函数，因此就需要继续追踪子函数的调用。而Cpu Time则为执行该函数实际上消耗的CPU时间，因此在Real Time中实际包含了CPU等待、进程切换等时间，真正执行代码的时间消耗实际上要比Real Time小。
 
+下面通过已经具体的案例来学习如何利用TraceView分析性能瓶颈，一般而言，性能瓶颈包括两种类型的函数：
 
-下面通过已经具体的案例来学习如何利用TraceView分析性能瓶颈：
-
-一般而言，性能瓶颈包括两种类型的函数：
 - 函数的调用次数不多，但是单次调用很耗时
 - 函数自身占用使劲不长，但是调用却非常的频繁
 
 加速我们的ListView需要显现一个列表，其Adapter如下：
-
 
 ```java
       private class FeedAdapter extends BaseAdapter {
@@ -266,17 +263,17 @@ TraceView的参数较多，其中Incl的全称为(Inclusive)代表包含某函�
             public int getCount() {
                 return 50;
             }
-    
+
             @Override
             public Object getItem(int i) {
                 return null;
             }
-    
+
             @Override
             public long getItemId(int i) {
                 return 0;
             }
-    
+
             @Override
             public View getView(int i, View view, ViewGroup viewGroup) {
                 if (view == null) {
@@ -289,6 +286,7 @@ TraceView的参数较多，其中Incl的全称为(Inclusive)代表包含某函�
                 textView.setPadding(20, 20, 20, 20);
                 return textView;
             }
+
             private void doSthHeavy() {
                 try {
                     prepareSth1();
@@ -298,17 +296,21 @@ TraceView的参数较多，其中Incl的全称为(Inclusive)代表包含某函�
                     e.printStackTrace();
                 }
             }
+
             private void prepareSth2() throws InterruptedException {
                 Thread.sleep(4);
             }
+
             private void prepareSth3() throws InterruptedException {
                 Thread.sleep(10);
             }
+
             private void prepareSth1() throws InterruptedException {
                 Thread.sleep(4);
             }
         }
 ```
+
 使用这个Adapter时界面在滑动时非常的卡顿，因为调用了doSthHeavy函数，该函数的总耗时大概为18毫秒，内部分别调用了，prepareSth1、prepareSth2、prepareSth3三个函数，分别耗时为4、4、10毫秒，运行程序并收集数据如下：
 
 ![](index_files/0a902d7d-5d43-4a0c-b85e-18ce4ddbe645.png)
@@ -327,8 +329,7 @@ TraceView的参数较多，其中Incl的全称为(Inclusive)代表包含某函�
 
 ![](index_files/b1d2fc9b-e58e-4b1f-9dd1-30e29a109fcd.png)
 
-
 ---
 ## 引用
 
-- 《Android开发——从小工到专家》
+- 《Android开发——从小工到专家》——性能优化

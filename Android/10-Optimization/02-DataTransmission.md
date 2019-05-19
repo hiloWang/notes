@@ -43,7 +43,6 @@ JSON是目前常用的数据序列化技术，可读性强，但是序列化和�
 - [你真的会用Gson吗?Gson使用指南（三）](http://www.jianshu.com/p/0e40a52c0063)
 - [你真的会用Gson吗?Gson使用指南（四）](http://www.jianshu.com/p/3108f1e44155)
 
-
 ### xml
 
 - [XStream](http://x-stream.github.io/)

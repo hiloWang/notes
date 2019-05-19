@@ -23,8 +23,6 @@ AndroidStudio的内存分析工具还是比较强大的，使用起来也比较�
 
 图中引用树为红色时说明对象已经被回收了。
 
-
-
 ### 各属性中英文对照表
 
 | 名称 | Total Count | Heap Count | Sizeof | Shallow size | Retained Size |
@@ -49,22 +47,3 @@ AndroidStudio的内存分析工具还是比较强大的，使用起来也比较�
 如果我们想了解内存分配更详细的情况,可以使用Allocation Traker来查看内存到底被什么占用了。
 
 ![](index_files/3bf0cd06-da3e-470b-a51e-6ceed87b05af.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

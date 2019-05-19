@@ -145,7 +145,7 @@ sink.writeUtf8(entry.getKey() + "=" + entry.getValue() + "\n"); // 更慢!
 
 虽然我们在 I/O 中读取或写入字符串时都使用 UTF-8 编码，但是当字符串在内存中时，Java Strings 使用一种名为UTF-16 的过时字符编码。这是一个糟糕的编码，因为它对大多数字符使用 16 位字符，这对某些字符不适用，特别是，大多数表情符号使用两个 Java 字符。这是有问题的，因为 `String.length()`可能返回一个令人惊讶的结果：UTF-16 字符的数量而不是字形的自然数量（String.length()返回的数可能与字符串的表面上的字符数不等）。
 
-![](index_files/1315c10c-969f-496c-8abd-d598c9fad908.png)
+![](index_files/okio-01.png)
 
 在大多数情况下，Okio 都可以让你忽略掉这些问题而去专注于数据，但当你需要它们时，有方便的 API 来处理低级 UTF-8 字符串。
 

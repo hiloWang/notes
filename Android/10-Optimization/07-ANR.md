@@ -1,5 +1,7 @@
 # ANR分析
 
+## 示例代码
+
 ```java
 public class ANRActivity extends AppCompatActivity {
 
@@ -38,8 +40,7 @@ public class ANRActivity extends AppCompatActivity {
 
 ## 分析文件
 
-```
-
+```log
 ----- pid 7634 at 2018-02-01 09:28:14 -----
 Cmd line: com.ztiany.test
 
@@ -84,4 +85,3 @@ DALVIK THREADS:
   at com.ztiany.test.anr.ANRActivity.access$000(ANRActivity.java:17)
   at com.ztiany.test.anr.ANRActivity$1.run(ANRActivity.java:35)
 ```
-

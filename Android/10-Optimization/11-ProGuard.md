@@ -19,7 +19,6 @@ ProGurad由Shrink、Optimize、Obfuscate、Preveirfy四个步骤组成，其中�
 
 ![](index_files/9d777ebe-d23f-4a45-8a20-01cc91b805d0.png)
 
-
 ### 哪些类不能被混淆
 
 - 1 避免混淆泛型 –keepattributes Signature
@@ -48,7 +47,6 @@ ProGurad由Shrink、Optimize、Obfuscate、Preveirfy四个步骤组成，其中�
 -dontobfuscate # 不混淆
 ```
 
-
 ### 保留语法
 
 ```
@@ -70,7 +68,6 @@ ProGurad由Shrink、Optimize、Obfuscate、Preveirfy四个步骤组成，其中�
 - Modifier 表示修饰符
 - class_specification 表示类的声明
 
-
 #### 使用示例
 
 **-libraryjars** 用于保护指定的Jar包不被混淆。一般和-dontwarn一起使用，防止第三方sdk出现警告
@@ -88,13 +85,13 @@ ProGurad由Shrink、Optimize、Obfuscate、Preveirfy四个步骤组成，其中�
 **-assumenosideeffects** 去掉所有的Log:
 
 ```
-    -assumenosideeffects class android.util.Log { 
-        public static boolean isLoggable(java.lang.String, int); 
-        public static int v(...); 
-        public static int i(...); 
-        public static int w(...); 
-        public static int d(...); 
-        public static int e(...); 
+    -assumenosideeffects class android.util.Log {
+        public static boolean isLoggable(java.lang.String, int);
+        public static int v(...);
+        public static int i(...);
+        public static int w(...);
+        public static int d(...);
+        public static int e(...);
     }
 ```
 
@@ -159,11 +156,10 @@ proguard-android.txt已经配置的指令：
     -dontpreverify  # 混淆时不做预校验(Android不需要预校验，预校验是第一步，去掉这一步可以加快混淆速度)
     -dontoptimize #不优化
     -verbose    #用于生成混淆日志 (-printmapping proguardMapping.txt,#指定日志文件)
-    
+
     -dontusemixedcaseclassnames  # 不使用大小写混合(由于windows平台大小写不敏感，必须开启)
     -dontskipnonpubliclibraryclasses  # 混淆第三方jar公共类库，不跳过对非公共类库的处理
     -dontskipnonpubliclibraryclassmembers  # 混淆第三方jar公共类库的类成员
-    
 
     #保留注解
     -keepattributes *Annotation*
@@ -178,7 +174,7 @@ proguard-android.txt已经配置的指令：
         public static **[] values();
         public static ** valueOf(java.lang.String);
     }
-    
+
     #View的keep setters in Views so that animations can still work.
     -keepclassmembers public class * extends android.view.View {
        void set*(***);
@@ -188,7 +184,7 @@ proguard-android.txt已经配置的指令：
     -keepclassmembers class * extends android.app.Activity {
        public void *(android.view.View);
     }
-    
+
     #序列化
     -keep class * implements android.os.Parcelable {
       public static final android.os.Parcelable$Creator *;
@@ -197,21 +193,19 @@ proguard-android.txt已经配置的指令：
     -keepclassmembers class **.R$* {
         public static <fields>;
     }
-    
+
     -dontwarn android.support.**
 ```
-
-
 
 ### 配置proguard-rules.pro
 
 ```
     -allowaccessmodification #优化时允许访问并修改有修饰符的类和类的成员
     -ignorewarnings  # 忽略警告，避免打包时某些警告出现
-    
+
     -keepattributes Signature #过滤泛型  出现类型转换错误时，启用这个
     -keepattributes SourceFile,LineNumberTable # 保持反编译工具能看到代码的行数，以及release包安装后出现异常信息可以知道在哪行代码出现异常
-    
+
     #保留所有继承Activity，Fragment等的类都不被混淆
     -keep public class * extends android.app.Activity
     -keep public class * extends android.app.Fragment
@@ -221,7 +215,7 @@ proguard-android.txt已经配置的指令：
     -keep public class * extends android.content.ContentProvider
     -keep public class * extends android.app.backup.BackupAgentHelper
     -keep public class * extends android.preference.Preference
-    
+
     #自定义类及其构造方法不被混淆
     -keepclasseswithmembers class * {
         public <init>(android.content.Context, android.util.AttributeSet);
@@ -229,7 +223,7 @@ proguard-android.txt已经配置的指令：
     -keepclasseswithmembers class * {
         public <init>(android.content.Context, android.util.AttributeSet, int);
     }
-    
+
     #V4包
     -dontwarn android.support.v4.**
     -keep class android.support.v4.** { *; }
@@ -239,18 +233,18 @@ proguard-android.txt已经配置的指令：
     -keep public class * extends android.support.v4.widget
     -keep class * extends android.support.v4.app.** {*;}
     -keep class * extends android.support.v4.view.** {*;}
-    
+
     #Serializable序列化
     -keep class * implements java.io.Serializable {*;}
     -keepnames class * implements java.io.Serializable
     -keepclassmembers class * implements java.io.Serializable {*;}
-    
+
     #Gson
     -keepattributes *Annotation*
     -keep class sun.misc.Unsafe { *; }
     -keep class com.idea.fifaalarmclock.entity.***
     -keep class com.google.gson.stream.** { *; }
-    
+
     #去掉Log
     -assumenosideeffects class android.util.Log {
         public static boolean isLoggable(java.lang.String, int);

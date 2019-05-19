@@ -12,11 +12,9 @@
 内存不在GC掌控之内了。当一个对象已经不需要再使用了，本该被回收时，而有另外一个正在使用的对象持有它的引用从而就导致对象不能被回收。
 这种导致了本该被回收的对象不能被回收而停留在堆内存中，就产生了内存泄漏
 
-
 ### java的GC内存回收机制
 
 某对象不再有任何的引用的时候才会进行回收。
-
 
 ### 了解内存分配的几种策略
 
@@ -31,7 +29,7 @@
 - 堆管理很麻烦，频繁地`new/remove`会造成大量的内存碎片，这样就会慢慢导致效率低下。
 - 栈先进后出，进出完全不会产生碎片，运行效率高且稳定。
 
-```
+```java
 public class Main{
     int a = 1;
     Student s = new Student();
@@ -69,45 +67,25 @@ Java的四种引用类型：
 
 开发时，为了防止内存溢出，处理一些比较占用内存大并且生命周期长的对象的时候，可以尽量使用软引用和弱引用。软引用比LRU算法更加任性，回收量是比较大的，你无法控制回收哪些对象。
 
-
-
 ## 3 如何发现内存泄露
 
-往往做项目的时候情况非常复杂，或者项目做得差不多了想起来要性能优化检查下内存泄露。如何找到项目中存在的内存泄露的这些地方呢？
-
-
-如果我们不知道代码内存泄露的情况，需要凭借工具结合自己的经验来判断，比如我们的app在某个时候或者某个操作以后会出现很卡的现象，
-判断就是查看内存抖动情况。
-
-
-
-查找引用了该对象的外部对象有哪些，
-然后一个一个去猜，查找可能内存泄露的嫌疑犯，依据：看(读代码和猜)他们的生命周期是否一致(可以通过快照对比)，如果生命周期一致了肯定不是元凶。
-
-排除一些容易被回收的(软引用、虚引用、弱引用)
-
+往往做项目的时候情况非常复杂，或者项目做得差不多了想起来要性能优化检查下内存泄露。如何找到项目中存在的内存泄露的这些地方呢？如果我们不知道代码内存泄露的情况，需要凭借工具结合自己的经验来判断，比如我们的app在某个时候或者某个操作以后会出现很卡的现象，
+判断就是查看内存抖动情况。查找引用了该对象的外部对象有哪些，然后一个一个去猜，查找可能内存泄露的嫌疑犯，依据：看(读代码和猜)他们的生命周期是否一致(可以通过快照对比)，如果生命周期一致了肯定不是元凶。排除一些容易被回收的(软引用、虚引用、弱引用)
 
 ### 1 确定是否存在内存泄露
 
 - Android Monitors的内存分析
-
-最直观的看内存增长情况，知道该动作是否发生内存泄露。
-
-比如执行某个动作之前，执行GC完后内存为`1.4M`，在动作发生之后再一次GC完后内存`1.6M`，则不可回收的内存增加了`0.2M`
-
+  - 最直观的看内存增长情况，知道该动作是否发生内存泄露。比如执行某个动作之前，执行GC完后内存为`1.4M`，在动作发生之后再一次GC完后内存`1.6M`，则不可回收的内存增加了`0.2M`
 - 使用MAT内存分析工具
-
-MAT分析heap的总内存占用大小来初步判断是否存在泄露，Heap视图中有一个Type叫做`data object`，即数据对象，也就是我们的程序中大量存在的类类型的对象。在`data object`一行中有一列是`Total Size`，其值就是当前进程中所有Java数据对象的内存总量，一般情况下，这个值的大小决定了是否会有内存泄漏。
-我们反复执行某一个操作并同时执行GC排除可以回收掉的内存，注意观察`data object`的`Total Size`值，
+  - MAT分析heap的总内存占用大小来初步判断是否存在泄露，Heap视图中有一个Type叫做`data object`，即数据对象，也就是我们的程序中大量存在的类类型的对象。在`data object`一行中有一列是`Total Size`，其值就是当前进程中所有Java数据对象的内存总量，一般情况下，这个值的大小决定了是否会有内存泄漏。我们反复执行某一个操作并同时执行GC排除可以回收掉的内存，注意观察`data object`的`Total Size`值，
 正常情况下`Total Size`值都会稳定在一个有限的范围内，也就是说由于程序中的的代码良好，没有造成对象不被垃圾回收的情况。
 反之如果代码中存在没有释放对象引用的情况，随着操作次数的增多`Total Size`的值会越来越大。那么这里就已经初步判断这个操作导致了内存泄露的情况。
 
 ### 2 找怀疑对象(哪些对象属于泄露的)
 
 MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据对象。这样做可以排除一些对象，不用后面去查看所有被引用的对象是否是嫌疑，
-快速定位到操作前后所持有的对象哪些是增加了，GC后还是比之前多出来的对象就可能是泄露对象嫌疑犯。
-    
-提示：
+快速定位到操作前后所持有的对象哪些是增加了，GC后还是比之前多出来的对象就可能是泄露对象嫌疑犯。提示：
+
 - Histogram(直方图)中还可以对对象进行Group，比如选择`Group By Package`更方便查看自己Package中的对象信息。
 - Android Memory Monitor捕获的hprof文件不是标准的hprof文件，需要在Cuptures栏右击文件导入标准的hprof文件才能被MAT分析。
 
@@ -122,7 +100,6 @@ MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据
     - 再过滤掉一些弱引用、软引用、虚引用，因为它们迟早可以被GC干掉不属于内存泄露，(在类上面点击右键`Merge Shortest Paths to GC Roots--->exclude all phantom/weak/soft etc.references`)
     - 逐个分析每个对象的GC路径是否正常，此时就要进入代码分析，判断此时这个对象的引用持有是否合理，这就要靠经验了。
 
-
 ### 如何判断一个应用里面避免内存泄露做得很好
 
 当app退出的时候，这个进程里面所有的对象应该就都被回收了，尤其是很容易被泄露的（View，Activity）是否还内存当中。
@@ -130,20 +107,17 @@ MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据
 
 工具：使用`AndroidStudio--AndroidMonitor--System Information--Memory Usage`查看Objects里面的views和Activity的数量是否为0.
 
-
-
 ## 4 内存泄露例子
 
 - 内存泄露(Memory Leak)：进程中某些对象已经没有使用价值了，但是他们却还可以直接或者间接地被引用到GC Root导致无法回收。当内存泄露过多的时候，再加上应用本身占用的内存，日积月累最终就会导致内存溢出OOM。
 - 内存溢出(OOM)：当应用占用的heap资源超过了Dalvik虚拟机分配的内存就会内存溢出。比如：加载大图片。
-
 
 ### 单例模式或静态变量引起的内存泄露
 
 当调用getInstance时，如果传入的context是Activity的context。只要这个单例没有被释放，那么这个Activity也不会被释放一直到进程退出才会释放。
 所以能用Application的context就用Application的
 
-```
+```java
     public class CommUtil {
         private static CommUtil instance;
         private Context context;
@@ -161,10 +135,12 @@ MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据
             return instance;
         }
 ```
+
 ### 非静态内部类(包括匿名内部类)引起内存泄露
 
 错误的示范：
-```
+
+```java
         public void loadData(){//隐式持有外部类实例，比如MainActivity.this
             new Thread(new Runnable() {
                 @Override
@@ -183,11 +159,11 @@ MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据
 
 解决方案：将非静态内部类修改为静态内部类。（静态内部类不会隐士持有外部类）
 
-
 ### 不需要用的监听未移除会发生内存泄露
 
 例子1：
-```
+
+```java
         //add监听，放到集合里面
         tv.getViewTreeObserver().addOnWindowFocusChangeListener(new ViewTreeObserver.OnWindowFocusChangeListener() {
             @Override
@@ -200,7 +176,8 @@ MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据
 ```
 
 例子2：
-```
+
+```java
         SensorManager sensorManager = getSystemService(SENSOR_SERVICE);
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ALL);
         sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_FASTEST);
@@ -209,7 +186,8 @@ MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据
 ```
 
 例子3：
-```
+
+```java
     handler.post(callback)
     onDestroy(){
         //在需要的时候进行remove
@@ -226,8 +204,6 @@ MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据
 
 没有在onDestroy中停止动画，否则Activity就会变成泄露对象，比如：轮播图效果。
 
-
-
 ## 5 优化工具
 
 性能优化的帮助工具包括：
@@ -239,13 +215,13 @@ MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据
 - LeakCanary：Square公司开源工具，可以直接在手机端查看内存泄露的工具。
 - Lint工具：AndroidStudio提供的静态代码检查工具
 
-
 ### LeakCanary
 
 实现原理：本质上还是用命令控制生成hprof文件分析检查内存泄露，然后发送通知。
 
 大概的步骤：
-```
+
+```java
 Application
     install()
 LeakCanary

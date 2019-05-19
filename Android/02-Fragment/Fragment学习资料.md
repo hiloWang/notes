@@ -1,6 +1,5 @@
 # Fragment 学习资料
 
-
 ## Fragment 博客
 
 - [官方文档]( http://developer.android.com/intl/zh-cn/guide/components/fragments.html)
@@ -13,7 +12,6 @@
 - [FragmentTransaction 与 Activity 状态丢失？](https://github.com/bboyfeiyu/android-tech-frontier/blob/master/issue-39/FragmentTransaction%20%E4%B8%8E%20Activity%20%E7%8A%B6%E6%80%81%E4%B8%A2%E5%A4%B1%EF%BC%9F.md)
 - [Fragment的源码分析](http://www.cnblogs.com/punkisnotdead/p/4974527.html)
 - [两步搞定Fragment的返回键](http://www.jianshu.com/p/fff1ef649fc0)
-
 
 ## 框架
 
@@ -31,10 +29,8 @@
 
 - [ 官方文档 ](http://developer.android.com/intl/zh-cn/guide/topics/ui/dialogs.html#DialogFragment)
 
-
 ## 推荐Fragment踩坑总结
 
 1. [Fragment全解析系列（一）：那些年踩过的坑](http://www.jianshu.com/p/d9143a92ad94)
 2. [Fragment全解析系列（二）：正确的使用姿势](http://www.jianshu.com/p/fd71d65f0ec6)
 3. [Fragment之我的解决方案：Fragmentation](http://www.jianshu.com/p/38f7994faa6b)
-

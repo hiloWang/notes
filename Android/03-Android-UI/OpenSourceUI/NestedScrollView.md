@@ -174,5 +174,4 @@
 
 对`deltaY -=或者+= mTouchSlop;`的理解：
 
-![](index_files/dabd989d-aee5-488f-9b7c-eb0d3e595414.png)
-
+![](index_files/NestedScrollView-01.png)

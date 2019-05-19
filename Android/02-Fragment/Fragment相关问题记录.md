@@ -10,7 +10,7 @@
 
 然后实现下面方法，需要注意的是对于菜单的处理，Activity的优先级高于Fragment
 
-```
+```java
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_frag_rep, menu);
         super.onCreateOptionsMenu(menu, inflater);
@@ -29,7 +29,7 @@
 - 对于Fragement与Activity通讯，建议使用接口，而不是getActivity强转，因为这样fragment的复用性太差，代码也有耦合。
 - 对于Fragement间的通讯，可是使用Fragmen的`setTargetFragment`方法，或者通过Activity实现。
 
-```
+```java
 //https://stackoverflow.com/questions/44977682/how-to-set-target-fragment
 public class DialogFragmentB extends DialogFragment{ 
    ... 

@@ -1,4 +1,6 @@
-### 工具
+# Android 优化相关资料整理
+
+## 工具
 
 - [Android性能分析工具整理汇总](https://github.com/D-clock/Doc/blob/master/Android/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/Android%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E6%95%B4%E7%90%86%E6%B1%87%E6%80%BB.md)
 - [MAT使用入门](http://www.jianshu.com/p/d8e247b1e7b2)
@@ -6,13 +8,12 @@
 - [AndroidStudio 用户指南](https://developer.android.com/studio/intro/)
 - [我这样减少了26.5M Java内存！](http://wetest.qq.com/lab/view/359.html)
 
-### 性能优化
+## 性能优化
 
 - [Android性能优化典范——系列](http://hukai.me/android-performance-patterns/)
 - [Android界面性能调优手册](https://androidtest.org/android-graphics-performance-pattens/)
 
-
-### APK瘦身
+## APK瘦身
 
 - [安装包立减1M--微信Android资源混淆打包工具](http://mp.weixin.qq.com/s?__biz=MzAwNDY1ODY2OQ==&mid=208135658&idx=1&sn=ac9bd6b4927e9e82f9fa14e396183a8f#rd)
 - [App魔鬼廋身](http://www.jayfeng.com/2015/12/29/APK%E7%98%A6%E8%BA%AB%E5%AE%9E%E8%B7%B5/)
@@ -25,8 +26,7 @@
 - [APK 瘦身记，如何实现高达 53% 的压缩效果](http://mp.weixin.qq.com/s?__biz=MzIwMTI4Nzk5Ng==&mid=402517579&idx=1&sn=2951ec2b3aef4ce6f6a5c06ad4c49d73&scene=1&srcid=03306GCdiG6G4yhZIaDsHVL9&from=groupmessage&isappinstalled=0#wechat_redirect)
 - [Mess详解（关于Activity、自定义View等的混淆）](http://www.wangyuwei.me/2017/02/09/Mess%E8%AF%A6%E8%A7%A3%EF%BC%88%E5%85%B3%E4%BA%8EActivity%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89View%E7%AD%89%E7%9A%84%E6%B7%B7%E6%B7%86%EF%BC%89/)
 
-
-### App加固混淆与逆向
+## App加固混淆与逆向
 
 - [5分钟搞定android混淆](http://www.jianshu.com/p/f3455ecaa56e)
 - [Proguard拆分-方便管理](http://www.jianshu.com/p/6db109f87bb1)

@@ -28,14 +28,14 @@
 ## 3 应用启动的流程
 
 - Application
- - 创建
- - attachBaseContext()
- - onCreate()
+  - 创建
+  - attachBaseContext()
+  - onCreate()
 - Activity
- - 创建onCreate()--->设置显示界面布局，设置主题、背景等等属性
- - onStart()
- - onResume()
- - 显示里面的view（测量、布局、绘制，显示到界面上）
+  - 创建onCreate()--->设置显示界面布局，设置主题、背景等等属性
+  - onStart()
+  - onResume()
+  - 显示里面的view（测量、布局、绘制，显示到界面上）
 
 分析时间花在哪里
 
@@ -45,9 +45,9 @@
 - 不要在Application的构造方法、attachBaseContext()、onCreate()里面进行初始化耗时操作。
 - 由于用户只关心最后的显示的这一帧，对我们的布局的层次要求要减少，自定义控件的话考虑测量、布局、绘制的时间。
 - 对于SharedPreference的初始化。因为初始化的时候是需要将数据全部读取出来放到内存当中。
- - 1.可以尽可能减少sp文件数量(IO需要时间)
- - 2.像这样的初始化最好放到线程里面
- - 3.大的数据缓存到数据库里面
+  - 1.可以尽可能减少sp文件数量(IO需要时间)
+  - 2.像这样的初始化最好放到线程里面
+  - 3.大的数据缓存到数据库里面
 
 app启动的耗时主要是在：Application初始化 + MainActivity的界面加载绘制时间。由于MainActivity的业务和布局复杂度非常高，甚至该界面必须要有一些初始化的数据才能显示。那么这个时候MainActivity就可能半天都出不来，这就给用户感觉app太卡了。我们要做的就是给用户赶紧利落的体验。点击app就立马弹出我们的界面。于是乎想到使用SplashActivity，用来显示非常简单的一个欢迎页面。但是SplashActivity启动之后，还是需要跳到MainActivity。MainActivity还是需要从头开始加载布局和数据。想到SplashActivity里面可以去做一些MainActivity的数据的预加载。然后需要通过意图传到MainActivity。可不可以再做一些更好的优化呢？
 

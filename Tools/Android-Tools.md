@@ -41,17 +41,16 @@ ctrl+./+/- | 代码折叠
 ctrl+alt+shift+T|打开重构窗口(可以重构java代码，也可以重构xml布局等)
 shift + F4|在新的窗口编辑文件
 
-
 ## AndroidStudio 设置选项
 
 1. **打开文件位置**：
 右键文件--show in explorer
 2. **检查升级**：
 Settings  --> Updates
- *   **Stable Channel** ： 正式版本通道，只会获取最新的正式版本。
- *   **Beta Channel** ： 测试版本通道，只会获取最新的测试版本。
- *   **Dev Channel** ： 开发发布通道，只会获取最新的开发版本。
- *   **Canary Channel** ： 预览发布通道，只会获取最新的预览版本。
+ * **Stable Channel** ： 正式版本通道，只会获取最新的正式版本。
+ * **Beta Channel** ： 测试版本通道，只会获取最新的测试版本。
+ * **Dev Channel** ： 开发发布通道，只会获取最新的开发版本。
+ * **Canary Channel** ： 预览发布通道，只会获取最新的预览版本。
 3. **自动导包**：
 Editor--> General --> AutoImport
 4. **代码字体**：
@@ -83,7 +82,7 @@ Editor--> Color&Font-->  Android Log
 
 ### 反编译
 
-- **[android-classyshark——apk分析利器](https://github.com/google/android-classyshark)**
+- [android-classyshark——apk分析利器](https://github.com/google/android-classyshark)
 - [ClassyShark——apk分析利器](http://w4lle.github.io/2016/02/15/ClassyShark%E2%80%94%E2%80%94%E5%88%86%E6%9E%90apk%E5%88%A9%E5%99%A8/)
 - [Google官方出品的将Dalvik字节码转换为等价的Java字节码的工具](https://github.com/google/enjarify)
 - [FontZip字体资源文件压缩神器](https://github.com/forJrking/FontZip)

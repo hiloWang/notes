@@ -34,9 +34,9 @@ kotlin 发展简史：
 - [Ktor 中文站](https://ktor.kotlincn.net/)
 - [kymjs：Kotlin Primer](https://kymjs.com/code/2017/02/03/01/)
 - [EasyKotlin](https://github.com/JackChan1999/EasyKotlin)
-- [EasyKotlin-All](https://github.com/EasyKotlin)
+- [EasyKotlin-All](https://github.com/EasyKotli)
 - [《Kotlin实战》](https://panxl6.gitbooks.io/kotlin-in-action-in-chinese/content/introduction.html)
-- [《Atomic Kotlin》]((https://github.com/BruceEckel/AtomicKotlinExamples))
+- [《Atomic Kotlin》](https://www.atomickotlin.com/atomickotlin/)
 
 ### 2 Android
 

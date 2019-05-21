@@ -115,19 +115,108 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
 ### 3.4-3.5 启动优化工具选择
 
-- [ ] todo
+- traceview
+- systrace
 
-### 3-6 优雅获取方法耗时讲解
+两种方式互补，正确认识工具，在不同场景下选择合适的工具
 
-- [ ] todo
+#### traceview
 
-### 3-7 优雅获取方法耗时实操
+特点：
 
-- [ ] todo
+- 图形的形式展示执行时间，调用栈等
+- 信息全面，包含所有线程
+- 运行时开销严重，整体都会变慢
+- 可能会带偏优化方向
+- 可以手动埋点，可配合 cpu-profiler 一起使用
+
+使用方式：
+
+```java
+//生成的文件在 sd 卡，Adnroid/data/packagename/files
+Debug.startMethodTracing("");
+Debug.stopMethodTracing("")
+```
+
+图形界面：
+
+- Call Char
+  - 不同级别 API 的颜色不一样
+- Flame Chart
+  - 收集相同函数调用顺序的次数
+- Top Dowm：函数的调用列表
+  - Self + Children = Total
+  - Thread Time：CPU 的执行时间，比 Wall Clock Time 少，对于一个函数来说，消耗的时间并不是 CPU 真正在上面的时间(有些时间 CPU 可能是挂起的)。
+  - Wall Clock Time：线程真正执行的时间
+- Bottom Up：查看方法调用者
+
+#### systrace
+
+特点:
+
+- 结合 Android 内核的数据，生成 HTML 报告
+- API 18 以上适使用，低版本可使用 TraceCompat
+- 具体参考：<https://developer.android.com/studio/profile/systrace>
+
+使用方式：
+
+```java
+//先用代码买点
+Trace.beginSection()
+Trace.endSection()
+
+//然后用 python systrace.py -t 10 [options] [categories] 拉取报告
+```
+
+总结：
+
+- 轻量级，开销小
+- 直观反映 CPU 利用率
+- cputime 与 walltime 的区别：
+  - walltime 代码执行的时间
+  - cputime 是代码消耗 cpu 的时间，优化要关注 cputime 时间。
+
+### 3.6-3.7  优雅获取方法耗时讲解
+
+启动优化需要知道启动阶段所有方法耗时，方式有手动埋点，AOP 插入统计代码
+
+#### 常规埋点方法
+
+常规埋点方法，即 System.currentTimeMillis()/SystemClock.currentTimeMillis()，常规埋点方法侵入性大，工作量大。
+
+#### AOP
+
+AOP 针对同一问题的统一处理。无需侵入代码
+
+框架：
+
+- AspectJ，可选值沪江开源的插件，也可以选择自行开发插件
+- 其他代码插入库
 
 ### 3-8 异步优化详解
 
-- [ ] tod
+#### 优化小技巧
+
+- Theme 切换，用图片代替应用启动时的空白 Window，让用户感觉快。
+- 核心思想：子线程分担主线程任务，并行较少时间。
+
+#### 异步初始化遇到的问题
+
+- 任务与任务之间有依赖关系
+- 有些任务必须在主线程中执行
+- 异步初始化的结束时间不确定
+
+解决方案：使用 CountDownLatch。
+
+```java
+    private CountDownLatch mCountDownLatch = new CountDownLatch(1);
+
+    //异步初始化
+    service.submit(()->mCountDownLatch.countDown())
+
+    //等待
+    mCountDownLatch.await();
+```
 
 ### 3-9-3-10 异步初始化最优解-启动器
 

@@ -656,7 +656,7 @@ Lazy 和 Provider 注解同样适用于 multibinding。下面两种方式都是�
 
 ### 使用 Nullable
 
-Module中是使用`javax.annotation.Nullable`注解：
+Module 中是使用 `javax.annotation.Nullable` 注解：
 
 ```java
 @Module
@@ -671,7 +671,7 @@ public class ServiceModule {
 }
 ```
 
-在被注入对象中也要标注该注入的对象可null
+在被注入对象中也要标注该注入的对象可 null
 
 ```java
 public class ShoppingCartRepository   {
@@ -684,9 +684,11 @@ public class ShoppingCartRepository   {
 }
 ```
 
+>如果找不到 `javax.annotation.Nullable`，你可能需要添加依赖：`'com.google.code.findbugs:jsr305:2.0.1'`
+
 ### 使用 BindsOptionalOf
 
-BindsOptionalO提供注入对象的方法上，表示此注入对象可能不存在，即可能不会被注入。使用方式：
+BindsOptionalO 提供注入对象的方法上，表示此注入对象可能不存在，即可能不会被注入。使用方式：
 
 ```java
 //step 1
@@ -708,10 +710,19 @@ public abstract class Feature2Module {
 }
 
 //step 3 在被注入对象中使用Optional声明依赖
-Optional<Foo>
-Optional<Provider<Foo>>
-Optional<Lazy<Foo>>
-Optional<Provider<Lazy<Foo>>>
+public class ToBeInjectObj{
+    @Inject
+    Optional<Foo>
+
+    @Inject
+    Optional<Provider<Foo>>
+
+    @Inject
+    Optional<Lazy<Foo>>
+
+    @Inject
+    Optional<Provider<Lazy<Foo>>>
+}
 ```
 
 Optional支持 `com.google.common.base.Optional` 和 `java.util.Optional`。

@@ -209,27 +209,249 @@ AOP 针对同一问题的统一处理。无需侵入代码
 解决方案：使用 CountDownLatch。
 
 ```java
+public class AppContext extends Application{
+
     private CountDownLatch mCountDownLatch = new CountDownLatch(1);
 
-    //异步初始化
-    service.submit(()->mCountDownLatch.countDown())
+    @Override
+    public void onCreate(){
+        super.onCreate();
 
-    //等待
-    mCountDownLatch.await();
+        //异步初始化
+        service.submit(()->{
+            initA();
+            mCountDownLatch.countDown();
+        })
+
+        service.submit(()->{
+            initB();
+        })
+
+         service.submit(()->{
+            initC();
+        })
+
+         service.submit(()->{
+            initD();
+        })
+
+         service.submit(()->{
+            initE();
+        })
+
+        //等待
+        mCountDownLatch.await();
+}
 ```
 
 ### 3-9-3-10 异步初始化最优解-启动器
 
-- [ ] todo
+#### 常规异步痛点
+
+- 代码不够优化
+- 任务与任务之间有顺序依赖，比如 E 可能依赖于 D。
+- 维护成本高
+
+#### 启动器
+
+启动器和心思想
+
+- 充分利用 CPU 多核资源
+- 自动梳理任务顺序
+
+启动器流程
+
+- 代码 Task 化，启动逻辑抽象为 Task
+- 根据所有任务依赖关系生成一个有向无环图
+- 多线程根据排序后的优先级执行
+
+实战
+
+```java
+/** 抽象的 Task */
+public interface ITask {
+
+    /**
+     * 优先级的范围，可根据Task重要程度及工作量指定；之后根据实际情况决定是否有必要放更大
+     */
+    @IntRange(from = Process.THREAD_PRIORITY_FOREGROUND, to = Process.THREAD_PRIORITY_LOWEST)
+    int priority();
+
+    void run();
+
+    /**
+     * Task执行所在的线程池，可指定，一般默认
+     */
+    Executor runOn();
+
+    /**
+     * 依赖关系
+     */
+    List<Class<? extends Task>> dependsOn();
+
+    /**
+     * 异步线程执行的Task是否需要在被调用await的时候等待，默认不需要
+     */
+    boolean needWait();
+
+    /**
+     * 是否在主线程执行
+     */
+    boolean runOnMainThread();
+
+    /**
+     * 只是在主进程执行
+     */
+    boolean onlyInMainProcess();
+
+    /**
+     * Task主任务执行完成之后需要执行的任务
+     */
+    Runnable getTailRunnable();
+
+    void setTaskCallBack(TaskCallBack callBack);
+
+    boolean needCall();
+}
+
+
+public class AppContext extends Application{
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        TaskDispatcher.init(AppContext.this);
+
+        TaskDispatcher dispatcher = TaskDispatcher.createInstance();
+
+        dispatcher.addTask(new InitAMapTask())
+                .addTask(new InitStethoTask())
+                .addTask(new InitWeexTask())
+                .addTask(new InitBuglyTask())
+                .addTask(new InitFrescoTask())
+                .addTask(new InitJPushTask())
+                .addTask(new InitUmengTask())
+                .addTask(new GetDeviceIdTask())
+                .start();
+
+        dispatcher.await();
+    }
+}
+
+```
 
 ### 3-11 更优秀的延迟初始化方案
 
-- [ ] todo
+有些初始化没有必要放在启动时初始化，所以可以放在 feed 展示后在进行初始化。
+
+#### 常规方案
+
+在 Adapter 中第一个 Item 展示时，执行需要延迟初始化的任务。
+
+- 代码不够优雅
+- 可维护性差
+
+#### 延迟加载
+
+核心思想：对延迟任务进行分批初始化
+
+- 利用 IdelHandler 特性，在空闲时执行。
+
+```java
+public class DelayInitDispatcher {
+
+    private Queue<Task> mDelayTasks = new LinkedList<>();
+
+    private MessageQueue.IdleHandler mIdleHandler = new MessageQueue.IdleHandler() {
+        @Override
+        public boolean queueIdle() {
+            if(mDelayTasks.size()>0){
+                Task task = mDelayTasks.poll();
+                new DispatchRunnable(task).run();
+            }
+            return !mDelayTasks.isEmpty();
+        }
+    };
+
+    public DelayInitDispatcher addTask(Task task){
+        mDelayTasks.add(task);
+        return this;
+    }
+
+    public void start(){
+        Looper.myQueue().addIdleHandler(mIdleHandler);
+    }
+
+}
+```
 
 ### 3-12 启动优化其它方案
 
-- [ ] todo
+优化方针：
+
+- 异步、延迟、懒加载
+- 技术与业务结合
+
+注意事项：
+
+- wall time 与 cpu time 区别
+  - cpu time 才是优化方向
+  - 按照 systrace 及 cpu time 跑满 cpu
+- 监控的完善
+  - 线上监控多阶段时间(App、Activity、生命周期间隔时间)
+  - 清晰地知道哪里耗时
+  - 处理聚合看趋势
+- 收敛启动代码修改权限
+  - 结合 CI 修改启动代码需要 Review 或通知
+- 提前加载 SharedPreferences
+  - Multidex 之前加载，利用此阶段 CPU
+  - 覆写 getApplicationContext() 返回 this
+- 启动阶段不启动子进程
+  - 子进程会共享 CPU 资源，导致主进程 CPU 紧张
+  - 注意启动顺序，App onCreate 之前是 ContentProvider
+- 类加载优化：提前异步类加载
+  - Class.forName 只加载类本身以及静态变量的引用类（放在异步线程）
+  - new 类实例，可以额外加载类成本变量的引用类
+  - 如何确定哪些类需要提前加载——替换系统的类加载器，在类加载时进行打印，则可以知道。
+- 启动阶段抑制 GC
+- CPU 锁频
 
 ### 3-13 启动优化方案总结
 
-- [ ] todo
+- 获取方法耗时
+  - 常规方案
+  - AOP 方案
+  - wall time 和 cpu time
+- 异步初始化  
+  - 常规异步
+  - 启动器
+- 延迟初始化
+  - 常规方案，Feed 后直接初始化
+  - 结合 IdelHandler
+- 提前异步 SharedPreferences
+- 启动阶段不启动子进程
+- 提前异步类加载，在 MultiDex.install 之后，开启子线程进行加载
+
+### 3.14 模拟面试
+
+1. 你做启动优化是怎么做的
+   1. 这个问题很概括，不要一开始就深入某个点
+   2. 讲整个过程，分析现状，确认问题
+   3. 针对性优化
+   4. 长期保持优化效果：启动器，结合CI，线上监控
+2. 是怎么异步的，异步遇到什么问题
+   1. 体现演进过程：线程池-->启动器，体现你全程参与。
+   2. 详细讲解启动器
+3. 你做了启动优化，觉得有哪些容易忽略的点
+   1. cpu time 和 wall time 的区别
+   2. 注意延迟初始化的优化，不是直接 Feed 后就对代码初始化，而是集合 IdelHandler
+   3. 提前异步类加载
+4. 版本迭代导致的启动变慢有什么好的解决方案
+   1. 启动器：对启动任务进行自动分配
+   2. 结合 CI，设置 Application 代码修改权限
+   3. 线上监控完善，新旧版本对比，及时优化
+
+总结:
+
+- 结合业务，实战体验。

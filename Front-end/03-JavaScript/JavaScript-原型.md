@@ -1,6 +1,6 @@
 # JavaScript原型
 
-![原型链图](index_files/1527145567818prototype_map.png "原型链图")
+![原型链图](index_files/原型链图.png "原型链图")
 
 ## 1 普通对象和函数对象
 

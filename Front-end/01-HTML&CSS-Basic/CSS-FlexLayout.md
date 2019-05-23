@@ -88,7 +88,7 @@ flex-wrap 属性控制了容器为单行/列还是多行/列。并且定义了�
 
 - nowrap 不换行(项目挤压)。
 - wrap 换行。
-- wrap-reverse 换行，且反向。 
+- wrap-reverse 换行，且反向。
 
 ### align-content
 
@@ -101,7 +101,7 @@ align-content 属性定义弹性容器的侧轴方向上有额外空间时，如
 - `center`：所有行/列朝向容器的中心填充。每行/列互相紧挨，相对于容器居中对齐。容器的侧轴起点边和第一行/列的距离相等于容器的侧轴终点边和最后一行/列的距离。
 - `space-between`：所有行/列在容器中平均分布。相邻两行/列间距相等。容器的侧轴起点边和终点边分别与第一行/列和最后一行/列的边对齐。
 - `space-around`：所有行/列在容器中平均分布，相邻两行/列间距相等。容器的侧轴起点边和终点边分别与第一行/列和最后一行/列的距离是相邻两行/列间距的一半。
-- `stretch`：拉伸所有行/列来填满剩余空间。剩余空间平均的分配给每一行/列       
+- `stretch`：拉伸所有行/列来填满剩余空间。剩余空间平均的分配给每一行/列
  
 align-content 起作用的前提是必须有 flex-wrap 属性，而且该属性值必须不为 nowrap。
 
@@ -154,16 +154,16 @@ flex-shrink 计算规则：
    4.元素最终大小：元素最终大小 = 伸展基准值 - 移除空间
 ```
 
-###  flex 
+### flex
 
 flex 是 flex-grow，flex-shrink，flex-basis 的简写属性，该属性不可继承。
 
 默认值  
 
 ```css
-flex-grow: 0 
+flex-grow: 0
 flex-shrink: 1
-flex-basis: auto 
+flex-basis: auto
 ```
 
 可选值
@@ -189,7 +189,11 @@ flex-basis: 0;
 flex : 1;
 ```
 
-## 可参考资料
+## 4 总结
+
+![](index_files/flex布局.png)
+
+## 5 可参考资料
 
 - [阮一峰：Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
 - [阮一峰：Flex 布局教程：示例篇](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html)

@@ -1,11 +1,13 @@
-# C 资料
+# C 语言资料
 
 ---
 ## 1 教程
 
-- 《谭浩强C程序设计》
-- 《C Primer Plus》
-- 《C标准库》
+- 《嗨翻C语言》
+- 《C程序设计语言中文版》第二版
+- 《C和指针》第二版
+- 《C陷阱与缺陷》
+- 《C专家编程》
 - [菜鸟教程](http://www.runoob.com/cprogramming/c-header-files.html)
 - [awesome-c-cn](https://github.com/jobbole/awesome-c-cn)
 - [C语言编码规范](http://www.jianshu.com/p/0c29795c31fe)

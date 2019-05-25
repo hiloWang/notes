@@ -33,3 +33,4 @@
 - [深入剖析ConcurrentHashMap(2)](http://ifeve.com/java-concurrent-hashmap-2/)
 - [形形色色的锁-1](https://cloud.tencent.com/developer/article/1337960)
 - [形形色色的锁-2](https://cloud.tencent.com/developer/article/1334828)
+- [Lazy Asynchronous I/O For Event-Driven Servers](https://www.usenix.org/legacy/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html)

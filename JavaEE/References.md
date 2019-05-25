@@ -58,6 +58,7 @@
 - [SpringBoot-Learning](https://github.com/dyc87112/SpringBoot-Learning)
 - [springmvc-mybatis-learning](https://github.com/brianway/springmvc-mybatis-learning)
 - Java并发编程与高并发解决方案：[funiture](https://github.com/kanwangzjm/funiture)
+- [spring-boot-examples](https://github.com/ityouknow/spring-boot-examples)
 
 ### 架构演变与设计
 

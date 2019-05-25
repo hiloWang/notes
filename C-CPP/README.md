@@ -10,6 +10,7 @@
 - [构建工具-cmake简介](C/构建工具-cmake简介.md)  
 - [构建工具-cmake学习](C/构建工具-cmake学习.md)
 - [LLVM](https://llvm.org/) 项目是模块化和可重用的编译器和工具链技术的集合
+- [xmake](https://xmake.io/cn/)
 
 C 语言基础与提高：
 

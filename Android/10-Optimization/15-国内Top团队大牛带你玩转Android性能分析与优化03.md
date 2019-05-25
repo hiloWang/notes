@@ -1,31 +1,31 @@
-# [国内Top团队大牛带你玩转Android性能分析与优化](https://coding.imooc.com/class/308.html)
+[国内Top团队大牛带你玩转Android性能分析与优化](https://coding.imooc.com/class/308.html)
 
-## 4 App内存优化
+# 4 App内存优化
 
 >本章从原理开始讲起，首先介绍Java及Android的内存管理机制，接下来手把手带领大家进行内存抖动、泄露的解决实战，同时通过ArtHook的方式优雅解检测出App所有不合理的图片。
 
 ---
-### 4.2 内存优化介绍及工具选择
+## 4.2 内存优化介绍及工具选择
 
-#### 内存是个大问题但是缺乏关注
+### 内存是个大问题但是缺乏关注
 
 - 表现比较隐秘
 - Java 自带了内存回收机制
 - 压死骆驼的往往是最后一个根稻草
 
-#### 内存问题
+### 内存问题
 
 - 内存抖动：图形分析工具呈现锯齿状，GC 导致卡顿
 - 内存泄露：可用内存减少，频繁 GC
 - OOM：应用奔溃
 
-#### 内存分析工具
+### 内存分析工具
 
 - Memory Profiler
 - Memory Analyzer
 - LeakCanary
 
-#### Memory Profiler
+### Memory Profiler
 
 - 实时图标展示内存使用量
 - 表现直观
@@ -39,23 +39,23 @@
 
 Memory Profiler 只能在线下使用。
 
-#### Memory Analyzer
+### Memory Analyzer
 
 - 强大的 Java Heap 分析工具，查找内存泄露以及内存占用
 - 生成整体报告，分析问题等
 - 线下深入使用，可结合 Memory Profiler 一起使用
 
-#### LeakCanary
+### LeakCanary
 
 自动化内存泄露检测工具，使用比较简单。
 
 ---
-### 4.3 Android内存管理机制
+## 4.3 Android内存管理机制
 
 - Java 内存管理机制
 - Android 内存管理机
 
-#### Java 内存管理
+### Java 内存管理
 
 内存区域划分：
 
@@ -74,7 +74,7 @@ Memory Profiler 只能在线下使用。
   - 新生代：对象存活率较低，使用复制回收算法
   - 老年代：大量对象长久存活，使用标记整理算法
 
-#### Android 内存管理
+### Android 内存管理
 
 - 内存弹性分配，分配值与最大值受到具体设备的影响
 - OOM 场景：
@@ -88,15 +88,15 @@ Memory Profiler 只能在线下使用。
   - 回收收益：300M 还是 30M
 
 ---
-###  4.4 内存抖动解决实战
+##  4.4 内存抖动解决实战
 
-#### 内存抖动定义
+### 内存抖动定义
 
 - 内存频繁分配和回收导致内存不稳定
 - 表现：频繁GC，内存曲线呈锯齿状
 - 危害：导致卡顿，导致 OOM（频繁创建对象，导致内存不足及碎片）
 
-#### 使用 Memory Profiler 初步排除内存抖动
+### 使用 Memory Profiler 初步排除内存抖动
 
 模拟内存抖动：
 
@@ -119,14 +119,14 @@ Memory Profiler 只能在线下使用。
 - 可以结合 CPU Profiler 分析排除。
 
 ---
-### 4.5 内存泄露解决实战
+## 4.5 内存泄露解决实战
 
-#### 内存泄露的定义
+### 内存泄露的定义
 
 - 内存中存在已经没有用的对象
 - 表现：内存抖动，可用内存逐渐减少
 
-#### 使用 Memory Analyzer 分析内存泄露
+### 使用 Memory Analyzer 分析内存泄露
 
 注意:Android 中的堆转储文件需要转换为 MAT 可以识别的格式，命令为 `hprof-conv 源路径 输出路径`
 
@@ -156,26 +156,26 @@ public class MemoryLeakActivity extends AppCompatActivity implements CallBack{
 - 操作步骤：Histogram --> ListObject --> With incomeing references --> Path To GC Roots
 
 ---
-### 4.6 全面理解MAT
+## 4.6 全面理解MAT
 
 - [ ] todo
 
 ---
-### 4.7 ARTHook优雅检测不合理图片
+## 4.7 ARTHook优雅检测不合理图片
 
 - [ ] todo
 
 ---
-### 4.8 线上内存监控方案
+## 4.8 线上内存监控方案
 
 - [ ] todo
 
 ---
-### 4.9 内存优化技巧总结
+## 4.9 内存优化技巧总结
 
 - [ ] todo
 
 ---
-### 4.10 内存优化模拟面试
+## 4.10 内存优化模拟面试
 
 - [ ] todo

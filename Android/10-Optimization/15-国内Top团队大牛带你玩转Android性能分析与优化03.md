@@ -158,24 +158,198 @@ public class MemoryLeakActivity extends AppCompatActivity implements CallBack{
 ---
 ## 4.6 全面理解MAT
 
-- [ ] todo
+- Histogram(直方图)，基于类分析
+  - with outgoing references 引用了那些对象
+  - with incoming references 被哪些对象引用
+- dominator 基于实例分析
+- OQL 对象查询语言，语法类似数据库
+- Thread Overview 线程概览
+- Top consumer 占用内存较大的对象
+- Leak Suspects(嫌疑犯)，自动分析的可能的内存泄露
 
 ---
 ## 4.7 ARTHook优雅检测不合理图片
 
-- [ ] todo
+### Bitmap 内存模型
+
+- API10 之前，Bitmap 自身在 Dalvik Heap 中，像素在 Native 中。（Native回收时机不确定）
+- API10 之后，像素也被放在了 Dalvik Heap 中。
+- API26 之后，像素被放到了 Native 中，Heap 中的对象回收后，可以及时通知 Native 回收内存
+
+### 获取 Bitmap 占用内存
+
+- getByteCount 运行时
+- `宽 * 高 * 一个像素占用内存值`（考虑缩放）
+
+#### 优化方式
+
+图片对内存优化至关重要，很多时候图片大小大于控件大小，只需要按需现实。我们可以使用某种方式实时对比图片大小和控件大小，当图片大小大远远大于控件大小，则打印警告，实现方式：
+
+- 常规方式，自定义控件，不通用，侵入性强。
+- ARTHook：使用运行时 hook，Epic 是一个虚拟机层面、以 Java Method 为粒度的运行时 hook 框架
+- 支持 Android4.0-9.0
+
+[Epic](https://github.com/tiann/epic) 的使用
+
+- hook 哪个方法：`ImageView.setImageBitmap()`
+
+核心代码
+
+```java
+public class ImageHook extends XC_MethodHook {
+
+    @Override
+    protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+        super.afterHookedMethod(param);
+        // 实现我们的逻辑
+        ImageView imageView = (ImageView) param.thisObject;
+        checkBitmap(imageView,((ImageView) param.thisObject).getDrawable());
+    }
+
+    private static void checkBitmap(Object thiz, Drawable drawable) {
+        if (drawable instanceof BitmapDrawable && thiz instanceof View) {
+            final Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+            if (bitmap != null) {
+                final View view = (View) thiz;
+                int width = view.getWidth();
+                int height = view.getHeight();
+                if (width > 0 && height > 0) {
+                    // 图标宽高都大于view带下的2倍以上，则警告
+                    if (bitmap.getWidth() >= (width << 1) && bitmap.getHeight() >= (height << 1)) {
+                        warn(bitmap.getWidth(), bitmap.getHeight(), width, height, new RuntimeException("Bitmap size too large"));
+                    }
+                } else {
+                    final Throwable stackTrace = new RuntimeException();
+                    view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                        @Override
+                        public boolean onPreDraw() {
+                            int w = view.getWidth();
+                            int h = view.getHeight();
+                            if (w > 0 && h > 0) {
+                                if (bitmap.getWidth() >= (w << 1) && bitmap.getHeight() >= (h << 1)) {
+                                    warn(bitmap.getWidth(), bitmap.getHeight(), w, h, stackTrace);
+                                }
+                                view.getViewTreeObserver().removeOnPreDrawListener(this);
+                            }
+                            return true;
+                        }
+                    });
+                }
+            }
+        }
+    }
+
+
+    private static void warn(int bitmapWidth, int bitmapHeight, int viewWidth, int viewHeight, Throwable t) {
+        String warnInfo = new StringBuilder("Bitmap size too large: ")
+                .append("\n real size: (").append(bitmapWidth).append(',').append(bitmapHeight).append(')')
+                .append("\n desired size: (").append(viewWidth).append(',').append(viewHeight).append(')')
+                .append("\n call stack trace: \n").append(Log.getStackTraceString(t)).append('\n')
+                .toString();
+
+        LogUtils.i(warnInfo);
+    }
+
+}
+
+//在 Application.onCreate 中初始化
+public class AppContext extends Application{
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+            DexposedBridge.hookAllConstructors(ImageView.class, new XC_MethodHook() {
+            @Override
+            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                super.afterHookedMethod(param);
+                DexposedBridge.findAndHookMethod(ImageView.class, "setImageBitmap", Bitmap.class, new ImageHook());
+            }
+        });
+    }
+
+}
+```
 
 ---
 ## 4.8 线上内存监控方案
 
-- [ ] todo
+- 常规方案
+- LeakCanary 定制
+- 线上监控完整方案
+
+### 常规方案实现 1
+
+设定场景线上 Dump：` Debug.dumpHprofData()`，流程如下：
+
+1. 触发时机：超过最大内存的 80%
+2. 内存 Dump 到文件
+3. 回传到服务器
+4. MAT 手动分析
+
+方案特点:
+
+- Dump 文件太大，和对象数正相关，可裁剪
+- 上传失败率高
+
+### 常规方案实现 2
+
+实现方式：
+
+- LeakCanary 带到线上
+- 预设泄露怀疑点
+- 发现泄露回传
+
+方案特点:
+
+- 不适合所有场景，必须预设怀疑点
+- 分析比较耗时，自身可能触发 OOM
+- 分析泄露，找引用链
+- LeakCanary 分为分析和监控两大组件
+
+LeakCanary 定制：
+
+- 预设怀疑点 --> 自动找怀疑点
+- 分析泄露链路慢 --> 只分析 Retain Size 大的对象
+- 分析导致 OOM --> 对象裁剪，不全部加载到内存
+
+### 常规方案实现 3
+
+LeakCanary 原理
+
+- 监控控件生命周期，onDestory 添加 RefWatcher 检测
+- 二次确认断定发生内存泄露
+
+### 线上监控完整方案
+
+- 常规指标：待机内存、重点模块内存、OOM 率
+- 整体及重点模块 GC 次数，GC 时间
+- LeakCanary 定制线上自动化分析
 
 ---
 ## 4.9 内存优化技巧总结
 
-- [ ] todo
+- 优化大方向
+  - 内存泄露
+  - 内存抖动
+  - Bitmap
+- 细节
+  - LargeHeap 属性，如果大家都开启了，那我们也开启吧
+  - onTrimMemory 时，强制调整到主机面（牺牲一些用户替换）
+  - 使用优化过的集合
+  - 慎用 SharedPreference，第一次加载 SharedPreference 时，会将所有数据加载到内存中
+  - 业务架构合理设计，比如需要选择省市区时，按需加载，不一次性全部加载
 
 ---
 ## 4.10 内存优化模拟面试
 
-- [ ] todo
+1. 你们优化内存的过程是如何的？
+   1. 分析现状，确认问题
+   2. 针对性优化：要举例子，比如如何解决内存抖动
+   3. 效率提升，ARTHook，写规范文档
+2. 你做了内存优化最大的感受是什么
+   1. 磨刀不误砍柴工，学好工具，再应用
+   2. 技术优化必须结合业务代码
+   3. 系统化完善解决方案
+3. 如何检测所有不合理的地方
+   1. ART HOOK
+   2. 重点强调区别，传统方案向 HOOK 方案的演进

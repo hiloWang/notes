@@ -11,13 +11,10 @@
 
 ### 自动化依赖管理的重要性
 
-
 - 知道依赖确切的版本
 - 管理传递性依赖：尝试手动确定对一个特定类库的所有依赖性传递是非常困难的。通常在类库的文档中这种信息无处可寻，结果就是遇到像编译错误和运行是类加载错误的问题，比如流行的Java开发栈Spring和Hibernate的组合可以很容易的从一开始就引入20多个附加的类库。
 
-
 ### 使用自动化依赖管理
-
 
 在Java世界里，支持声明和自动化依赖管理的占主要地位的两个项目是：**Apache Ivy和Maven**，在Ivy和Maven中依赖配置是通过**xml**描述符来表达的，配置有两部分组成：**依赖标识符加各自的版本和二进制仓库的地址**，依赖管理器解析这些信息并自动从目标仓库下载依赖到本地，类库中可以定义传递性依赖作为元数据的一部分。依赖管理器在获取依赖的过程中能分析这些信息并解析依赖性。Maven仓库中的依赖通过项目对象模型(POM `project object model`)来表示。**依赖管理器让你摆脱了手动复制和组织jar文件的的困扰**。
 
@@ -39,29 +36,27 @@ java插件引入了各种标准的配置来定义java构建生命周期所应用
 
 #### 理解配置API表示
 
-
 配置可以直接在项目的根级别目录添加和访问，我们可以声明自己的配置也可以使用插件所提供的配置。每个项目都有一个`ConfigurationContainer`类的容器来管理相应的配置，配置在行为方面可以表现得很灵活，我们可以控制依赖解决方案中是否包含传递性依赖，定义解决策略(例如工件版本冲突)，甚至可以配置扩展。
 
+**Interface：Project**：
 
-**Interface：Project**
-
-```
+```groovy
        void configurations(Closure configureClosure);
        ConfigurationContainer getConfigurations();
 ```
 
-**Interface：ConfigurationContainer:**
+**Interface：ConfigurationContainer**：
 
-```
+```groovy
         add(String name);
         add(String name,Closure c);
         Configuration getByName(String name)
         Configuration getByName(String name, Closure configureClosure)
 ```
 
-**Interface：Configuration:**
+**Interface：Configuration**：
 
-```
+```groovy
         ResolutionStrategy getResolutionStrategy();
         Configuration resolutionStrategy(Closure closure);
         State getState();
@@ -84,12 +79,11 @@ java插件引入了各种标准的配置来定义java构建生命周期所应用
 
 应该针对不同的需求使用不同的配置，比如testCompile配置的依赖不会被打包到发布包中，在运行时将不必要的类库添加到发布包中可能导致不可预见的副作用
 
-
 #### 自定义配置
 
 添加cargon配置
 
-```
+```groovy
     configurations{
             cargo{//通过名称定义一个新的配置
                 description = 'classpath for cargo ant tasks.'//设置配置的的描述信息和可见性
@@ -98,17 +92,12 @@ java插件引入了各种标准的配置来定义java构建生命周期所应用
     }
 ```
 
+这个cargo就像java提供的`compile`一样，也是一个配置，会被映射为一个Configuration实例，而可以通过Configuration提供的各种api来决定如果管理相应配置的依赖。运行`gradle dependencies`：
 
-这个cargo就像java提供的`compile`一样，也是一个配置，会被映射为一个Configuration实例，**而可以通过Configuration提供的各种api来决定如果管理相应
-配置的依赖。**
-
-运行`gradle dependencies`：
-
-```
+```log
     ------------------------------------------------------------
     Root project
     ------------------------------------------------------------
-
 
     archives - Configuration for archive artifacts.//java提供的配置
     No dependencies
@@ -118,7 +107,6 @@ java插件引入了各种标准的配置来定义java构建生命周期所应用
     No dependencies
 
     ......省略其他配置
-
 ```
 
 Gradle dependencies task展示了project中的各种配置。为项目添加一个配置后，可以直接通过名称来访问
@@ -135,20 +123,18 @@ Gradle dependencies task展示了project中的各种配置。为项目添加一�
 
 #### 理解依赖API
 
-
 每个项目都有依赖管理器实例，由`DepecndencyHandler`接口来表现，通过使用项目的getDependencies()方法来获取引用，每一个依赖都是Dependency类型的一个实例，使用`gruop、name、version、classifier`属性明确的标识一个依赖。
 
+**Interface：Project**：
 
-**Interface：Project**
-
-```
+```groovy
         void dependencies(Closure configureClosure);
         DependencyHandler getDependencies();
 ```
 
-**Interface：DependencyHandler**
+**Interface：DependencyHandler**：
 
-```
+```groovy
         Dependency add(String configurationName, Object dependencyNotation);
         Dependency add(String configurationName, Object dependencyNotation, Closure configureClosure);
         Dependency create(Object dependencyNotation);
@@ -160,9 +146,9 @@ Gradle dependencies task展示了project中的各种配置。为项目添加一�
         Dependency localGroovy();
 ```
 
-**Interface：Dependency**
+**Interface：Dependency**：
 
-```
+```groovy
         String getGroup();
         String getName();
         String getVersion();
@@ -178,7 +164,6 @@ Gradle dependencies task展示了project中的各种配置。为项目添加一�
 
 #### 依赖的属性
 
-
 - grouop  用来标识一个组织、公司或者项目。group可以使用点标记法，比如Hibernate库的group是`org.hibernate`
 - name  一个工件的名称，唯一的描述了依赖,比如Hibernate库的name是`hibernate-core`
 - version  一个库可以由很多个版本，版本字符串一般包含主版本和次版本
@@ -186,14 +171,12 @@ Gradle dependencies task展示了project中的各种配置。为项目添加一�
 
 #### 依赖标记
 
-
 依赖的标记分为两种：1 使用map形式给出属性名称及其值；2 以字符串形式使用快捷标记，用冒号分隔每一个属性。
 
-```
+```groovy
     //如果项目需要处理大量的依赖，那么将常用的依赖作为扩展属性是很有帮助的
     ext.cargoGroup = 'org.codehaus.cargo'
     ext.cargoVersion = '1.3.1'
-
 
     dependencies {
         //方式1
@@ -205,7 +188,7 @@ Gradle dependencies task展示了project中的各种配置。为项目添加一�
 
 gradle不会为我们选择默认的仓库，没有没有配置仓库，构建是会导致错误的。所以需要通过repositories来声明使用的仓库。
 
-```
+```groovy
     repositories {
         //mavenCentral是内置的一个仓库
         mavenCentral()
@@ -214,11 +197,9 @@ gradle不会为我们选择默认的仓库，没有没有配置仓库，构建�
 
 #### 检查依赖报告
 
-helps任务组中有一个`dependencies task`，用来显示完整的依赖树，包括顶层依赖或依赖传递
+helps任务组中有一个`dependencies task`，用来显示完整的依赖树，包括顶层依赖或依赖传递，比如上面cargo的依赖图为：`cmd: gradle dependencies`
 
-比如上面cargo的依赖图为：`cmd: gradle dependencies`
-
-```
+```log
     Parallel execution with configuration on demand is an incubating feature.
     :dependencies
 
@@ -272,19 +253,13 @@ helps任务组中有一个`dependencies task`，用来显示完整的依赖树�
 
 >如果是子项目可使用`gradle dependencies -pSubModuleName`来执行task
 
-
 针对版本冲突gradle默认的做法是选择最新的版本，比如上面dom4j的版本选择了`1.3.03`
-
 
 #### 排除依赖传递性
 
+通过`exclude`可以排除某一个依赖的传递，通过`transitive`可以排除所有的依赖传递
 
-通过`exclude`可以排除某一个依赖的传递
-
-
-通过`transitive`可以排除所有的依赖传递
-
-```
+```groovy
     dependencies {
         cargo('org.codehaus.cargo:cargo-ant:1.3.1') {
           exclude group: 'xml-apis', module: 'xml-apis'//通过快捷或者map形式来声明排除依赖
@@ -295,7 +270,7 @@ helps任务组中有一个`dependencies task`，用来显示完整的依赖树�
 
 排除属性和常用的依赖标记略有不同，可以使用`group和/或module`属性，version在此处是不可用的，因为不允许排除某一个特定的版本。
 
-```
+```groovy
     dependencies {
         cargo('org.codehaus.cargo:cargo-ant:1.3.1') {
             transitive = false//排除所有的依赖
@@ -307,10 +282,9 @@ helps任务组中有一个`dependencies task`，用来显示完整的依赖树�
 
 #### 动态声明版本
 
-
 通过一个加号可以动态的声明版本，gradle会为你选择依赖的最新版本
 
-```
+```groovy
     dependencies {
         cargo 'org.codehaus.cargo:cargo-ant:1.+'
     }
@@ -318,13 +292,11 @@ helps任务组中有一个`dependencies task`，用来显示完整的依赖树�
 
 这里gradle会选择最新的1.x版本。但是最好少用或者不用动态版本，可靠的和可重复的构建是最重要的，使用动态版本必然有不稳定的隐患。
 
-
 #### 文件依赖
-
 
 可以在dependencies中声明对本地jar或其他库的依赖：
 
-```
+```groovy
     task copyDepends(type: Copy){//拷贝依赖到指定目录
         from configurations.cargo.asFileTree
         into "${System.properties['user.home']}/libs/cargo"
@@ -336,33 +308,28 @@ helps任务组中有一个`dependencies task`，用来显示完整的依赖树�
     }
 ```
 
-
 ### 2.3 配置和使用仓库
 
-
 Gradle支持的仓库：
-
 
 - Maven：常用的有jcenter和mavenCentral，本地文件系统和远程服务器的Maven仓库，或者预配置的MavenCentral
 - Ivy：本地文件系统或者远程服务器中的Ivy仓库，具有特定的结构模式
 - 扁平的目录：本地文件系统中的仓库，没有元数据
 
-
 #### 理解仓库API
-
 
 在项目中定义仓库的关键是`RepositoryHandler`接口，其提供了各种类型仓库的方法。这些方法在repositories配置块中被调用，可以声明多个仓库，gradle会按照声明的顺序来检查仓库，仓库提供了依赖优先原则，对于特定的依赖后续的仓库声明不会进一步检查。
 
-**Interface：Project**
+**Interface：Project**：
 
-```
+```groovy
         RepositoryHandler getRepositories();
         void repositories(Closure configureClosure);
 ```
 
-**Interface：RepositoryHandler**
+**Interface：RepositoryHandler**：
 
-```
+```groovy
         FlatDirectoryArtifactRepository flatDir(Map<String, ?> args);
         MavenArtifactRepository jcenter();
         MavenArtifactRepository mavenCentral(Map<String, ?> args);
@@ -372,12 +339,12 @@ Gradle支持的仓库：
         MavenArtifactRepository maven(Closure closure);
 ```
 
-**Interface：ArtifactRepository**
+**Interface：ArtifactRepository**：
 
-```
+```groovy
         String getName();
         void setName(String name);
-       扩展有：
+        扩展有：
             MavenArtifactRepository Maven仓库
             IvyArtifactRepository Ivy仓库
             FlatDirectoryArtifactRepository 扁平目录仓库
@@ -385,15 +352,11 @@ Gradle支持的仓库：
 
 一个Project对应一个RepositoryHandler，一个RepositoryHandler可以添加0个或多个ArtifactRepository。**Gradele支持Maven，Ivy，扁平的目录三种仓库的实现**
 
-
-
-
 #### Maven仓库
-
 
 Maven仓库是最常用的仓库类型之一，类库以jar文件形式表示，元数据通过xml表示，并且使用POM(`Project Object Model`)文件(可以在Gradle缓存目录中找到)描述了类库修改信息及其传递性依赖。
 
-```
+```log
     ├─cargo-ant
     │  └─1.3.1
     │      └─cargo-ant-1.3.1.pom  //元数据
@@ -404,7 +367,6 @@ Maven仓库是最常用的仓库类型之一，类库以jar文件形式表示，
 ```
 
 pom.xml:
-
 
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -438,20 +400,21 @@ pom.xml:
 ```
 
 RepositoryHandler提供了两个方法来运行你定义预配置的Maven仓库：
+
 - mavenCentral()方法用来将MavenCentral引用添加到一系列仓库中
 - mavenLocal方法用来在文件系统中管理一个本地的maven仓库
 
-**添加预定义的MavenCentral仓库：**
+**添加预定义的MavenCentral仓库**：
 
-```
+```groovy
      repositories {
             mavenCentral()
      }
 ```
 
-**添加预配置的本地Maven仓库：**
+**添加预配置的本地Maven仓库**：
 
-```
+```groovy
     repositories {
              mavenLocal()
     }
@@ -459,10 +422,9 @@ RepositoryHandler提供了两个方法来运行你定义预配置的Maven仓库�
 
 `<UserHome>/.m2/repository`目录是默认的可用的本地仓库，**何时使用本地仓库**：开发阶段的类库，防止每一次小小的改动都需要将类库发布到远程Maven仓库。
 
+**添加一个自定义的Maven仓库**：
 
-**添加一个自定义的Maven仓库**
-
-```
+```groovy
     repositories {
         maven {
             name 'Custom Maven Repository'
@@ -473,16 +435,13 @@ RepositoryHandler提供了两个方法来运行你定义预配置的Maven仓库�
 
 #### Ivy仓库
 
-
 Maven仓库的工件必须以一种固定的布局存储，任何结构偏差都有可能导致依赖关系发生错误，Ivy提出支持完全自定义的默认布局。
-
 
 #### 扁平的目录仓库
 
-
 flat目录仓库是最简单的最基本的仓库形式，他在文件系统中就要一个目录，只包含jar文件，没有元数据，当声明依赖时只能使用name和version属性，不能使用group属性：
 
-```
+```groovy
     dependencies {
         cargo name: 'activation', version: '1.1'
         cargo name: 'ant', version: '1.7.1'
@@ -498,7 +457,6 @@ flat目录仓库是最简单的最基本的仓库形式，他在文件系统中�
                 ':xml-apis:1.3.03'
     }
 
-
     repositories {
         flatDir(dir: "${System.properties['user.home']}/libs/cargo", name: 'Local libs directory')
     }
@@ -506,13 +464,10 @@ flat目录仓库是最简单的最基本的仓库形式，他在文件系统中�
 
 #### 搭建自己的内部仓库
 
-
 可以选择下面两个框架搭建私人仓库：
-
 
 - Sonatype Nexus
 - JForg Artifactory
-
 
 ---
 ## 3 理解本地依赖缓存
@@ -521,7 +476,7 @@ flat目录仓库是最简单的最基本的仓库形式，他在文件系统中�
 
 ### 分析缓存结构
 
-```
+```groovy
     task printDependencies << {
         configurations.getByName('cargo').each { dependency ->
             println dependency
@@ -531,7 +486,7 @@ flat目录仓库是最简单的最基本的仓库形式，他在文件系统中�
 
 运行这个task可以知道cargo的缓存都被存在哪里：
 
-```
+```groovy
     D:\Android\.gradle\caches\modules-2\files-2.1\org.codehaus.cargo\cargo-ant\1.3.1\a5a790c6f1abd6f4f1502fe5e17d3b43c017e281\cargo-ant-1.3.1.jar
     D:\Android\.gradle\caches\modules-2\files-2.1\org.codehaus.cargo\cargo-core-uberjar\1.3.1\3d6aff857b753e36bb6bf31eccf9ac7207ade5b7\cargo-core-uberjar-1.3.1.jar
     D:\Android\.gradle\caches\modules-2\files-2.1\commons-discovery\commons-discovery\0.4\9e3417d3866d9f71e83b959b229b35dc723c7bea\commons-discovery-0.4.jar
@@ -542,9 +497,7 @@ flat目录仓库是最简单的最基本的仓库形式，他在文件系统中�
 
 在我的机器上，GradleUserHome是`D:\Android\.gradle`。cargo的所有jar文件的存储路劲为：`$GradleUserHome/caches/modules-2/files-2.1`,缓存的目录结构：
 
-
-
-```
+```log
     D:\ANDROID\.GRADLE\CACHES\MODULES-2\FILES-2.1\ORG.CODEHAUS.CARGO
     ├─cargo-ant
     │  └─1.3.1
@@ -582,7 +535,7 @@ Gradle的缓存提高了构建的性能，通过比较本地和远程的校验�
 
 Gradle不会自动通知你项目遇到了版本冲突，不断的运行依赖报告来找出冲突并不是一个好方法，我们可以改变默认的策略，当遇到版本冲突时，让构建失败：
 
-```
+```groovy
     configurations.cargo.resolutionStrategy {
         failOnVersionConflict()
     }
@@ -590,7 +543,7 @@ Gradle不会自动通知你项目遇到了版本冲突，不断的运行依赖�
 
 失败对于调试项目很有帮助。
 
-```
+```log
     cmd：gradle deployToLocalTomcat
     Parallel execution with configuration on demand is an incubating feature.
     :deployToLocalTomcat FAILED
@@ -620,7 +573,7 @@ Gradle不会自动通知你项目遇到了版本冲突，不断的运行依赖�
 
 ### 强制指定一个版本
 
-```
+```groovy
     ext.cargoGroup = 'org.codehaus.cargo'
     ext.cargoVersion = '1.3.1'
 
@@ -643,13 +596,12 @@ Gradle不会自动通知你项目遇到了版本冲突，不断的运行依赖�
 
 运行构建：
 
-```
+```log
     cargo - Classpath for Cargo Ant tasks.
     \--- org.codehaus.cargo:cargo-ant:1.3.1 -> 1.3.0
 ```
 
 现在cargo被强制指定了1.3.0的版本
-
 
 ### 使用依赖观察报告
 
@@ -657,8 +609,7 @@ gradle提供了不同类型的依赖报告：依赖观察报告，他解释了�
 
 执行`gradle -q dependencyInsight --configuration cargo --dependency xml-apis:xml-apis`命令：
 
-
-```
+```groovy
     gradle -q dependencyInsight --configuration cargo --dependency xml-apis:xml-apis
     xml-apis:xml-apis:1.3.03 (conflict resolution)//显示了一个特定依赖被选择的原因
     +--- org.codehaus.cargo:cargo-core-uberjar:1.3.1
@@ -680,31 +631,20 @@ gradle提供了不同类型的依赖报告：依赖观察报告，他解释了�
     (*) - dependencies omitted (listed previously)
 ```
 
-
 观察报告展示的视图与普通的依赖报告正好相反。显示了依赖从特定依赖开始到配置。(从下往上看)
-
 
 ### 刷新缓存
 
+为了避免一遍又一遍的为特定的依赖去访问仓库，gradle提供了特定的缓存策略，这种策略主要针对SNAPSHOT版本和使用动态版本模式声明的依赖，一旦获取了依赖，它们会被存储24小时，到期后，gradle会再次检查仓库，如果构建发生变化gradle会下载一个最新版本的工件。使用命令选项`--refresh-dependencies`可以手动刷新缓存中的依赖，强制检查配置仓库中的工件版本是否发生变化。还可以修改默认的策略：
 
-为了避免一遍又一遍的为特定的依赖去访问仓库，gradle提供了特定的缓存策略，这种策略主要针对SNAPSHOT版本和使用动态版本模式声明的依赖，一旦获取了依赖，它们会被存储24小时，到期后，gradle会再次检查仓库，如果构建发生变化gradle会下载一个最新版本的工件。
-
-
-使用命令选项`--refresh-dependencies`可以手动刷新缓存中的依赖，强制检查配置仓库中的工件版本是否发生变化。
-
-
-还可以该白默认的策略：
-
-```
+```groovy
     //如果总想要获取org.codehaus.cargo:cargo-ant:1.+的最新版本，可以设置动态依赖版本超时为0秒：
     configurations.cargo.resolutionStrategy {
           cacheDynamicVersionsFor 0, 'sencends'
     }
-
 
     //如果不许缓存要给外部模块的SNAPSHOT版本，下面配置用于指定不缓存SNAPSHOT版本的依赖
     configurations.cargo.resolutionStrategy {
          cacheChangingModulesFor 0 , 'senends'
     }
 ```
-

@@ -9,17 +9,16 @@
 
 groovy中的类型与java一致，但是groovy使用def来定义变量，可以指定变量的类型，也可以不指定类型
 
-```
+```groovy
     def int a = 1
     def str1 = '你好啊'
     str2 = '你好啊'//定义变量时，def也是可以省略的，不过建议加上
     String str3 = "你还啊"//也可以按照Java的方式定义变量
 ```
 
-###  字符串
+### 字符串
 
-```
-
+```groovy
     println 'Ztiany'            //单引号 字符串严格按对应ava里面的字符串
     println "打印 $str1"        //双引号字符串，可以使用$引用其他变量，即对$进行转义
     println '''我的天空
@@ -30,9 +29,9 @@ groovy中的类型与java一致，但是groovy使用def来定义变量，可以�
 
 字符串后面会讲到。
 
-###  定义函数
+### 定义函数
 
-```
+```groovy
     String function01(arg1 , arg2){
         println arg1
         println arg2//最后一行是执行语句，所以没有返回值，则返回null
@@ -40,14 +39,17 @@ groovy中的类型与java一致，但是groovy使用def来定义变量，可以�
 ```
 
 函数可以不指定的返回值类型,这时需要用def来定义函数
-```
+
+```groovy
     def noReturnType(){
         "你好啊"//最后一行的执行结果就是本函数的返回值,如果这是最后一行，返回值就是String
         // 10000 如果这是最后一行，返回值就是Integer
     }
 ```
+
 如果指定了类型，则可以不必要用def来定义函数
-```
+
+```groovy
     String getString(){
         return "返回String"
     }
@@ -56,15 +58,15 @@ groovy中的类型与java一致，但是groovy使用def来定义变量，可以�
             print('没有返回值')
     }
 ```
+
 - 其实无返回类型的函数，内部都返回Object，Groovy是基于java的，最终groovy会被转换成java字节码在jvm上运行
 - 函数可以不指定的返回值类型,那就需要用def来定义函数，这时函数的最后一行的执行结果就是本函数的返回值，如果函数指定了返回类型，就必须返回正确的类型
 
-
-
 ###  函数的调用
 
- println 即为调用打印函数，groovy对于函数的调用可以不写(),但是groovy经常把属性和函数掉用搞混淆，比如：
-```
+println 即为调用打印函数，groovy对于函数的调用可以不写(),但是groovy经常把属性和函数掉用搞混淆，比如：
+
+```groovy
             定义函数
             def getString(){
                "hello"
@@ -73,13 +75,12 @@ groovy中的类型与java一致，但是groovy使用def来定义变量，可以�
             getString
             //这时会抛出异常groovy.lang.MissingPropertyException: No such property: getString for class: ConsoleScript3
 ```
+
 这一点还是需要注意的。
 
+### assert语句
 
-###  assert语句
-```
 java中，assert只有在设置了运行时标志(-ea或者-enableassertion)来进行断言检查时才有用，而groovy的assert语句一直有用
-```
 
 ### Groovy实现循环
 
@@ -110,12 +111,15 @@ java中，assert只有在设置了运行时标志(-ea或者-enableassertion)来�
 GDK扩展了JDK，并在各个类中添加了很多方法，例如String的`execute`方法，更多的方法可以从[GroovyJDK](http://groovy-lang.org/gdk.html)获取
 
 process 非常有用，可以与系统级进程进行交互：
+
 ```groovy
     println "git help".execute().text;//String 的execute方法用于执行String表达的命令
     println "git help".execute().getClass().name;//返回结果为：java.lang.ProcessImpl
     println "cmd /C dir".execute().text//dir并不是一个程序，而只是一个shell命令，所以需要通过调用cmd来执行dir命令
 ```
+
 如果使用Java，则需要些如此多的代码：
+
 ```java
             private static void getProcessText() {
                 BufferedReader br = null;
@@ -139,8 +143,11 @@ process 非常有用，可以与系统级进程进行交互：
                 }
             }
 ```
+
 ### 安全操作符
+
 java中需要进行各种判断来避免空指针，而groovy使用操作符"?."
+
 ```groovy
     //定义一个函数
     def revereStringSafe(String str) {
@@ -149,8 +156,11 @@ java中需要进行各种判断来避免空指针，而groovy使用操作符"?."
     println revereStringSafe("ddffaa")//调用函数
     println revereStringSafe(null)
 ```
+
 ### 异常处理
+
 Groovy并不强制处理任何异常，我们不处理的异常都会别自动的传递到上一层
+
 ```groovy
     def openFile(fileName) {
         new FileInputStream(fileName)//这里并没有强制我们检测一次
@@ -167,7 +177,9 @@ Groovy并不强制处理任何异常，我们不处理的异常都会别自动�
         println ex
     }
 ```
+
 ###   静态方法中可以使用this
+
 ```groovy
     class Wizard {
         def static learn(int a) {
@@ -177,6 +189,7 @@ Groovy并不强制处理任何异常，我们不处理的异常都会别自动�
     }
     Wizard.learn(1).learn(3).learn(4)
 ```
+
 ### Groovy 其他特性
 
 - return 几乎是可选的，最后一个语句的执行结果将自动作为返回值
@@ -202,6 +215,7 @@ class Car{
     }
 }
 ```
+
 Groovy会自动给JavaBean生成**访问器和更改器**，当使用`Car.miles`其实是调用的访问器，对于被final修饰的year，Groovy不会提供**更改器**，当视图修改year时**会抛出异常**，可以根据需要给字段加上类型信息，比如可以把miles设置为private的，但是groovy并不遵守这一点(还是可以被访问)，最好的做法是手动添加一个拒绝修改的**更改器**
 
 ```groovy
@@ -221,7 +235,6 @@ println(car.miles)
 ---
 ## 3 灵活初始化与具名参数
 
-
 ```groovy
 class Robot {
 
@@ -233,6 +246,7 @@ class Robot {
     }
 }
 ```
+
 初始化Robot
 
 ```groovy
@@ -242,6 +256,7 @@ println "$robot.type , $robot.height, $robot.width"//打印结果：arm , 40, 10
 ```
 
 access方法有三个形参，如果第一个是map，则可以将这个映射中的键值对展开放在实参列表中
+
 ```groovy
 robot.access(x: 20, y: 20, z: 10, 50, true)//这里我们依次放入了映射、weight、fragile，打印结果：received fragile? true, weight:50, loc:[x:20, y:20, z:10]
 robot.access(50, true, x: 20, y: 20, z: 10)//映射的传递可以往后移，这个一定要注意，不然很容易被迷惑，打印结果：received fragile? true, weight:50, loc:[x:20, y:20, z:10]
@@ -271,6 +286,7 @@ println log(1024)
 println log(1024, 10)
 println log(1024, 2)
 ```
+
 不仅如此，Groovy会把末尾的数据形参视作可选的，可以为最后一个参数提供0个或者多个值
 
 ```groovy
@@ -282,7 +298,6 @@ task 'call', '123-456-7890'
 task 'call', '123-456-7890', 'ee3-456-rwe2'
 task 'call'
 ```
-
 
 ---
 ## 5 使用多赋值
@@ -304,8 +319,8 @@ task 'call'
     (name1, name2) = [name2, name1]
     println "$name1 and $name2"
 ```
-当变量与值的数量不相等时，如果有多余的变量，Groovy会将它们设置为null，多余的值则会被抛弃，**如果对于的变量是不能设置为null的基本类型，Groovy将会抛出一个异常**,在Groovy2中，只要可能int会被看作基本类型，而非Integer
 
+当变量与值的数量不相等时，如果有多余的变量，Groovy会将它们设置为null，多余的值则会被抛弃，**如果对于的变量是不能设置为null的基本类型，Groovy将会抛出一个异常**,在Groovy2中，只要可能int会被看作基本类型，而非Integer
 
 ---
 ## 6 实现接口
@@ -368,10 +383,10 @@ class Button {
 }
 ```
 
-
 在Groovy中，可以把一个映射或者一个代码块转换为接口，因此可以快速实现带有多个方法的接口
 
 **java方式的注册事件**：
+
 ```java
 button.setOnClickListener(new Button.OnClickListener() {
     @Override
@@ -382,6 +397,7 @@ button.setOnClickListener(new Button.OnClickListener() {
 
 button.performClick()
 ```
+
 **groovy提供了其他方式**：不需要actionPerformed方法声明，也不需要显式的`new`
 
 ```groovy
@@ -395,6 +411,7 @@ button.performClick()
 ```
 
 当然也可以先定义实现再作为参数传入
+
 ```groovy
 listener = {
     println it.name + ' listener '
@@ -416,6 +433,7 @@ button.seFocusListener(focusListener as Button.OnFocusListener)
 button.performFocusGained()
 button.performFocusLost()
 ```
+
 Groovy没有强制实现接口中所有的方法，可以定义自己关心的方法，而不考虑其他方法,但是大多数情况下，大多数接口的方法都需要被实现，这时可以创建一个映射，以每个方法名作为key，以方法对一个的代码作为值传入，并且并不要实现所有的方法，但是如果没有提供的方法被调用了，将会抛出一个NullPointerException
 
 ```groovy
@@ -471,7 +489,6 @@ if (str2) {//不会被打印
 | Object[]     | 长度大于0                |
 | 其他类型      | 引用不为null          |
 
-
 ---
 ## 8 操作符重载
 
@@ -491,7 +508,6 @@ list = []
 list << "d"
 println list
 ```
-
 
 下面为一个类添加一个+的操作符
 
@@ -537,8 +553,8 @@ println new ComplexNumber(real: 2, imaginary: 4) + new ComplexNumber(real: 5, im
 | ~a                      | a.bitwiseNegate() |
 | -a                      | a.negative()      |
 | +a                      | a.positive()      |
->注意： a或b即`a|b`
 
+>注意： a或b即`a|b`
 
 ---
 ## 9 Groovy对java1.5的支持
@@ -553,13 +569,14 @@ println new ComplexNumber(real: 2, imaginary: 4) + new ComplexNumber(real: 5, im
 - 静态导入
 - 泛型
 
-
 ### 自动装箱
 
 Groovy从一开始就支持自动装箱，必要时Groovy会将基本类型视作对象
 
+```groovy
     int val = 4;
     println val.class.getName()//java.lang.Integer
+```
 
 虽然定义的是int，但是创建的Integer实例，而不是基本类型，Groovy会根据该实例的使用方式来决定将其存储为int类型还是Integer类型，Groovy2.0之前，所有的基本类型都会视作对象，之后为了改善性能，只有在需要的时候才会被视作对象
 
@@ -579,7 +596,7 @@ for (i in list) {
 
 ### Groovy同样支持枚举，它是类型安全的
 
-```
+```groovy
 enum CoffeeSize{
     Short, Small, Medium, Large,Mug
 }
@@ -610,7 +627,6 @@ for (coffee in CoffeeSize.values()) {
 }
 ```
 
-
 ### 变长参数
 
 Groovy以两种形式支持Java的编程参数：
@@ -633,7 +649,6 @@ arr2 = [3, 44, 34, 65] as int[]
 receiveArray 1, arr
 receiveArray 4, arr2
 ```
-
 
 ### 注解
 
@@ -715,6 +730,7 @@ bernie.analyze()
 bernie.work()
 bernie.writeReport()
 ```
+
 在编译时，Groovy会检查Manager类，如果该类中没有被委托的方法，就把这些方法从北委托的类中引进来，因此，首先它会引入Expert类的analyze方法，而从Worker类中只会把work和writeReport方法引进来，因analyze方法已经从Expert引入
 
 ### Lazy
@@ -750,6 +766,7 @@ println asNeed.mHeavy2.size
 //Lazy不仅推迟了对象的创建，将将字段标志位volatile的
 //Lazy的第二个好处是提供给了一种轻松实现线程安全的虚拟代理模式
 ```
+
 ### Newify
 
 Groovy经常按照传统的Java语法创建对象:new,    然而在创建DSL时，去掉这个关键字表达会更流畅，@Newify可以帮助创建类似Ruby的构造器，于是new变成了该类的一个方法。这个注解还可以用来创建类似Python的构造器，可以完全去掉new，此时@Newify必须指定类型，只有将auto=false这个元素据值设置给@Newify，才能创建类似
@@ -769,6 +786,7 @@ def fluentCreate() {
 }
 fluentCreate()
 ```
+
 可以在不同的作用于使用@Newify注解，类或者方法，在创建DSL是，@Newify注解非常有用
 
 ### Singleton 用于实现单利 ，使用lazy可以设置为懒汉式
@@ -791,11 +809,13 @@ TheUnique.instance.hello();
 TheUnique theUnique = new TheUnique()
 theUnique.hello()
 ```
+
 使用Singleton注解，会使目标类的构造方法变为私有的，但是Groovy并不区分私有的还是共有的，所以在Groovy内部还是可以使用new来创建类的对象，但是必须谨慎的使用该类，
 
 ### InheritConstructors
 
 使用InheritConstructors可以帮助我们生成构造器
+
 ```groovy
 class Father {
     Father(int a) {
@@ -816,7 +836,6 @@ class Son extends Father {
 
 }
 ```
-
 
 ---
 ## 11 Groovy的陷阱
@@ -857,15 +876,13 @@ println(' str1.is(str4) ' + (str1.is(str4)))
 ```
 
 ### 编译时类型检查默认关闭
-Groovy是类型可选的，Groovy编译器大多数情况下不会执行完整的类型检查，而是在遇到类型定义是执行强制类型转。
 
-如果把一个类型赋值给一个Integer，变量：
+Groovy是类型可选的，Groovy编译器大多数情况下不会执行完整的类型检查，而是在遇到类型定义是执行强制类型转。如果把一个类型赋值给一个Integer，变量：
 
 ```groovy
 Integer a = 31;
 a = "ds"
 ```
-
 
 可以正常编译通过，但是会在运行时进行类型转换 ，在Groovy中` x = y `在语义上等价于` x = (ClassOfX)y`，即强转，同样的，调用一个类不存在的方法，也不会在编译时期发生错误，但是会抛出MissingMethodException异常:`a.noMethod()`。
 虽然这种编译器看上去并不严格，但事实上，对于动态编程和元编程来说，这是必要的。
@@ -887,7 +904,6 @@ def functionA() {
 闭包使用花括号，而匿名内部类也使用花括号，所以会造成冲突，如下一个类接受一个闭包参数
 
 ```groovy
-
 class Calibrator {
     Calibrator(calculationBlock) {
         println 'Calibrator created'
@@ -903,6 +919,7 @@ closesure = {
 }
 new Calibrator(closesure)
 ```
+
 ### 分号总是可选的 ，至少有一个地方分号是必不可少的
 
 ```groovy
@@ -915,11 +932,13 @@ class Semi {
 }
 println new Semi()
 ```
+
 如果使用静态代码块则不存在这样的问题，如果同时使用静态代码块和构造代码块，可以把构造代码块放在静态代码块的前面，从而避免分号。
 
 ### 创建基本类型的数组语法不同
 
 在groovy中，创建数据使用以下方式:
+
 ```groovy
 
 int[] arr1 = [1, 2, 4]
@@ -948,22 +967,24 @@ def arr2 = [1, 2, 5] as int[]
 ### in操作符
 
 in操作符等价于isCase方法。在一个集合中,它等价于调用contains,例如:
+
 ```groovy
     def list = ['Grace','Rob','Emmy']
     assert ('Emmy' in list)
 ```
+
 等价于调用`:list.contains(‘Emmy’)或者list.isCase(‘Emmy’)`
 
 ### 强制操作符
 
 强制操作符(as)用于变量的强制转换。强制转换操作符转换对象从一个类型向另外一个类型而不考虑其兼容性。举个例子:
+
 ```groovy
    Integer x = 123
    String s = (String) x
 ```
-由于Integer不可以自动转化成String,所以在运行时会抛出一个ClassCastException 。
 
-不过可以使用强制操作符替代:
+由于Integer不可以自动转化成String,所以在运行时会抛出一个ClassCastException。不过可以使用强制操作符替代:
 
 ```groovy
         //可以避免异常
@@ -973,4 +994,3 @@ in操作符等价于isCase方法。在一个集合中,它等价于调用contains
        def d = new Date()
        i = d as Integer
 ```
-

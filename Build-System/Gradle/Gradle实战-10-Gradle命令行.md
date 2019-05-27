@@ -11,7 +11,6 @@ gradle命令的用法：`gradle [option...] [task...]`
 ---
 ##  探索类
 
-
 task|描述
 ------|------
 dependencies |列出项目的依赖，包括传递性依赖
@@ -22,7 +21,6 @@ properties|列出项目中所有可用的属性
 tasks|列出所有的可运行的task，使用`--all`命令选项可以更详细的列出task之间的依赖
 
 ## 配置输入
-
 
 构建配置信息可以通过CLI提供，不需要提供值的选项可以组合使用。比如同时使用`-is`
 
@@ -45,18 +43,14 @@ tasks|列出所有的可运行的task，使用`--all`命令选项可以更详细
 -v|版本信息
 -x,--exclude-task|指定构建时按个task不执行`gradle -x test check build`表示不执行test和check进行构建
 
-
 ## 属性选项
-
 
 选项|描述
 ------|------
 -D,system-prop|指定系统属性`-Dkey=value`
 -P,--project-prop|指定项目属性`-Pkey=value`
 
-
 ## 日志选项
-
 
 选项|描述
 ------|------
@@ -83,4 +77,3 @@ tasks|列出所有的可运行的task，使用`--all`命令选项可以更详细
 --foreground|在终端运行Gradle后台守护进程，用于调试和监控目的
 --no-daemon|不使用已有的守护进程
 --stop|停止守护进程
-

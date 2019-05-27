@@ -1,8 +1,6 @@
 # 构建java项目
 
-构建一个项目需要对进行源码编译、然后输出jar等操作。
-
-Gradle插件作为驱动力能够自动化这些任务，**插件通过引入特定领域的约定和任务来扩展项目**，Java插件是gradle自动装载的一个插件。
+构建一个项目需要对进行源码编译、然后输出jar等操作。Gradle插件作为驱动力能够自动化这些任务，**插件通过引入特定领域的约定和任务来扩展项目**，Java插件是gradle自动装载的一个插件。
 
 java插件提供的功能：
 
@@ -37,8 +35,6 @@ java插件提供的功能：
             └─resources   //测试资源文件夹
 ```
 
-
-
 **java插件提供了一个默认的任务为`build`**，运行build命令如下：
 
 ![](images/gradle_build.png)
@@ -47,11 +43,10 @@ java插件提供的功能：
 
 运行之后，会发现有一个build目录，里面包含任务的所有输出。
 
-
 ---
 ## 2 定制项目
 
-```
+```groovy
     apply plugin: 'java'//应用java插件
 
     version = 0.1//指定项目版本，版本号会添加到生存的jar包名称上
@@ -81,11 +76,9 @@ java插件提供的功能：
     }
 ```
 
-上面sourceSets中的`main`是固定写法，`main`表示项目代码，而`test`表示测试代码。
+上面sourceSets中的`main`是固定写法，`main`表示项目代码，而`test`表示测试代码。source映射到的api是`org.gradle.api.tasks.SourceSet`,从其源码也可以看出，为什么闭包需要写成`main`和`test`
 
-source映射到的api是`org.gradle.api.tasks.SourceSet`,从其源码也可以看出，为什么闭包需要写成`main`和`test`
-
-```
+```groovy
     public interface SourceSet {
         /**
          * The name of the main source set.
@@ -100,16 +93,14 @@ source映射到的api是`org.gradle.api.tasks.SourceSet`,从其源码也可以�
     }
 ```
 
-
 ---
 ## 3 配置依赖
 
 **在Gradle中，依赖是由configuration分组的，java插件引入的一种configuration是`compile`**
 
-
 在java的世界，依赖都是以jar文件的形式发布和使用的，许多类库都可以在远程仓库找到，仓库可以是一个文件系统或者一个中心服务器，Gradle要求项目至少定义一个仓库来使用依赖。
 
-```
+```groovy
     repositories {
         mavenCentral()//配置对mavenCentral2仓库http://repol.maven.org/maven2 访问的快捷方式
     }
@@ -118,5 +109,3 @@ source映射到的api是`org.gradle.api.tasks.SourceSet`,从其源码也可以�
         compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'//声明一个依赖
     }
 ```
-
-

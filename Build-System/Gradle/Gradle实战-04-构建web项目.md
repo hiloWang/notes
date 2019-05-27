@@ -1,14 +1,9 @@
-#  构建web项目
+# 构建web项目
 
 一个war文件用来绑定web组件。gradle提供了开箱即用的插件，用来组装war文件和将wab应用部署到本地Servlet容器中。
 
-**使用war**
-
-war插件扩展子java插件，为web应用部署和组装war包添加了约定和支持，应用了war插件时它会自动应用java插件，所以不再脚本中声明应用java插件也是可以的
-
-**使用jetty插件**
-
-gradle的jetty插件扩展了war插件，为部署一个web应用到嵌入式容器和运行web应用提供了对应的任务
+- **使用war插件**：war插件扩展子java插件，为web应用部署和组装war包添加了约定和支持，应用了war插件时它会自动应用java插件，所以不再脚本中声明应用java插件也是可以的
+- **使用jetty插件**：gradle的jetty插件扩展了war插件，为部署一个web应用到嵌入式容器和运行web应用提供了对应的任务
 
 >Jetty是一个纯粹的基于Java的网页服务器和Java Servlet容器。尽管网页服务器通常用来为人们呈现文档，但是Jetty通常在较大的软件框架中用于计算机与计算机之间的通信。Jetty作为Eclipse基金会的一部分，是一个自由和开源项目
 
@@ -17,7 +12,7 @@ gradle的jetty插件扩展了war插件，为部署一个web应用到嵌入式容
 ---
 ## 1 脚本
 
-```
+```groovy
     apply plugin: 'java'//应用java插件
     apply plugin: 'war'//应用war插件
     apply plugin: 'jetty'//应用jetty插件，jetty是一个轻量级的web服务器，与tamcat类似
@@ -49,15 +44,12 @@ gradle的jetty插件扩展了war插件，为部署一个web应用到嵌入式容
 
 ![](images/gradle_web_jettyrun2.png)
 
-
 **依赖说明：**
 
 使用web应用所需要的类库并不是java标准版本的一部分，所以需要声明外部依赖，war插件提供了两个新的依赖configuration
 
-
 - providedCompile 表示该依赖在编译时需要，但是由运行时环境提供，这里的运行时环境是jetty，结果就是被标记为provided的依赖不会被打包到war文件中
 - rutime 像jstl库这样的依赖，在编译时不需要，但是运行时需要，它们会成为war的一部分，所以声明为runtime的
-
 
 ---
 ## 2 标准的web项目布局
@@ -104,7 +96,7 @@ webapp默认下项目源码目录是:``src/main/java`,`src/main/webapp`
 
 war暴露了`webAppDirName`约定属性，默认是`src/main/webapp`，通过from方法就可以有选择性的将需要的目录添加到war文件中：
 
-```
+```groovy
     apply plugin: 'java'
     apply plugin: 'war'
     apply plugin: 'jetty'
@@ -160,6 +152,3 @@ war暴露了`webAppDirName`约定属性，默认是`src/main/webapp`，通过fro
         └─WEB-INF
                 web.xml
 ```
-
-
-

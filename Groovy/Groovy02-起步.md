@@ -15,13 +15,12 @@
 
 Groovy是基于jvm的语言，所以需要依赖jdk。在官网下载安装包或者zip包，需要自行配置环境变量GROOVY_HOME(与JAVA_HOME一样的概念)。配置完毕后即可在终端进行检查；
 
-```
+```shell
     C:\Users\Administrator>groovy -v
     Groovy Version: 2.4.6 JVM: 1.8.0_73 Vendor: Oracle Corporation OS: Windows 10
 ```
 
 终端打印出版本号，表示Groovy已经成功的运行了。
-
 
 ---
 ## 1 使用Groovysh
@@ -29,7 +28,8 @@ Groovy是基于jvm的语言，所以需要依赖jdk。在官网下载安装包�
 在终端输入`groovysh`用于打开Groovyshell，groovysh是以交互式方式尝试一些小型的groovy代码的好工具，需要注意的是，**当按下回车键groovysh就会编译并执行输入完的语句，打印代码执行过程中的所有语句，并打印这条语句的执行结果**，对于某些语句，Groovy会等待你输入完毕才执行，比如下面的为String添加isPalindrome函数。
 
 groovysh示例：
-```
+
+```shell
     Math.sqrt(16)//执行Math.sqrt(16)，并打印其结果
     ===> 4.0
     groovy:000> println 'test'//执行println 'test'，
@@ -44,7 +44,8 @@ groovysh示例：
 ```
 
 在命令行中，如果不太确定命令，可以双击tab键，groovy会做出提示
-```
+
+```shell
     "dd".  //比如在终端输入"dd".后，双击tab键，groovy给出了下面提示
 
     capitalize()           center(                charAt(                chars()                codePointAt(
@@ -54,8 +55,7 @@ groovysh示例：
 
 使用？可以查看groovysh的帮助命令：
 
-
-```
+```shell
                   :help      (:h ) Display this help message
                   ?          (:? ) Alias to: :help
                   :exit      (:x ) Exit the shell
@@ -78,13 +78,12 @@ groovysh示例：
                   :doc       (:D ) Opens a browser window displaying the doc for the argument
 ```
 
- 使用inspect命名可以检测对象和变量
-
+使用inspect命名可以检测对象和变量
 
 ---
 ## 2 使用GroovyConsole
 
- 在终端输入`groovyConsole`即可以打开groovyConsole，在groovyConsole中可以输入脚本代码，使用快捷键`control + R`既可以运行
+在终端输入`groovyConsole`即可以打开groovyConsole，在groovyConsole中可以输入脚本代码，使用快捷键`control + R`既可以运行
 
 ---
 ## 3 在命令行使用Groovy

@@ -9,8 +9,8 @@
 2. 不必用大量的强制类型转换操作来取悦编译器
 
 java中类型代码
-```java
 
+```java
 class Engine implements Cloneable {
 
 }
@@ -38,11 +38,10 @@ class Car implements Cloneable {
 
 在运行时，Groovy会把错误的类型转换毫不含糊的提示出来，把实际的验证推迟到运行时，我们得以在编码和编译时以及代码执行时修改程序的结构，JVM上的动态类型语言说明，动态类型并不等于弱类型
 
--  强类型：Ruby/Groovy /Java/C#
--  弱类型：JavaScript/Perl/C/C++
--  动态：Ruby/Groovy/JavaScript/Perl
--  静态：Java/C#/C/C++
-
+- 强类型：Ruby/Groovy /Java/C#
+- 弱类型：JavaScript/Perl/C/C++
+- 动态：Ruby/Groovy/JavaScript/Perl
+- 静态：Java/C#/C/C++
 
 ---
 ## 3 能力式设计
@@ -57,6 +56,7 @@ Java中的面向接口编程：基于接口编程尽管非常强大，但是往�
 实例：搬动一些重物，需要找一个愿意帮忙且有能力帮忙的人
 
 **在Java中有这样的演变**：
+
 ```java
 //第一次：男人搬东西
 class Man {
@@ -91,20 +91,19 @@ def takeHelpGroovy(helper) {//helper可以是任何对象，只要它有moveThin
     helper.moveThings()
 }
 ```
-takeHelpGroovy方法接受一个helper，并且没有指定其类型，这样它的默认类型就是Object，然后调用了其moveThings方法，这就是能力是设计，我们利用了对象的能力——依赖一个隐式的接口，这种称为鸭子模型：如果它走起来像鸭子，叫起来也像鸭子，那么它就是鸭子,想要这种能力只需要实现该方法，而不需要实现或扩展任何东西，这样的接口就是少了许多繁文缛节，增加了生产效率
 
+takeHelpGroovy方法接受一个helper，并且没有指定其类型，这样它的默认类型就是Object，然后调用了其moveThings方法，这就是能力是设计，我们利用了对象的能力——依赖一个隐式的接口，这种称为鸭子模型：如果它走起来像鸭子，叫起来也像鸭子，那么它就是鸭子,想要这种能力只需要实现该方法，而不需要实现或扩展任何东西，这样的接口就是少了许多繁文缛节，增加了生产效率
 
 ---
 ## 4 使用动态类型需要自律
 
 当我们看到了动态类型的诸多优化与灵活性时，也应该看到其风险
 
--  在没有创建依赖的类时，可能会敲错名字：**依赖单元测试，使用动态类型语言而没有做单元测试就像是在玩火**
--  没有类型信息，怎么知道给方法什么呢？：**所以需要良好的命名约定**
--  如果把方法发给一个不能提供搬动重物的事物(没有对应方法)，又会怎样：**当对象不支持预期的方法时，Groovy会抛出异常，同时可以使用Groovy提供的respondTo方法来判断对象是否有对应的能力(方法)**
+- 在没有创建依赖的类时，可能会敲错名字：**依赖单元测试，使用动态类型语言而没有做单元测试就像是在玩火**
+- 没有类型信息，怎么知道给方法什么呢？：**所以需要良好的命名约定**
+- 如果把方法发给一个不能提供搬动重物的事物(没有对应方法)，又会怎样：**当对象不支持预期的方法时，Groovy会抛出异常，同时可以使用Groovy提供的respondTo方法来判断对象是否有对应的能力(方法)**
 
 ```groovy
-
 class RespondToTest{
     String doSomething(String str) {
         str.toUpperCase()
@@ -124,16 +123,12 @@ if (rt.metaClass.respondsTo(rt, 'doSomething')) {
 ---
 ## 5 可选类型
 
-Groovy是可选类型的，这意味着可以不指定任何类型让Groovy来确定，也可以将精确的指定所要使用的变量或引用的类型
-需要注意的是:
-
-**Groovy默认并不做完整的类型检查，当我们写下`X obj = 2`时，Groovy所做的只是简单的做一个强转，如：`X obj = (X)2;`**
+Groovy是可选类型的，这意味着可以不指定任何类型让Groovy来确定，也可以将精确的指定所要使用的变量或引用的类型需要注意的是：**Groovy默认并不做完整的类型检查，当我们写下`X obj = 2`时，Groovy所做的只是简单的做一个强转，如：`X obj = (X)2;`**。
 
 ---
 ## 6 多方法
 
-动态类型和动态语言改变了对象响应方法调用的方式:
-Groovy会聪明的选择正确的实现，不仅基于目标参数，还基于所提供的参数的实际类型，因为方法分派基于多个实体：目标加参数，所以这被称做**多分派或者多方法**
+动态类型和动态语言改变了对象响应方法调用的方式:Groovy会聪明的选择正确的实现，不仅基于目标参数，还基于所提供的参数的实际类型，因为方法分派基于多个实体：目标加参数，所以这被称做**多分派或者多方法**
 
 ```groovy
 class Employee {
@@ -167,9 +162,9 @@ runRaise(new Employee())
 runRaise(new Executive())
 ```
 
-**集合的例子**
-```groovy
+**集合的例子**：
 
+```groovy
 public class UsingCollection {
     public static void main(String... args) {
         ArrayList<String> list = new ArrayList<>();
@@ -190,9 +185,7 @@ public class UsingCollection {
 ---
 ## 7 关闭动态类型
 
-Groovy的元编程能力，都依赖于其动态类型，但动态类型也是有代价的，原本编译时期可以发现的问题被推迟到运行时，然后动态方法分配机制也是有开销的，
-
-可以让Groovy编译器将其类型检查从动态的不严格模式收紧到我们对静态类型编译器所期待的水平，还可以权衡动态类型和元编程能力的收益，让Groovy编译器静态编译代码，以便获取更高效的字节码。
+Groovy的元编程能力，都依赖于其动态类型，但动态类型也是有代价的，原本编译时期可以发现的问题被推迟到运行时，然后动态方法分配机制也是有开销的，可以让Groovy编译器将其类型检查从动态的不严格模式收紧到我们对静态类型编译器所期待的水平，还可以权衡动态类型和元编程能力的收益，让Groovy编译器静态编译代码，以便获取更高效的字节码。
 
 ### 静态类型检查
 
@@ -200,24 +193,24 @@ Groovy的元编程能力，都依赖于其动态类型，但动态类型也是�
 
 静态类型会**限制使用动态方法**，然而他并没有阻止使用Groovy行JDK中的类添加方法，静态类型检查器会检查这些类中的方法和属性，并且还会检查Groovy添加的方法，这包括：
 
--  一个特殊的DefaultGroovyMethodsSupport类及其扩展:
-    -  NioGroovyMethods
-    -  IOGroovyMethods
-    -  SocketGroovyMethods
-    -  PluginDefaultGroovyMethods
-    -  **DefaultGroovyMethods**
-    -  DateGroovyMethods
-    -  ProcessGroovyMethods
-    -  ResourceGroovyMethods
-    -  StringGroovyMethods
--  此外它还会检查开发者能够添加的定制扩展(后面将会学习)
+- 一个特殊的DefaultGroovyMethodsSupport类及其扩展:
+  - NioGroovyMethods
+  - IOGroovyMethods
+  - SocketGroovyMethods
+  - PluginDefaultGroovyMethods
+  - **DefaultGroovyMethods**
+  - DateGroovyMethods
+  - ProcessGroovyMethods
+  - ResourceGroovyMethods
+  - StringGroovyMethods
+- 此外它还会检查开发者能够添加的定制扩展(后面将会学习)
 
 比如：
+
 - DefaultGroovyMethods中的方法`println`
 - 开发者能够添加的定制扩展 ,例如`str.reverse()`,来自StringGroovyMethods
 
 ```groovy
-
 @TypeChecked
 def shout(String str) {
     println 'printing in uppercase'
@@ -226,7 +219,6 @@ def shout(String str) {
     println str.toUpperCase()//这个方法没有使用任何元编程，因此可以利用编译时验证
     str.reverse()
 }
-
 
 //instanceof不需要强转
 @TypeChecked
@@ -259,8 +251,7 @@ class Sample {
 
 ### 静态编译
 
-Groovy的动态类型和元编程的优点显而易见，但是这些都要以性能作为代价，性能的下降与代码、所调试的方法的个数等因素有关，当不需要元编程和动态能力时，与等价的Java代码相比，性能损失了10%，我们可以关闭动态类型，阻止元编程，放弃多方法，并让Groovy生成性能足以和
-Java媲美的高效字
+Groovy的动态类型和元编程的优点显而易见，但是这些都要以性能作为代价，性能的下降与代码、所调试的方法的个数等因素有关，当不需要元编程和动态能力时，与等价的Java代码相比，性能损失了10%，我们可以关闭动态类型，阻止元编程，放弃多方法，并让Groovy生成性能足以和Java媲美的高效字。
 
 ```groovy
 @CompileStatic
@@ -268,4 +259,3 @@ def shot1(String str) {
     println str.toUpperCase()
 }
 ```
-

@@ -1,5 +1,3 @@
-[TOC]
-
 # Gradle For Android
 
 >《Gradle For Android》笔记
@@ -58,21 +56,20 @@ JCenter等仓库依赖的语义化化版本，比如`1.2.3`
 
 **构建类型**：通常用来被定义如何构建一个应用或依赖库，默认情况下，每个模块都有debug和release两个构建类型，默认的构建类型是debug，下面代码演示添加一个新的构建类型：
 
+```groovy
+x86Type{
+    initWith debug
+    ndk {
+        abiFilters 'armeabi-v7a', 'x86'
+    }
+}
 ```
-  x86Type{
-            initWith debug
-            ndk {
-                abiFilters 'armeabi-v7a', 'x86'
-            }
-        }
-```
-
 
 **源集**:构建类型可以定义自己的源集(不能在main中定义)，源集合并的规则为：
 
- - drawables和layout文件会全部被覆盖
- - values文件中的文件则会合并到main资源中
- - manifest的规则也是合并，具体的manifest合并规则为：优先级规则由高到低依次是，`buildType下的Manifest设置->productFlavor下的Manifest设置->主工程src/main->dependency&library`，具体的细节可以参考API文档
+- drawables和layout文件会全部被覆盖
+- values文件中的文件则会合并到main资源中
+- manifest的规则也是合并，具体的manifest合并规则为：优先级规则由高到低依次是，`buildType下的Manifest设置->productFlavor下的Manifest设置->主工程src/main->dependency&library`，具体的细节可以参考API文档
 
 ### productFlavors
 
@@ -80,14 +77,13 @@ productFlavors被用来创建不同的版本,**选择够建类型还是productFl
 
 同样可以为productFlavors创建源集，规则与上面构建类型相似,可以为构建类型和productFlavors的组合创建源集，且优先级最高，命名为：Flavors名+构建类型名称，**（组合后的productFlavors和构建类型的源集不能有重复的定义，比如构建类型和Flavors中定义相同的类）**
 
-
 ### 任务
 
 定义了productFlavors和构建类型后，通过运行`gradlew tasks`会发现多了很多构建任务，比如：
 
 增加构建一个构建类型Staging，定义red、blue两个productFlavors：
 
-```
+```log
     assemble - Assembles all variants of all applications and secondary packages.
     assembleAndroidTest - Assembles all the Test applications.
     assembleBlue - Assembles all Blue builds.
@@ -111,7 +107,7 @@ productFlavors被用来创建不同的版本,**选择够建类型还是productFl
 
 同样定义了productFlavors和构建类型后，配置也会随之增加，运行`gradlew -papp depend`可以查看app模块中的所有配置
 
-```
+```groovy
     blueProvided
     blueDebugCompile
     blueReleaseCompile
@@ -130,11 +126,10 @@ productFlavors被用来创建不同的版本,**选择够建类型还是productFl
 
 在构建过程中完全可以忽略某些variant
 
-```
+```groovy
         // Remove redRelease as it's not needed. gradle过滤器
         android.variantFilter { variant ->
-            if (variant.buildType.name.equals('release')
-                    && variant.getFlavors().get(0).name.equals('red')) {
+            if (variant.buildType.name.equals('release') && variant.getFlavors().get(0).name.equals('red')) {
                 variant.setIgnore(true);
             }
         }
@@ -150,7 +145,7 @@ productFlavors被用来创建不同的版本,**选择够建类型还是productFl
 
 当在根项目目录下运行一个命令时，Gradle会找出哪个模块有这一名称的任务，然后为每个模块执行该任务，如果希望在根目录任务某一个模块的任务可以使用下面命令：
 
-```
+```groovy
     gradlew :ModelName：assembleDebug
     gradlew -p ModelName assembleDebug
 ```
@@ -162,7 +157,7 @@ productFlavors被用来创建不同的版本,**选择够建类型还是productFl
 
 可以在test源集中针对特定的特进行类进行单元测试，新建项目时AndroidStudio已经帮我们集成了JUnit单元测试框架：
 
-```
+```groovy
         testCompile 'junit:junit:4.12'
         //使用的配置是testCompile，如果希望针对某个构建类型或者Flavor声明依赖，可以使用
         //testRedCompile，(red为一个Flavor)
@@ -173,14 +168,13 @@ productFlavors被用来创建不同的版本,**选择够建类型还是productFl
 - 使用`gradlew test -continue`一个测试失败不会中断继续其他测试
 - 使用`gradlew testDebug --tests="*.LogicTest"`针对特定的类进行测试
 
-
 #### Robolectric
 
 如果单元测试设计到了Android的API，由于Java类库中没有android相关的api，测试时会报错，所以需要使用一些模拟框架，比较有名的是**Robolectric**
 
 配置[Robolectric](http://robolectric.org/getting-started/)：
 
-```
+```groovy
         testCompile "org.robolectric:robolectric:3.1.4"
 ```
 
@@ -196,7 +190,7 @@ Google创造了Espresso，该依赖由`Android support library`提供
 
 AndroidGradle默认就集成了 Jacoco测试覆盖率，通过
 
-```
+```groovy
     buildTypes{
        debug{
          testCovefrageEnabled = true
@@ -211,7 +205,7 @@ AndroidGradle默认就集成了 Jacoco测试覆盖率，通过
 
 ## mustRunAfter
 
-```
+```groovy
     task TaskA<<{
         println 'taskA run'
     }
@@ -221,7 +215,7 @@ AndroidGradle默认就集成了 Jacoco测试覆盖率，通过
     TaskB.mustRunAfter TaskA
 ```
 
-mustRunAfter表示两个Task可以单独执行，但是同时执行两个task的时候，TaskB必须在TaskA后面执行。这与dependsOn是有区别的。
+mustRunAfter 表示两个 Task 可以单独执行，但是同时执行两个 task 的时候，TaskB 必须在 TaskA 后面执行。这与 dependsOn 是有区别的。
 
 ### 自定义任务来简化releae过程
 
@@ -231,7 +225,7 @@ mustRunAfter表示两个Task可以单独执行，但是同时执行两个task的
 
 在private/private.properties文件中配置签名信息：
 
-```
+```property
     keyAlias=gfa
     storeFile=gfa.jks
     # keyPassword=666666 //此时我们注释了密码
@@ -321,9 +315,9 @@ mustRunAfter表示两个Task可以单独执行，但是同时执行两个task的
 
 ### Hook到Android插件
 
-通过all来遍历构建variant，而不是上面的variantFilter，variantFilter的each会在构建variant被Android插件创建之前的评测阶段被触发,all方法会在每次添加新项目到集合时被触发
+通过 all 来遍历构建 variant，而不是上面的 variantFilter，variantFilter 的 each 会在构建 variant 被 Android 插件创建之前的评测阶段被触发，all 方法会在每次添加新项目到集合时被触发
 
-```
+```groovy
         android.applicationVariants.all { variant ->
             variant.outputs.each { output ->
                 //......
@@ -341,13 +335,13 @@ mustRunAfter表示两个Task可以单独执行，但是同时执行两个task的
 
 ### 减少APK文件
 
- - 使用proGuard
- - 开启自动缩减资源(shrinkResource)
- - resConfigs
+- 使用proGuard
+- 开启自动缩减资源(shrinkResource)
+- resConfigs
 
 ### 加速构建
 
-```
+```groovy
     org.gradle.parallel=true
     org.gradle.daemon=ture
     org.gradle.jvmargs=-Xms256m -Xmx1024m (jvmargs时jvm的参数，Xms用于指定初始化内存大小，Xmx用来设置最大的内存大小)

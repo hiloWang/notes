@@ -144,3 +144,7 @@ https
 防抓包
 
 - [漫画：App 防止 Fiddler 抓包小技巧！](http://vlambda.com/wz_xby9j2HnOT.html)
+
+dns
+
+- [Android端打开HttpDns的正确姿势](https://www.jianshu.com/p/b0c154215b48)

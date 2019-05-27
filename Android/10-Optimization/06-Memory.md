@@ -1,4 +1,4 @@
-# 内存优化
+# Android 内存优化
 
 ## 1 内存泄漏
 
@@ -18,10 +18,10 @@
 
 ### 了解内存分配的几种策略
 
-1.静态的：静态的存储区，内存在程序编译的时候就已经分配好，这块的内存在程序整个运行期间都一直存在。它主要存放静态数据、全局的static数据和一些常量。
-2.栈式的：在执行函数(方法)时，函数一些内部变量的存储都可以放在栈上面创建，函数执行结束的时候这些存储单元就会自动被释放掉。栈内存包括分配的运算速度很快，因为内置在处理器的里面的。当然容量有限。
-3.堆式的：也叫做动态内存分配。用malloc或者new来申请分配一个内存。在C/C++可能需要自己负责释放（java里面直接依赖GC机制）。在C/C++这里是可以自己掌控内存的，需要有很高的素养来解决内存的问题。java程序员需要的是编程的时候就要注意自己良好的编程习惯。
-    
+1. 静态的：静态的存储区，内存在程序编译的时候就已经分配好，这块的内存在程序整个运行期间都一直存在。它主要存放静态数据、全局的static数据和一些常量。
+2. 栈式的：在执行函数(方法)时，函数一些内部变量的存储都可以放在栈上面创建，函数执行结束的时候这些存储单元就会自动被释放掉。栈内存包括分配的运算速度很快，因为内置在处理器的里面的。当然容量有限。
+3. 堆式的：也叫做动态内存分配。用malloc或者new来申请分配一个内存。在C/C++可能需要自己负责释放（java里面直接依赖GC机制）。在C/C++这里是可以自己掌控内存的，需要有很高的素养来解决内存的问题。java程序员需要的是编程的时候就要注意自己良好的编程习惯。
+
 堆栈区别：
 
 - 堆是不连续的内存区域，堆空间比较灵活也特别大。
@@ -114,8 +114,7 @@ MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据
 
 ### 单例模式或静态变量引起的内存泄露
 
-当调用getInstance时，如果传入的context是Activity的context。只要这个单例没有被释放，那么这个Activity也不会被释放一直到进程退出才会释放。
-所以能用Application的context就用Application的
+当调用getInstance时，如果传入的context是Activity的context。只要这个单例没有被释放，那么这个Activity也不会被释放一直到进程退出才会释放。所以能用Application的context就用Application的
 
 ```java
     public class CommUtil {
@@ -164,6 +163,7 @@ MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据
 例子1：
 
 ```java
+public void sample(){
         //add监听，放到集合里面
         tv.getViewTreeObserver().addOnWindowFocusChangeListener(new ViewTreeObserver.OnWindowFocusChangeListener() {
             @Override
@@ -173,36 +173,40 @@ MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据
                 tv.getViewTreeObserver().removeOnWindowFocusChangeListener(this);
             }
         });
+}
 ```
 
 例子2：
 
 ```java
+public void sample(){
         SensorManager sensorManager = getSystemService(SENSOR_SERVICE);
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ALL);
         sensorManager.registerListener(this,sensor,SensorManager.SENSOR_DELAY_FASTEST);
         //不需要用的时候记得移除监听
         sensorManager.unregisterListener(listener);
+}
 ```
 
 例子3：
 
 ```java
+public void sample(){
     handler.post(callback)
     onDestroy(){
         //在需要的时候进行remove
         handler.removeCallback();
     }
+}
 ```
 
 ### 资源未关闭引起的内存泄露情况
 
-当不需要使用的时候，要记得及时释放资源。否则就会内存泄露。
-比如：BroadCastReceiver、Cursor、Bitmap、IO流、自定义属性attribute、attr.recycle()回收。
+当不需要使用的时候，要记得及时释放资源。否则就会内存泄露。比如：BroadCastReceiver、Cursor、Bitmap、IO流、自定义属性attribute、attr.recycle() 回收。
 
 ### 无限循环动画
 
-没有在onDestroy中停止动画，否则Activity就会变成泄露对象，比如：轮播图效果。
+没有在 onDestroy 中停止动画，否则 Activity 就会变成泄露对象，比如：轮播图效果。
 
 ## 5 优化工具
 
@@ -217,9 +221,7 @@ MAT对比操作前后的hprof文件来定位内存泄露是泄露了什么数据
 
 ### LeakCanary
 
-实现原理：本质上还是用命令控制生成hprof文件分析检查内存泄露，然后发送通知。
-
-大概的步骤：
+实现原理：本质上还是用命令控制生成hprof文件分析检查内存泄露，然后发送通知。大概的步骤：
 
 ```java
 Application

@@ -86,7 +86,3 @@
 ## 架构
 
 - [MVI](http://hannesdorfmann.com/android/mosby3-mvi-1)
-
-## 网络
-
-- [Android端打开HttpDns的正确姿势](https://www.jianshu.com/p/b0c154215b48)

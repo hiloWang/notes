@@ -1,17 +1,17 @@
-# [国内Top团队大牛带你玩转Android性能分析与优化](https://coding.imooc.com/class/308.html#Anchor)
+[国内Top团队大牛带你玩转Android性能分析与优化](https://coding.imooc.com/class/308.html)
 
-## 3 App启动优化
+# 3 App启动优化
 
 >App启动速度是用户的第一印象，本章会介绍精准度量启动速度的方式，启动优化的相关工具、常规优化手段等，同时我会介绍异步初始化以及延迟初始化的最优解，以最优雅、可维护性高的的方式获得闪电般的启动速度。...
 
-### 3.2 App启动优化介绍
+## 3.2 App启动优化介绍
 
-#### 背景
+### 背景
 
 - 第一体验
 - 八秒定律
 
-#### 启动分类
+### 启动分类
 
 App startup time
 
@@ -30,9 +30,9 @@ App startup time
 
 - Application/Activity 的生命周期
 
-### 3.3 启动时间测量方式
+## 3.3 启动时间测量方式
 
-#### adb 命令方式
+### adb 命令方式
 
 `adb shell am start -W packagename/首屏Activity`
 
@@ -45,7 +45,7 @@ WaitTime：AMS 启动 Activity 的总耗时
 - 线下使用方便
 - 非严谨的、精确的时间
 
-#### 手动打点方式
+### 手动打点方式
 
 `结束埋点 - 启动埋点 = 耗时`
 
@@ -113,14 +113,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 - 避免误区，采用 Feed 第一条展示
 - addOnDrawListener 需要 Api16，可采用 addOnPreDrawListener 代替
 
-### 3.4-3.5 启动优化工具选择
+## 3.4-3.5 启动优化工具选择
 
 - traceview
 - systrace
 
 两种方式互补，正确认识工具，在不同场景下选择合适的工具
 
-#### traceview
+### traceview
 
 特点：
 
@@ -150,7 +150,7 @@ Debug.stopMethodTracing("")
   - Wall Clock Time：线程真正执行的时间
 - Bottom Up：查看方法调用者
 
-#### systrace
+### systrace
 
 特点:
 
@@ -176,15 +176,15 @@ Trace.endSection()
   - walltime 代码执行的时间
   - cputime 是代码消耗 cpu 的时间，优化要关注 cputime 时间。
 
-### 3.6-3.7  优雅获取方法耗时讲解
+## 3.6-3.7  优雅获取方法耗时讲解
 
 启动优化需要知道启动阶段所有方法耗时，方式有手动埋点，AOP 插入统计代码
 
-#### 常规埋点方法
+### 常规埋点方法
 
 常规埋点方法，即 System.currentTimeMillis()/SystemClock.currentTimeMillis()，常规埋点方法侵入性大，工作量大。
 
-#### AOP
+### AOP
 
 AOP 针对同一问题的统一处理。无需侵入代码
 
@@ -193,14 +193,14 @@ AOP 针对同一问题的统一处理。无需侵入代码
 - AspectJ，可选值沪江开源的插件，也可以选择自行开发插件
 - 其他代码插入库
 
-### 3-8 异步优化详解
+## 3.8 异步优化详解
 
-#### 优化小技巧
+### 优化小技巧
 
 - Theme 切换，用图片代替应用启动时的空白 Window，让用户感觉快。
 - 核心思想：子线程分担主线程任务，并行较少时间。
 
-#### 异步初始化遇到的问题
+### 异步初始化遇到的问题
 
 - 任务与任务之间有依赖关系
 - 有些任务必须在主线程中执行
@@ -244,15 +244,15 @@ public class AppContext extends Application{
 }
 ```
 
-### 3-9-3-10 异步初始化最优解-启动器
+## 3.9-3.10 异步初始化最优解-启动器
 
-#### 常规异步痛点
+### 常规异步痛点
 
 - 代码不够优化
 - 任务与任务之间有顺序依赖，比如 E 可能依赖于 D。
 - 维护成本高
 
-#### 启动器
+### 启动器
 
 启动器和心思想
 
@@ -341,18 +341,18 @@ public class AppContext extends Application{
 
 ```
 
-### 3-11 更优秀的延迟初始化方案
+## 3.11 更优秀的延迟初始化方案
 
 有些初始化没有必要放在启动时初始化，所以可以放在 feed 展示后在进行初始化。
 
-#### 常规方案
+### 常规方案
 
 在 Adapter 中第一个 Item 展示时，执行需要延迟初始化的任务。
 
 - 代码不够优雅
 - 可维护性差
 
-#### 延迟加载
+### 延迟加载
 
 核心思想：对延迟任务进行分批初始化
 
@@ -386,7 +386,7 @@ public class DelayInitDispatcher {
 }
 ```
 
-### 3-12 启动优化其它方案
+## 3.12 启动优化其它方案
 
 优化方针：
 
@@ -417,7 +417,7 @@ public class DelayInitDispatcher {
 - 启动阶段抑制 GC
 - CPU 锁频
 
-### 3-13 启动优化方案总结
+## 3.13 启动优化方案总结
 
 - 获取方法耗时
   - 常规方案
@@ -433,7 +433,7 @@ public class DelayInitDispatcher {
 - 启动阶段不启动子进程
 - 提前异步类加载，在 MultiDex.install 之后，开启子线程进行加载
 
-### 3.14 模拟面试
+## 3.14 模拟面试
 
 1. 你做启动优化是怎么做的
    1. 这个问题很概括，不要一开始就深入某个点

@@ -78,6 +78,10 @@ Editor-General-->Smart Keys-->Use CameHumps Words
 比如java：
 Editor--> Color&Font-->  Android Log
 
+## AndroidStudio 升级策略
+
+PC 上保留两个版本，交替升级，以此来保证随时都可以切换回稳定的版本。
+
 ## Android 相关工具
 
 ### 反编译

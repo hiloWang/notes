@@ -2,14 +2,9 @@
 
 ## 1 GCC简介
 
-GNU编译器套装（英语：GNU Compiler Collection，缩写为GCC），指一套编程语言编译器，以GPL及LGPL许可证所发行的自由软件，也是GNU项目的关键部分，也是GNU工具链的主要组成部分之一。GCC（特别是其中的C语言编译器）也常被认为是跨平台编译器的事实标准。1985年由理查德·马修·斯托曼开始发展，现在由自由软件基金会负责维护工作。
+GNU 编译器套装（英语：GNU Compiler Collection，缩写为GCC），指一套编程语言编译器，以 GPL 及 LGPL 许可证所发行的自由软件，也是 GNU 项目的关键部分，也是 GNU 工具链的主要组成部分之一。GCC（特别是其中的 C 语言编译器）也常被认为是跨平台编译器的事实标准。1985 年由理查德·马修·斯托曼开始发展，现在由自由软件基金会负责维护工作。原名为 GNU C 语言编译器（GNU C Compiler），因为它原本只能处理 C 语言。GCC 在发布后很快地得到扩展，变得可处理 C++。之后也变得可处理`Fortran、Pascal、Objective-C、Java、Ada，Go`与其他语言。
 
-原名为GNU C语言编译器（GNU C Compiler），因为它原本只能处理C语言。GCC在发布后很快地得到扩展，变得可处理C++。之后也变得可处理Fortran、Pascal、Objective-C、Java、Ada，Go与其他语言。
-
-许多操作系统，包括许多类Unix系统，如Linux及BSD家族都采用GCC作为标准编译器。苹果电脑预装的Mac OS X操作系统也采用这个编译器。
-
-GCC原本用C开发，后来因为LLVM、Clang的崛起，它更快地将开发语言转换为C++。许多C的爱好者在对C++一知半解的情况下主观认定C++的性能一定会输给C，但是Taylor给出了不同的意见，并表明C++不但性能不输给C，而且能设计出更好，更容易维护的程序（GCC's move to C++）。——WIKI百科
-
+许多操作系统，包括许多类 Unix 系统，如 Linux 及 BSD 家族都采用 GCC 作为标准编译器。苹果电脑预装的 Mac OS X 操作系统也采用这个编译器。GCC 原本用 C 开发，后来因为 LLVM、Clang 的崛起，它更快地将开发语言转换为 C++。许多 C 的爱好者在对 C++ 一知半解的情况下主观认定 C++ 的性能一定会输给 C，但是 Taylor 给出了不同的意见，并表明 C++ 不但性能不输给C，而且能设计出更好，更容易维护的程序（GCC's move to C++）。——WIKI百科
 
 ---
 ## 2 GCC命令
@@ -24,17 +19,21 @@ GCC程序接受选项和文件名作为操作数。许多选项有多个字母�
 
 gcc的语法为`gcc(选项)(参数)`，选项包括的类型非常多，比如：控制输出类型、警告压制类型、编译优化类型等等。
 
-
 ### 实例
 
 ```Shell
-gcc test.c      #编译出一个名为a.out或a.exe的可执行程序
-gcc test.c -o test      #将test.c预处理、汇编、编译并链接形成可执行文件test。-o选项用来指定输出文件的文件名。
+#编译出一个名为a.out或a.exe的可执行程序
+gcc test.c
+#将test.c预处理、汇编、编译并链接形成可执行文件test。-o选项用来指定输出文件的文件名。
+gcc test.c -o test
 
-//windows上编译
-gcc -c HelloC.c  -I "H:\dev_tools\java8\include" -I "H:\dev_tools\java8\include\win32"      #用于编译c代码生成.o库
-gcc -Wl,--add-stdcall-alias -shared -o HelloC.dll HelloC.o #用于把.o库转换成windows平台的dll库
-gcc -Wl,--add-stdcall-alias -I "H:\dev_tools\java8\include" -I "H:\dev_tools\java8\include\win32" -shared -o helloC.dll HelloC.c  #直接生成windows平台的.dll库
+#windows上编译
+#用于编译c代码生成.o库
+gcc -c HelloC.c  -I "H:\dev_tools\java8\include" -I "H:\dev_tools\java8\include\win32"
+#用于把.o库转换成windows平台的dll库
+gcc -Wl,--add-stdcall-alias -shared -o HelloC.dll HelloC.o
+#直接生成windows平台的.dll库
+gcc -Wl,--add-stdcall-alias -I "H:\dev_tools\java8\include" -I "H:\dev_tools\java8\include\win32" -shared -o helloC.dll HelloC.c
 ```
 
 ### 常用options
@@ -45,29 +44,37 @@ gcc -Wl,--add-stdcall-alias -I "H:\dev_tools\java8\include" -I "H:\dev_tools\jav
 
 - `-E`：仅执行编译预处理
 ```Shell
-gcc -E test.c -o test.i     #将test.c预处理输出test.i文件
+#将test.c预处理输出test.i文件
+gcc -E test.c -o test.i
 ```
 
 - `-S`：将C代码转换为汇编代码
 ```Shell
-gcc -S test.i       #将预处理输出文件test.i汇编成test.s文件
+#将预原文件test.c汇编成test.s文件
+gcc -S test.c -o test.s
 ```
 
-- `-wall`：显示警告信息
+- `-wall`：允许发出 GCC 能够提供的所有有用的警告。也可以用-W{warning}来标记指定的警告
+
+- `-Werror`：把所有警告转换为错误，以在警告发生时中止编译过程
+
+- `-w` 关闭所有警告，建议不要使用此项(w是小写字母）
 
 - `-c`：仅执行编译操作，不进行连接操作
 ```Shell
-gcc -c test.s       #将汇编输出文件test.s编译输出test.o文件
-gcc test.o -o test  #无选项链接，将编译输出文件test.o链接成最终可执行文件test
+#将汇编输出文件 test.s 编译输出 test.o 文件
+gcc -c test.s
+#无选项链接，将编译输出文件 test.o 链接成最终可执行文件test
+gcc test.o -o test
 ```
 
 - `-l`和`-L`参数：用来指定程序要链接的库
-`-l`参数紧接着就是库名，加入库名是`libA.so`，那么命令就是`-lA`
-`-l`和`-L`的区别是，如果需要连接的第三方库在`/lib、/usr/lib、/usr/local/lib`下，那么只需要使用`-l`命令，如果不在这三个目录，就需要使用`-L`命令来指定全路径，比如`L/aaa/bbb/ccc -lA`。
+  - `-l`参数紧接着就是库名，加入库名是`libA.so`，那么命令就是`-lA`
+  - `-l`和`-L`的区别是，如果需要连接的第三方库在`/lib、/usr/lib、/usr/local/lib`下，那么只需要使用`-l`命令，如果不在这三个目录，就需要使用`-L`命令来指定全路径，比如`L/aaa/bbb/ccc -lA`。
 
 - `-include`和`-I`参数：用来指定包含的头文件
-`-include`用来包含头文件，但一般情况下包含头文件都在源码里用`#include`引入了，所以`-include`参数很少用。
-`-I`参数是用来指定头文件目录，`/usr/include`目录一般是不用指定的，gcc可以找到，但是如果头文件不在`/usr/include`里就要用`-I`参数指定了，比如头文件放在`/myinclude`目录里，那编译命令行就要加上`-I/myinclude`参数，参数可以用相对路径，比如头文件在当前目录，可以用`-I.`来指定。
+  - `-include`用来包含头文件，但一般情况下包含头文件都在源码里用`#include`引入了，所以`-include`参数很少用。
+  - `-I`参数是用来指定头文件目录，`/usr/include`目录一般是不用指定的，gcc可以找到，但是如果头文件不在`/usr/include`里就要用`-I`参数指定了，比如头文件放在`/myinclude`目录里，那编译命令行就要加上`-I/myinclude`参数，参数可以用相对路径，比如头文件在当前目录，可以用`-I.`来指定。
 
 - `-O`参数：程序优化参数
 ```Shell
@@ -75,16 +82,17 @@ gcc test.c -O2      #使用编译优化级别2编译程序。级别为1~3，级�
 ```
 
 - `-shared`参数，用于编译动态链接库
+
 ```Shell
 `gcc -shared test.c -o libtest.so`      #将test.c 编译成动态链接库
 ```
 
-- `-fPIC`：属于“Options for Code Generation Conventions”类选项
-`-fPIC`作用于编译阶段，告诉编译器产生与位置无关代码(Position-Independent Code)，则产生的代码中，没有绝对地址，全部使用相对地址，故而代码可以被加载器加载到内存的任意位置，都可以正确的执行。这正是共享库所要求的，共享库被加载时，在内存的位置不是固定的。
+- `-fPIC`：属于“Options for Code Generation Conventions”类选项：`-fPIC`作用于编译阶段，告诉编译器产生与位置无关代码(Position-Independent Code)，则产生的代码中，没有绝对地址，全部使用相对地址，故而代码可以被加载器加载到内存的任意位置，都可以正确的执行。这正是共享库所要求的，共享库被加载时，在内存的位置不是固定的。
 
 ### 多源文件的编译方法
 
 - 1 多个文件一起编译：
+
 ```Shell
 gcc testA.c testB.c -o test`
 ```
@@ -92,9 +100,12 @@ gcc testA.c testB.c -o test`
 - 2 分开编译后再连接：
 
 ```Shell
-gcc -c testA.c      #将testA.c编译成testA.o
-gcc -c testB.c      #将testB.c编译成testB.o
-gcc -o testA.o testB.o -o test       #将testA.o和testB.o链接成test
+#将testA.c编译成testA.o
+gcc -c testA.c
+#将testB.c编译成testB.o
+gcc -c testB.c
+#将testA.o和testB.o链接成test
+gcc -o testA.o testB.o -o test
 ```
 
 ### windows相关
@@ -111,5 +122,5 @@ Wl用于传递参数给连接器，--add-stdcall-alias表示具有stdcall后缀�
 ## 引用
 
 - [gcc 文档](https://gcc.gnu.org/onlinedocs/gcc-6.3.0/gcc/Invoking-GCC.html#Invoking-GCC)
-- [Option-Summary](https://gcc.gnu.org/onlinedocs/gcc-6.3.0/gcc/Option-Summary.html#Option-Summary)，所有的gcc命令可以在这里找到
+- [Option-Summary](https://gcc.gnu.org/onlinedocs/gcc-6.3.0/gcc/Option-Summary.html#Option-Summary)，所有的 gcc 选型命令可以在这里找到
 - [Options specific to i386 PE targets](http://www.delorie.com/gnu/docs/binutils/ld_4.html)

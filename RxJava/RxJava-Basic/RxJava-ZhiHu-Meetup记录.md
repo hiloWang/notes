@@ -1,5 +1,4 @@
----
-# 1 RxJava 概念全⾯面介绍
+# 1 RxJava 概念全⾯介绍
 
 ---
 ## 1.1 Rx 的含义
@@ -13,11 +12,11 @@ Rx 即 Reactiva Extension
 
 观察者模式：观察者对被观察者监听，当有变化时⽴立即通知
 
-![](index_files/da50181f-7ae7-4139-b2d4-d9c817d5393c.png)
+![](index_files/zhihu-01)
 
 Reactive Programming：当数据发⽣生变化时，所有对它有依赖的位置⽴立即相应地发⽣生反应
 
-![](index_files/cfe87891-ebe8-49a6-95da-af01f96a7c36.png)
+![](index_files/zhihu-02)
 
 观察者模式关于点在于通知，而Reactive Programming的关注点在于对统计做出响应
 
@@ -32,32 +31,32 @@ Extension 即扩展，在Reactive Programming的基础上进一步拓展：
 事件序列列 / 数据流的区别:
 
 - 事件：不不可预知、动态的 -> 离散
-    - ⽤用户点击
-    - 服务器器推送
-    - HTTP / HTTPS ⽹网络请求
+  - ⽤用户点击
+  - 服务器器推送
+  - HTTP / HTTPS ⽹网络请求
 - 数据流：现成的、静态的 -> 连续
-    - 处理理静态数据（字符串串、Bitmap）
-    - 逐⾏行行读取本地⽂文件
+  - 处理理静态数据（字符串串、Bitmap）
+  - 逐⾏行行读取本地⽂文件
 
 ```java
 //事件
- RxView.clicks(view)        
-.subscribe(new Consumer<Object>() {
-    @Override
-    public void accept(@NonNull Object o) {
-    // 处理理点击事件......            
-    }        
+ RxView.clicks(view)
+       .subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(@NonNull Object o) {
+                // 处理理点击事件......
+            }
 });
 
 //数据流
 Bitmap[] bitmaps = ...;
-Observable.fromArray(bitmaps)        
+Observable.fromArray(bitmaps)
 .subscribe(new Consumer<Bitmap>() {
     @Override
-    public void accept(Bitmap bitmap) {                
+    public void accept(Bitmap bitmap) {
         // 加⽔水印
-        addWatermark(bitmap);            
-    }        
+        addWatermark(bitmap);
+    }
 });
 ```
 
@@ -106,41 +105,43 @@ Observable.fromArray(bitmaps)
 ---
 # 2 Rx 在 Zhihu 的历史
 
-
 ## 2.1 避免 Undeliverable Exception
 
 ```java
 //没有错误处理者，会抛出Undeliverable Exception
-Observable.create(emitter -> {    
-try {        
-    doSomething();    
+Observable.create(emitter -> {
+try {
+    doSomething();
 } catch (Exception e) {
-    emitter.onError(e);    
-}})    
+    emitter.onError(e);
+}})
 .subscribe(rlt -> {        // ...    });
 
 //订阅结束后发射error会抛出Undeliverable Exception，使用tryOnError避免Undeliverable Exception(内部判断订阅是否已经结束)
-Observable.create(emitter -> {    
-try {        
-    doSomething();    
+Observable.create(emitter -> {
+try {
+    doSomething();
 } catch (Exception e) {
-    if (!emitter.isDisposed()) {            
-        emitter.onError(e);        
-    }        
-    // emitter.tryOnError(e);    
-}})    
+    if (!emitter.isDisposed()) {
+        emitter.onError(e);
+    }
+    // emitter.tryOnError(e);
+}})
 .subscribe(
-    rlt -> {        // ...    }, 
-    throwable -> {        // 处理错误    }
+    rlt -> {
+        // ...
+    },
+    throwable -> {
+        // 处理错误
+    }
 );
 ```
 
 ## 2.2 关于 Dispose
 
 - dispose() 方法和 Thread.interrupt() 方法很类似
-    - 只起到通知作用
-    - 已经被 dispose() 的流，不能再次被 dispose()
-    - 异步任务内，应当通过 isDisposed() 方法判断是否要提前终止任务
+  - 只起到通知作用
+  - 已经被 dispose() 的流，不能再次被 dispose()
+  - 异步任务内，应当通过 isDisposed() 方法判断是否要提前终止任务
 - Create 操作符创建的异步任务，在被 dispose() 时，其实内部调用了 Thread.interrupt()
 - 通过 isDisposed() 判断是否应该提前结束任务，从而节省 CPU 计算资源
-

@@ -1,7 +1,7 @@
 # 实现自定义的操作符
 
 ---
-## 1 自定义Operator
+## 1 自定义 Operator
 
 实现一个仿照map操作符。关键函数在于`lift`变换。
 
@@ -65,7 +65,7 @@
 
 ```
 
-原理在于life函数，下面是简化后的lift：
+原理在于 life 函数，下面是简化后的lift：
 
 ```java
     public final <R> Observable<R> lift(final Operator<? extends R, ? super T> operator) {
@@ -85,7 +85,7 @@
 ```
 
 ---
-## 2 自定义Transformer
+## 2 自定义 Transformer
 
 原理在语音compose操作：
 
@@ -98,7 +98,6 @@
 其实就是使用我们自定义的Transformer转换Observable。
 
 `compose`的参数`Transformer`可以实现很强大的功能。`Transformer`实际上就是一个`Func1<Observable<T>, Observable<R>>`，换言之就是：可以通过它将一种类型的`Observable`转换成另一种类型的`Observable`，和调用一系列的内联操作符是一模一样的。
-
 
 **注意`conpose`与`flatMap`的区别**，参考[避免打断链式结构：使用.compose( )操作符](http://www.jianshu.com/p/e9e03194199e)：
 

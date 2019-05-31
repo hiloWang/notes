@@ -30,9 +30,10 @@ Rx 中的数据流是从一个地方发射到另外一个地方。每个地方�
 
 运行结果为：
 
-
+```log
     onNext() called with: aLong = [0]
     onError() called with: e = [rx.exceptions.MissingBackpressureException]
+```
 
 可以看到RxJava抛出了MissingBackpressureException异常。
 
@@ -53,11 +54,3 @@ Rx 中的数据流是从一个地方发射到另外一个地方。每个地方�
 - 自定义Subscribe，在request中处理
 
 具体参考[RxJava 教程第四部分：并发之数据流发射太快如何办](http://blog.chengyunfeng.com/?p=981#ixzz4FFYULgFu)
-
-
-
-
-
-
-
-

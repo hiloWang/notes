@@ -1,4 +1,4 @@
-# subscribeOn原理分析
+# subscribeOn 原理分析
 
 通过 subscribeOn 可以切换 Observable 所运行的线程，平时在使用的过程中感到非常的好用，但是这个是怎么实现的呢？现在就来研究一下。
 
@@ -202,7 +202,7 @@ public final class OperatorSubscribeOn<T> implements OnSubscribe<T> {
 
         //由于Worker实现了Subscription，所以他也是可以被反订阅的
         subscriber.add(inner);
-        
+
         //这就创建了一个Action0，让工作者调用，即这里进行了异步调度。
         inner.schedule(new Action0() {
             @Override
@@ -211,7 +211,7 @@ public final class OperatorSubscribeOn<T> implements OnSubscribe<T> {
 
                 //1，记录当前一度调度线程，
                 final Thread t = Thread.currentThread();
-                
+
                 //2，这里是重点，这创建了一个Subscriber，用于把数据转发给我们的subscriber
 
                 Subscriber<T> s = new Subscriber<T>(subscriber) {
@@ -219,7 +219,7 @@ public final class OperatorSubscribeOn<T> implements OnSubscribe<T> {
                     public void onNext(T t) {
                         subscriber.onNext(t);
                     }
-                    
+
                     @Override
                     public void onError(Throwable e) {
                         try {
@@ -228,7 +228,7 @@ public final class OperatorSubscribeOn<T> implements OnSubscribe<T> {
                             inner.unsubscribe();
                         }
                     }
-                    
+
                     @Override
                     public void onCompleted() {
                         try {
@@ -237,7 +237,7 @@ public final class OperatorSubscribeOn<T> implements OnSubscribe<T> {
                             inner.unsubscribe();
                         }
                     }
-                    
+
                     //这里设置了生产者，也是转发给了我们传入的subscriber
                     @Override
                     public void setProducer(final Producer p) {
@@ -268,6 +268,3 @@ public final class OperatorSubscribeOn<T> implements OnSubscribe<T> {
 ```
 
 最终 source 在异步线程被订阅，然后数据会流向call方法中创建的 Subscribers，然后s又把数据转发给了内部包装的subscriber，也就是我们传入的subscriber。转了一圈又回到了我们的subscriber，但是线程却切换了。
-
-
-

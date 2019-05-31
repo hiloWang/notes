@@ -1,4 +1,4 @@
-# RxJava-基本元素（RxJava1）
+# RxJava-基本元素
 
 ---
 ## 1 Observable
@@ -26,9 +26,7 @@ Observable只有一个构造方法，接收一个OnSubscribe接口，
             });
 ```
 
-OnSubscribe 表示当发生订阅时需要发生的事情，它只有一个 call 方法，当 Observable 被订阅的时候，OnSubscribe 的 call() 方法会自动被调用，在call 方法里面去实现相关逻辑，把事件序列传递给 Subscriber，比如上面的 call 方法中，通知 Subscriber 发生了四次 onNext 事件，最后调用Subscriber 的 onCompleted 表示事件系列的终止。
-
-Observable是一个重量级的类，除了构造函数外，在Observable中还定义了丰富的操作符。
+OnSubscribe 表示当发生订阅时需要发生的事情，它只有一个 call 方法，当 Observable 被订阅的时候，OnSubscribe 的 call() 方法会自动被调用，在call 方法里面去实现相关逻辑，把事件序列传递给  Subscriber，比如上面的 call 方法中，通知 Subscriber 发生了四次 onNext 事件，最后调用Subscriber 的 onCompleted 表示事件系列的终止。Observable是一个重量级的类，除了构造函数外，在Observable中还定义了丰富的操作符。
 
 ### 冷和热
 
@@ -66,9 +64,9 @@ Observer：即观察者，用于响应事件的发生，定义如下：
 
 这三个方法代表了事件序列中会发生的三个行为：
 
-*   `onNext(T t)`：Observable调用这个方法发射数据，参数类型与Observable发射数据的类型是一致的，这个方法可能会被调用多次，这取决于你的实现。
-*   `onCompleted()`：事件队列完结，当不会再有新的onNext() 发出时，需要触发 onCompleted() 方法作为标志。
-*   `onError()`：事件序列在传递和处理的过程中发生异常时。onError()会被触发，同时事件序列和订阅关系自动终止。
+- `onNext(T t)`：Observable调用这个方法发射数据，参数类型与Observable发射数据的类型是一致的，这个方法可能会被调用多次，这取决于你的实现。
+- `onCompleted()`：事件队列完结，当不会再有新的onNext() 发出时，需要触发 onCompleted() 方法作为标志。
+- `onError()`：事件序列在传递和处理的过程中发生异常时。onError()会被触发，同时事件序列和订阅关系自动终止。
 
 RxJava有如下规则：
 
@@ -90,8 +88,8 @@ Subscriber 是一个抽象类，它是 Observer 的扩展，实现了 Observer �
 
 Subscriber实现了Subscription，并实现了它的两个方法：
 
-*   unsubscribe：用于取消订阅。在这个方法被调用后，`Subscriber` 将不再接收事件，如果不再对事件感兴趣，需要通过此方法取消订阅，防止内存泄漏
-*   isUnsubscribed：用于判断是否已经取消订阅
+- unsubscribe：用于取消订阅。在这个方法被调用后，`Subscriber` 将不再接收事件，如果不再对事件感兴趣，需要通过此方法取消订阅，防止内存泄漏
+- isUnsubscribed：用于判断是否已经取消订阅
 
 Subscriber定义如下：
 
@@ -113,7 +111,7 @@ Subscriber可以理解为一个功能更加全面的订阅者。
 ---
 ## 5 Subscription
 
-```
+```java
     Subscription subscription =  observable.subscribe(observer);
     Subscription subscription =   observable.subscribe(subscriber);
 ```
@@ -160,21 +158,19 @@ Action系列是没有返回值的函数。此类型函数表示对发生的一�
 
 ```java
     public interface Action extends Function {
-    
+
     }
-    
+
     public interface Action0 extends Action {
         void call();
     }
-    
+
     public interface Action1<T> extends Action {
         void call(T t);
     }
 ```
 
-Action和Func是RxJava中重要的组成部分，在函数式编程中它们就代表函数，它们可以作为参数传递给方法，用于指定特定的动作和变换，用Java来讲它们的实例就是函数对象。
-
-函数式编程中，函数是"第一等公民"：函数与其他数据类型一样，处于平等地位，可以赋值给其他变量，也可以作为参数，传入另一个函数，或者作为别的函数的返回值。在RxJava中典型的就是Action和Func系列接口，按照函数式编程范式，Action和Func系列接口应该被实现为无副作用的。
+Action 和 Func 是 RxJava 中重要的组成部分，在函数式编程中它们就代表函数，它们可以作为参数传递给方法，用于指定特定的动作和变换，用Java来讲它们的实例就是函数对象。函数式编程中，函数是"第一等公民"：函数与其他数据类型一样，处于平等地位，可以赋值给其他变量，也可以作为参数，传入另一个函数，或者作为别的函数的返回值。在 RxJava 中典型的就是 Action 和 Func 系列接口，按照函数式编程范式，Action 和Func 系列接口应该被实现为无副作用的（只操作方法域内的变量）。
 
 ---
 ## 7  subscribe
@@ -189,9 +185,9 @@ subscribe表示订阅，是一种行为，作为RxJava的使用者，有必要�
     }
 ```
 
-1.  调用 `subscriber.onStart()` 方法，告知其订阅已经开始
-2.  调用 onSubscribe 的 call 方法，在 call 方法中通知 Subscriber 发生的事件序列
-3.  以 Subscription 的形式返回 subscriber，方便订阅后的反订阅操作
+1. 调用 `subscriber.onStart()` 方法，告知其订阅已经开始
+2. 调用 onSubscribe 的 call 方法，在 call 方法中通知 Subscriber 发生的事件序列
+3. 以 Subscription 的形式返回 subscriber，方便订阅后的反订阅操作
 
 接下来分析一下subscribe的源码来验证上面所说的流程：
 
@@ -203,7 +199,7 @@ Observable 中的 subscribe 方法：
         }
 
             static <T> Subscription subscribe(Subscriber<? super T> subscriber, Observable<T> observable) {
-    
+
             if (subscriber == null) {
                 throw new IllegalArgumentException("subscriber can not be null");
             }
@@ -227,12 +223,11 @@ Observable 中的 subscribe 方法：
         }
 ```
 
-*   首先是对参数进行非 null 判断
-*   然后直接调用 `subscriber.onStart()` 方法，可以看出onStart的调用时机，其与订阅者在同一个线程中执行
-*   使用 SafeSubscriber 包装原始的 Subscriber，是用来保证 RxJava 的一些规定与做一些错误处理的，比如保证 onComplete 和 onError 互斥，onNext在 onComplete 不再发送数据等等。
-*   在RxJavaHooks中返回的还是原来的onSubscribe，然后调用了onSubscribe的call方法（call方法被调用即订阅开始触发行为）。
-*   最后返回的是的Subscriber，只是形态变成了Subscription，方便订阅后的反订阅操作(只返回需要的功能接口)
-
+- 首先是对参数进行非 null 判断
+- 然后直接调用 `subscriber.onStart()` 方法，可以看出onStart的调用时机，其与订阅者在同一个线程中执行
+- 使用 SafeSubscriber 包装原始的 Subscriber，是用来保证 RxJava 的一些规定与做一些错误处理的，比如保证 onComplete 和 onError 互斥，onNext在 onComplete 不再发送数据等等。
+- 在RxJavaHooks中返回的还是原来的onSubscribe，然后调用了onSubscribe的call方法（call方法被调用即订阅开始触发行为）。
+- 最后返回的是的Subscriber，只是形态变成了Subscription，方便订阅后的反订阅操作(只返回需要的功能接口)
 
 ---
 ## 8 变换 lift 与 Operator
@@ -273,13 +268,16 @@ public interface Operator<R, T> extends Func1<Subscriber<? super R>, Subscriber<
 
 }
 ```
+
 Operator继承了Func1，并且它的泛型确定了其call由接受一个Subscriber返回一个新的Subscriber。Operator具有以下行为：
+
 ```java
     Operator{
         //根据Operator的反省定义，它的call方法接受一个Subscriber返回一个新的Subscriber。
         Subscriber call(Subscriber)
     }
 ```
+
 ### lift的原理
 
 lift方法只做了一件事，创建并返回了一个新的Observable，当然创建Observable同时也需要创建了一个OnSubscribe，下面通过一段代码来分析一下lift的原理：
@@ -395,7 +393,6 @@ OperatorMap的call方法如下：
 
 Transformer与与lift的Operator类似，都是继承了Func1，但是Transformer的泛型确定了它接收一个泛型类型为T的Observable，返回一个泛型类型为R的Observable。
 
-
 当需要多一个Observable进行多次lift时，代码可能如下：
 
 ```java
@@ -407,17 +404,17 @@ Transformer与与lift的Operator类似，都是继承了Func1，但是Transforme
                     .subscribe(new Subscriber<Integer>() {
                         @Override
                         public void onCompleted() {
-    
+
                         }
-    
+
                         @Override
                         public void onError(Throwable e) {
-    
+
                         }
-    
+
                         @Override
                         public void onNext(Integer integer) {
-    
+
                         }
                     });
 ```
@@ -426,7 +423,7 @@ Transformer与与lift的Operator类似，都是继承了Func1，但是Transforme
 
 ```java
       private static class DemoCompose implements Observable.Transformer<Integer, Integer> {
-    
+
             @Override
             public Observable<Integer> call(Observable<Integer> integerObservable) {
                 return integerObservable
@@ -436,23 +433,23 @@ Transformer与与lift的Operator类似，都是继承了Func1，但是Transforme
                         .lift(new Operator4());
             }
         }
-    
+
      Observable.just(1)
                     .compose(new DemoCompose())
                     .subscribe(new Subscriber<Integer>() {
                         @Override
                         public void onCompleted() {
-    
+
                         }
-    
+
                         @Override
                         public void onError(Throwable e) {
-    
+
                         }
-    
+
                         @Override
                         public void onNext(Integer integer) {
-    
+
                         }
                     });
 ```
@@ -468,25 +465,3 @@ Transformer与与lift的Operator类似，都是继承了Func1，但是Transforme
 ## 引用
 
 - [给 Android 开发者的 RxJava 详解](https://gank.io/post/560e15be2dca930e00da1083)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

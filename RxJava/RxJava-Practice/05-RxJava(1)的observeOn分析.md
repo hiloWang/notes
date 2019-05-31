@@ -1,4 +1,4 @@
-# RxJava的observeOn分析
+# RxJava 的 observeOn 分析
 
 使用observeOn可以很轻易的切换观察者的执行线程，但是这个是如何实现的呢？下面通过跟随RxJava的源码来分析。
 
@@ -295,7 +295,6 @@ ObserveOn首先会请求128条数据，多余的数据项由上游保存，这�
             //RxRingBuffer.SIZE = 128
                 request(RxRingBuffer.SIZE);
             }
-    
 
             public void onNext(final T t) {
                 if (isUnsubscribed() || finished) {
@@ -322,8 +321,7 @@ delayError可以延迟发射错误，一般情况下，如果上游通知了序�
                 finished = true;
                 schedule();
             }
-    
-    
+
                       if (delayError) {//如果delayError
                         if (isEmpty) {//当队列为没有元素之后才会通知
                             Throwable e = error;

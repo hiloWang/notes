@@ -1,7 +1,7 @@
-# RxJava的Backpressure和Reactive pull模式
+# RxJava 的 Backpressure 和 Reactive pull 模式
 
 ---
-##  1 Backpressure
+## 1 Backpressure
 
 RxJava 基于观察者模式，Observable 是数据源，也就是被观察者，而 Subscriber 是观察者，默认的 Observable 只有 Subscriber 对其进行订阅时它才会开始发射数据，数据从 Observable 流向 Subscriber，也可以说 Observable 是生产者，负责产生事件，而 Subscriber 是消费者，负责处理事件。
 
@@ -162,17 +162,17 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
 
 ```java
     public abstract class Subscriber<T> implements Observer<T>, Subscription {
-    
+
         private Producer producer;
         private long requested = NOT_SET; // default to not set
-    
+
         ......
-    
+
            protected final void request(long n) {
             if (n < 0) {
                 throw new IllegalArgumentException("number requested cannot be negative: " + n);
             }
-            
+
             // if producer is set then we will request from it
             // otherwise we increase the requested count by n
             Producer producerToRequestFrom = null;
@@ -209,34 +209,34 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
                 final Subscriber<? super T> child = this.child;
                 final T[] array = this.array;
                 final int n = array.length;
-                
+
                 long e = 0L;
                 int i = index;
-    
+
                 for (;;) {
-                    
+
                     while (r != 0L && i != n) {
                         if (child.isUnsubscribed()) {
                             return;
                         }
-                        
+
                         child.onNext(array[i]);
-                        
+
                         i++;
-                        
+
                         if (i == n) {
                             if (!child.isUnsubscribed()) {
                                 child.onCompleted();
                             }
                             return;
                         }
-                        
+
                         r--;
                         e--;
                     }
-                    
+
                     r = get() + e;
-                    
+
                     if (r == 0L) {
                         index = i;
                         r = addAndGet(e);
@@ -254,39 +254,39 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
 
 ```java
       class CustomerSubscriber extends Subscriber<Integer> {
-    
+
                 @Override
                 public void onStart() {
                     super.onStart();
                     request(0);
                 }
-    
+
                 @Override
                 public void onCompleted() {
                     System.out.println("onCompleted");
                 }
-    
+
                 @Override
                 public void onError(Throwable e) {
                     System.out.println(e);
                 }
-    
+
                 @Override
                 public void onNext(Integer integer) {
                     System.out.println(integer);
                 }
-    
+
                 public void requestMore(int n) {
                     request(n);
                 }
             }
-    
+
             CustomerSubscriber customerSubscriber = new CustomerSubscriber();
             Observable.from(Arrays.asList(
                     1, 2, 3, 4, 5, 6, 7, 8, 9, 10
             ))
             .subscribe(customerSubscriber);
-    
+
             customerSubscriber.requestMore(3);
             customerSubscriber.requestMore(3);
             customerSubscriber.requestMore(3);
@@ -294,7 +294,7 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
 
 >request的数量是累加的，既三次 `requestMore(3)=requestMore(9)`。
 
-###  doOnRequested
+### doOnRequested
 
 当 Subscriber 请求更多事件的时候，doOnRequest 就会被调用。参数中的值为请求的数量。
 
@@ -307,9 +307,9 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
                         }
                     })
                     .subscribe();
-    
+
     //执行结果：along:9223372036854775807
-    
+
                     Observable.range(1, 30)
                     .doOnRequest(new Action1<Long>() {
                         @Override
@@ -318,7 +318,7 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
                         }
                     })
                     .subscribe(new Subscriber<Integer>() {
-    
+
                         @Override
                         public void onStart() {
                             super.onStart();
@@ -326,7 +326,7 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
                         }
                           .......
                     );
-                    
+
     //执行结果：along:2
 ```
 
@@ -343,7 +343,7 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
         public Subscriber<? super T> call(final Subscriber<? super T> child) {
             final ParentSubscriber<T> parent = new ParentSubscriber<T>(child);
             child.setProducer(new Producer() {
-    
+
                 @Override
                 public void request(long n) {
                     request.call(n);//这里通知request数量
@@ -353,7 +353,7 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
             child.add(parent);
             return parent;
         }
-    
+
         private static final class ParentSubscriber<T> extends Subscriber<T> {
             private final Subscriber<? super T> child;
             ParentSubscriber(Subscriber<? super T> child) {
@@ -417,17 +417,17 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
                             super.onStart();
                             request(2);//并没有实现request
                         }
-    
+
                         @Override
                         public void onCompleted() {
-    
+
                         }
-    
+
                         @Override
                         public void onError(Throwable e) {
-    
+
                         }
-    
+
                         @Override
                         public void onNext(String s) {
                             System.out.println(s);
@@ -437,7 +437,7 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
 
 结果是：
 
-```
+```log
     //打印
     doOnRequest 2
     1
@@ -485,17 +485,17 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
                             super.onStart();
                             request(2);//并没有实现request
                         }
-    
+
                         @Override
                         public void onCompleted() {
-    
+
                         }
-    
+
                         @Override
                         public void onError(Throwable e) {
-    
+
                         }
-    
+
                         @Override
                         public void onNext(String s) {
                             System.out.println(s);
@@ -505,12 +505,13 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
 
 结果：
 
+```log
     //doOnRequest 128 是observeOn请求的，
     1
     2
 
     doOnRequest 2 是我们告诉observeOn返回的Observable我们先要两个数据，此时程序还没有退出，还在等待request。
-
+```
 
 可以看出 observeOn 默认使用了 128 大小的容器缓冲数据，由于我们调用了 `request(2)`，改变了请求的数据量，所以这里只会发射两个数据。
 
@@ -540,7 +541,7 @@ Subscriber有个函数 `request(n)` 调用该函数用来通知 Observable 现�
 通过以上分析，我们直到了 Backpressure 产生的内部原因，Producer 用于让 Subscriber 设置自身处理事件的能力，当 Subscriber 设置了较大的数据处理能力而处理事件的速率却没有上游产生事件快时，随着上游事件的堆积，超过设定的容量时，就会导致 MissingBackpressureException。
 
 ---
-## 3  Backpressure 策略
+## 3 Backpressure 策略
 
 Rx 操作函数内部使用队列和缓冲来实现 backpressure ，从而避免保存无限量的数据。大量数据的缓冲应该使用专门的操作函数来处理，例如：cache、buffer 等。 zip 函数就是一个示例，第一个 Observable 可能在第二个 Observable 发射数据之前就发射了一个或者多个数据。所以 zip 需要一个较小的缓冲来匹配两个 Observable，从而避免操作失败。因此 zip 内部使用了一个 128 个数据的小缓冲。
 
@@ -557,11 +558,10 @@ Rx 操作函数内部使用队列和缓冲来实现 backpressure ，从而避免
                         public String call(Long aLong, Long aLong2) {
                             return String.valueOf(aLong).concat(String.valueOf(aLong2));
                         }
-    
+
                     })
                     .subscribe();
-            
-            //结果：128
+                    //结果：128
 ```
 
 很多 Rx 操作函数内部都使用了 backpressure 从而避免过多的数据填满内部的队列。这样处理慢的消费者就会把这种情况传递给前面的消费者，前面的消费者开始缓冲数据直到他也缓存满为止再告诉他前面的消费者。Backpressure 并没有消除这种情况。只是让错误延迟发生，我们还是需要处理这种情况。
@@ -574,7 +574,6 @@ onBackpressureBuffer 会缓存所有当前无法消费的数据，直到 Observe
 
 ![](index_files/onBackpressureBuffer.png)
 
-
 可以指定缓冲的数量，如果缓冲满了则会导致数据流失败。
 
 ```java
@@ -584,14 +583,14 @@ onBackpressureBuffer 会缓存所有当前无法消费的数据，直到 Observe
                     .subscribe(new Subscriber<Long>() {
                         @Override
                         public void onCompleted() {
-    
+
                         }
-    
+
                         @Override
                         public void onError(Throwable e) {
                             System.out.println(e);
                         }
-    
+
                         @Override
                         public void onNext(Long aLong) {
                             System.out.println(aLong);
@@ -606,10 +605,12 @@ onBackpressureBuffer 会缓存所有当前无法消费的数据，直到 Observe
 
 执行结果：
 
+```log
     0
     1
     2
     rx.exceptions.MissingBackpressureException: Overflowed buffer of 100
+```
 
 ### onBackpressureDrop
 
@@ -624,14 +625,14 @@ onBackpressureBuffer 会缓存所有当前无法消费的数据，直到 Observe
                     .subscribe(new Subscriber<Long>() {
                         @Override
                         public void onCompleted() {
-    
+
                         }
-    
+
                         @Override
                         public void onError(Throwable e) {
                             System.out.println(e);
                         }
-    
+
                         @Override
                         public void onNext(Long aLong) {
                             System.out.println(aLong);
@@ -646,16 +647,11 @@ onBackpressureBuffer 会缓存所有当前无法消费的数据，直到 Observe
 
 执行结果
 
+```log
     1
     ....
     127
     12843
+```
 
 前面 128 个数据正常的被处理的，这是应为 observeOn 在切换线程的时候， 使用了一个 128 个数据的小缓冲。
-
-
-
-
-
-
-

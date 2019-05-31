@@ -1,6 +1,5 @@
 # RxJava总结——视图篇
 
----
 ## buffer + debouch + share 连续的双击检测
 
 关键代码如下：
@@ -14,12 +13,12 @@
                         public void onCompleted() {
                             Log.d(TAG, "onCompleted() called with: " + "");
                         }
-    
+
                         @Override
                         public void onError(Throwable e) {
                             Log.d(TAG, "onError() called with: " + "e = [" + e + "]");
                         }
-    
+
                         @Override
                         public void onNext(List<Void> voids) {
                             Log.d(TAG, "onNext() called with: " + "voids = [" + voids + "]");
@@ -33,7 +32,6 @@
 1. `share`操作符很重要，普通的 Observable 是单播的（Observable 发射的数据不被多个订阅者共享），而 `share`=`publish`+`refCount`，把普通的 Observable 变成 `CoonectableObservable`，这时事件源都是多播的了（多个订阅者共享一个 Observable 发射的数据）。
 2. 上面的 `observable` 就被多次订阅了，`buffer` 用于统计点击的次数，而 `debounce` 用于过滤频率过快的点击和通知 `observable.buffer` 发射数据，一举两得。
 
----
 ## RxTextView + debounce + swtchMap 响应 EditText 的输入变化，进行查询
 
 需求：
@@ -43,6 +41,7 @@
 - 如果搜索框有输入则随着用户的输入进行查询，然后展示结果。
 
 代码如下：
+
 ```java
 public abstract class BaseSearchFragment<T> extends BaseListFragment<T> {
 
@@ -216,7 +215,6 @@ public abstract class BaseSearchFragment<T> extends BaseListFragment<T> {
 4. 根据情况还可以添加 `retryWhen`，参考[RxSerach](https://github.com/hanks-zyh/RxSerach)。
 5. 这里使用的 switchMapDelayError 代替 switchMap，与 `switchMap` 相比，当 Observable 发生错误时 switchMap 将停止工作，而 switchMapDelayError 可以忽略错误。
 
----
 ## combineLatest 合并最近的几个点
 
 ```java
@@ -281,7 +279,6 @@ public abstract class BaseSearchFragment<T> extends BaseListFragment<T> {
                     });
 ```
 
----
 ## debounce 防止多次点击
 
 ```java
@@ -306,7 +303,6 @@ RxView.clicks(button)
               });  
 ```
 
----
 ## debounce + zipWith + startWith 优化点赞逻辑
 
 需求：
@@ -348,15 +344,3 @@ debounced.zipWith(
 - 最后 flatMap 就是用来进行对比的，如果现在的结果与期望的结果一样就返回 `Observable.empty())` ，相当于忽略此次操作。
 
 这个场景来自 [社交软件上消息的点赞与取消点赞](https://juejin.im/post/5b8f5ea8f265da0a9223887e)
-
-
-
-
-
-
-
-
-
-
-
-

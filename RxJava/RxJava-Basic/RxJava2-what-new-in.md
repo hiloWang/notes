@@ -2,12 +2,11 @@
 
 RxJava2主要类图
 
-![](index_files/1523542698986rx2.png)
+![RxJava2主要类图](images/rx2-classes.png)
 
 ## 1 响应式流规范
 
 [`Reactive Streams`](http://www.reactive-streams.org/)规范提供一个非堵塞的异步流处理的背压(backpressure)标准；`Reactive Streams`的目标是增加抽象层，而不是进行底层的流处理，规范将这些问题留给了库实现来解决。对于JVM，目前已经有多个库实现该标准，`RxJava2, akka-streams（Playing 有使用）,Reactor(Spring Reactive有使用) 等`；统一标准的好处就是 **各个实现产生的数据可以方便的转换和消费**。
-
 
 ---
 ## 2 数据源
@@ -71,17 +70,16 @@ RxJava2的流中不再支持null值，比如`Observable.just()`传入一个null�
 - 使用 Completable
 - 使用 Optional
 
-
 ---
 ## 5 Flowable 还是 Observable
 
-**什么时候用 Observable(不支持背压)：**
+**什么时候用 Observable(不支持背压)**：
 
 - 一般处理最大不超过1000条数据，并且几乎不会出现内存溢出；
 - 如果是GUI鼠标事件，频率不超过1000 Hz,基本上不会背压（可以结合 sampling/debouncing 操作）；
 - 如果处理的式同步流而你的Java平台又不支持Java Stream（如果有异常处理，Observable 比Stream也更适合）;
 
-**什么时候用 Flowable(支持背压):**
+**什么时候用 Flowable(支持背压)**：
 
 - 处理以某种方式产生超过10K的元素；
 - 文件读取与分析，例如 读取指定行数的请求；
@@ -95,16 +93,14 @@ RxJava2的流中不再支持null值，比如`Observable.just()`传入一个null�
 在 RxJava1 里，Subscription 起到的是订阅桥梁的作用。在 2 中，由于 Subscription 本身和 Reactive-Streams 里的另外一个同名概念冲突。因此把RxJava2 中原本的 Subscription 改名成了 Disposable、CompositeSubscription 改名成为 CompositeDisposable。
 
 ---
-##  其他
+## 其他
 
 - RxJava2可以直接获取流中的数据，比如使用`blockingGet`操作符。
 - `DisposableObserver`：名为DisposableObserver的类型，它将自动处理第四个方法，并允许只用关心来自Observable本身的通知它实现了 Disposable，因此可以调用dispose方法，它会将其转发到过程链当中。
 - `Subscriber`：在新版里Subscriber被赋予了更多的作用，有几个实现类可以供我们使用：
- - ResourceSubscriber：允许异步取消其订阅和相关资源。
+- ResourceSubscriber：允许异步取消其订阅和相关资源。
 
 ---
 ## 引用
 
 - [RxJava 2.0 有什么不同 (译)](https://juejin.im/entry/5827e1a767f35600587bbdc6)
-
-

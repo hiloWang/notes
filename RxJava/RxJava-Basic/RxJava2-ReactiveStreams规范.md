@@ -33,14 +33,14 @@ Reactive Streams规范包含以下部分：
 
 API由Reactive Stream实现提供的以下组件组成：
 
-1.  Publisher 发布者
-2.  Subscriber 订阅则
-3.  Subscription 订阅
-4.  Processor 处理器
+1. Publisher 发布者
+2. Subscriber 订阅则
+3. Subscription 订阅
+4. Processor 处理器
 
 Publisher 是可能无限数量的有序元素的提供者，根据其订阅者的要求发布它们。响应对 `Publisher.subscribe(Subscriber)` 的调用，Subscriber 上的方法的可能调用序列由以下协议给出：
 
-```
+```java
 onSubscribe onNext* (onError | onComplete)?
 ```
 
@@ -69,7 +69,7 @@ Thread-safe（线程安全） | 可以同步或异步安全地调用，无需外
 
 ### Publisher
 
-```
+```java
 public interface Publisher<T> {
     public void subscribe(Subscriber<? super T> s);
 }
@@ -77,7 +77,7 @@ public interface Publisher<T> {
 
 ### Subscriber
 
-```
+```java
 public interface Subscriber<T> {
     public void onSubscribe(Subscription s);
     public void onNext(T t);
@@ -88,7 +88,7 @@ public interface Subscriber<T> {
 
 ### Subscription
 
-```
+```java
 public interface Subscription {
     public void request(long n);
     public void cancel();
@@ -97,7 +97,7 @@ public interface Subscription {
 
 ### Processor
 
-```
+```java
 public interface Processor<T, R> extends Subscriber<T>, Publisher<R> {
 }
 ```
@@ -105,7 +105,9 @@ public interface Processor<T, R> extends Subscriber<T>, Publisher<R> {
 ---
 ## 5 异步与同步处理
 
-
+- [ ] todo
 
 ---
 ## 6 Subscriber controlled queue bounds
+
+- [ ] todo

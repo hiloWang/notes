@@ -1,5 +1,5 @@
+# RxJava总结-实践
 
----
 ## 响应式编程思维
 
 响应式编程是一种面向**数据流**和**变化传播**的编程范式。
@@ -11,7 +11,7 @@
 RxJava – Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM.RxJava 是针对 JVM 的反应式扩展，它是 JVM 平台上使用的**可观察序列**，用于编写 **异步** 和 **基于事件** 的编程库。
 
 ---
-##  RxJava 核心元素
+## RxJava 核心元素
 
 RxJava 1
 
@@ -78,17 +78,15 @@ RxJava 2 Flowable（支持背压）
 11. 在 Observable 中开启新的线程进行操作，一旦操作不当很有可能造成内存泄漏哦。也就是说 **线程切换的事情交给RxJava去做。**
 12. 避免过过多的 operator，几乎所有的 operator 都会给你生成一个新的 Observable。
 13. 创建异步的 Observable，类似 `Observable.just()` 等操作都是同步调用的，很明显这不适合用来创建异步的 Observable，这时可以使用 `defer()/fromCallable()` 等操作符。
- 
 
 ---
 ## 关于 RxJava2 的 subscribeActual
 
-```
-JakeWharton: 
-subscribeActual can only be implemented and called by Observable subclasses. You should never need to refer to it externally.
+> JakeWharton:
+> subscribeActual can only be implemented and called by Observable subclasses. You should never need to refer to it externally.
+>
+> Your best bet is to not try and replicate an event bus with Rx. It's a fundamentally different architecture over which events flow. Consumers of events should directly reference their event sources for subscribing and then use the returned subscription/disposable in order to unhook.
+>
+> For general Rx usage questions please use the RxJava mailing list or StackOverflow and the 'rxjava' tag.
 
-Your best bet is to not try and replicate an event bus with Rx. It's a fundamentally different architecture over which events flow. Consumers of events should directly reference their event sources for subscribing and then use the returned subscription/disposable in order to unhook.
-
-For general Rx usage questions please use the RxJava mailing list or StackOverflow and the 'rxjava' tag.
-```
 subscribeActual 只能由可观察的子类实现和调用。你不应该在外部引用它。最好的办法是不要尝试使用 Rx 复制事件总线。它是一个从根本上不同的架构和事件流。事件的使用者应该直接引用它们的事件源进行订阅, 然后使用返回的订阅/一次性来解除。

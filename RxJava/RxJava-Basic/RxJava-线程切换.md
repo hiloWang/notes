@@ -1,23 +1,21 @@
-# RxJava线程切换操作符
+# RxJava 线程切换操作符
 
 ## 1 RxJava线程切换
 
-RxJava之所以这么强大，很大一部分原因就是它可以随意的切换线程。
-
-首先来看一下RxJava默认支持的线程调度器。
+RxJava之所以这么强大，很大一部分原因就是它可以随意的切换线程， RxJava 默认支持的线程调度器：
 
 | 调度器类型 | 效果 |
 | --- | --- |
-| Schedulers.computation( ) | 用于计算任务，默认线程数等于处理器的数量 |
+| Schedulers.computation() | 用于计算任务，默认线程数等于处理器的数量 |
 | Schedulers.from(executor) | 使用指定的Executor作为调度器 |
-| Schedulers.immediate( ) | 在当前线程立即开始执行任务 |
-| Schedulers.io( ) | 用于IO密集型任务，如异步阻塞IO操作， 默认是一个CachedThreadScheduler |
-| Schedulers.newThread( ) | 为每个任务创建一个新线程 |
-| Schedulers.trampoline( ) | 当其它排队的任务完成后，在当前线程排队开始执行 |
+| Schedulers.immediate() | 在当前线程立即开始执行任务 |
+| Schedulers.io() | 用于IO密集型任务，如异步阻塞IO操作， 默认是一个CachedThreadScheduler |
+| Schedulers.newThread() | 为每个任务创建一个新线程 |
+| Schedulers.trampoline() | 当其它排队的任务完成后，在当前线程排队开始执行 |
 | AndroidSchedulers.mainThread() | Android特有的调度器，用于切换到主线程 |
-|HandlerScheduler|Android特有的调度器，用于指定在特定handler线程执行 |
+| HandlerScheduler| Android特有的调度器，用于指定在特定handler线程执行 |
 
-我们可以看到Schedules除了提供一些特定的调度器之外，还可以通过from从Executor创建一个自定义的调度器。
+我们可以看到 Schedules 除了提供一些特定的调度器之外，还可以通过 from从Executor 创建一个自定义的调度器。
 
 ```java
             //根据cpu的核心数量来创建一个调度器。
@@ -29,18 +27,19 @@ RxJava之所以这么强大，很大一部分原因就是它可以随意的切�
 ## 2 有关线程调度器的切换
 
 主要方法有两个：
+
 - subscribeOn：用于切换Observable往回通知的线程调度器，也指定了被观察的执行线程。
 - observeOn：用于切换**观察者**对数据操作的线程调度器，指定了**观察者**的执行线程。
 
 如下图所示：
-![](index_files/853028b8-241f-470f-9ab0-6b0ed0ce7c70.png)
 
- 
+![线程调度器的切换](images/thread-shift.png)
+
 关于线程切换的代码示例：
 
 ```java
             rx.Scheduler jobScheduler = Schedulers.from(Executors.newFixedThreadPool(4));
-    
+
             Observable.just("1")
                     .doOnSubscribe(new Action0() {//doOnSubscribe表示当发生订阅时的动作，它受它代码上的下一个最近的subscribeOn影响，这里他执行在computation
                         @Override
@@ -75,19 +74,3 @@ RxJava之所以这么强大，很大一部分原因就是它可以随意的切�
 
 - Subscribe的onStart方法在它订阅Observable的那一刻起就立即被调用，无法用observeOn来切换
 - doOnSubscribe是一个操作符，可以指定一个动作，它表示某一个Observbale被订阅后要执行的动作，可以用它**链式代码上之后的subscribeOn**执指定执行线程。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

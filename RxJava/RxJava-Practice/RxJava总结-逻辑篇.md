@@ -1,6 +1,5 @@
 # RxJava使用总结
 
----
 ## 1 map与flatMap使用场景
 
 - 场景1：**一对多**的变换
@@ -22,17 +21,14 @@
 
 嵌套异步操作可以用**多个接口需要顺序调用**的场景，比如县获取token，才能访问下一个接口。另外需要注意的是当同时发出多个嵌套的异步操作时， **`flatMap`不保证异步的响应顺序。**
 
----
 ## 2 flatMap与concatMap
 
 `flatMap`与`concatMap`的使用非常相似，但是除此之外`concatMap`还保证了**多个**嵌套的异步操作按照之前发出异常操作的顺序发射异步操作的结果。所以对于**多个嵌套的需要保证结果按顺序发射的操作**可以使用`concatMap`，其他则可以使用flatMap
 
----
 ## 3 zip
 
 有一些业务场景，在同一个界面中需要同时调用多个接口，而且又需要保证这多个接口都响应后才对显示界面，这时我们可以使用zip操作符
 
----
 ## 4 repeatWhen
 
 使用RepeatWhen实现轮询
@@ -49,7 +45,7 @@
             Observable<Data> memory = Observable.just(new Data());
             Observable<Data> disk = Observable.just(new Data());
             Observable<Data> network = Observable.just(new Data());
-    
+
             Observable<Data> source = Observable
                     .concat(memory, disk, network)
                     .first();
@@ -65,7 +61,7 @@
 ---
 ## 8 BehaviorSubject
 
-BehaviorSubject的特性就是当有一个新的订阅者订阅它时，如果它之前发射过数据，它会把之前最后发射的一项数据发射个现在的订阅者，也就是说BehaviorSubject会缓存他最近一次发射的数据，使用BehaviorSubject这个特性实现内存缓存
+BehaviorSubject 的特性就是当有一个新的订阅者订阅它时，如果它之前发射过数据，它会把之前最后发射的一项数据发射个现在的订阅者，也就是说BehaviorSubject会缓存他最近一次发射的数据，使用BehaviorSubject 这个特性实现内存缓存。
 
 ---
 ## 9 Replay
@@ -124,7 +120,6 @@ public class OrderRepository {
 }
 ```
 
-
 ---
 ## 11 使用 Completable 或 Single
 
@@ -161,16 +156,15 @@ public class OrderRepository {
                     }
 ```
 
-
 ---
 ## 13 先缓存后网络的数据选取策略
 
 - 如果网络不可能，获取缓存，没有缓存则通知网络异常
 - 如果网络可用
-    * 2.1，如果没有缓存，则从网络获取
-    * 2.1，如果有缓存，则先返回缓存，然后从网络获取
-    * 2.1，对比缓存与网络数据，如果没有更新，则忽略
-    * 2.1，如果有更新，则更新缓存，并返回网络数据
+  - 2.1，如果没有缓存，则从网络获取
+  - 2.1，如果有缓存，则先返回缓存，然后从网络获取
+  - 2.1，对比缓存与网络数据，如果没有更新，则忽略
+  - 2.1，如果有更新，则更新缓存，并返回网络数据
 
 ### 使用 replay + connect + concat
 

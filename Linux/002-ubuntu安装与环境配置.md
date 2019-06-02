@@ -1,3 +1,5 @@
+# ubuntu(18.x) 安装与配置
+
 ## 1 安装 ubuntu
 
 ### 双系统
@@ -30,13 +32,13 @@
 
 ### 安装编译环境
 
-```
+```shell
 sudo apt-get install build-essential
 ```
 
 ### install unity tools
 
-```
+```shell
 sudo add-apt-repository ppa:freyja-dev/unity-tweak-tool-daily
 sudo apt-get update
 sudo apt-get install unity-tweak-tool
@@ -46,20 +48,20 @@ sudo apt-get install unity-tweak-tool
 
 aptitude工具是基于apt的一款安装工具，优点是可以自动解决安装和卸载时候的依赖关系。
 
-```
+```shell
 sudo apt install aptitude
 ```
 
 ### 安装工具
 
-```
+```shell
 sudo aptitude install shutter//安装截屏软件shutter
 sudo apt install docky//docky工具栏：使用 apt/apt-get 可能需要重启才能生效，用aptitude安装后可以直接使用
 ```
 
 ### 安装主题
 
-```
+```shell
 //主题
 sudo add-apt-repository ppa:noobslab/themes
 sudo apt-get update
@@ -72,7 +74,7 @@ sudo apt-get install ultra-flat-icons
 
 ### install jdk
 
-```
+```shell
 //首先安装软件包管理工具
 sudo apt-get install python-software-properties
 sudo apt-get install software-properties-common
@@ -85,16 +87,15 @@ sudo apt-get update
 sudo apt-get install openjdk-8-jdk
 ```
 
-
 ### oh-my-zsh
 
-```
+```shell
 sudo apt-get install zsh
 ```
 
 ### vim
 
-```
+```shell
 sudo apt-get install vim-gtk
 vim /etc/vim/vimrc #编辑配置文件，加入以下配置
 
@@ -107,7 +108,7 @@ vim /etc/vim/vimrc #编辑配置文件，加入以下配置
 
 ### dos2unix
 
-```
+```shell
 sudo apt-get install dos2unix
 ```
 
@@ -131,10 +132,9 @@ tar -xvf apache-tomcat-8.5.31.tar.gz
 ./shutdown.sh
 ```
 
-
 ### MySQL
 
-```
+```shell
 apt-get update
 apt-get install mysql-server mysql-client
 测试是否安装成功：netstat -tap | grep mysql
@@ -176,7 +176,6 @@ sql授权说明
 
 ### Nginx
 
-
 ```shell
 # 先下载安装  nginx 和 nginx-rtmp 编译依赖工具
 sudo apt-get install build-essential libpcre3 libpcre3-dev libssl-dev
@@ -209,7 +208,7 @@ sudo service nginx restart
 
 ### 开放端口号
 
-```
+```shell
 查看哪些端口被打开  netstat -anp
 关闭端口号：iptables -I INPUT -p tcp --drop 端口号 -j DROP
 　         iptables -I OUTPUT -p tcp --dport 端口号 -j DROP
@@ -225,7 +224,6 @@ sudo service nginx restart
 ---
 ## 引用
 
-- [Ubuntu 16.04安装Java JDK](http://topspeedsnail.com/ubuntu16-install-java-jdk/)
-- [Windows10+Ubuntu双系统安装[多图]](http://www.jianshu.com/p/2eebd6ad284d)
-- [Ubuntu 16.04主题美化和软件推荐(oh-my-zsh)](http://www.linuxidc.com/Linux/2016-09/135165p2.htm)
-- [Ubuntu美化系列文章](http://www.jianshu.com/u/b3288a70ead9)
+- [ss 的安装与配置](https://github.com/Shadowsocks-Wiki/shadowsocks/blob/master/6-linux-setup-guide-cn.md)
+- [how-to-install-visual-studio-code-on-ubuntu-18-04/](https://linuxize.com/post/how-to-install-visual-studio-code-on-ubuntu-18-04/)
+- [Ubuntu18.04 Gnome桌面主题美化](https://blog.csdn.net/zyqblog/article/details/80152016)

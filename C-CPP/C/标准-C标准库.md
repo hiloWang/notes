@@ -102,3 +102,4 @@ Man Page中有些页面有重名，比如敲 man printf 命令看到的并不是
 
 - [docs.microsoft：c-runtime-library](https://docs.microsoft.com/en-us/cpp/c-runtime-library/c-run-time-library-reference?view=vs-2019)
 - [C标准库研究](https://lellansin.wordpress.com/tutorials/c-standard-library/)
+- [LinuxC一站式编程：第 25 章 C 标准库](https://akaedu.github.io/book/ch25.html)

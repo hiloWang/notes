@@ -1,3 +1,5 @@
+# C++ 学习资料
+
 ## 关于C++
 
 - [Linux之父炮轰C++：糟糕程序员的垃圾语言](http://blog.csdn.net/turingbook/article/details/1775488)
@@ -47,7 +49,7 @@ C++ 标准库可以分为两部分：
 
 具体参考[cpp header](http://zh.cppreference.com/w/cpp/header)
 
-##  todo
+## todo
 
 - 设计模式
 - c++ 11 新特性

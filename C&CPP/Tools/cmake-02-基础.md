@@ -1,8 +1,6 @@
 # CMake笔记
 
-
 ## 1 基础语法
-
 
 ### 1.1 最简单的CmakeLists
 
@@ -38,9 +36,8 @@ set(CMAKE_C_STANDARD 99)
 #方式2
 # 查找Source目录下的所有源文件，并将名称保存到 DIR_SRCS 变量
 aux_source_directory(Source DIR_SRCS)
-add_executable(Sample02 ${DIR_SRCS})    
+add_executable(Sample02 ${DIR_SRCS})
 ```
-
 
 ### 1.3 编译不同目录下的多个文件
 
@@ -59,6 +56,7 @@ add_library(SubLib ${SOURCE_FILES})
 ```
 
 根目录构建：
+
 ```Shell
 cmake_minimum_required(VERSION 3.7)
 project(Sample03)
@@ -122,9 +120,7 @@ add_executable(Sample4 ${SOURCE_FILES} )
 target_link_libraries (Sample4  ${EXTRA_LIBS})
 ```
 
-
 注意：`config.h.in`中和`CMakeList.txt`中的USE_MYMATH变量是要求一致的
-
 
 ### 1.5 添加环境检查
 
@@ -157,11 +153,8 @@ endif (NOT HAVE_POW)
 ......
 ```
 
-
-
 ---
 ## 2 命令
-
 
 ### 2.1 [Cmake语言](https://cmake.org/cmake/help/latest/manual/cmake-language.7.html)
 
@@ -179,11 +172,9 @@ cmake能识别`CMakeLists.txt`和`*.cmake`格式的文件。cmake能够以三种
 
 单个`<script> .cmake`源文件可以通过使用带有-P选项的cmake命令行工具以脚本模式处理。脚本模式只运行给定的CMake语言源文件中的命令，不会生成构建系统。它不允许定义构建目标或操作的CMake命令。
 
-
 #### Module
 
 Directory或Script中的CMake语言代码可以使用`include()`命令在包含上下文的范围内加载`<module> .cmake`源文件。比如上面用到的`CheckFunctionExists`。也可以提供自己的模块，并在CMAKE_MODULE_PATH变量中指定它们的位置。
-
 
 ### 2.2 CMake中预定义的变量
 
@@ -203,8 +194,9 @@ Directory或Script中的CMake语言代码可以使用`include()`命令在包含�
 - `add_definitions(-DFOO -DBAR ...)`：将-D定义标志添加到源文件的编译中
 - `find_library (<VAR> name1 [path1 path2 ...])`： 该命令用于查找库，由`<VAR>`命名的缓存条目被创建来存储该命令的结果。如果找到了库，结果将存储在变量中，除非变量被清除，否则搜索将不会重复。如果没有发现，结果将是`<VAR> -NOTFOUND`，并且下次find_library被同一个变量调用时，搜索将被再次尝试。
 - `target_link_libraries(<target> [item1 [item2 [...]]] [[debug|optimized|general] <item>] ...)`：设置要链接的库文件的名称，即设置二进制目标之间的依赖关系，示例如下：
+
 ```Shell
-# 以下写法都可以： 
+# 以下写法都可以：
 target_link_libraries(myProject comm)       # 连接libhello.so库，默认优先链接动态库，即myProject依赖comm
 target_link_libraries(myProject libcomm.a)  # 显示指定链接静态库
 target_link_libraries(myProject libcomm.so) # 显示指定链接动态库
@@ -214,19 +206,19 @@ target_link_libraries(myProject libcomm.so)　　#这些库名写法都可以。
 target_link_libraries(myProject comm)
 target_link_libraries(myProject -lcomm)
 ```
+
 - `add_executable(<name> [WIN32] [MACOSX_BUNDLE] [EXCLUDE_FROM_ALL] source1 [source2 ...])`：为工程生成目标文件
 - `configure_file(<input> <output> [COPYONLY] [ESCAPE_QUOTES] [@ONLY] [NEWLINE_STYLE [UNIX|DOS|WIN32|LF|CRLF] ]`：复制文件到另一个地方并修改文件内容，并在输入文件内容中替换`@VAR@`或`${VAR}`的变量值。每个变量引用将被替换为变量的当前值，如果变量的值未被定义，则为空字符串。VAR必须与cmakelist.txt中的变量保持一直，否则会生成注释。说明：
-    - `CMAKE_CURRENT_BINARY_DIR`：项目根目录
-    - `CMAKE_CURRENT_SOURCE_DIR`：项目构建目录
-    - `COPYONLY`：只复制文件，不替换任何东西，不能和`NEWLINE_STYLE <style>`一起使用
-    - `ESCAPE_QUOTES`：禁止为 `"` 转义
-    - `@ONLY`：只允许替换@VAR@包裹的变量${VAR}则不会被替换；
-    - `NEWLINE_STYLE <style>`：设置换行符格式
+  - `CMAKE_CURRENT_BINARY_DIR`：项目根目录
+  - `CMAKE_CURRENT_SOURCE_DIR`：项目构建目录
+  - `COPYONLY`：只复制文件，不替换任何东西，不能和`NEWLINE_STYLE <style>`一起使用
+  - `ESCAPE_QUOTES`：禁止为 `"` 转义
+  - `@ONLY`：只允许替换@VAR@包裹的变量${VAR}则不会被替换；
+  - `NEWLINE_STYLE <style>`：设置换行符格式
 - `add_library(<name> [STATIC | SHARED | MODULE] [EXCLUDE_FROM_ALL] source1 [source2 ...])`：使用指定的源文件将库添加到项目。name在项目中必须是全局唯一的，STATIC，SHARED或MODULE可能会指定要创建的库的类型。
-    - MODULE库是没有链接到其他目标的插件，但可以在运行时使用类似dlopen的功能动态加载
-    - STATIC表示静态库
-    - SHARED表示动态链接库
-
+  - MODULE库是没有链接到其他目标的插件，但可以在运行时使用类似dlopen的功能动态加载
+  - STATIC表示静态库
+  - SHARED表示动态链接库
 
 注意上面参数`<command>`为必填，`[command]`为选填。
 
@@ -234,11 +226,11 @@ target_link_libraries(myProject -lcomm)
 
 - `CMAKE_CXX_FLAGS`：是CMake传给C++编译器的编译选项，比如`set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")`
 
-
 ### 2.5 其他
 
 - 支持gdb：需要指定 Debug 模式下开启 -g 选项
-```
+
+```cmake
 set(CMAKE_BUILD_TYPE "Debug")
 set(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb")
 set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
@@ -250,7 +242,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 - cmake的语法支持大小、小写和大小写混合，但是只有系统指令是不区分大小写的，但是变量和字符串是区分大小写的
 - 传递参数：参数可以用引号包裹起来，双引号内部包括的内容表示一个参数，也可以不用引号，但是假如参数带有分隔符则必须用双引号包裹起来，否则将被认为是多个参数，假如一行不能写完，则用`\\`符号来表示连接成一行
 
---- 
+---
 ## 4 todo
 
 - 安装和测试

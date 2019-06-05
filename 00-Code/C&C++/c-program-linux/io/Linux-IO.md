@@ -1,11 +1,7 @@
 # Linux I/O
 
-## 汇编程序的 Hello world
-
 - 所有 I/O 操作最终都是在内核中做的。
 - 我们用的C标准I/O库函数最终也是通过系统调用把I/O操作从用户空间传给内核，然后让内核去做I/O操作。
-
-通过一个输出 `Hello world` 的汇编程序理解 IO 的系统调用，具体参考[汇编程序的Hello world](https://akaedu.github.io/book/ch28s01.html)。
 
 ## C 标准 I/O 库函数与 Unbuffered I/O 函数
 
@@ -71,10 +67,16 @@ prog < 输入文件名 > 输出文件名
 
 每一个已打开的文件都有一个读写位置, 当打开文件时通常其读写位置是指向文件开头, 若是以附加的方式打开文件(如 O_APPEND), 则读写位置会指向文件尾。 当 read() 或 write() 时, 读写位置会随之增加，lseek() 便是用来控制该文件的读写位置。
 
-参考[lseek](https://akaedu.github.io/book/ch28s05.html)
+具体参考[lseek](https://akaedu.github.io/book/ch28s05.html)
 
 ## fcntl
 
 用 fcntl 函数改变一个已打开的文件的属性，可以重新设置读、写、追加、非阻塞等标志（这些标志称为File Status Flag），而不必重新open文件。
 
-参考[fcntl](https://akaedu.github.io/book/ch28s06.html)
+具体参考[fcntl](https://akaedu.github.io/book/ch28s06.html)
+
+## ioctl
+
+ioctl用于向设备发控制和配置命令，有些命令也需要读写一些数据，但这些数据是不能用read/write读写的，称为Out-of-band数据。也就是说，read/write读写的数据是in-band数据，是I/O操作的主体，而ioctl命令传送的是控制信息，其中的数据是辅助的数据。例如，在串口线上收发数据通过read/write操作，而串口的波特率、校验位、停止位通过ioctl设置，A/D转换的结果通过read读取，而A/D转换的精度和工作频率通过ioctl设置。
+
+具体参考[ioctl](https://akaedu.github.io/book/ch28s07.html)

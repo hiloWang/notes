@@ -4,7 +4,7 @@
 - 笔记内容来源于读书、开发实践总结、阅读他人博客、翻译技术文章等。
 - 笔记中的引用一般会标明出处并加上链接、如有纰漏，请联系我及时补充。
 - 笔记难免存在错误，如有发现，请帮我指出，不甚感激。
-- 相关代码可以在 [Programming-Notes-Code](https://github.com/Ztiany/Programming-Notes-Code) 找到。
+- 相关代码可以在 [Programming-Notes-Code](00-Code/README.md) 找到。
 
 ## 总结
 

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:itheima="http://schemas.android.com/apk/res/com.itheima.mobileguard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/home_title"
+            android:gravity="center"
+            android:text="设置中心"
+            android:textSize="28sp"
+            android:textStyle="italic" />
+
+        <com.itheima.mobileguard.ui.SettingView
+            android:id="@+id/sv_setting_autoupdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            itheima:descs="自动更新已经开启###自动更新已经关闭"
+            itheima:title="自动更新设置" />
+
+        <com.itheima.mobileguard.ui.SettingView
+            android:id="@+id/sv_setting_blacknumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            itheima:descs="黑名单拦截已经开启###黑名单拦截已经关闭"
+            itheima:title="黑名单拦截设置" />
+
+        <com.itheima.mobileguard.ui.SettingView
+            android:id="@+id/sv_setting_showlocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            itheima:descs="归属地显示已经开启###归属地显示已经关闭"
+            itheima:title="归属地显示" />
+
+        <com.itheima.mobileguard.ui.SettingView
+            android:id="@+id/sv_setting_applock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            itheima:descs="程序锁已经开启###程序锁已经关闭"
+            itheima:title="程序锁设置" />
+
+        <RelativeLayout
+            android:id="@+id/rl_setting_changestyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/item_selector"
+            android:clickable="true"
+            android:onClick="changeStyle" >
+
+            <TextView
+                android:id="@+id/tv_setting_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:layout_marginTop="8dp"
+                android:text="归属地提示框风格"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/tv_setting_styledesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_setting_title"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:text="半透明"
+                android:textColor="#bb000000"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="280dp"
+                android:background="@drawable/jiantou_selector"
+                android:paddingRight="10dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/tv_setting_styledesc"
+                android:background="@drawable/list_devider" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+    <display-name>Servlet-Filter</display-name>
+
+    <!-- =============================================default============================================= -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+
+    <!-- =============================================Servlets============================================= -->
+
+
+    <!-- =============================================Filter============================================= -->
+    <!--设置全局请求和响应编码-->
+    <filter>
+        <filter-name>SetAllCharacterEncodingFilter</filter-name>
+        <filter-class>com.ztiany.filter.filters.SetAllCharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>SetAllCharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <!--过滤HTML标签-->
+    <filter>
+        <filter-name>HtmlFilter</filter-name>
+        <filter-class>com.ztiany.filter.filters.HtmlFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HtmlFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <!--动态资源不缓存-->
+    <filter>
+        <filter-name>DynamicResourceNoCacheFilter</filter-name>
+        <filter-class>com.ztiany.filter.filters.DynamicResourceNoCacheFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>DynamicResourceNoCacheFilter</filter-name>
+        <url-pattern>/servlet/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>DynamicResourceNoCacheFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+
+    <!--静态资源设置缓存时间-->
+    <filter>
+        <filter-name>StaticResourceNeedCacheFilter</filter-name>
+        <filter-class>com.ztiany.filter.filters.StaticResourceNeedCacheFilter</filter-class>
+        <init-param>
+            <param-name>html</param-name>
+            <param-value>1</param-value><!-- 单位：小时 -->
+        </init-param>
+        <init-param>
+            <param-name>css</param-name>
+            <param-value>2</param-value><!-- 单位：小时 -->
+        </init-param>
+        <init-param>
+            <param-name>js</param-name>
+            <param-value>3</param-value><!-- 单位：小时 -->
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>StaticResourceNeedCacheFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>StaticResourceNeedCacheFilter</filter-name>
+        <url-pattern>*.css</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>StaticResourceNeedCacheFilter</filter-name>
+        <url-pattern>*.js</url-pattern>
+    </filter-mapping>
+
+
+    <filter>
+        <filter-name>GzipFilter</filter-name>
+        <filter-class>com.ztiany.filter.filters.GzipFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>GzipFilter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>GzipFilter</filter-name>
+        <url-pattern>*.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>GzipFilter</filter-name>
+        <url-pattern>*.css</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>GzipFilter</filter-name>
+        <url-pattern>*.js</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>com.ztiany.filter.listener.AllRequesterListener</listener-class>
+    </listener>
+
+</web-app>

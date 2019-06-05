@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>层级选择器</title>
+    <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+
+    <script>
+
+        $(function () {
+            $("#btn1").click(function () {
+                $("div[id]").css("background-color", "blue");
+            });
+
+            $("#btn2").click(function () {
+                $("div[id='two']").css("background-color", "red");
+            });
+
+        });
+    </script>
+
+</head>
+
+<body>
+<input type="button" id="btn1" value="选择有id属性的div"/>
+<input type="button" id="btn2" value="选择有id属性的值为two的div"/>
+
+<hr/>
+<div id="one">
+    <div class="mini">
+        111
+    </div>
+</div>
+
+<div id="two">
+    <div class="mini">
+        222
+    </div>
+    <div class="mini">
+        333
+    </div>
+</div>
+
+<div id="three">
+    <div class="mini">
+        444
+    </div>
+    <div class="mini">
+        555
+    </div>
+    <div class="mini">
+        666
+    </div>
+</div>
+
+<span id="four"></span>
+
+</body>
+</html>

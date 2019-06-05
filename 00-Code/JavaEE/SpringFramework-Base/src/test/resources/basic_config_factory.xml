@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--==================================使用工厂的方式向容器中添加对象==================================-->
+
+
+    <!-- 创建方式1：空参构造创建  -->
+    <bean name="user2" class="com.ztiany.springf.test.basic.domain.User" init-method="init"
+          destroy-method="destroy"/>
+
+    <!-- 创建方式2：静态工厂创建调用UserFactory的createUser方法创建名为user2的对象，放入容器-->
+    <bean name="user3" class="com.ztiany.springf.test.basic.factory.UserFactory"
+          factory-method="createUser"/>
+
+    <!-- 创建方式3：实例工厂创建，调用UserFactory对象的createUser2方法创建名为user3的对象，放入容器 -->
+    <bean name="user4" factory-bean="userFactory" factory-method="createUser2"/>
+    <bean name="userFactory" class="com.ztiany.springf.test.basic.factory.UserFactory"/>
+
+
+</beans>

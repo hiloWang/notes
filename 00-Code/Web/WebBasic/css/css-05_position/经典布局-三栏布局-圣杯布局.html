@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>经典布局-三栏布局-圣杯布局</title>
+
+    <!--
+    圣杯布局来源于2006年的一篇文章：In Search of the Holy Grail。双飞翼布局始于淘宝 UED。两者都是在解决：
+        两边固定宽度，中间自适应的三栏布局，并且主要内容要优先渲染，按照 DOM 从上至下的加载原则，中间的自适应部分要放在前面。
+    -->
+
+    <!--
+        1. 将 .center 写在最前面，方便最先渲染。
+        2. 为了保证窗口缩小时仍然能展示，我们给 body 设置了最小宽度。
+        3. 此时三个子 div 各占一行显示了，此时我们给三者都加上左浮动看看效果
+        4. 由于 .center 设置了 100% 的宽度，所以 .left 和 .right 都被挤到下面去了，此时我们要解决的问题就是，如何让它两上去，这就要用到 margin 的负值了。
+        5. .center 的文字被遮挡了，此时 .left、.right 都覆盖在 .center 的上面，我们要给两者留出位置。
+        6. 圣杯布局的做法是先设置父元素 .container 的 padding 属性，给 .left、.right 留出空间，两者需要的空间大小便是两者的宽度，然后利用定位属性使其归位。
+        7. 由于父元素设置了 padding，所有子元素都往中间挤了，此时只需将 .left、.right 分别向左向右拉到准备的空位就好了。首先将定位属性设置为 relative，即相对自己定位.
+
+        圣杯布局它的核心思想是使用浮动布局，用 padding 为左右元素留空间，灵活使用 margin 的负值和相对定位让元素移动到相应的位置。
+    -->
+
+    <style type="text/css">
+        body {
+            min-width: 630px;
+        }
+
+        .center {
+            width: 100%;
+            height: 150px;
+            background-color: #94E8FF;
+        }
+
+        .left {
+            width: 100px;
+            height: 150px;
+            background-color: #FFB5BF;
+        }
+
+        .right {
+            width: 200px;
+            height: 150px;
+            background-color: #8990D5;
+        }
+
+        .left, .center, .right {
+            float: left;
+        }
+
+        .left {
+            margin-left: -100%;
+            position: relative;
+            left: -100px;
+        }
+
+        .right {
+            margin-left: -200px;
+            position: relative;
+            right: -200px;
+        }
+
+        .container {
+            overflow: hidden;
+            padding-left: 100px;
+            padding-right: 200px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+    <div class="center">哈哈</div>
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+
+</body>
+</html>

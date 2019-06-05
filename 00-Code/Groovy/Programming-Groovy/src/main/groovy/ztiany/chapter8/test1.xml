@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<languages>
+
+    <language name="c++">
+        <author>Stroustrup</author>
+    </language>
+
+    <language name="java">
+        <author>Gosling</author>
+    </language>
+
+    <language name="Lisp">
+        <author>McCarthy</author>
+    </language>
+
+</languages>

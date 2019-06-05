@@ -1,0 +1,22 @@
+group 'me.ztiany'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile testLibs.junit
+    compile springLibs.springCore
+    compile springLibs.springBeans
+    compile springLibs.springExpression
+    compile springLibs.springContext
+    compile springLibs.springWeb
+    compile springLibs.springWebmvc
+    testCompile springLibs.springTest
+}

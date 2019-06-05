@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			
+			#wrap{
+				width: 100px;
+				height: 100px;
+				border: 1px solid;
+				margin:100px auto;
+			}
+			
+			
+			/*关键字
+			 * 	and：代表与的意思,一般用 and 来连接媒体类型个媒体属性
+			 * 
+			 * 	only：和浏览器兼容性有关。
+			 * 		老版本的浏览器只支持媒体类型，不支持带媒体属性的查询
+			 * 				@media screen{}
+			 * 				@media only{}
+			 *  
+			 * 	（,）：代表或的意思
+			 * 		
+			 * 		
+			 * 	not:取反
+			 * 
+			 * 
+			 * */
+			
+			/*@media only screen and (orientation:landscape) and (-webkit-device-pixel-ratio:2) {
+				#wrap{
+					border: 10px solid;
+				}
+			}*/
+			
+			
+			/*@media only screen and (min-width:800px) {
+				#wrap{
+					border: 10px solid;
+				}
+			}*/
+			
+			/*@media only screen and (orientation:landscape) ,(-webkit-device-pixel-ratio:2) {
+				#wrap{
+					border: 10px solid;
+				}
+			}*/
+			
+			
+			@media not screen and (orientation:landscape) ,(-webkit-device-pixel-ratio:2) {
+				#wrap{
+					border: 10px solid;
+				}
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			
+		</div>
+	</body>
+</html>

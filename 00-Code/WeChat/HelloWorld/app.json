@@ -1,0 +1,15 @@
+{
+  "pages":[
+    "pages/wxml-list/index",
+    "pages/modularity/index",
+    "pages/wxml-template/index",
+    "pages/wxml-base/index",
+    "pages/index/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "微信小程序",
+    "navigationBarTextStyle": "black"
+  }
+}

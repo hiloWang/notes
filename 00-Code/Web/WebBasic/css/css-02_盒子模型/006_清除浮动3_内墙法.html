@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*使用内墙法，现在 div 有高度了,margin生效了*/
+        .box1 {
+            margin-top: 100px;
+            margin-bottom: 100px;
+            background-color: red;
+        }
+
+        li {
+            float: left;
+            width: 120px;
+            height: 40px;
+            background-color: orange;
+            text-align: center;
+        }
+
+        /*1 加上clear 属性*/
+        .cl {
+            clear: both;
+        }
+
+        /*2 加上高度属性用于margin*/
+        .h8 {
+            height: 8px;
+            _font-size: 0;
+        }
+
+        .h10 {
+            height: 10px;
+            _font-size: 0;
+        }
+
+        .h12 {
+            height: 12px;
+            _font-size: 0;
+        }
+
+        /*由于使用了内墙法，现在box2有了高度*/
+        .p2 {
+            float: left;
+            width: 100px;
+            height: 100px;
+            background-color: green;
+        }
+
+        /*使用内墙法，margin生效了*/
+        .middle{
+            margin-top: 50px;
+        }
+
+        .bottom{
+            margin-top: 50px;
+            margin-left: 100px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="box1">
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JS</li>
+        <li>HTML5</li>
+        <li>设计模式</li>
+    </ul>
+    <div class="cl h8"></div>
+</div>
+
+<div class="box2 middle">
+    <ul>
+        <li>学习方法</li>
+        <li>英语水平</li>
+        <li>面试技巧</li>
+    </ul>
+    <div class="cl h8"></div>
+</div>
+
+<div>哈哈</div>
+
+<!--内墙法本质-给没有高的父亲撑出高-->
+<div class="box2 bottom">
+    <p class="p2"></p>
+    <div class="cl"></div>
+</div>
+
+</body>
+</html>

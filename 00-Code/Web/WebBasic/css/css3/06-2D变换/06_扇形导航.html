@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #wrap {
+            position: fixed;
+            right: 15px;
+            bottom: 15px;
+            width: 50px;
+            height: 50px;
+        }
+
+        #wrap > .inner {
+            height: 100%;
+        }
+
+        #wrap > .inner > img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin: 4px;
+            border-radius: 50%;
+        }
+
+        #wrap > .home {
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            background: url(img/home.png) no-repeat;
+            border-radius: 50%;
+            transition: 1s;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div class="inner">
+        <img src="img/clos.png" alt=""/>
+        <img src="img/full.png" alt=""/>
+        <img src="img/open.png" alt=""/>
+        <img src="img/prev.png" alt=""/>
+        <img src="img/refresh.png" alt=""/>
+    </div>
+    <div class="home">
+
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+
+    /*
+        1.在元素首次渲染还没有完成的情况下,是不会触发过渡的
+        2.在绝大部分变换样式切换时,如果变换函数的位置 个数不相同也不会触发过渡
+    */
+
+    /*
+        1.勾股定理
+        2.三角函数
+        3.角度与弧度的转化
+    */
+
+    window.onload = function () {
+        var homeEle = document.querySelector(".home");
+        var imgs = document.querySelectorAll("#wrap > .inner > img");
+        var flag = true;
+        var c = 140;
+
+        /*第二部分*/
+        function fn() {
+            this.style.transition = "0.3s ";
+            this.style.transform = "rotate(-720deg) scale(1)";
+            this.style.opacity = 1;
+
+            this.removeEventListener("transitionend", fn);
+        }
+
+        for (var i = 0; i < imgs.length; i++) {
+            imgs[i].onclick = function () {
+                this.style.transition = "0.5s ";
+                this.style.transform = "rotate(-720deg) scale(2)";
+                this.style.opacity = 0.1;
+
+                this.addEventListener("transitionend", fn)
+            }
+        }
+
+        /*第一部分*/
+        homeEle.onclick = function () {
+            if (flag) {
+                this.style.transform = "rotate(-720deg)";
+                for (var i = 0; i < imgs.length; i++) {
+                    imgs[i].style.transition = "1s " + (i * 0.1) + "s"
+                    imgs[i].style.transform = "rotate(-720deg) scale(1)";
+                    imgs[i].style.left = -getPoint(c, 90 * i / (imgs.length - 1)).left + "px";
+                    imgs[i].style.top = -getPoint(c, 90 * i / (imgs.length - 1)).top + "px";
+                }
+            } else {
+                this.style.transform = "rotate(0deg)";
+                for (i = 0; i < imgs.length; i++) {
+                    imgs[i].style.transition = "1s " + ((imgs.length - 1 - i) * 0.1) + "s";
+                    imgs[i].style.transform = "rotate(0deg) scale(1)"
+                    imgs[i].style.left = 0 + "px";
+                    imgs[i].style.top = 0 + "px";
+                }
+            }
+            flag = !flag;
+        }
+
+        //已知第三边 和 一个角
+        function getPoint(c, deg) {
+            var x = Math.round(c * Math.sin(deg * Math.PI / 180));
+            var y = Math.round(c * Math.cos(deg * Math.PI / 180));
+            return {left: x, top: y};
+        }
+    }
+
+</script>
+</html>

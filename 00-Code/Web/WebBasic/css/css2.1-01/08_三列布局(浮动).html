@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!--
+        1.两边固定  当中自适应
+        2.当中列要完整显示
+        3.当中列要优先加载
+    -->
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /*2*left+right*/
+            min-width: 600px;
+        }
+
+        div {
+            height: 100px;
+        }
+
+        #left, #right {
+            width: 200px;
+            background: pink;
+        }
+
+        #left {
+            float: left;
+        }
+
+        #right {
+            float: right;
+        }
+
+        #middle {
+            background: deeppink;
+        }
+    </style>
+</head>
+<body>
+<div id="middle">middle</div>
+<div id="left">left</div>
+<div id="right">right</div>
+</body>
+</html>

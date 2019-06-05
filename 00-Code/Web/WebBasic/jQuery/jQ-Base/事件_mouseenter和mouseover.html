@@ -1,0 +1,36 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+
+    <script type="text/javascript">
+        x=0;
+        y=0;
+        $(document).ready(function(){
+
+            $("div.over").mouseover(function(){
+                $(".over span").text(x+=1);
+            });
+
+            $("div.enter").mouseenter(function(){
+                $(".enter span").text(y+=1);
+            });
+
+        });
+    </script>
+</head>
+<body>
+
+<p>不论鼠标指针穿过被选元素或其子元素，都会触发 mouseover 事件。</p>
+<p>只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件。</p>
+
+<div class="over" style="background-color:lightgray;padding:20px;width:40%;float:left">
+    <h2 style="background-color:white;">被触发的 Mouseover 事件：<span></span></h2>
+</div>
+
+<div class="enter" style="background-color:lightgray;padding:20px;width:40%;float:right">
+    <h2 style="background-color:white;">被触发的 Mouseenter 事件：<span></span></h2>
+</div>
+
+</body>
+</html>

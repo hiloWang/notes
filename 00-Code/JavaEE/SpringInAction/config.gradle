@@ -1,0 +1,60 @@
+ext {
+
+    webBaseLibs = [
+            servlet: 'javax.servlet:javax.servlet-api:3.1.0',//providedCompile
+            jspApi : 'javax.servlet.jsp:javax.servlet.jsp-api:2.2.1',//providedCompile
+            el     : 'javax.el:el-api:2.2',//providedCompile
+            jstl   : 'javax.servlet.jsp.jstl:jstl:1.2'
+    ]
+
+    springLibs = [
+            springCore      : 'org.springframework:spring-core:4.3.17.RELEASE',
+            springBeans     : 'org.springframework:spring-beans:4.3.17.RELEASE',
+            springExpression: 'org.springframework:spring-expression:4.3.17.RELEASE',
+            springContext   : 'org.springframework:spring-context:4.3.17.RELEASE',
+
+            springWebmvc    : 'org.springframework:spring-webmvc:4.3.17.RELEASE',
+            springWeb       : 'org.springframework:spring-web:4.3.17.RELEASE',
+
+            springAop       : 'org.springframework:spring-aop:4.3.17.RELEASE',
+            springAspects   : 'org.springframework:spring-aspects:4.3.17.RELEASE',
+            aspectJweaver   : 'org.aspectj:aspectjweaver:1.6.10',
+
+            springJdbc      : 'org.springframework:spring-jdbc:4.3.17.RELEASE',
+            springTx        : 'org.springframework:spring-tx:4.3.17.RELEASE',
+
+            springTest      : 'org.springframework:spring-test:4.3.17.RELEASE'//testCompile
+    ]
+
+    testLibs = [
+            junit  : 'junit:junit:4.12', //testCompile
+            mockito: 'org.mockito:mockito-core:2.7.22', //testCompile
+            hamcrest: 'org.hamcrest:hamcrest-library:1.3'//testCompile
+    ]
+
+    myBatisLibs = [
+            mybatis      : 'org.mybatis:mybatis:3.2.7',
+            mybatisSpring: 'org.mybatis:mybatis-spring:1.2.2'
+    ]
+
+    dataBaseLibs = [
+            mysqlConnector    : 'mysql:mysql-connector-java:5.1.6',
+            c3p0              : 'com.mchange:c3p0:0.9.5.2',
+            dbcp2             : 'org.apache.commons:commons-dbcp2:2.0',
+            h2database        : 'com.h2database:h2:1.4.197',
+            hibernateValidator: 'org.hibernate:hibernate-validator:5.1.3.Final'
+    ]
+
+    commonsLibs = [
+            commonsIO        : 'commons-io:commons-io:2.6',
+            commonsFileUpload: 'commons-fileupload:commons-fileupload:1.3.3',
+            commonsLang3     : 'org.apache.commons:commons-lang3:3.1'
+    ]
+
+    logLibs = [
+            commonsLogging: 'commons-logging:commons-logging:1.2',
+            log4j         : 'log4j:log4j:1.2.17'
+    ]
+
+}
+

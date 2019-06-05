@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片居中</title>
+
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*高度要充满视窗*/
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        body:after {
+            content: "";
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<img width="200px"
+     src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553397157&di=e23b27aab0fc9e30c618befb1af93b8b&imgtype=jpg&er=1&src=http%3A%2F%2Fm.360buyimg.com%2Fn12%2Fjfs%2Ft1906%2F45%2F2325214066%2F114009%2F4d7e7d29%2F56fa1a63N1613ef8d.jpg%21q70.jpg">
+
+
+</body>
+</html>

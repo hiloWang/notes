@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            position: relative;
+            margin: 200px auto;
+            width: 300px;
+            height: 300px;
+            border: 1px solid;
+        }
+
+        #test {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /*transform: translate3d(-50%,-50%,0);*/
+            margin-left: -50px;
+            margin-top: -50px;
+            width: 100px;
+            height: 100px;
+            background: pink;
+            text-align: center;
+            font: 20px/100px "微软雅黑";
+            border-radius: 100%;
+
+            /*动画内的属性*/
+            /*animation-name: move;
+            animation-duration:4s ;
+            animation-timing-function: steps(1,end);*/
+            /*反转的是关键帧和animation-timing-function*/
+            /*animation-direction:alternate;*/
+            /*动画外的属性*/
+            /*animation-delay:2s;*/
+
+            /*只作用于动画内的属性*/
+            /*重复的是关键帧*/
+            /*animation-iteration-count: 3;*/
+
+            /*元素在动画外的状态
+             *
+             * backwards：from之前的状态与form的状态保持一致
+             * forwards：to之后的状态与to的状态保持一致
+             * both：backwards+forwards
+             */
+
+            /*animation-fill-mode: both;*/
+            /*animation-play-state: running;*/
+            animation: move 4s running 3 alternate steps(1, start);
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateY(-100px);
+            }
+            25% {
+                transform: translateY(-90px);
+            }
+            50% {
+                transform: translateY(0px);
+            }
+            75% {
+                transform: translateY(90px);
+            }
+            100% {
+                transform: translateY(100px);
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="test">CSS</div>
+</div>
+</body>
+</html>

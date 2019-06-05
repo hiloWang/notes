@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<itheima:书架 xmlns:itheima="http://www.itcast.com"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://www.itcast.com book.xsd">
+    <itheima:书>
+        <itheima:书名>辟邪剑法</itheima:书名>
+        <itheima:作者>严涛</itheima:作者>
+        <itheima:售价>10</itheima:售价>
+    </itheima:书>
+</itheima:书架>

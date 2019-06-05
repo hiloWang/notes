@@ -1,0 +1,21 @@
+<!--pages/wxml/index.wxml-->
+<!-- view 中包含了 text 标签 -->
+<view class='container'>
+  <!-- 当前时间 -->
+  <text>当前时间：{{time}}</text>
+
+  <!--  三元运算 -->
+  <text>{{ a === 10? "变量 a 等于10": "变量 a 不等于10"}}</text>
+  <!-- 算数运算 -->
+  <view> {{a + b}} + {{c}} + d </view>
+  <!-- 字符串的拼接 -->
+  <view>{{"hello " + name}}</view>
+  <!-- {{ }}中还可以直接放置数字、字符串或者是数组 -->
+  <text>{{[1,2,3]}}</text>
+
+  <!-- 条件逻辑 -->
+  <view wx:if="{{a > 10}}">大</view>
+  <view wx:elif="{{a < 10}}">小</view>
+  <view wx:else>中</view>
+
+</view>

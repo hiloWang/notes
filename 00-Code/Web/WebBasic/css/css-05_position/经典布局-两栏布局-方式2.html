@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>经典布局-两栏布局-方式2</title>
+
+    <!--
+    处于文档流中的块级元素无法感知到浮动元素的存在，如果设置 .left 为 左浮动，.right 会当 .left 不存在，由于块级元素的默认宽度是父级元素的 100%，
+    此时 .right 的宽度就已经是 100% 了，无需再计算。别忘了设置 .right 的 margin 值来给 .left 预留空间，让两者看起来是和谐相处的。
+    -->
+    <style type="text/css">
+
+        .container {
+            padding: 0;
+            margin: 0;
+            font-size: 0;
+            overflow: hidden; /*清除浮动*/
+            border: 1px solid red;
+        }
+
+        .left {
+            width: 100px;
+            height: 150px;
+            float: left;
+            background-color: #00FF00;
+        }
+
+        .right {
+            margin-left: 100px;
+            height: 150px;
+            background-color: #94E8FF;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+
+<div>
+    测试、测试
+</div>
+
+</body>
+</html>

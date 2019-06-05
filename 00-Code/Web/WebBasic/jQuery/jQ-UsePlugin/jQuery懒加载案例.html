@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>懒加载插件案例</title>
+    <style>
+        div {
+            height: 3000px;
+        }
+    </style>
+
+    <script src="../js/jquery-1.8.3.js"></script>
+    <script src="../js/jquery.lazyload.js"></script>
+    <script>
+        $(function () {
+            $(".lazy").lazyload();
+        });
+    </script>
+</head>
+<body>
+<div>
+
+</div>
+<img class="lazy"
+     data-original="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1526131297263&di=f8108e69dee79a8f26f5125d4bc1696f&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F9d82d158ccbf6c8154bdd5ccb63eb13533fa4008.jpg"
+     alt="">
+<img class="lazy"
+     data-original="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1526131313293&di=efdbb73c67d0cfc0ab67191983c25199&imgtype=0&src=http%3A%2F%2Fimages.ali213.net%2Fpicfile%2Fpic%2F2015%2F05%2F25%2F927_2015052520307658.jpg"
+     alt="">
+</body>
+</html>

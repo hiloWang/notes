@@ -1,0 +1,12 @@
+*.iml
+.idea/
+.gradle
+.DS_Store
+/build
+/captures
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/

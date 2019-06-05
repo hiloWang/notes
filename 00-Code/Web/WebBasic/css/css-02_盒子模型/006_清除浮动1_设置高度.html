@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浮动清除现象</title>
+</head>
+
+<style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        float: left;
+        width: 120px;
+        height: 40px;
+        text-align: center;
+        background-color: orange;
+    }
+
+    /*由于给父级别标签设置了宽度，所以清除了浮动*/
+    ul {
+        height: 40px;
+    }
+
+</style>
+
+<body>
+
+<div class="type_2">
+
+    <div>
+        <ul>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+        </ul>
+    </div>
+
+    <div>
+        <ul>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+        </ul>
+    </div>
+
+</div>
+
+</body>
+</html>

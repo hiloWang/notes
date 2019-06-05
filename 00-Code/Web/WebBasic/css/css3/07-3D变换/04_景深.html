@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        /*
+         * 景深:让3D场景有近大远小的效果（我们肉眼距离屏幕的距离）
+         * 			是一个不可继承属性，但它可以作用于后代元素（不是作用于本身的）
+         *
+         * 原理：
+         * 		景深越大 灭点越远 元素变形更小
+         * 		景深越小 灭点越近 元素变形更大
+         *
+         * 景深基点
+         * 		视角的位置
+         * */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            width: 400px;
+            height: 400px;
+            border: 1px solid;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -200px;
+            margin-top: -200px;
+            /*搭建舞台*/
+            perspective: 500px;
+            /*基点*/
+            perspective-origin: left top;
+        }
+
+        #inner {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -100px;
+            margin-top: -100px;
+            width: 200px;
+            height: 200px;
+            border: 1px solid;
+            /*border-radius:50% ;*/
+            background: pink;
+            text-align: center;
+            font: 50px/200px "微软雅黑";
+            transform: rotateX(45deg)
+
+            /*transition:5s;*/
+            /*transform:perspective(100px) rotateX(0deg) ;*/
+        }
+
+        #wrap:hover #inner {
+            /*transform:perspective(100px) rotateX(360deg) ;*/
+            /*transform:rotateX(360deg) ;*/
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="inner">CSS</div>
+</div>
+</body>
+</html>

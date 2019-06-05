@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+
+    <!--
+        方言：
+            #hibernate.dialect org.hibernate.dialect.MySQLDialect
+            #hibernate.dialect org.hibernate.dialect.MySQLInnoDBDialect
+            #hibernate.dialect org.hibernate.dialect.MySQLMyISAMDialect
+        驱动：
+            #hibernate.connection.driver_class com.mysql.jdbc.Driver
+            #hibernate.connection.url
+            #hibernate.connection.username
+            #hibernate.connection.password
+     -->
+
+    <session-factory>
+        <!-- 数据库驱动 -->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <!-- 数据库url -->
+        <property name="connection.url">jdbc:mysql://localhost:3306/sqlbase</property>
+        <!-- 数据库连接用户名 -->
+        <property name="connection.username">root</property>
+        <!-- 数据库连接密码 -->
+        <property name="connection.password">201314</property>
+        <!-- JDBC connection pool (use the built-in) -->
+        <property name="connection.pool_size">5</property>
+
+        <!-- 数据库方言
+              不同的数据库中,sql语法略有区别. 指定方言可以让hibernate框架在生成sql语句时.针对数据库的方言生成.
+              sql99标准: DDL 定义语言  库表的增删改查
+                        DCL 控制语言  事务 权限
+                        DML 操纵语言  增删改查
+              注意: MYSQL在选择方言时,请选择最短的方言.
+           -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+
+        <!-- 将hibernate生成的sql语句打印到控制台 -->
+        <property name="hibernate.show_sql">true</property>
+        <!-- 将hibernate生成的sql语句格式化(语法缩进) -->
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Enable Hibernate's automatic session context management，指定session与当前线程绑定 -->
+        <property name="current_session_context_class">thread</property>
+        <!-- Disable the second-level cache  -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+        <!--
+        #auto schema export 自动导出表结构、自动建表
+        #hibernate.hbm2ddl.auto create 自动建表.每次框架运行都会创建新的表.以前表将会被覆盖,表数据会丢失.(开发环境中测试使用)
+        #hibernate.hbm2ddl.auto create-drop 自动建表.每次框架运行结束都会将所有表删除.(开发环境中测试使用)
+        #hibernate.hbm2ddl.auto update(推荐使用) 自动生成表.如果已经存在不会再生成.如果表有变动.自动更新表(不会删除任何数据).
+        #hibernate.hbm2ddl.auto validate 校验.不自动生成表.每次启动会校验数据库中表是否正确.校验失败.
+         -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+
+        <!-- 指定hibernate操作数据库时的隔离级别 
+           #hibernate.connection.isolation 1|2|4|8
+           0001 1 读未提交
+           0010 2 读已提交
+           0100 4 可重复读
+           1000 8 串行化
+        -->
+        <property name="hibernate.connection.isolation">4</property>
+
+        <!--引入orm元数据，路径书写: 填写src下的路径-->
+        <mapping resource="com/ztiany/mysql/hibernate/Customer-hbm.xml"/>
+
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        .test {
+            width: 150px;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin-top: 100px;
+            float: left;
+            /*关键点*/
+            margin-left: -1px;
+            position: relative;
+        }
+
+        .test:hover {
+            border: 1px solid #f40;
+            z-index: 1;
+        }
+
+    </style>
+</head>
+<body>
+<div class="test"></div>
+<div class="test"></div>
+<div class="test"></div>
+<div class="test"></div>
+<div class="test"></div>
+</body>
+</html>

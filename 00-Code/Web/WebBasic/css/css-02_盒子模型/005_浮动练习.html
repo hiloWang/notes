@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>浮动 practice</title>
+
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            width: 970px;
+            margin: 20px auto 0;
+            height: 103px;
+        }
+
+        /*banner左浮动，占据了277的空间*/
+        .header .banner {
+            float: left;
+            width: 277px;
+            height: 103px;
+            background-color: red;
+        }
+
+        /*title右浮动*/
+        .header .title {
+            float: right;
+            width: 137px;
+            height: 49px;
+            background-color: green;
+        }
+
+        /*mean向右浮动，由于没有足够的空间(banner和title占据了空间)，只能换行靠墙*/
+        .header .menu {
+            margin-top: 8px;
+            float: right;
+            width: 679px;
+            height: 46px;
+            background-color: green;
+        }
+
+        .content {
+            width: 970px;
+            height: 435px;
+            /*居中，这个语句今天没讲，你照抄，就是居中：*/
+            margin: 10px auto 0;
+        }
+
+        .content .left {
+            width: 310px;
+            height: 435px;
+            float: left;
+            background-color: yellow;
+        }
+
+        .content .right {
+            height: 435px;
+            width: 650px;
+            float: right;
+        }
+
+        .content .right .up {
+            width: 650px;
+            height: 400px;
+        }
+
+        .content .right .up .up_left {
+            float: left;
+            width: 450px;
+            height: 400px;
+        }
+
+        .content .right .up .up_left .up_left_sub {
+            background-color: cornflowerblue;
+            width: 450px;
+        }
+
+        .content .right .up .up_left .up_left_1 {
+            height: 240px;
+        }
+
+        .content .right .up .up_left .up_left_2 {
+            margin-top: 10px;
+            height: 110px;
+        }
+
+        .content .right .up .up_left .up_left_3 {
+            margin-top: 10px;
+            height: 30px;
+        }
+
+        .content .right .up .up_right {
+            float: right;
+            width: 190px;
+            height: 400px;
+            background-color: #ff3695;
+        }
+
+        .content .down {
+            width: 650px;
+            height: 25px;
+            background-color: #00FF00;
+            margin-top: 10px;
+        }
+
+        .footer {
+            width: 970px;
+            height: 35px;
+            /*居中*/
+            margin: 10px auto 0;
+            background-color: blue;
+        }
+
+    </style>
+
+</head>
+<body>
+
+
+<div class="header">
+    <div class="banner"></div>
+    <div class="title"></div>
+    <div class="menu"></div>
+</div>
+
+<div class="content">
+
+    <div class="left"></div>
+
+    <div class="right">
+        <div class="up">
+            <div class="up_right"></div>
+            <div class="up_left">
+                <div class="up_left_sub up_left_1"></div>
+                <div class="up_left_sub up_left_2"></div>
+                <div class="up_left_sub up_left_3"></div>
+            </div>
+        </div>
+        <div class="down"></div>
+    </div>
+
+</div>
+
+<div class="container footer"></div>
+
+</body>
+</html>

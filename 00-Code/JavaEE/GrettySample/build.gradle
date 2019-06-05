@@ -1,0 +1,26 @@
+group 'com.ztiany.gretty.sample'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+//Gradle版本小于4.0, 添加 jetty插件
+//apply plugin: 'jetty'
+
+//http://akhikhl.github.io/gretty-doc/Getting-started.html
+//Gradle版本大于4.0, 添加 jetty插件的方式
+//Gradle内置的Jetty插件只支持Jetty 6.1.25版本，而Jetty 6.1.25是不支持servlet 3的新特性，项目中使用高版本的servlet的jar会导致jetty报错。
+//在gradle3之后，官方计划移除jetty插件，官方推荐最好的选择是使用greety。
+//greety不仅支持Jetty servlet容器,还支持Tomcat servlet等多种容器.配置也相对简单。
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

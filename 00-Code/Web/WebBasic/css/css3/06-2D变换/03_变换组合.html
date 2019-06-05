@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            width: 60%;
+            height: 60%;
+            border: 1px solid;
+            margin: 100px auto 0;
+            overflow: hidden;
+        }
+
+        #test1 {
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            background: pink;
+            text-align: center;
+            transition: 2s;
+        }
+
+        #test2 {
+            margin-top: 50px;
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            background: pink;
+            text-align: center;
+            transition: 2s;
+        }
+
+        /*变换组合时,计算方向是从右往左进行继续的*/
+
+        /*
+        从左往右（错误）
+            1 0 100  50   			150
+            0 1  0   50    			50
+            0 0  1    1     		1
+
+            .5 0  0   150  			75
+            0  .5 0   50            25
+            0  0  1   1 			1
+        */
+
+        /*
+        从右往左
+            .5 0  0   50  			25
+            0  .5 0   50            25
+            0  0  1   1 			1
+
+            1 0 100  25   			125
+            0 1  0   25    			25
+            0 0  1    1     		1
+        */
+
+        /*(50,50)---->(125,25)*/
+        body:hover #test1 {
+            transform: translateX(100px) scale(.5);
+        }
+
+        body:hover #test2 {
+            transform: scale(.5) translateX(100px);
+        }
+
+    </style>
+</head>
+<body>
+<div id="test1">
+    CSS1号
+</div>
+<div id="test2">
+    CSS2号
+</div>
+</body>
+</html>

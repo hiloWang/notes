@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.itheima.mobileguard"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          android:versionCode="2"
+          android:versionName="青春无敌版">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission
+        android:name="android.permission.ACCESS_MOCK_LOCATION"
+        tools:ignore="MockLocation"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
+    <uses-permission android:name="android.permission.READ_WRITE_LOG"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.WRITE_SMS"/>
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.GET_PACKAGE_SIZE"/>
+    <uses-permission android:name="android.permission.CLEAR_APP_CACHE"/>
+
+    <application
+        android:name="MobileGuardApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:persistent="true"
+        android:theme="@style/AppTheme">
+        <uses-library android:name="android.test.runner"/>
+
+        <activity
+            android:name="com.itheima.mobileguard.activities.SplashActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 主界面 -->
+        <activity
+            android:name="com.itheima.mobileguard.activities.HomeActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="aaa.bbb.ccc"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <!-- 手机防盗界面 -->
+        <activity android:name="com.itheima.mobileguard.activities.LostFindActivity">
+        </activity>
+        <!-- 手机防盗设置向导4个界面 -->
+        <activity android:name="com.itheima.mobileguard.activities.LostSetup1Activity">
+        </activity>
+        <activity android:name="com.itheima.mobileguard.activities.LostSetup2Activity">
+        </activity>
+        <activity android:name="com.itheima.mobileguard.activities.LostSetup3Activity">
+        </activity>
+        <activity android:name="com.itheima.mobileguard.activities.LostSetup4Activity">
+        </activity>
+        <!-- 列出联系人 -->
+        <activity android:name="com.itheima.mobileguard.activities.ListContactActivity">
+        </activity>
+        <!-- 设置中心 -->
+        <activity android:name="com.itheima.mobileguard.activities.SettingActivity">
+        </activity>
+        <activity
+            android:name="com.itheima.mobileguard.activities.TackPictureActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+        </activity>
+        <activity android:name="com.itheima.mobileguard.activities.CallSafeActivity">
+        </activity>
+        <activity android:name="com.itheima.mobileguard.activities.AtoolsActivity">
+        </activity>
+        <activity android:name="com.itheima.mobileguard.activities.QueryNumberAddressActivity">
+        </activity>
+        <activity android:name="com.itheima.mobileguard.activities.AppManagerActivity">
+        </activity>
+        <activity android:name="com.itheima.mobileguard.activities.ProcessManagerActivity">
+        </activity>
+        <activity android:name="com.itheima.mobileguard.activities.ProcessManagerSettingActivity">
+        </activity>
+        <activity android:name="com.itheima.mobileguard.activities.AppLockActivity">
+        </activity>
+        <activity
+            android:name="com.itheima.mobileguard.activities.EnterPwdActivity"
+            android:launchMode="singleInstance">
+        </activity>
+        <activity android:name="com.itheima.mobileguard.activities.TrafficManagerActivity">
+        </activity>
+        <activity
+            android:name="com.itheima.mobileguard.activities.AntilVirusActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+        <activity
+            android:name="com.itheima.mobileguard.activities.ClearCacheActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
+
+        <!-- 开机完毕广播接收者 -->
+        <receiver android:name="com.itheima.mobileguard.receivers.BootCompletedReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- 短信接收者 -->
+        <receiver android:name="com.itheima.mobileguard.receivers.SmsReceiver">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- 超级管理员 -->
+        <receiver
+            android:name="com.itheima.mobileguard.receivers.MyDeviceAdmin"
+            android:description="@string/sample_device_admin_description"
+            android:label="@string/sample_device_admin"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin"/>
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+            </intent-filter>
+
+        </receiver>
+
+        <receiver android:name="com.itheima.mobileguard.receivers.MyWidgetReceiver">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget"/>
+        </receiver>
+
+        <receiver android:name="com.itheima.mobileguard.receivers.KillProcessReceiver">
+            <intent-filter>
+                <action android:name="com.itheima.clearall"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- 位置服务 -->
+        <service android:name="com.itheima.mobileguard.services.GuardServer1">
+        </service>
+        <service android:name="com.itheima.mobileguard.services.GuardServer2">
+        </service>
+        <service android:name="com.itheima.mobileguard.services.LoactionService">
+        </service>
+        <service android:name="com.itheima.mobileguard.services.CallsafeService">
+        </service>
+        <service android:name="com.itheima.mobileguard.services.ShowLoacationService">
+        </service>
+        <service android:name="com.itheima.mobileguard.services.ClearProcessService">
+        </service>
+        <service android:name="com.itheima.mobileguard.services.UpdataWidgetService">
+        </service>
+        <service android:name="com.itheima.mobileguard.services.WatchDagService">
+        </service>
+
+        <!-- 广告节点 -->
+        <activity
+            android:name="com.startapp.android.publish.list3d.List3DActivity"
+            android:theme="@android:style/Theme"/>
+        <activity
+            android:name="com.startapp.android.publish.AppWallActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent"/>
+
+    </application>
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+</manifest>

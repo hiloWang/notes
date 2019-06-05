@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #wrap {
+            height: 100%;
+            position: relative;
+            background: pink;
+            perspective: 200px;
+        }
+
+        #wrap > .inner {
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes move {
+            from {
+                transform: translate3d(-50%, -50%, 0) rotateY(0deg);
+            }
+            to {
+                transform: translate3d(-50%, -50%, 0) rotateY(360deg);
+            }
+        }
+
+        #wrap > .inner > img {
+            width: 30%;
+            margin-top: -38px;
+            animation: move 2s linear infinite;
+        }
+
+        #wrap > .inner > img, #wrap > .inner > p {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%, -50%, 0) rotateY(0deg);
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div class="inner">
+        <img src="img/load/logo2.png"/>
+        <p>已加载0%</p>
+    </div>
+</div>
+</body>
+<script src="js/data.js"></script>
+<script type="text/javascript">
+    window.onload = function () {
+        var pNode = document.querySelector("#wrap > .inner > p");
+        var flag = 0;
+        var arr = [];
+        for (item in imgData) {
+            arr = arr.concat(imgData[item]);
+        }
+
+        for (var i = 0; i < arr.length; i++) {
+            var img = new Image();
+            //ajax请求
+            img.src = arr[i];
+            img.onload = function () {
+                flag++;
+                pNode.innerHTML = "已加载" + (Math.round(flag / arr.length * 100)) + "%";
+            }
+            img.onerror = function () {
+                console.log("地址有问题")
+            }
+        }
+
+    }
+</script>
+</html>

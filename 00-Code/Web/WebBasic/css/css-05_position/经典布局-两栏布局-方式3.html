@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>经典布局-两栏布局-方式3</title>
+
+    <!--
+    浮动元素会脱离文档流，直到它碰到父元素的边框或另一浮动元素为止，因此，我们可以还设置 .left、.right 均左浮动，这时，
+    它们便会紧贴着排列在一行。因为 .right 是浮动的，所以需要计算宽度。
+    -->
+    <style type="text/css">
+
+        .container {
+            border: 1px solid red;
+            padding: 0;
+            margin: 0;
+            font-size: 0;
+            overflow: hidden; /*清除浮动*/
+        }
+
+        .left {
+            width: 100px;
+            height: 150px;
+            float: left;
+            background-color: #00FF00;
+        }
+
+        .right {
+            width: calc(100% - 100px);
+            height: 150px;
+            float: left;
+            background-color: #94E8FF;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+
+<div>
+    测试、测试
+</div>
+
+</body>
+</html>

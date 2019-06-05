@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浮动清除现象</title>
+</head>
+
+<style type="text/css">
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        float: left;
+        width: 120px;
+        background-color: rebeccapurple;
+    }
+
+    ul {
+        overflow: hidden;
+    }
+
+    .box2{
+        margin-top: 50px;
+    }
+
+</style>
+
+<body>
+
+<div>
+    <div>
+        <ul>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+        </ul>
+    </div>
+
+    <div class="box2">
+        <ul>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+        </ul>
+    </div>
+</div>
+
+
+</body>
+</html>

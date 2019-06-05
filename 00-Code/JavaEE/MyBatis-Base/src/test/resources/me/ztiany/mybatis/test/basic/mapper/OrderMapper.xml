@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 写Sql语句   -->
+<mapper namespace="me.ztiany.mybatis.test.basic.mapper.OrderMapper">
+
+    <!--手动类型映射，如果是单表查询，只需要写字段名与表列名不一致的映射-->
+    <resultMap type="Orders" id="ordersMap">
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+    <select id="selectOrders" resultMap="ordersMap">
+        SELECT
+            id,
+            user_id,
+            `number`,
+            createtime,
+            note
+        FROM mybatis_orders
+    </select>
+
+
+    <insert id="insertOrder" parameterType="me.ztiany.mybatis.pojo.Orders">
+        <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into mybatis_orders (user_id,`number`,createtime,note)
+        values (#{userId},#{number},#{createtime},#{note})
+    </insert>
+
+
+    <!--一对一关联 查询，以订单为中心关联用户，多表查询resultMap字段必须全部手动映射-->
+    <resultMap type="OrderWithUser" id="orderMap">
+        <result column="id" property="id"/>
+        <result column="note" property="note"/>
+        <result column="user_id" property="userId"/>
+        <result column="number" property="number"/>
+        <!-- 一对一 -->
+        <association property="user" javaType="User">
+            <id column="user_id" property="id"/>
+            <result column="username" property="username"/>
+        </association>
+    </resultMap>
+
+    <select id="selectOrdersList" resultMap="orderMap">
+        SELECT
+            o.id,
+            o.user_id,
+            o.number,
+            o.createtime,
+            u.username
+        FROM mybatis_orders o
+            LEFT JOIN mybatis_user u
+                ON o.user_id = u.id
+    </select>
+
+    <!--一对多关联-->
+    <resultMap type="User" id="userMap">
+        <id column="user_id" property="id"/>
+        <result column="username" property="username"/>
+        <!-- 一对多 -->
+        <collection property="ordersList" ofType="Orders">
+            <id column="id" property="id"/>
+            <result column="number" property="number"/>
+        </collection>
+    </resultMap>
+    <select id="selectUserList" resultMap="userMap">
+        SELECT
+            o.id,
+            o.user_id,
+            o.number,
+            o.createtime,
+            u.username
+        FROM mybatis_user u
+            LEFT JOIN mybatis_orders o
+                ON o.user_id = u.id
+    </select>
+
+
+</mapper>

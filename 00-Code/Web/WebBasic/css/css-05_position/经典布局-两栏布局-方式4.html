@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>经典布局-两栏布局-方式4</title>
+
+    <!--
+    .left 浮动的时候，.right 会无视 .left，有没有不无视，留出位置的可能？有的，让 .right 形成 BFC，.right 就不会和 .left 重合了。BFC 不会忽视浮动元素，这也是它的特点之一。
+    -->
+    <style type="text/css">
+
+        .container {
+            border: 1px solid red;
+            padding: 0;
+            margin: 0;
+            font-size: 0;
+            overflow: hidden; /*清除浮动*/
+        }
+
+        .left {
+            width: 100px;
+            height: 150px;
+            float: left;
+            background-color: #00FF00;
+        }
+
+        .right {
+            height: 150px;
+            background-color: #94E8FF;
+            overflow: auto;/* 形成 BFC */
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+
+<div>
+    测试、测试
+</div>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/home_title"
+        android:text="高级工具"
+        android:textSize="28sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/list_selector"
+        android:clickable="true"
+        android:drawableLeft="@drawable/right"
+        android:gravity="center_vertical"
+        android:onClick="queryNumberAddress"
+        android:text="来电归属地查询"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/list_selector"
+        android:clickable="true"
+        android:drawableLeft="@drawable/right"
+        android:gravity="center_vertical"
+        android:onClick="smsBackup"
+        android:text="备份短信"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/list_selector"
+        android:clickable="true"
+        android:drawableLeft="@drawable/right"
+        android:gravity="center_vertical"
+        android:onClick="smsRestore"
+        android:text="还原短信"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/list_selector"
+        android:clickable="true"
+        android:drawableLeft="@drawable/right"
+        android:gravity="center_vertical"
+        android:onClick="appLock"
+        android:text="程序锁"
+        android:textSize="20sp" />
+
+</LinearLayout>

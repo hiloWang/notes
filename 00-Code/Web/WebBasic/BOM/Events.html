@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件处理</title>
+</head>
+<body onload="onBodyLoaded()">
+
+<input type="button" value="测试鼠标事件" onmouseover="doOver()" onmouseout="doOut()" onmousedown="doDown()"
+       onmousemove="doMove()" onmouseup="doUp()" onkeypress="doPress(event)"/>
+<div id="d1"></div>
+
+<script type="text/javascript">
+
+    function onBodyLoaded() {
+        alert("body加载完毕")
+    }
+
+    function doOver() {
+        var content = document.getElementById("d1").innerHTML;
+        content += "鼠标飞过<br/>";
+        document.getElementById("d1").innerHTML = content;
+    }
+    function doOut() {
+        var content = document.getElementById("d1").innerHTML;
+        content += "鼠标飞走了<br/>";
+        document.getElementById("d1").innerHTML = content;
+    }
+    function doDown() {
+        var content = document.getElementById("d1").innerHTML;
+        content += "鼠标按下了<br/>";
+        document.getElementById("d1").innerHTML = content;
+    }
+    function doMove() {
+        var content = document.getElementById("d1").innerHTML;
+        content += "鼠标移动了<br/>";
+        document.getElementById("d1").innerHTML = content;
+    }
+    function doUp() {
+        var content = document.getElementById("d1").innerHTML;
+        content += "鼠标松开了<br/>";
+        document.getElementById("d1").innerHTML = content;
+    }
+
+    //只能输入数字
+    function doPress(e) {
+
+        var code = e.keyCode;//键盘上数字和字母对应的ASCII码
+        var content = document.getElementById("d1").innerHTML;
+        content += code + "<br/>";
+        document.getElementById("d1").innerHTML = content;
+
+        //判断是不是数字，如果不是数字，不允许输入
+        if (code < 48 || code > 57) {
+            //不是数字
+            //e.returnValue=false;//取消事件
+            e.preventDefault();//取消剪片事件应该用这个
+        }
+
+    }
+</script>
+
+
+</body>
+</html>

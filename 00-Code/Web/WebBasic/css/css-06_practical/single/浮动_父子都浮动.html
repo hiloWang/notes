@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浮动</title>
+    <style type="text/css">
+        /*
+        父容器浮动，然后子元素也浮动，则子元素可以给父容器珵撑高度
+        以为ul没有浮动，所以ul没有被撑起高度
+        */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            float: left;
+            list-style: none;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div style="float: right;background-color: red">
+    <ul style="background-color: blue">
+        <li>我是li</li>
+        <li>我是li</li>
+        <li>我是li</li>
+        <li>我是li</li>
+        <li>我是li</li>
+        <li>我是li</li>
+        <li>我是li</li>
+        <li>我是li</li>
+        <li>我是li</li>
+        <li>我是li</li>
+    </ul>
+</div>
+
+<!--浮动后的盒子，如果不指定宽高，那么它的宽高为它的内容大型    -->
+<div style="float: left;background-color: #00FF00">我是DIV</div>
+
+</body>
+</html>

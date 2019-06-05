@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax Sample</title>
+</head>
+<body>
+
+<div>
+
+    <p>
+        <button type="button" onclick="asyncLoad()">异步请求</button>
+    </p>
+
+    <span id="result">
+
+    </span>
+
+</div>
+
+
+<script type="text/javascript">
+
+    function createXmlHttpRequest() {
+        var xmlHttp;
+        try {    //Firefox, Opera 8.0+, Safari
+            xmlHttp = new XMLHttpRequest();
+        } catch (e) {
+            try {    //Internet Explorer
+                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+            } catch (e) {
+                try {
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {
+                }
+            }
+        }
+        return xmlHttp;
+    }
+
+    function asyncLoad() {
+        //1、创建ajax引擎对象 ---- 所有的操作都是通过引擎对象
+        var xmlHttp = createXmlHttpRequest();
+        //2、绑定监听 ---- 监听服务器是否已经返回相应数据
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState === 4) {
+                if (xmlHttp.status === 200) {
+                    //5、接受相应数据
+                    var result = xmlHttp.responseText;
+                    document.getElementById("result").innerHTML = result;
+                } else {
+                    document.getElementById("result").innerHTML = "请求发生错误";
+                }
+            } else {
+                document.getElementById("result").innerHTML = "请求中....";
+            }
+        };
+        //3、绑定地址
+        xmlHttp.open("GET", "/ajax_base/servlet/AjaxServlet", true);//true表示异步请求
+        //4、发送请求
+        xmlHttp.send();
+    }
+
+
+</script>
+
+</body>
+</html>

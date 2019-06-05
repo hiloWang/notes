@@ -1,0 +1,113 @@
+group 'com.ztiany'
+apply plugin: 'java'
+
+setDescription("Gradle构件块示例")//设置Project的描述，实际调用的时Project对象的void setDescription(String description);方法
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+//定义一个来描述项目版本
+class ProjectVersion {
+    int major
+    int minor
+    boolean release
+
+    String toString() {
+        "$major.$minor${release ? '' : '-SNAPSHOT'}"
+    }
+}
+
+//在脚本中设置version
+def projectVersion = new ProjectVersion()
+projectVersion.major = 0//实际情况下，这些值可以放在配置文件中
+projectVersion.minor = 1
+projectVersion.release = false
+version = projectVersion
+
+//---------------------------------task之间依赖-------------------------------
+task first << {
+    println 'first'
+}
+
+task second << {
+    println 'second'
+}
+
+task printVersion(dependsOn: [first, second]) << {
+    logger.quiet("version = $version")
+}
+
+task third << {
+    println 'third'
+}
+
+third.dependsOn('printVersion')
+
+//---------------------------------Task属性------------------------------
+task LogTest{
+    //logger是Gradle提供的基于SLF4J的日志库
+    logger.info 'info log'
+    logger.log(LogLevel.ERROR, "ErrorMessage")//logger 是Proect的可访问属性
+}
+//配置task的group和description属性
+task taskPropSet(group: "test",description:"我就是测试一下设置属性"){
+    println group
+    println description
+}
+//或者
+task taskPropSet2(){
+    group = "test"
+    description = "我就是测试一下设置属性"
+}
+
+//---------------------------------理解task的配置------------------------------
+task taskConfig{
+    println "task create"
+}
+
+//---------------------------------理解task的输入输出-----------------------------
+ext.versionFile = file('version.properties')
+
+task loadVersion {
+    project.version = readVersion()
+}
+
+task makeReleaseVersion(group: "versioning", description: "makes project a release version") {
+    version.release = true
+
+    inputs.property('release', version.release)
+    outputs.file versionFile
+
+    doLast {
+        //ant task的property提供了一种便捷的方式来修改属性文件
+        ant.propertyfile(file: versionFile) {
+            entry(
+                    key: 'release', type: 'string', operation: '=', value: 'true'
+            )
+        }
+    }
+}
+
+ProjectVersion readVersion() {
+
+    File file = versionFile
+    if (!file.exists()) {
+        throw new GradleException("file not exists :${file.canonicalPath}")
+    }
+    Properties versionProp = new Properties()
+    file.withInputStream {
+        versionProp.load(it)
+    }
+    new ProjectVersion(
+            major: versionProp.major.toInteger(),
+            minor: versionProp.minor.toInteger(),
+            release: versionProp.release.toBoolean()
+    )
+}
+
+

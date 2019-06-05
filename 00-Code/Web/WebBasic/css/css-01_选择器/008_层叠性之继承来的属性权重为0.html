@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>层叠性</title>
+
+    <style type="text/css">
+
+        #hezi1 #hezi2 #hezi3{/* 没有选择上p*/
+            color:red;
+        }
+        div.box div.box div.box{/* 没有选择上p*/
+            color:blue;
+        }
+        /* p是绿色*/
+        p{
+            color:green;
+        }
+    </style>
+
+
+</head>
+<body>
+
+<div class="box" id="hezi1">
+    <div class="box" id="hezi2">
+        <div class="box" id="hezi3">
+            <p class="pp">猜猜我是什么颜色</p>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

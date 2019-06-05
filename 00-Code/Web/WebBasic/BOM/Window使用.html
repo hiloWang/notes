@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Window使用</title>
+</head>
+<body>
+
+<div>
+
+    <form method="get">
+
+        <input title="银行" type="text" name="bank_name" id="bank_name"/>
+        <input type="button" value="选择银行" onclick="selectBank()"/>
+
+    </form>
+
+</div>
+
+
+<script type="text/javascript">
+
+    function selectBank() {
+        //打开一个新的窗口
+        //window.open("Window_BankList.html", "", "width=300px,height=150px");
+        //Chrome 37+禁用对showModalDialog的默认支持，把window对象传给对话框
+        window.showModalDialog('Window_BankList.html', window)
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#wrap{
+				width: 300px;
+				height: 300px;
+				border: 1px solid;
+				margin:100px auto;
+				display:flex;
+				/*flex-direction: row;*/
+		        justify-content: flex-start;
+		        align-items: flex-start;
+		        /*控制侧轴的方向*/
+		        /*flex-wrap: wrap-reverse;*/
+		        /*多行多列时,富裕空间的管理，会把所有行、列看成一个整体*/
+		        /*align-content: flex-end;*/
+		        flex-flow:row  nowrap;
+			}
+			#wrap > .item{
+				width: 50px;
+				height: 50px;
+				background: pink;
+				text-align: center;
+				line-height: 50px;
+			}
+			
+			#wrap > .item:nth-child(1){
+				order: 3;
+				align-self:flex-end;
+			}
+			#wrap > .item:nth-child(2){
+				order: 1;
+			}
+			#wrap > .item:nth-child(3){
+				order: 5;
+			}
+			#wrap > .item:nth-child(4){
+				order: 2;
+			}
+			#wrap > .item:nth-child(5){
+				order: 4;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="item">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>
+			<div class="item">5</div>
+		</div>
+	</body>
+</html>

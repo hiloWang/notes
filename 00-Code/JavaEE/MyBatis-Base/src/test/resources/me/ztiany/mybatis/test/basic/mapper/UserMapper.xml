@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 写Sql语句   -->
+<mapper namespace="me.ztiany.mybatis.test.basic.mapper.UserMapper">
+
+    <sql id="userSelector">
+        SELECT *
+        FROM mybatis_user
+    </sql>
+
+    <!-- 通过ID查询一个用户
+     parameterType 或 resultType 提供的必须是类型的全限定名或类型别名
+     -->
+    <select id="findUserById" parameterType="Integer" resultType="me.ztiany.mybatis.pojo.User">
+        SELECT *
+        FROM MyBatis_user
+        WHERE id = #{v}
+    </select>
+
+    <!-- 根据用户名称模糊查询用户列表
+    #{}    select * from user where id = ?;，这是占位符，这里的 ? 占位的参数会自动加上单引号，比如  '五'， #{}可以使用任何字符都可以接收参数，比如 v
+    ${}    select * from user where username like '%五%';，这是字符串拼接，字符串拼接不自动加上''单引号，${} 必须使用 value 接收参数
+    select * from MyBatis_user where username like "%"'王'"%"; 等效于  select * from MyBatis_user where username like '%王%';
+     -->
+
+    <select id="findUserByUsername" parameterType="String" resultType="me.ztiany.mybatis.pojo.User">
+        SELECT *
+        FROM MyBatis_user
+        WHERE username LIKE "%"#{v}"%"
+    </select>
+
+    <!-- 添加用户
+        values中的变量只需要与入参的属性名对应即可
+        select LAST_INSERT_ID()，MySQL提供的返回最后插入的id
+    -->
+    <insert id="insertUser" parameterType="me.ztiany.mybatis.pojo.User">
+        <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        insert into MyBatis_user (username,birthday,address,sex)
+        values (#{username},#{birthday},#{address},#{sex})
+    </insert>
+
+    <!--批量插入-->
+    <insert id="batchInsert" parameterType="java.util.List">
+        <selectKey resultType="Integer" keyProperty="id" order="AFTER">
+            SELECT
+            LAST_INSERT_ID()
+        </selectKey>
+        insert into MyBatis_user (username,birthday,address,sex) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{username},#{birthday},#{address},#{sex})
+        </foreach>
+    </insert>
+
+
+    <!-- 更新 -->
+    <update id="updateUserById" parameterType="me.ztiany.mybatis.pojo.User">
+        UPDATE MyBatis_user
+        SET username = #{username}, sex = #{sex}, birthday = #{birthday}, address = #{address}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteUserById" parameterType="Integer">
+        DELETE FROM MyBatis_user
+        WHERE id = #{v}
+    </delete>
+
+    <!-- 根据VO(Value Object)查 -->
+    <select id="findUserByQueryVO" resultType="User" parameterType="QueryVO">
+        SELECT *
+        FROM mybatis_user
+        WHERE username LIKE "%"#{user.username}"%"
+    </select>
+
+    <!--查询数据条数-->
+    <select id="countUser" parameterType="Integer" resultType="Integer">
+        SELECT count(*)
+        FROM mybatis_user
+    </select>
+
+    <!--根据性别和名字查询用户
+        test中可以直接引用字段
+    -->
+    <select id="selectUserBySexAndUsername" resultType="User" parameterType="User">
+        <include refid="userSelector"/>
+        <where>
+            <if test="sex != null and sex != ''">
+                sex = #{sex}
+            </if>
+            <if test="username != null and sex != ''">
+                AND username = #{username}
+            </if>
+        </where>
+    </select>
+
+    <!--根据id数组查询用户信息
+        这里参数是数组类型，collection中必须写array，而parameterType可以不写
+    -->
+    <select id="selectUserByArrayIds" resultType="User">
+        SELECT * FROM mybatis_user
+        WHERE
+        <foreach collection="array" close=")" separator="," open="id in (" item="id">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--根据id列表查询用户信息
+           这里参数是list类型，collection中必须写list，而parameterType可以不写
+    -->
+    <select id="selectUserByListIds" resultType="User">
+        SELECT * FROM mybatis_user
+        WHERE
+        <foreach collection="list" close=")" separator="," open="id in (" item="id">
+            #{id}
+        </foreach>
+    </select>
+
+    <!--根据id包装类查询用户信息
+        这里参数是list类型，但是包装在QueryVO中，所以直接写字段名
+    -->
+    <select id="selectUserByQueryVOIds" resultType="User" parameterType="QueryVO">
+        SELECT * FROM mybatis_user
+        WHERE
+        <foreach collection="idList" close=")" separator="," open="id in (" item="id">
+            #{id}
+        </foreach>
+    </select>
+
+
+</mapper>

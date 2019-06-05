@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>自定义检测低版本ie的函数</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    console.log(isIE(8));
+
+    //js中的作用域都是函数作用域
+    function isIE(version) {
+        var b = document.createElement("b");
+        b.innerHTML = "<!--[if IE " + version + "]><i></i><![endif]-->";
+        return b.getElementsByTagName("i").length == 1;
+    }
+
+    //伪数组:  具有length属性的js对象
+    //		console.log(document.body.getElementsByTagName("i").length);
+</script>
+</html>

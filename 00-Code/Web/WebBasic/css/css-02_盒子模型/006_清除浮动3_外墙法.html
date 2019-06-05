@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!--
+        此方法不能让浮动的子元素能撑出父元素的高度
+    -->
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*1 加上clear 属性*/
+        .cl {
+            clear: both;
+        }
+
+        li {
+            float: left;
+            width: 120px;
+            height: 40px;
+            list-style: none;
+            background-color: red;
+            text-align: center;
+        }
+
+        /*2 加上高度属性用于margin*/
+        .h8 {
+            height: 8px;
+            _font-size: 0;
+        }
+
+        /*box1 的 margin只有left、right和top是有效的*/
+        .box1 {
+            border: black dashed 3px;
+            background-color: gold;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10%;
+        }
+
+        /*box2的margin是有效的*/
+        .box2 {
+            width: 100px;
+            margin-top: 100px;
+            border: black dashed 3px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="box1">
+    <ul>
+        <li>HTML</li>
+        <li>CSS</li>
+        <li>JS</li>
+        <li>HTML5</li>
+        <li>设计模式</li>
+    </ul>
+</div>
+
+<div class="cl h8"></div>
+
+<div class="box2">
+    <ul>
+        <li>学习方法</li>
+        <li>英语水平</li>
+        <li>面试技巧</li>
+    </ul>
+</div>
+
+</body>
+</html>

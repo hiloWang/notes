@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>resize</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        body:after {
+            content: "";
+            height: 100%;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        div {
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            background: pink;
+            vertical-align: middle;
+            resize: horizontal;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+<div></div>
+</body>
+</html>

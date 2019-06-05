@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹出广告</title>
+
+    <style type="text/css">
+        .ad {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            width: 230px;
+            height: 120px;
+            background-image: url(ad.jpg);
+            display: none;
+        }
+        .ad span {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 40px;
+            height: 18px;
+            background-image: url(close.jpg);
+        }
+    </style>
+
+    <script type="text/javascript" src="../../js/jquery-1.8.3.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $(".ad")
+                .slideDown("slow")
+                .children("span")
+                .click(function () {
+                    $(this).parent().slideUp();
+                })
+        });
+    </script>
+
+</head>
+<body>
+
+<div class="ad">
+    <span></span>
+</div>
+
+</body>
+</html>

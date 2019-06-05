@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--模拟Struts-->
+
+<!-- 核心配置文件 -->
+<framework>
+
+    <!--
+    action:
+        name:必须有，且唯一。如同之前请求的什么operation
+        class：必须有，要执行哪个JavaBean的类名
+        method:可以没有。没有的话就是默认值execute。JavaBean中对应的操作方法。该方法的特点是：public String addCustomer(){}
+     -->
+
+    <action name="addCustomer" class="cn.itcast.domain.Customer" method="addCustomer">
+        <!--
+        result:代表着一种结果。
+            type:可以没有，默认是dispatcher。转向目标的类型。dispatcher代表着请求转发
+            name:必须有。对应的是JavaBean中addCustomer的返回值
+            主体内容：必须有。目标资源的URI
+        -->
+        <result type="redirect" name="success">/success.jsp</result>
+        <result type="dispatcher" name="error">/error.jsp</result>
+    </action>
+
+    <action name="updateCustomer" class="cn.itcast.domain.Customer" method="updateCustomer">
+        <result type="dispatcher" name="success">/success.jsp</result>
+    </action>
+
+</framework>

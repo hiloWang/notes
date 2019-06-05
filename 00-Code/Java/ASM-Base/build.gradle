@@ -1,0 +1,25 @@
+group 'me.ztiany'
+version '1.0'
+
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    apply plugin: 'idea'
+
+    idea {
+        module {
+            outputDir file('build/classes/java/main')
+            testOutputDir file('build/classes/java/test')
+        }
+    }
+
+    if (project.convention.findPlugin(JavaPluginConvention)) {
+        // Change the output directory for the main and test source sets back to the old path
+        sourceSets.main.output.classesDir = new File(buildDir, "classes/java/main")
+        sourceSets.test.output.classesDir = new File(buildDir, "classes/java/test")
+    }
+}
+

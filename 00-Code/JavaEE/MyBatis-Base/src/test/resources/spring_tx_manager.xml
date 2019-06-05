@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 指定spring读取db.properties配置 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+
+    <!--将连接池放入spring容器 -->
+    <bean name="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxTotal" value="10"/>
+        <property name="maxIdle" value="5"/>
+    </bean>
+
+    <!-- Mybatis的工厂 -->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 核心配置文件的位置 -->
+        <!-- 加载多个可以改为*.xml -->
+        <property name="configLocation" value="classpath:sqlMapConfig_Mapper_Spring.xml"/>
+    </bean>
+
+    <!-- Mapper动态代理开发，自动扫描 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 基本包 -->
+        <property name="basePackage" value="me.ztiany.mybatis.test.basic.mapper"/>
+        <!-- 会话工厂 不需要配置，MapperScannerConfigurer会自动从容器中获取-->
+        <!-- 如果加上自定义注解，那么只有被自定义的注解标记的接口才会被扫描 -->
+        <!--<property name="annotationClass" value="me.ztiany.mybatis.test.spring.MapperScanner"/>-->
+    </bean>
+
+    <bean name="businessService" class="me.ztiany.mybatis.test.spring.service.BusinessServiceImpl"/>
+
+    <!-- 事务管理器 -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+    <!-- 开启使用注解管理aop事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>

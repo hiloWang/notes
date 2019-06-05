@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>setInterval</title>
+</head>
+<body>
+
+<span id="time"></span>
+<div id="d1" style="width: 50%;height: 20px;">
+    <div id="d2" style="width: 0;background-color: green;height: 20px"></div>
+</div>
+
+<script type="text/javascript">
+
+    /*显示时间*/
+    var node = document.getElementById("time");
+    function setTime() {
+        node.innerHTML = new Date().toTimeString();
+    }
+    setInterval(setTime, 1000);
+
+    //显示进度
+    var widthNum = 0;//默认是0
+    var div2Obj = document.getElementById("d2");
+    function changeDivWidth() {
+        if (widthNum === 100) {
+            window.clearInterval(i1);
+            alert("上传成功");
+        }
+        widthNum += 1;
+        div2Obj.style.width = widthNum + "%";
+    }
+    var i1;
+    i1 = window.setInterval("changeDivWidth()", 100);
+
+</script>
+
+</body>
+</html>

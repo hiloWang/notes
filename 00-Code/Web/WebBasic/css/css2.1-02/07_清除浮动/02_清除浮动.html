@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!--
+        清除浮动: 让浮动的子元素库撑开父级的高度
+
+            02.通过开启BFC
+                浮动盒子的特点，定位盒子的特点:高宽都由内容撑开
+    -->
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*此时wrap是一个bfc*/
+        #wrap {
+            border: 1px solid;
+            /*触发bfc*/
+            overflow: hidden;
+            /*拥有布局*/
+            /*zoom:1;*/
+            /*position: absolute;*/
+            /*float: left;*/
+        }
+
+        #inner {
+            float: left;
+            width: 200px;
+            height: 200px;
+            background: pink;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="inner">
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <!--
+        http://localhost:8080/struts2_base/sample/a/b/c/helloWorld
+                                          应用名称/包的名称空间/动作的名称
+    -->
+    <package name="sample" extends="struts-default" namespace="/sample">
+        <action name="helloWorld" method="sayHello"
+                class="com.ztiany.struts2.sample.HelloWorldAction">
+
+            <result name="success">/success.jsp</result>
+
+        </action>
+    </package>
+
+</struts>

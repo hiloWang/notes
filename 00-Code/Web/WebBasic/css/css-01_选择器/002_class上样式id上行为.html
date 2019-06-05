@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>class上样式id上行为</title>
+</head>
+
+<style type="text/css">
+
+    p {
+        width: 60px;
+        height: 60px;
+        background-color: orange;
+    }
+</style>
+
+<body>
+
+<h1>一般来说，css层面不用id属性。id属性是给js用的。</h1>
+<p>段落1</p>
+<p class="collet" id="box">段落2</p>
+<p>段落3</p>
+
+<!--Html是按顺序加载的，js下载最下面，则js最后加载-->
+<script type="text/javascript">
+    var box = document.getElementById("box");
+    var a = 0;
+    var interval = 10;
+    setInterval(function () {
+        a += interval;
+        if (a > 500) {
+            interval = -10;
+        } else if (a < 0) {
+            interval = 10;
+        }
+        box.style.marginLeft = a + "px";
+    }, 100)
+
+</script>
+
+</body>
+</html>

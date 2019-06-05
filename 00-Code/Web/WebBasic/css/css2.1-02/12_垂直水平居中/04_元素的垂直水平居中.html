@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!--未知高度的元素水平垂直居中方案-->
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            background: pink;
+            margin: 0 auto;
+        }
+
+        #inner {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            background: deeppink;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="inner">
+        testtesttesttesttesttesttest<br/>
+        testtesttesttesttesttesttest<br/>
+        testtesttesttesttesttesttest<br/>
+        testtesttesttesttesttesttest<br/>
+        testtesttesttesttesttesttest<br/>
+        testtesttesttesttesttesttest<br/>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        // gradle 内置了 apt 支持，不再需要插件
+        //https://github.com/tbroyer/gradle-apt-plugin
+        //classpath "net.ltgt.gradle:gradle-apt-plugin:0.21"
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    //升级到 idea 2019后，内置支持 apt，不需要再配置了。
+    //https://stackoverflow.com/questions/45174989/building-with-intellij-2017-2-out-directory-duplicates-files-in-build-director
+    /* apply plugin: 'idea'
+
+     idea {
+         module {
+             outputDir file('build/classes/java/main')
+             testOutputDir file('build/classes/java/test')
+         }
+     }
+
+     if (project.convention.findPlugin(JavaPluginConvention)) {
+         // Change the output directory for the main and test source sets back to the old path
+         sourceSets.main.output.classesDir = new File(buildDir, "classes/java/main")
+         sourceSets.test.output.classesDir = new File(buildDir, "classes/java/test")
+     }*/
+
+}
+
+
+

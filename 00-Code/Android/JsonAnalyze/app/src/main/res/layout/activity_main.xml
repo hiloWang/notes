@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context=".MainActivity"
+        tools:ignore="HardcodedText">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="单位：毫秒"
+            android:textColor="@color/colorAccent"
+            tools:ignore="HardcodedText"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="parseAddressByGson"
+            android:text="地址解析，使用 GSON"/>
+
+        <TextView
+            android:id="@+id/parseTimeGson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="parseAddressByFastJson"
+            android:text="地址解析，使用 FastJson"/>
+
+        <TextView
+            android:id="@+id/parseTimeFastJson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="parseBigDataAddressByGson"
+            android:text="巨量数据解析，使用 GSON"/>
+
+        <TextView
+            android:id="@+id/bigDataParseTimeGson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="parseBigDataAddressByFastJson"
+            android:text="巨量数据解析，使用 FastJson"/>
+
+        <TextView
+            android:id="@+id/bigDataParseTimeFastJson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="parseNormalDataAddressByGson"
+            android:text="正常数据解析，使用 GSON"/>
+
+        <TextView
+            android:id="@+id/normalDataParseTimeGson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="parseNormalDataAddressByFastJson"
+            android:text="正常数据解析，使用 FastJson"/>
+
+        <TextView
+            android:id="@+id/normalDataParseTimeFastJson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="parseKotlinByGson"
+            android:text="使用 GSON 解析 Kotlin Data Class"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:onClick="parseKotlinByFastJson"
+            android:text="使用 FastJson  解析 Kotlin Data Class"/>
+
+    </LinearLayout>
+
+
+</ScrollView>

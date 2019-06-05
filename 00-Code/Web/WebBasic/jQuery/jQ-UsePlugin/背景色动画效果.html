@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>背景色动画插件演示</title>
+    <style>
+        .box {
+            background-color: #ccc;
+            height: 400px;
+            width: 400px;
+        }
+    </style>
+
+    <!--
+    第一步： 引入jQuery
+    第二步：引入第三方插件
+    第三步：用第三方插件实现效果 -->
+    <script src="../js/jquery-1.8.3.js"></script>
+    <script src="../js/jquery.color.js"></script>
+
+    <script>
+        $(function () {
+            $(".box").animate({
+                    backgroundColor: "teal"
+                },
+                2000);
+        });
+    </script>
+
+</head>
+<body>
+<div class="box">
+
+</div>
+</body>
+</html>

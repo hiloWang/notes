@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!--已知高度的元素水平垂直居中方案-->
+
+    <!--
+    绝对定位盒子的特性
+        高宽由内容撑开
+        水平方向上：   left + right + width + padding + margin = 包含块padding区域的尺寸
+                                 0        0        100        0                0              400
+        垂直方向上：   top + bottom + height + padding + margin = 包含块padding区域的尺寸
+                                0          0       100        0                 0			    600
+    -->
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            position: relative;
+            width: 400px;
+            height: 600px;
+            background: pink;
+            margin: 0 auto;
+        }
+
+        #inner {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 100px;
+            height: 100px;
+            background: deeppink;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="inner">
+        test<br/>
+        test<br/>
+        test<br/>
+        test<br/>
+    </div>
+</div>
+</body>
+</html>

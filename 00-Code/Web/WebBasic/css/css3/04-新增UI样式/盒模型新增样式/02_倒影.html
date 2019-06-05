@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>倒影</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        body:after {
+            content: "";
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+        }
+
+        img {
+            vertical-align: middle;
+            /*只有webkit才支持*/
+            -webkit-box-reflect: left 10px;
+        }
+    </style>
+</head>
+<body>
+<img src="../img/周冬雨.jpg" width="200px"/>
+</body>
+</html>

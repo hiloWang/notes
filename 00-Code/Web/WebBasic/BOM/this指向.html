@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>this指向</title>
+</head>
+<body>
+
+</body>
+
+<script>
+
+    function Fun() {    // this 指向的是 函数的调用者 或者是 事件的调用者
+        alert(this);
+    }
+
+    Fun();   //这个的this 指向的是 window
+
+    function Fn() {
+        alert(this);
+    }
+
+    new Fn();  //添加了 new 的函数 this 指向的是新的对象
+
+    function again() {
+        this.x = 10;  //  x  window
+    }
+
+    again();
+
+    console.log(x);
+    console.log(window.x);
+
+</script>
+
+</html>

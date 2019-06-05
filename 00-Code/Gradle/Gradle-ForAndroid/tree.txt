@@ -1,0 +1,767 @@
+Parallel execution with configuration on demand is an incubating feature.
+Incremental java compilation is an incubating feature.
+--------------------- lint ----------------------------------------> task ':app:lintRedDebug'
+--------------------- lint ----------------------------------------> task ':app:lintVitalRedStaging'
+--------------------- lint ----------------------------------------> task ':app:lintRedStaging'
+--------------------- lint ----------------------------------------> task ':app:lintBlueDebug'
+--------------------- lint ----------------------------------------> task ':app:lintVitalBlueRelease'
+--------------------- lint ----------------------------------------> task ':app:lintBlueRelease'
+--------------------- lint ----------------------------------------> task ':app:lintVitalBlueStaging'
+--------------------- lint ----------------------------------------> task ':app:lintBlueStaging'
+:LibraryA:preBuild UP-TO-DATE
+:LibraryA:preDebugBuild UP-TO-DATE
+:LibraryA:checkDebugManifest
+:LibraryA:preDebugAndroidTestBuild UP-TO-DATE
+:LibraryA:preDebugUnitTestBuild UP-TO-DATE
+:LibraryA:preReleaseBuild UP-TO-DATE
+:LibraryA:preReleaseUnitTestBuild UP-TO-DATE
+:LibraryA:prepareComAndroidSupportAnimatedVectorDrawable2501Library
+:app:preBuild SKIPPED
+:app:preBlueDebugBuild SKIPPED
+:app:checkBlueDebugManifest SKIPPED
+:app:preBlueReleaseBuild SKIPPED
+:app:preBlueStagingBuild SKIPPED
+:app:preRedDebugBuild SKIPPED
+:app:preRedStagingBuild SKIPPED
+:app:prepareComAndroidSupportAnimatedVectorDrawable2520Library SKIPPED
+:LibraryA:prepareComAndroidSupportAnimatedVectorDrawable2501Library UP-TO-DATE
+:app:prepareComAndroidSupportAppcompatV72520Library SKIPPED
+:app:prepareComAndroidSupportSupportCompat2520Library SKIPPED
+:app:prepareComAndroidSupportSupportCoreUi2520Library SKIPPED
+:app:prepareComAndroidSupportSupportCoreUtils2520Library SKIPPED
+:app:prepareComAndroidSupportSupportFragment2520Library SKIPPED
+:app:prepareComAndroidSupportSupportMediaCompat2520Library SKIPPED
+:app:prepareComAndroidSupportSupportV42520Library SKIPPED
+:LibraryA:prepareComAndroidSupportAppcompatV72501Library
+:app:prepareComAndroidSupportSupportVectorDrawable2520Library SKIPPED
+:app:prepareBlueDebugDependencies SKIPPED
+:app:compileBlueDebugAidl SKIPPED
+:app:compileBlueDebugRenderscript SKIPPED
+:app:generateBlueDebugBuildConfig SKIPPED
+:app:generateBlueDebugResValues SKIPPED
+:app:generateBlueDebugResources SKIPPED
+:app:mergeBlueDebugResources SKIPPED
+:app:processBlueDebugManifest SKIPPED
+:app:processBlueDebugResources SKIPPED
+:app:generateBlueDebugSources SKIPPED
+:app:incrementalBlueDebugJavaCompilationSafeguard SKIPPED
+:app:compileBlueDebugJavaWithJavac SKIPPED
+:app:compileBlueDebugNdk SKIPPED
+:app:compileBlueDebugSources SKIPPED
+:app:mergeBlueDebugShaders SKIPPED
+:app:compileBlueDebugShaders SKIPPED
+:app:generateBlueDebugAssets SKIPPED
+:app:mergeBlueDebugAssets SKIPPED
+:app:transformClassesWithDexForBlueDebug SKIPPED
+:app:mergeBlueDebugJniLibFolders SKIPPED
+:app:transformNative_libsWithMergeJniLibsForBlueDebug SKIPPED
+:app:processBlueDebugJavaRes SKIPPED
+:app:transformResourcesWithMergeJavaResForBlueDebug SKIPPED
+:app:validateSigningBlueDebug SKIPPED
+:app:packageBlueDebug SKIPPED
+:app:assembleBlueDebug SKIPPED
+:app:checkRedDebugManifest SKIPPED
+:app:prepareRedDebugDependencies SKIPPED
+:app:compileRedDebugAidl SKIPPED
+:app:compileRedDebugRenderscript SKIPPED
+:app:generateRedDebugBuildConfig SKIPPED
+:app:generateRedDebugResValues SKIPPED
+:app:generateRedDebugResources SKIPPED
+:app:mergeRedDebugResources SKIPPED
+:app:processRedDebugManifest SKIPPED
+:app:processRedDebugResources SKIPPED
+:app:generateRedDebugSources SKIPPED
+:app:incrementalRedDebugJavaCompilationSafeguard SKIPPED
+:app:compileRedDebugJavaWithJavac SKIPPED
+:app:compileRedDebugNdk SKIPPED
+:app:compileRedDebugSources SKIPPED
+:app:mergeRedDebugShaders SKIPPED
+:app:compileRedDebugShaders SKIPPED
+:app:generateRedDebugAssets SKIPPED
+:app:mergeRedDebugAssets SKIPPED
+:app:transformClassesWithDexForRedDebug SKIPPED
+:app:mergeRedDebugJniLibFolders SKIPPED
+:app:transformNative_libsWithMergeJniLibsForRedDebug SKIPPED
+:app:processRedDebugJavaRes SKIPPED
+:app:transformResourcesWithMergeJavaResForRedDebug SKIPPED
+:app:validateSigningRedDebug SKIPPED
+:app:packageRedDebug SKIPPED
+:app:assembleRedDebug SKIPPED
+:app:assembleDebug SKIPPED
+:app:checkBlueReleaseManifest SKIPPED
+:app:prepareBlueReleaseDependencies SKIPPED
+:app:compileBlueReleaseAidl SKIPPED
+:app:compileBlueReleaseRenderscript SKIPPED
+:app:generateBlueReleaseBuildConfig SKIPPED
+:app:generateBlueReleaseResValues SKIPPED
+:app:generateBlueReleaseResources SKIPPED
+:app:mergeBlueReleaseResources SKIPPED
+:app:processBlueReleaseManifest SKIPPED
+:LibraryA:prepareComAndroidSupportAppcompatV72501Library UP-TO-DATE
+:app:processBlueReleaseResources SKIPPED
+:app:generateBlueReleaseSources SKIPPED
+:app:incrementalBlueReleaseJavaCompilationSafeguard SKIPPED
+:LibraryA:prepareComAndroidSupportSupportCompat2501Library
+:app:compileBlueReleaseJavaWithJavac SKIPPED
+:app:compileBlueReleaseNdk
+:LibraryA:prepareComAndroidSupportSupportCompat2501Library UP-TO-DATE
+:app:compileBlueReleaseNdk SKIPPED
+:LibraryA:prepareComAndroidSupportSupportCoreUi2501Library
+:app:compileBlueReleaseSources SKIPPED
+:app:lintVitalBlueRelease SKIPPED
+:app:getReleasePassword SKIPPED
+:app:mergeBlueReleaseShaders SKIPPED
+:app:compileBlueReleaseShaders SKIPPED
+:app:generateBlueReleaseAssets SKIPPED
+:LibraryA:prepareComAndroidSupportSupportCoreUi2501Library UP-TO-DATE
+:app:mergeBlueReleaseAssets SKIPPED
+:LibraryA:prepareComAndroidSupportSupportCoreUtils2501Library
+:app:transformClassesWithDexForBlueRelease SKIPPED
+:app:mergeBlueReleaseJniLibFolders SKIPPED
+:app:transformNative_libsWithMergeJniLibsForBlueRelease SKIPPED
+:LibraryA:prepareComAndroidSupportSupportCoreUtils2501Library UP-TO-DATE
+:LibraryA:prepareComAndroidSupportSupportFragment2501Library
+:app:processBlueReleaseJavaRes SKIPPED
+:app:transformResourcesWithMergeJavaResForBlueRelease SKIPPED
+:app:validateSigningBlueRelease SKIPPED
+:app:packageBlueRelease SKIPPED
+:app:assembleBlueRelease SKIPPED
+:app:assembleRelease SKIPPED
+:LibraryA:prepareComAndroidSupportSupportFragment2501Library UP-TO-DATE
+:LibraryA:prepareComAndroidSupportSupportMediaCompat2501Library
+:app:checkBlueStagingManifest SKIPPED
+:app:prepareBlueStagingDependencies SKIPPED
+:app:compileBlueStagingAidl SKIPPED
+:app:compileBlueStagingRenderscript SKIPPED
+:app:generateBlueStagingBuildConfig SKIPPED
+:app:generateBlueStagingResValues SKIPPED
+:app:generateBlueStagingResources SKIPPED
+:LibraryA:prepareComAndroidSupportSupportMediaCompat2501Library UP-TO-DATE
+:app:mergeBlueStagingResources SKIPPED
+:app:processBlueStagingManifest SKIPPED
+:app:processBlueStagingResources SKIPPED
+:app:generateBlueStagingSources SKIPPED
+:app:incrementalBlueStagingJavaCompilationSafeguard SKIPPED
+:app:compileBlueStagingJavaWithJavac SKIPPED
+:app:compileBlueStagingNdk SKIPPED
+:app:compileBlueStagingSources SKIPPED
+:LibraryA:prepareComAndroidSupportSupportV42501Library
+:app:lintVitalBlueStaging SKIPPED
+:app:mergeBlueStagingShaders SKIPPED
+:app:compileBlueStagingShaders SKIPPED
+:app:generateBlueStagingAssets SKIPPED
+:app:mergeBlueStagingAssets SKIPPED
+:app:transformClassesWithDexForBlueStaging SKIPPED
+:LibraryA:prepareComAndroidSupportSupportV42501Library UP-TO-DATE
+:app:mergeBlueStagingJniLibFolders SKIPPED
+:LibraryA:prepareComAndroidSupportSupportVectorDrawable2501Library
+:app:transformNative_libsWithMergeJniLibsForBlueStaging SKIPPED
+:app:processBlueStagingJavaRes SKIPPED
+:LibraryA:prepareComAndroidSupportSupportVectorDrawable2501Library UP-TO-DATE
+:app:transformResourcesWithMergeJavaResForBlueStaging SKIPPED
+:LibraryA:prepareDebugDependencies
+:app:validateSigningBlueStaging SKIPPED
+:app:packageBlueStaging SKIPPED
+:app:assembleBlueStaging SKIPPED
+:app:checkRedStagingManifest SKIPPED
+:app:prepareRedStagingDependencies SKIPPED
+:app:compileRedStagingAidl SKIPPED
+:app:compileRedStagingRenderscript SKIPPED
+:LibraryA:compileDebugAidl
+:app:generateRedStagingBuildConfig SKIPPED
+:app:generateRedStagingResValues SKIPPED
+:app:generateRedStagingResources SKIPPED
+:app:mergeRedStagingResources SKIPPED
+:app:processRedStagingManifest SKIPPED
+:app:processRedStagingResources SKIPPED
+:app:generateRedStagingSources SKIPPED
+:app:incrementalRedStagingJavaCompilationSafeguard SKIPPED
+:app:compileRedStagingJavaWithJavac SKIPPED
+:app:compileRedStagingNdk SKIPPED
+:app:compileRedStagingSources SKIPPED
+:app:lintVitalRedStaging SKIPPED
+:app:mergeRedStagingShaders SKIPPED
+:app:compileRedStagingShaders SKIPPED
+:app:generateRedStagingAssets SKIPPED
+:LibraryA:compileDebugAidl UP-TO-DATE
+:app:mergeRedStagingAssets SKIPPED
+:LibraryA:compileDebugNdk UP-TO-DATE
+:app:transformClassesWithDexForRedStaging SKIPPED
+:app:mergeRedStagingJniLibFolders SKIPPED
+:app:transformNative_libsWithMergeJniLibsForRedStaging SKIPPED
+:LibraryA:compileLint
+:app:processRedStagingJavaRes SKIPPED
+:LibraryA:compileLint UP-TO-DATE
+:app:transformResourcesWithMergeJavaResForRedStaging SKIPPED
+:LibraryA:copyDebugLint
+:app:validateSigningRedStaging SKIPPED
+:LibraryA:copyDebugLint UP-TO-DATE
+:app:packageRedStaging SKIPPED
+:LibraryA:compileDebugRenderscript
+:app:assembleRedStaging SKIPPED
+:app:assembleStaging SKIPPED
+:app:assemble SKIPPED
+:app:lint SKIPPED
+:app:incrementalBlueDebugUnitTestJavaCompilationSafeguard SKIPPED
+:app:preBlueDebugUnitTestBuild SKIPPED
+:app:prepareBlueDebugUnitTestDependencies SKIPPED
+:app:compileBlueDebugUnitTestJavaWithJavac SKIPPED
+:LibraryA:compileDebugRenderscript UP-TO-DATE
+:app:processBlueDebugUnitTestJavaRes SKIPPED
+:app:compileBlueDebugUnitTestSources SKIPPED
+:app:mockableAndroidJar SKIPPED
+:app:assembleBlueDebugUnitTest SKIPPED
+:LibraryA:generateDebugBuildConfig UP-TO-DATE
+:LibraryA:generateDebugResValues UP-TO-DATE
+:LibraryA:generateDebugResources UP-TO-DATE
+:LibraryA:mergeDebugResources
+:app:testBlueDebugUnitTest SKIPPED
+:app:incrementalBlueReleaseUnitTestJavaCompilationSafeguard SKIPPED
+:app:preBlueReleaseUnitTestBuild SKIPPED
+:app:prepareBlueReleaseUnitTestDependencies SKIPPED
+:app:compileBlueReleaseUnitTestJavaWithJavac SKIPPED
+:app:processBlueReleaseUnitTestJavaRes SKIPPED
+:app:compileBlueReleaseUnitTestSources SKIPPED
+:app:assembleBlueReleaseUnitTest SKIPPED
+:app:testBlueReleaseUnitTest SKIPPED
+:app:incrementalBlueStagingUnitTestJavaCompilationSafeguard SKIPPED
+:app:preBlueStagingUnitTestBuild SKIPPED
+:app:prepareBlueStagingUnitTestDependencies SKIPPED
+:app:compileBlueStagingUnitTestJavaWithJavac SKIPPED
+:app:processBlueStagingUnitTestJavaRes SKIPPED
+:app:compileBlueStagingUnitTestSources SKIPPED
+:app:assembleBlueStagingUnitTest SKIPPED
+:app:testBlueStagingUnitTest SKIPPED
+:app:incrementalRedDebugUnitTestJavaCompilationSafeguard SKIPPED
+:app:preRedDebugUnitTestBuild SKIPPED
+:app:prepareRedDebugUnitTestDependencies SKIPPED
+:app:compileRedDebugUnitTestJavaWithJavac SKIPPED
+:app:processRedDebugUnitTestJavaRes SKIPPED
+:app:compileRedDebugUnitTestSources SKIPPED
+:app:assembleRedDebugUnitTest SKIPPED
+:app:testRedDebugUnitTest SKIPPED
+:app:incrementalRedStagingUnitTestJavaCompilationSafeguard SKIPPED
+:app:preRedStagingUnitTestBuild SKIPPED
+:app:prepareRedStagingUnitTestDependencies SKIPPED
+:app:compileRedStagingUnitTestJavaWithJavac SKIPPED
+:app:processRedStagingUnitTestJavaRes SKIPPED
+:app:compileRedStagingUnitTestSources SKIPPED
+:app:assembleRedStagingUnitTest SKIPPED
+:app:testRedStagingUnitTest SKIPPED
+:app:test SKIPPED
+:app:check SKIPPED
+:app:build SKIPPED
+:app:taskTree
+
+------------------------------------------------------------
+Project :app
+------------------------------------------------------------
+
+:app:build
++--- :app:assemble
+|    +--- :app:assembleDebug
+|    |    +--- :app:assembleBlueDebug
+|    |    |    +--- :app:compileBlueDebugSources
+|    |    |    |    +--- :app:compileBlueDebugJavaWithJavac
+|    |    |    |    |    +--- :app:generateBlueDebugSources
+|    |    |    |    |    |    +--- :app:compileBlueDebugAidl
+|    |    |    |    |    |    |    \--- :app:prepareBlueDebugDependencies
+|    |    |    |    |    |    |         +--- :app:checkBlueDebugManifest
+|    |    |    |    |    |    |         |    \--- :app:preBlueDebugBuild
+|    |    |    |    |    |    |         |         \--- :app:preBuild
+|    |    |    |    |    |    |         +--- :app:preBlueDebugBuild *
+|    |    |    |    |    |    |         +--- :app:prepareComAndroidSupportAnimatedVectorDrawable2520Library
+|    |    |    |    |    |    |         |    +--- :app:preBlueDebugBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueReleaseBuild
+|    |    |    |    |    |    |         |    |    \--- :app:preBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueStagingBuild
+|    |    |    |    |    |    |         |    |    \--- :app:preBuild *
+|    |    |    |    |    |    |         |    +--- :app:preRedDebugBuild
+|    |    |    |    |    |    |         |    |    \--- :app:preBuild *
+|    |    |    |    |    |    |         |    \--- :app:preRedStagingBuild
+|    |    |    |    |    |    |         |         \--- :app:preBuild *
+|    |    |    |    |    |    |         +--- :app:prepareComAndroidSupportAppcompatV72520Library
+|    |    |    |    |    |    |         |    +--- :app:preBlueDebugBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueReleaseBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueStagingBuild *
+|    |    |    |    |    |    |         |    +--- :app:preRedDebugBuild *
+|    |    |    |    |    |    |         |    \--- :app:preRedStagingBuild *
+|    |    |    |    |    |    |         +--- :app:prepareComAndroidSupportSupportCompat2520Library
+|    |    |    |    |    |    |         |    +--- :app:preBlueDebugBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueReleaseBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueStagingBuild *
+|    |    |    |    |    |    |         |    +--- :app:preRedDebugBuild *
+|    |    |    |    |    |    |         |    \--- :app:preRedStagingBuild *
+|    |    |    |    |    |    |         +--- :app:prepareComAndroidSupportSupportCoreUi2520Library
+|    |    |    |    |    |    |         |    +--- :app:preBlueDebugBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueReleaseBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueStagingBuild *
+|    |    |    |    |    |    |         |    +--- :app:preRedDebugBuild *
+|    |    |    |    |    |    |         |    \--- :app:preRedStagingBuild *
+|    |    |    |    |    |    |         +--- :app:prepareComAndroidSupportSupportCoreUtils2520Library
+|    |    |    |    |    |    |         |    +--- :app:preBlueDebugBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueReleaseBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueStagingBuild *
+|    |    |    |    |    |    |         |    +--- :app:preRedDebugBuild *
+|    |    |    |    |    |    |         |    \--- :app:preRedStagingBuild *
+|    |    |    |    |    |    |         +--- :app:prepareComAndroidSupportSupportFragment2520Library
+|    |    |    |    |    |    |         |    +--- :app:preBlueDebugBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueReleaseBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueStagingBuild *
+|    |    |    |    |    |    |         |    +--- :app:preRedDebugBuild *
+|    |    |    |    |    |    |         |    \--- :app:preRedStagingBuild *
+|    |    |    |    |    |    |         +--- :app:prepareComAndroidSupportSupportMediaCompat2520Library
+|    |    |    |    |    |    |         |    +--- :app:preBlueDebugBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueReleaseBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueStagingBuild *
+|    |    |    |    |    |    |         |    +--- :app:preRedDebugBuild *
+|    |    |    |    |    |    |         |    \--- :app:preRedStagingBuild *
+|    |    |    |    |    |    |         +--- :app:prepareComAndroidSupportSupportV42520Library
+|    |    |    |    |    |    |         |    +--- :app:preBlueDebugBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueReleaseBuild *
+|    |    |    |    |    |    |         |    +--- :app:preBlueStagingBuild *
+|    |    |    |    |    |    |         |    +--- :app:preRedDebugBuild *
+|    |    |    |    |    |    |         |    \--- :app:preRedStagingBuild *
+|    |    |    |    |    |    |         \--- :app:prepareComAndroidSupportSupportVectorDrawable2520Library
+|    |    |    |    |    |    |              +--- :app:preBlueDebugBuild *
+|    |    |    |    |    |    |              +--- :app:preBlueReleaseBuild *
+|    |    |    |    |    |    |              +--- :app:preBlueStagingBuild *
+|    |    |    |    |    |    |              +--- :app:preRedDebugBuild *
+|    |    |    |    |    |    |              \--- :app:preRedStagingBuild *
+|    |    |    |    |    |    +--- :app:compileBlueDebugRenderscript
+|    |    |    |    |    |    |    +--- :app:checkBlueDebugManifest *
+|    |    |    |    |    |    |    \--- :app:prepareBlueDebugDependencies *
+|    |    |    |    |    |    +--- :app:generateBlueDebugBuildConfig
+|    |    |    |    |    |    |    \--- :app:checkBlueDebugManifest *
+|    |    |    |    |    |    \--- :app:processBlueDebugResources
+|    |    |    |    |    |         +--- :app:mergeBlueDebugResources
+|    |    |    |    |    |         |    +--- :app:generateBlueDebugResources
+|    |    |    |    |    |         |    |    +--- :app:compileBlueDebugRenderscript *
+|    |    |    |    |    |         |    |    \--- :app:generateBlueDebugResValues
+|    |    |    |    |    |         |    \--- :app:prepareBlueDebugDependencies *
+|    |    |    |    |    |         \--- :app:processBlueDebugManifest
+|    |    |    |    |    |              \--- :app:prepareBlueDebugDependencies *
+|    |    |    |    |    +--- :app:incrementalBlueDebugJavaCompilationSafeguard
+|    |    |    |    |    \--- :app:prepareBlueDebugDependencies *
+|    |    |    |    \--- :app:compileBlueDebugNdk
+|    |    |    |         \--- :app:preBlueDebugBuild *
+|    |    |    \--- :app:packageBlueDebug
+|    |    |         +--- :app:compileBlueDebugJavaWithJavac *
+|    |    |         +--- :app:mergeBlueDebugAssets
+|    |    |         |    +--- :app:generateBlueDebugAssets
+|    |    |         |    |    \--- :app:compileBlueDebugShaders
+|    |    |         |    |         \--- :app:mergeBlueDebugShaders
+|    |    |         |    \--- :app:prepareBlueDebugDependencies *
+|    |    |         +--- :app:processBlueDebugResources *
+|    |    |         +--- :app:transformClassesWithDexForBlueDebug
+|    |    |         |    +--- :app:compileBlueDebugJavaWithJavac *
+|    |    |         |    \--- :app:prepareBlueDebugDependencies *
+|    |    |         +--- :app:transformNative_libsWithMergeJniLibsForBlueDebug
+|    |    |         |    +--- :app:compileBlueDebugNdk *
+|    |    |         |    +--- :app:mergeBlueDebugJniLibFolders
+|    |    |         |    |    +--- :app:generateBlueDebugAssets *
+|    |    |         |    |    \--- :app:prepareBlueDebugDependencies *
+|    |    |         |    \--- :app:prepareBlueDebugDependencies *
+|    |    |         +--- :app:transformResourcesWithMergeJavaResForBlueDebug
+|    |    |         |    +--- :app:prepareBlueDebugDependencies *
+|    |    |         |    \--- :app:processBlueDebugJavaRes
+|    |    |         \--- :app:validateSigningBlueDebug
+|    |    \--- :app:assembleRedDebug
+|    |         +--- :app:compileRedDebugSources
+|    |         |    +--- :app:compileRedDebugJavaWithJavac
+|    |         |    |    +--- :app:generateRedDebugSources
+|    |         |    |    |    +--- :app:compileRedDebugAidl
+|    |         |    |    |    |    \--- :app:prepareRedDebugDependencies
+|    |         |    |    |    |         +--- :app:checkRedDebugManifest
+|    |         |    |    |    |         |    \--- :app:preRedDebugBuild *
+|    |         |    |    |    |         +--- :app:preRedDebugBuild *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportAnimatedVectorDrawable2520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportAppcompatV72520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportSupportCompat2520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportSupportCoreUi2520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportSupportCoreUtils2520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportSupportFragment2520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportSupportMediaCompat2520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportSupportV42520Library *
+|    |         |    |    |    |         \--- :app:prepareComAndroidSupportSupportVectorDrawable2520Library *
+|    |         |    |    |    +--- :app:compileRedDebugRenderscript
+|    |         |    |    |    |    +--- :app:checkRedDebugManifest *
+|    |         |    |    |    |    \--- :app:prepareRedDebugDependencies *
+|    |         |    |    |    +--- :app:generateRedDebugBuildConfig
+|    |         |    |    |    |    \--- :app:checkRedDebugManifest *
+|    |         |    |    |    \--- :app:processRedDebugResources
+|    |         |    |    |         +--- :app:mergeRedDebugResources
+|    |         |    |    |         |    +--- :app:generateRedDebugResources
+|    |         |    |    |         |    |    +--- :app:compileRedDebugRenderscript *
+|    |         |    |    |         |    |    \--- :app:generateRedDebugResValues
+|    |         |    |    |         |    \--- :app:prepareRedDebugDependencies *
+|    |         |    |    |         \--- :app:processRedDebugManifest
+|    |         |    |    |              \--- :app:prepareRedDebugDependencies *
+|    |         |    |    +--- :app:incrementalRedDebugJavaCompilationSafeguard
+|    |         |    |    \--- :app:prepareRedDebugDependencies *
+|    |         |    \--- :app:compileRedDebugNdk
+|    |         |         \--- :app:preRedDebugBuild *
+|    |         \--- :app:packageRedDebug
+|    |              +--- :app:compileRedDebugJavaWithJavac *
+|    |              +--- :app:mergeRedDebugAssets
+|    |              |    +--- :app:generateRedDebugAssets
+|    |              |    |    \--- :app:compileRedDebugShaders
+|    |              |    |         \--- :app:mergeRedDebugShaders
+|    |              |    \--- :app:prepareRedDebugDependencies *
+|    |              +--- :app:processRedDebugResources *
+|    |              +--- :app:transformClassesWithDexForRedDebug
+|    |              |    +--- :app:compileRedDebugJavaWithJavac *
+|    |              |    \--- :app:prepareRedDebugDependencies *
+|    |              +--- :app:transformNative_libsWithMergeJniLibsForRedDebug
+|    |              |    +--- :app:compileRedDebugNdk *
+|    |              |    +--- :app:mergeRedDebugJniLibFolders
+|    |              |    |    +--- :app:generateRedDebugAssets *
+|    |              |    |    \--- :app:prepareRedDebugDependencies *
+|    |              |    \--- :app:prepareRedDebugDependencies *
+|    |              +--- :app:transformResourcesWithMergeJavaResForRedDebug
+|    |              |    +--- :app:prepareRedDebugDependencies *
+|    |              |    \--- :app:processRedDebugJavaRes
+|    |              \--- :app:validateSigningRedDebug
+|    +--- :app:assembleRelease
+|    |    \--- :app:assembleBlueRelease
+|    |         +--- :app:compileBlueReleaseSources
+|    |         |    +--- :app:compileBlueReleaseJavaWithJavac
+|    |         |    |    +--- :app:generateBlueReleaseSources
+|    |         |    |    |    +--- :app:compileBlueReleaseAidl
+|    |         |    |    |    |    \--- :app:prepareBlueReleaseDependencies
+|    |         |    |    |    |         +--- :app:checkBlueReleaseManifest
+|    |         |    |    |    |         |    \--- :app:preBlueReleaseBuild *
+|    |         |    |    |    |         +--- :app:preBlueReleaseBuild *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportAnimatedVectorDrawable2520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportAppcompatV72520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportSupportCompat2520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportSupportCoreUi2520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportSupportCoreUtils2520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportSupportFragment2520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportSupportMediaCompat2520Library *
+|    |         |    |    |    |         +--- :app:prepareComAndroidSupportSupportV42520Library *
+|    |         |    |    |    |         \--- :app:prepareComAndroidSupportSupportVectorDrawable2520Library *
+|    |         |    |    |    +--- :app:compileBlueReleaseRenderscript
+|    |         |    |    |    |    +--- :app:checkBlueReleaseManifest *
+|    |         |    |    |    |    \--- :app:prepareBlueReleaseDependencies *
+|    |         |    |    |    +--- :app:generateBlueReleaseBuildConfig
+|    |         |    |    |    |    \--- :app:checkBlueReleaseManifest *
+|    |         |    |    |    \--- :app:processBlueReleaseResources
+|    |         |    |    |         +--- :app:mergeBlueReleaseResources
+|    |         |    |    |         |    +--- :app:generateBlueReleaseResources
+|    |         |    |    |         |    |    +--- :app:compileBlueReleaseRenderscript *
+|    |         |    |    |         |    |    \--- :app:generateBlueReleaseResValues
+|    |         |    |    |         |    \--- :app:prepareBlueReleaseDependencies *
+|    |         |    |    |         \--- :app:processBlueReleaseManifest
+|    |         |    |    |              \--- :app:prepareBlueReleaseDependencies *
+|    |         |    |    +--- :app:incrementalBlueReleaseJavaCompilationSafeguard
+|    |         |    |    \--- :app:prepareBlueReleaseDependencies *
+|    |         |    \--- :app:compileBlueReleaseNdk
+|    |         |         \--- :app:preBlueReleaseBuild *
+|    |         +--- :app:lintVitalBlueRelease
+|    |         |    \--- :app:compileBlueReleaseJavaWithJavac *
+|    |         \--- :app:packageBlueRelease
+|    |              +--- :app:compileBlueReleaseJavaWithJavac *
+|    |              +--- :app:getReleasePassword
+|    |              +--- :app:mergeBlueReleaseAssets
+|    |              |    +--- :app:generateBlueReleaseAssets
+|    |              |    |    \--- :app:compileBlueReleaseShaders
+|    |              |    |         \--- :app:mergeBlueReleaseShaders
+|    |              |    \--- :app:prepareBlueReleaseDependencies *
+|    |              +--- :app:processBlueReleaseResources *
+|    |              +--- :app:transformClassesWithDexForBlueRelease
+|    |              |    +--- :app:compileBlueReleaseJavaWithJavac *
+|    |              |    \--- :app:prepareBlueReleaseDependencies *
+|    |              +--- :app:transformNative_libsWithMergeJniLibsForBlueRelease
+|    |              |    +--- :app:compileBlueReleaseNdk *
+|    |              |    +--- :app:mergeBlueReleaseJniLibFolders
+|    |              |    |    +--- :app:generateBlueReleaseAssets *
+|    |              |    |    \--- :app:prepareBlueReleaseDependencies *
+|    |              |    \--- :app:prepareBlueReleaseDependencies *
+|    |              +--- :app:transformResourcesWithMergeJavaResForBlueRelease
+|    |              |    +--- :app:prepareBlueReleaseDependencies *
+|    |              |    \--- :app:processBlueReleaseJavaRes
+|    |              \--- :app:validateSigningBlueRelease
+|    \--- :app:assembleStaging
+|         +--- :app:assembleBlueStaging
+|         |    +--- :app:compileBlueStagingSources
+|         |    |    +--- :app:compileBlueStagingJavaWithJavac
+|         |    |    |    +--- :app:generateBlueStagingSources
+|         |    |    |    |    +--- :app:compileBlueStagingAidl
+|         |    |    |    |    |    \--- :app:prepareBlueStagingDependencies
+|         |    |    |    |    |         +--- :app:checkBlueStagingManifest
+|         |    |    |    |    |         |    \--- :app:preBlueStagingBuild *
+|         |    |    |    |    |         +--- :app:preBlueStagingBuild *
+|         |    |    |    |    |         +--- :app:prepareComAndroidSupportAnimatedVectorDrawable2520Library *
+|         |    |    |    |    |         +--- :app:prepareComAndroidSupportAppcompatV72520Library *
+|         |    |    |    |    |         +--- :app:prepareComAndroidSupportSupportCompat2520Library *
+|         |    |    |    |    |         +--- :app:prepareComAndroidSupportSupportCoreUi2520Library *
+|         |    |    |    |    |         +--- :app:prepareComAndroidSupportSupportCoreUtils2520Library *
+|         |    |    |    |    |         +--- :app:prepareComAndroidSupportSupportFragment2520Library *
+|         |    |    |    |    |         +--- :app:prepareComAndroidSupportSupportMediaCompat2520Library *
+|         |    |    |    |    |         +--- :app:prepareComAndroidSupportSupportV42520Library *
+|         |    |    |    |    |         \--- :app:prepareComAndroidSupportSupportVectorDrawable2520Library *
+|         |    |    |    |    +--- :app:compileBlueStagingRenderscript
+|         |    |    |    |    |    +--- :app:checkBlueStagingManifest *
+|         |    |    |    |    |    \--- :app:prepareBlueStagingDependencies *
+|         |    |    |    |    +--- :app:generateBlueStagingBuildConfig
+|         |    |    |    |    |    \--- :app:checkBlueStagingManifest *
+|         |    |    |    |    \--- :app:processBlueStagingResources
+|         |    |    |    |         +--- :app:mergeBlueStagingResources
+|         |    |    |    |         |    +--- :app:generateBlueStagingResources
+|         |    |    |    |         |    |    +--- :app:compileBlueStagingRenderscript *
+|         |    |    |    |         |    |    \--- :app:generateBlueStagingResValues
+|         |    |    |    |         |    \--- :app:prepareBlueStagingDependencies *
+|         |    |    |    |         \--- :app:processBlueStagingManifest
+|         |    |    |    |              \--- :app:prepareBlueStagingDependencies *
+|         |    |    |    +--- :app:incrementalBlueStagingJavaCompilationSafeguard
+|         |    |    |    \--- :app:prepareBlueStagingDependencies *
+|         |    |    \--- :app:compileBlueStagingNdk
+|         |    |         \--- :app:preBlueStagingBuild *
+|         |    +--- :app:lintVitalBlueStaging
+|         |    |    \--- :app:compileBlueStagingJavaWithJavac *
+|         |    \--- :app:packageBlueStaging
+|         |         +--- :app:compileBlueStagingJavaWithJavac *
+|         |         +--- :app:mergeBlueStagingAssets
+|         |         |    +--- :app:generateBlueStagingAssets
+|         |         |    |    \--- :app:compileBlueStagingShaders
+|         |         |    |         \--- :app:mergeBlueStagingShaders
+|         |         |    \--- :app:prepareBlueStagingDependencies *
+|         |         +--- :app:processBlueStagingResources *
+|         |         +--- :app:transformClassesWithDexForBlueStaging
+|         |         |    +--- :app:compileBlueStagingJavaWithJavac *
+|         |         |    \--- :app:prepareBlueStagingDependencies *
+|         |         +--- :app:transformNative_libsWithMergeJniLibsForBlueStaging
+|         |         |    +--- :app:compileBlueStagingNdk *
+|         |         |    +--- :app:mergeBlueStagingJniLibFolders
+|         |         |    |    +--- :app:generateBlueStagingAssets *
+|         |         |    |    \--- :app:prepareBlueStagingDependencies *
+|         |         |    \--- :app:prepareBlueStagingDependencies *
+|         |         +--- :app:transformResourcesWithMergeJavaResForBlueStaging
+|         |         |    +--- :app:prepareBlueStagingDependencies *
+|         |         |    \--- :app:processBlueStagingJavaRes
+|         |         \--- :app:validateSigningBlueStaging
+|         \--- :app:assembleRedStaging
+|              +--- :app:compileRedStagingSources
+|              |    +--- :app:compileRedStagingJavaWithJavac
+|              |    |    +--- :app:generateRedStagingSources
+|              |    |    |    +--- :app:compileRedStagingAidl
+|              |    |    |    |    \--- :app:prepareRedStagingDependencies
+|              |    |    |    |         +--- :app:checkRedStagingManifest
+|              |    |    |    |         |    \--- :app:preRedStagingBuild *
+|              |    |    |    |         +--- :app:preRedStagingBuild *
+|              |    |    |    |         +--- :app:prepareComAndroidSupportAnimatedVectorDrawable2520Library *
+|              |    |    |    |         +--- :app:prepareComAndroidSupportAppcompatV72520Library *
+|              |    |    |    |         +--- :app:prepareComAndroidSupportSupportCompat2520Library *
+|              |    |    |    |         +--- :app:prepareComAndroidSupportSupportCoreUi2520Library *
+|              |    |    |    |         +--- :app:prepareComAndroidSupportSupportCoreUtils2520Library *
+|              |    |    |    |         +--- :app:prepareComAndroidSupportSupportFragment2520Library *
+|              |    |    |    |         +--- :app:prepareComAndroidSupportSupportMediaCompat2520Library *
+|              |    |    |    |         +--- :app:prepareComAndroidSupportSupportV42520Library *
+|              |    |    |    |         \--- :app:prepareComAndroidSupportSupportVectorDrawable2520Library *
+|              |    |    |    +--- :app:compileRedStagingRenderscript
+|              |    |    |    |    +--- :app:checkRedStagingManifest *
+|              |    |    |    |    \--- :app:prepareRedStagingDependencies *
+|              |    |    |    +--- :app:generateRedStagingBuildConfig
+|              |    |    |    |    \--- :app:checkRedStagingManifest *
+|              |    |    |    \--- :app:processRedStagingResources
+|              |    |    |         +--- :app:mergeRedStagingResources
+|              |    |    |         |    +--- :app:generateRedStagingResources
+|              |    |    |         |    |    +--- :app:compileRedStagingRenderscript *
+|              |    |    |         |    |    \--- :app:generateRedStagingResValues
+|              |    |    |         |    \--- :app:prepareRedStagingDependencies *
+|              |    |    |         \--- :app:processRedStagingManifest
+|              |    |    |              \--- :app:prepareRedStagingDependencies *
+|              |    |    +--- :app:incrementalRedStagingJavaCompilationSafeguard
+|              |    |    \--- :app:prepareRedStagingDependencies *
+|              |    \--- :app:compileRedStagingNdk
+|              |         \--- :app:preRedStagingBuild *
+|              +--- :app:lintVitalRedStaging
+|              |    \--- :app:compileRedStagingJavaWithJavac *
+|              \--- :app:packageRedStaging
+|                   +--- :app:compileRedStagingJavaWithJavac *
+|                   +--- :app:mergeRedStagingAssets
+|                   |    +--- :app:generateRedStagingAssets
+|                   |    |    \--- :app:compileRedStagingShaders
+|                   |    |         \--- :app:mergeRedStagingShaders
+|                   |    \--- :app:prepareRedStagingDependencies *
+|                   +--- :app:processRedStagingResources *
+|                   +--- :app:transformClassesWithDexForRedStaging
+|                   |    +--- :app:compileRedStagingJavaWithJavac *
+|                   |    \--- :app:prepareRedStagingDependencies *
+|                   +--- :app:transformNative_libsWithMergeJniLibsForRedStaging
+|                   |    +--- :app:compileRedStagingNdk *
+|                   |    +--- :app:mergeRedStagingJniLibFolders
+|                   |    |    +--- :app:generateRedStagingAssets *
+|                   |    |    \--- :app:prepareRedStagingDependencies *
+|                   |    \--- :app:prepareRedStagingDependencies *
+|                   +--- :app:transformResourcesWithMergeJavaResForRedStaging
+|                   |    +--- :app:prepareRedStagingDependencies *
+|                   |    \--- :app:processRedStagingJavaRes
+|                   \--- :app:validateSigningRedStaging
+\--- :app:check
+     +--- :app:lint
+     |    +--- :app:compileBlueDebugJavaWithJavac *
+     |    +--- :app:compileBlueReleaseJavaWithJavac *
+     |    +--- :app:compileBlueStagingJavaWithJavac *
+     |    +--- :app:compileRedDebugJavaWithJavac *
+     |    \--- :app:compileRedStagingJavaWithJavac *
+     \--- :app:test
+          +--- :app:testBlueDebugUnitTest
+          |    +--- :app:assembleBlueDebugUnitTest
+          |    |    +--- :app:compileBlueDebugUnitTestSources
+          |    |    |    +--- :app:compileBlueDebugUnitTestJavaWithJavac
+          |    |    |    |    +--- :app:compileBlueDebugJavaWithJavac *
+          |    |    |    |    +--- :app:incrementalBlueDebugUnitTestJavaCompilationSafeguard
+          |    |    |    |    \--- :app:prepareBlueDebugUnitTestDependencies
+          |    |    |    |         \--- :app:preBlueDebugUnitTestBuild
+          |    |    |    |              \--- :app:preBuild *
+          |    |    |    +--- :app:processBlueDebugJavaRes *
+          |    |    |    \--- :app:processBlueDebugUnitTestJavaRes
+          |    |    \--- :app:mockableAndroidJar
+          |    \--- :app:compileBlueDebugUnitTestJavaWithJavac *
+          +--- :app:testBlueReleaseUnitTest
+          |    +--- :app:assembleBlueReleaseUnitTest
+          |    |    +--- :app:compileBlueReleaseUnitTestSources
+          |    |    |    +--- :app:compileBlueReleaseUnitTestJavaWithJavac
+          |    |    |    |    +--- :app:compileBlueReleaseJavaWithJavac *
+          |    |    |    |    +--- :app:incrementalBlueReleaseUnitTestJavaCompilationSafeguard
+          |    |    |    |    \--- :app:prepareBlueReleaseUnitTestDependencies
+          |    |    |    |         \--- :app:preBlueReleaseUnitTestBuild
+          |    |    |    |              \--- :app:preBuild *
+          |    |    |    +--- :app:processBlueReleaseJavaRes *
+          |    |    |    \--- :app:processBlueReleaseUnitTestJavaRes
+          |    |    \--- :app:mockableAndroidJar *
+          |    \--- :app:compileBlueReleaseUnitTestJavaWithJavac *
+          +--- :app:testBlueStagingUnitTest
+          |    +--- :app:assembleBlueStagingUnitTest
+          |    |    +--- :app:compileBlueStagingUnitTestSources
+          |    |    |    +--- :app:compileBlueStagingUnitTestJavaWithJavac
+          |    |    |    |    +--- :app:compileBlueStagingJavaWithJavac *
+          |    |    |    |    +--- :app:incrementalBlueStagingUnitTestJavaCompilationSafeguard
+          |    |    |    |    \--- :app:prepareBlueStagingUnitTestDependencies
+          |    |    |    |         \--- :app:preBlueStagingUnitTestBuild
+          |    |    |    |              \--- :app:preBuild *
+          |    |    |    +--- :app:processBlueStagingJavaRes *
+          |    |    |    \--- :app:processBlueStagingUnitTestJavaRes
+          |    |    \--- :app:mockableAndroidJar *
+          |    \--- :app:compileBlueStagingUnitTestJavaWithJavac *
+          +--- :app:testRedDebugUnitTest
+          |    +--- :app:assembleRedDebugUnitTest
+          |    |    +--- :app:compileRedDebugUnitTestSources
+          |    |    |    +--- :app:compileRedDebugUnitTestJavaWithJavac
+          |    |    |    |    +--- :app:compileRedDebugJavaWithJavac *
+          |    |    |    |    +--- :app:incrementalRedDebugUnitTestJavaCompilationSafeguard
+          |    |    |    |    \--- :app:prepareRedDebugUnitTestDependencies
+          |    |    |    |         \--- :app:preRedDebugUnitTestBuild
+          |    |    |    |              \--- :app:preBuild *
+          |    |    |    +--- :app:processRedDebugJavaRes *
+          |    |    |    \--- :app:processRedDebugUnitTestJavaRes
+          |    |    \--- :app:mockableAndroidJar *
+          |    \--- :app:compileRedDebugUnitTestJavaWithJavac *
+          \--- :app:testRedStagingUnitTest
+               +--- :app:assembleRedStagingUnitTest
+               |    +--- :app:compileRedStagingUnitTestSources
+               |    |    +--- :app:compileRedStagingUnitTestJavaWithJavac
+               |    |    |    +--- :app:compileRedStagingJavaWithJavac *
+               |    |    |    +--- :app:incrementalRedStagingUnitTestJavaCompilationSafeguard
+               |    |    |    \--- :app:prepareRedStagingUnitTestDependencies
+               |    |    |         \--- :app:preRedStagingUnitTestBuild
+               |    |    |              \--- :app:preBuild *
+               |    |    +--- :app:processRedStagingJavaRes *
+               |    |    \--- :app:processRedStagingUnitTestJavaRes
+               |    \--- :app:mockableAndroidJar *
+               \--- :app:compileRedStagingUnitTestJavaWithJavac *
+
+
+(*) - subtree omitted (printed previously)
+
+To see task dependency tree for a specific task, run gradlew <project-path>:<task> <project-path>:taskTree [--no-repeat]
+Executions of all tasks except for taskTree will be skipped. They will be used for building the task graph only.
+
+Add --no-repeat to prevent printing a subtree of the same task more than once.
+
+For example, try running gradlew :app:build :app:taskTree
+:LibraryA:mergeDebugResources UP-TO-DATE
+:LibraryA:processDebugManifest UP-TO-DATE
+:LibraryA:processDebugResources UP-TO-DATE
+:LibraryA:generateDebugSources UP-TO-DATE
+:LibraryA:incrementalDebugJavaCompilationSafeguard UP-TO-DATE
+:LibraryA:compileDebugJavaWithJavac UP-TO-DATE
+:LibraryA:extractDebugAnnotations UP-TO-DATE
+:LibraryA:mergeDebugShaders UP-TO-DATE
+:LibraryA:compileDebugShaders UP-TO-DATE
+:LibraryA:generateDebugAssets UP-TO-DATE
+:LibraryA:mergeDebugAssets UP-TO-DATE
+:LibraryA:mergeDebugProguardFiles UP-TO-DATE
+:LibraryA:packageDebugRenderscript UP-TO-DATE
+:LibraryA:packageDebugResources UP-TO-DATE
+:LibraryA:processDebugJavaRes UP-TO-DATE
+:LibraryA:transformResourcesWithMergeJavaResForDebug UP-TO-DATE
+:LibraryA:transformClassesAndResourcesWithSyncLibJarsForDebug UP-TO-DATE
+:LibraryA:mergeDebugJniLibFolders UP-TO-DATE
+:LibraryA:transformNative_libsWithMergeJniLibsForDebug UP-TO-DATE
+:LibraryA:transformNative_libsWithSyncJniLibsForDebug UP-TO-DATE
+:LibraryA:bundleDebug UP-TO-DATE
+:LibraryA:compileDebugSources UP-TO-DATE
+:LibraryA:assembleDebug UP-TO-DATE
+:LibraryA:checkReleaseManifest
+:LibraryA:prepareReleaseDependencies
+:LibraryA:compileReleaseAidl UP-TO-DATE
+:LibraryA:compileReleaseNdk UP-TO-DATE
+:LibraryA:copyReleaseLint UP-TO-DATE
+:LibraryA:compileReleaseRenderscript UP-TO-DATE
+:LibraryA:generateReleaseBuildConfig UP-TO-DATE
+:LibraryA:generateReleaseResValues UP-TO-DATE
+:LibraryA:generateReleaseResources UP-TO-DATE
+:LibraryA:mergeReleaseResources UP-TO-DATE
+:LibraryA:processReleaseManifest UP-TO-DATE
+:LibraryA:processReleaseResources UP-TO-DATE
+:LibraryA:generateReleaseSources UP-TO-DATE
+:LibraryA:incrementalReleaseJavaCompilationSafeguard UP-TO-DATE
+:LibraryA:compileReleaseJavaWithJavac UP-TO-DATE
+:LibraryA:extractReleaseAnnotations UP-TO-DATE
+:LibraryA:mergeReleaseShaders UP-TO-DATE
+:LibraryA:compileReleaseShaders UP-TO-DATE
+:LibraryA:generateReleaseAssets UP-TO-DATE
+:LibraryA:mergeReleaseAssets UP-TO-DATE
+:LibraryA:mergeReleaseProguardFiles UP-TO-DATE
+:LibraryA:packageReleaseRenderscript UP-TO-DATE
+:LibraryA:packageReleaseResources UP-TO-DATE
+:LibraryA:processReleaseJavaRes UP-TO-DATE
+:LibraryA:transformResourcesWithMergeJavaResForRelease UP-TO-DATE
+:LibraryA:transformClassesAndResourcesWithSyncLibJarsForRelease UP-TO-DATE
+:LibraryA:mergeReleaseJniLibFolders UP-TO-DATE
+:LibraryA:transformNative_libsWithMergeJniLibsForRelease UP-TO-DATE
+:LibraryA:transformNative_libsWithSyncJniLibsForRelease UP-TO-DATE
+:LibraryA:bundleRelease UP-TO-DATE
+:LibraryA:compileReleaseSources UP-TO-DATE
+:LibraryA:assembleRelease UP-TO-DATE
+:LibraryA:assemble UP-TO-DATE
+:LibraryA:lint
+Ran lint on variant release: 2 issues found
+Ran lint on variant debug: 2 issues found
+Wrote HTML report to file:///G:/MyWrokSpace/AndroidStudio/ztiany_github/GradleForAndroid/Third/LibraryA/build/outputs/lint-results-debug.html
+Wrote XML report to file:///G:/MyWrokSpace/AndroidStudio/ztiany_github/GradleForAndroid/Third/LibraryA/build/outputs/lint-results-debug.xml
+:LibraryA:incrementalDebugUnitTestJavaCompilationSafeguard UP-TO-DATE
+:LibraryA:prepareDebugUnitTestDependencies
+:LibraryA:compileDebugUnitTestJavaWithJavac UP-TO-DATE
+:LibraryA:processDebugUnitTestJavaRes UP-TO-DATE
+:LibraryA:compileDebugUnitTestSources UP-TO-DATE
+:LibraryA:mockableAndroidJar UP-TO-DATE
+:LibraryA:assembleDebugUnitTest UP-TO-DATE
+:LibraryA:testDebugUnitTest UP-TO-DATE
+:LibraryA:incrementalReleaseUnitTestJavaCompilationSafeguard UP-TO-DATE
+:LibraryA:prepareReleaseUnitTestDependencies
+:LibraryA:compileReleaseUnitTestJavaWithJavac UP-TO-DATE
+:LibraryA:processReleaseUnitTestJavaRes UP-TO-DATE
+:LibraryA:compileReleaseUnitTestSources UP-TO-DATE
+:LibraryA:assembleReleaseUnitTest UP-TO-DATE
+:LibraryA:testReleaseUnitTest UP-TO-DATE
+:LibraryA:test UP-TO-DATE
+:LibraryA:check
+:LibraryA:build
+
+BUILD SUCCESSFUL
+
+Total time: 9.004 secs

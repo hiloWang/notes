@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "27.0.3"
+
+    defaultConfig {
+        applicationId "com.ztiany.navigation"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation androidLibraries.androidCompatV4
+
+    implementation androidLibraries.androidCompatV7
+    implementation androidLibraries.androidRecyclerView
+    implementation androidLibraries.constraintLayout
+    implementation androidLibraries.multiDex
+
+    implementation androidLibraries.navigationFragment
+    implementation androidLibraries.navigationUI
+
+    implementation kotlinLibraries.kotlinStdlib
+    implementation kotlinLibraries.kotlinReflect
+    implementation kotlinLibraries.kotlinCoroutines
+    implementation kotlinLibraries.kotlinAndroidCoroutines
+    implementation kotlinLibraries.anko
+    implementation kotlinLibraries.androidKTX
+
+    testImplementation 'junit:junit:4.12'
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

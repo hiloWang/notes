@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #tsj {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            width: 48px;
+            height: 48px;
+            background: url(img/animation.png) no-repeat 0 0;
+            animation: move 1s steps(12, end) infinite;
+        }
+
+        @keyframes move {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: -576px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="tsj">
+
+</div>
+</body>
+</html>

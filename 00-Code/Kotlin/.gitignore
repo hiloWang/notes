@@ -1,0 +1,10 @@
+build
+.idea
+.gradle
+*.class
+.mtj.tmp/
+# Package Files #
+*.jar
+*.war
+*.ear
+out

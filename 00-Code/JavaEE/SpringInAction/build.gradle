@@ -1,0 +1,13 @@
+group 'me.ztiany'
+version '1.0'
+
+apply from: 'config.gradle'
+
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+

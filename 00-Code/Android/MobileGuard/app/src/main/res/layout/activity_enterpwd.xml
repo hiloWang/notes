@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#22000000"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#55000000"
+        android:text="您打开的程序已经开启隐私保护,请输入密码进入"
+        android:textColor="#ffffff" />
+
+    <ImageView
+        android:id="@+id/iv_enter_icon"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_enter_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="361手机卫士" />
+
+    <EditText
+        android:id="@+id/et_enterpwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入密码"
+        android:singleLine="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="enter"
+        android:text="进入程序" />
+
+</LinearLayout>

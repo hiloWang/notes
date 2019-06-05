@@ -1,0 +1,200 @@
+apply plugin: 'com.android.application'
+apply plugin: "com.dorongold.task-tree"
+apply plugin: 'cz.malohlava.visteg'
+
+visteg {
+    enabled        = true
+    colouredNodes  = true
+    colouredEdges  = true
+    destination    = 'build/reports/visteg.dot'
+    exporter       = 'dot'
+    colorscheme    = 'spectral11'
+    nodeShape      = 'box'
+    startNodeShape = 'hexagon'
+    endNodeShape   = 'doubleoctagon'
+}
+
+android {//Android相关的DSL都应该写在android{}中
+
+    signingConfigs {//签名配置
+        release {
+
+        }
+        staging.initWith(signingConfigs.debug)//staging也是一个签名配置，继承此debug
+    }
+
+
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {//android默认的配置，比较核心的一块
+        applicationId "com.ztiany.gradleforandroid"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //JUnit测试运行器的名称，被用来运行测试
+    }
+
+    buildTypes {//buildTypes默认会有release和debug两个构建
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "LOG_HTTP_CALLS", "false"
+            //buildConfigFields用于定义变量,sdk版本17后支持
+            buildConfigField "String", "API_URL", "\"http://release.com//\""
+            resValue("string", "name", "GradleForAndroid")
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            minifyEnabled false
+            buildConfigField "boolean", "LOG_HTTP_CALLS", "true"
+            buildConfigField "String", "API_URL", "\"http://test.com/\""
+            resValue("string", "name", "GradleForAndroid_Test")
+        }
+
+        staging.initWith(buildTypes.debug)//表示继承自debug的够建类型
+        staging {
+            applicationIdSuffix ".staging"
+            versionNameSuffix "-staging"
+            buildConfigField "String", "API_URL", "\"http://staging.com/\""
+            debuggable false
+        }
+    }
+
+    productFlavors {//不同的产品类型
+
+        red {
+            applicationId "com.ztiany.gradleforandroid.red"
+            versionCode 3
+            resValue "color", "flavor_color", "#ff0000"
+        }
+
+        blue {
+            applicationId "com.ztiany.gradleforandroid.blue"
+            minSdkVersion 14
+            versionCode 4
+            resValue "color", "flavor_color", "#0000ff"
+        }
+    }
+
+    // Remove redRelease as it's not needed. gradle过滤器
+    android.variantFilter { variant ->
+        if (variant.buildType.name.equals('release')) {
+            variant.getFlavors().each() {
+                flavor ->
+                    if (flavor.name.equals('red')) {
+                        variant.setIgnore(true);
+                    }
+            }
+        }
+    }
+
+    //重命名apk，通过all来遍历构建variant，而不是上面的variantFilter，
+    //variantFilter的each会在构建variant被Android插件创建之前的评测阶段被触发
+    //all方法会在每次添加新项目到集合时被触发
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            if (output.outputFile != null && output.outputFile.name.endsWith('.apk') && 'release'.equals(variant.buildType.name)) {
+                def apkFile = new File(output.outputFile.getParent(), "${variant.flavorName}_${variant.versionName}.apk")
+                output.outputFile = apkFile
+            }
+        }
+    }
+
+
+}
+
+//为什么要在whenTaskAdded时声明依赖呢？因为Android打包时，这些任务时动态添加的，所以不能直接访问任务，这个时候任务还不存在
+tasks.whenTaskAdded {
+    //以'package'开头以'Release'结尾的，表示打包某个Release版本
+    if (it.name.startsWith('package') && it.name.endsWith('Release')) {
+        it.dependsOn getReleasePassword
+    }
+
+    if (it.name.contains('lint')) {
+        println "--------------------- lint ----------------------------------------> ${it}"
+        it.enabled = false
+    }
+
+}
+
+//读取正式打包的密码
+import groovy.swing.SwingBuilder
+
+task getReleasePassword << {
+
+    def keyAlias = ""
+    def keyPassword = ""
+    def storePassword = ""
+    def storeFile = ""
+
+    File privateFile = rootProject.file("private/private.properties")
+
+    //判断有没有配置文件
+    if (!privateFile.exists()) {
+        throw new NullPointerException("no propetties file")
+    }
+
+    //读取签名信息
+    privateFile.withInputStream {
+        def properties = new Properties()
+        properties.load(it)
+        keyAlias = properties.getProperty("keyAlias")
+        keyPassword = properties.getProperty("keyPassword")
+        storePassword = properties.getProperty("storePassword")
+        storeFile = properties.getProperty("storeFile")
+    }
+
+    //如果没有配置密码
+    if (!storePassword?.trim() || !keyPassword?.trim()) {
+        def console = System.console()
+        if (console != null) {
+            password = new String(console.readPassword("\"what's the secret password?\""))
+        } else {//获取不到就使用Swing来让开发者输入密码
+            new SwingBuilder().edt {
+                dialog(modal: true, title: 'Enter password', alwaysOnTop: true, resizable: false, locationRelativeTo: null, pack: true, show: true) {
+                    vbox { // Put everything below each other
+                        label(text: "Please enter store passphrase:")
+                        def input1 = passwordField()
+
+                        label(text: "Please enter key passphrase:")
+                        def input2 = passwordField()
+
+                        button(defaultButton: true, text: 'OK', actionPerformed: {
+                            storePassword = new String(input1.password)
+                            keyPassword = new String(input2.password);
+                            dispose();
+                        })
+                    }
+                }
+            }
+        }
+
+    }
+
+    android.signingConfigs.release.storePassword = storePassword
+    android.signingConfigs.release.keyPassword = keyPassword
+    android.signingConfigs.release.keyAlias = keyAlias
+    android.signingConfigs.release.storeFile = rootProject.file(storeFile)
+
+}
+
+
+taskTree{
+    noRepeat = true  //do not print a sub-tree in the task-tree more than once
+    impliesSubProjects = true  //do not print task-tree for child projects in a multi-project
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    testCompile 'junit:junit:4.12'
+    testCompile "org.robolectric:robolectric:3.1.4"
+}

@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+group 'com.ztiany'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+
+    /*动态代理(这里没有用到，使用但是JDD的Proxy)*/
+    // https://mvnrepository.com/artifact/cglib/cglib-nodep
+    compile group: 'cglib', name: 'cglib-nodep', version: '2.2'
+
+    /*连接池*/
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2
+    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.0'
+    // https://mvnrepository.com/artifact/com.mchange/c3p0
+    compile group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
+
+    /*db工具类库*/
+    // https://mvnrepository.com/artifact/commons-dbutils/commons-dbutils
+    compile group: 'commons-dbutils', name: 'commons-dbutils', version: '1.7'
+
+    /*hibernate*/
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-gradle-plugin
+    compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.3.0.Final'
+    // https://mvnrepository.com/artifact/javassist/javassist
+    compile group: 'javassist', name: 'javassist', version: '3.12.0.GA'
+    //// https://mvnrepository.com/artifact/org.slf4j/slf4j-simple (日志)
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.6'
+
+}

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+    <display-name>SessionManagement</display-name>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <!-- ============================  ============================  ============================ -->
+
+    <servlet>
+        <servlet-name>ShowLastAccessTimeServlet</servlet-name>
+        <servlet-class>com.ztiany.session.cookie.app1.ShowLastAccessTimeServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ClearLastAccessTimeServlet</servlet-name>
+        <servlet-class>com.ztiany.session.cookie.app1.ClearLastAccessTimeServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>CookieApp2LoginUIServlet</servlet-name>
+        <servlet-class>com.ztiany.session.cookie.app2.CookieApp2LoginUIServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>CookieApp2LoginServlet</servlet-name>
+        <servlet-class>com.ztiany.session.cookie.app2.CookieApp2LoginServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>CookieApp3ShowBooksServlet</servlet-name>
+        <servlet-class>com.ztiany.session.cookie.app3.CookieApp3ShowBooksServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>CookieApp3ShowDetailsServlet</servlet-name>
+        <servlet-class>com.ztiany.session.cookie.app3.CookieApp3ShowDetailsServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SessionApp1LoginServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app1.SessionApp1LoginServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SessionApp1ShowLoginNameServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app1.SessionApp1ShowLoginNameServlet
+        </servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SessionApp2BooksServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app2.SessionApp2BooksServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SessionApp2BuyServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app2.SessionApp2BuyServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SessionApp2ClearCartServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app2.SessionApp2ClearCartServlet
+        </servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SessionApp2ShowCartServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app2.SessionApp2ShowCartServlet
+        </servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ImageCodeServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app3.ImageCodeServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SessionApp3IndexServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app3.SessionApp3IndexServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SessionApp3LoginServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app3.SessionApp3LoginServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SessionApp3LoginUIServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app3.SessionApp3LoginUIServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SessionApp3LogoutServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app3.SessionApp3LogoutServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SessionApp4RegisterUIServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app4.SessionApp4RegisterUIServlet
+        </servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>SessionApp4RegisterServlet</servlet-name>
+        <servlet-class>com.ztiany.session.httpsession.app4.SessionApp4RegisterServlet
+        </servlet-class>
+    </servlet>
+
+
+    <!-- ============================  ============================  ============================ -->
+
+    <servlet-mapping>
+        <servlet-name>ShowLastAccessTimeServlet</servlet-name>
+        <url-pattern>/servlet/ShowLastAccessTimeServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ClearLastAccessTimeServlet</servlet-name>
+        <url-pattern>/servlet/ClearLastAccessTimeServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>CookieApp2LoginUIServlet</servlet-name>
+        <url-pattern>/servlet/CookieApp2LoginUIServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>CookieApp2LoginServlet</servlet-name>
+        <url-pattern>/servlet/CookieApp2LoginServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>CookieApp3ShowBooksServlet</servlet-name>
+        <url-pattern>/servlet/CookieApp3ShowBooksServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>CookieApp3ShowDetailsServlet</servlet-name>
+        <url-pattern>/servlet/CookieApp3ShowDetailsServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SessionApp1LoginServlet</servlet-name>
+        <url-pattern>/servlet/SessionApp1LoginServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SessionApp1ShowLoginNameServlet</servlet-name>
+        <url-pattern>/servlet/SessionApp1ShowLoginNameServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SessionApp2BooksServlet</servlet-name>
+        <url-pattern>/servlet/SessionApp2BooksServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SessionApp2BuyServlet</servlet-name>
+        <url-pattern>/servlet/SessionApp2BuyServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SessionApp2ClearCartServlet</servlet-name>
+        <url-pattern>/servlet/SessionApp2ClearCartServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SessionApp2ShowCartServlet</servlet-name>
+        <url-pattern>/servlet/SessionApp2ShowCartServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ImageCodeServlet</servlet-name>
+        <url-pattern>/servlet/ImageCodeServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SessionApp3IndexServlet</servlet-name>
+        <url-pattern>/servlet/SessionApp3IndexServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SessionApp3LoginServlet</servlet-name>
+        <url-pattern>/servlet/SessionApp3LoginServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SessionApp3LoginUIServlet</servlet-name>
+        <url-pattern>/servlet/SessionApp3LoginUIServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SessionApp3LogoutServlet</servlet-name>
+        <url-pattern>/servlet/SessionApp3LogoutServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SessionApp4RegisterServlet</servlet-name>
+        <url-pattern>/servlet/SessionApp4RegisterServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SessionApp4RegisterUIServlet</servlet-name>
+        <url-pattern>/servlet/SessionApp4RegisterUIServlet</url-pattern>
+    </servlet-mapping>
+
+</web-app>

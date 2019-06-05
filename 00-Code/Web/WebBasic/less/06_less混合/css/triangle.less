@@ -1,0 +1,30 @@
+//加上 @_ 表示与之匹配的样式在编译时都加上这些属性，但注意一定要把形参也匹配上，个数一致即可，命名可以不同。
+.triangle(@_,@wwww,@ccccc) {
+  width: 0px;
+  height: 0px;
+  overflow: hidden;
+}
+
+.triangle(L,@w,@c) {
+  border-width: @w;
+  border-style: dashed solid dashed dashed;
+  border-color: transparent @c transparent transparent;
+}
+
+.triangle(R,@w,@c) {
+  border-width: @w;
+  border-style: dashed dashed dashed solid;
+  border-color: transparent transparent transparent @c;
+}
+
+.triangle(T,@w,@c) {
+  border-width: @w;
+  border-style: dashed dashed solid dashed;
+  border-color: transparent transparent @c transparent;
+}
+
+.triangle(B,@w,@c) {
+  border-width: @w;
+  border-style: solid dashed dashed dashed;
+  border-color: @c transparent transparent transparent;
+}

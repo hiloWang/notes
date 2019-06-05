@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!--
+        清除浮动: 让浮动的子元素库撑开父级的高度
+
+            05.伪元素
+    -->
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            border: 1px solid;
+        }
+
+        #inner {
+            float: left;
+            width: 200px;
+            height: 200px;
+            background: pink;
+        }
+
+        /*开启has layout*/
+        .xfz {
+            *zoom: 1;
+        }
+
+        /*ie 6 7 不支持伪元素*/
+        .xfz:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap" class="xfz">
+    <div id="inner">
+
+    </div>
+</div>
+</body>
+</html>

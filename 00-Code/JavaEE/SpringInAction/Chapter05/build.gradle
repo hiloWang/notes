@@ -1,0 +1,37 @@
+group 'me.ztiany'
+version '1.0'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.8
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile springLibs.springCore
+    compile springLibs.springBeans
+    compile springLibs.springExpression
+    compile springLibs.springContext
+    compile springLibs.springWeb
+    compile springLibs.springWebmvc
+    compile springLibs.springAop
+    compile springLibs.springJdbc
+    compile springLibs.springAspects
+    compile springLibs.aspectJweaver
+
+    providedCompile webBaseLibs.jspApi
+    providedCompile webBaseLibs.el
+    providedCompile webBaseLibs.servlet
+    compile webBaseLibs.jstl
+
+    compile dataBaseLibs.h2database
+    compile dataBaseLibs.hibernateValidator
+
+    compile commonsLibs.commonsLang3
+
+    testCompile testLibs.junit
+    testCompile testLibs.mockito
+    testCompile testLibs.hamcrest
+    testCompile springLibs.springTest
+}

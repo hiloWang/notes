@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "27.0.3"
+
+    defaultConfig {
+        applicationId "com.ztiany.acc"
+        minSdkVersion 17
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        setMultiDexEnabled(true)
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+
+    implementation androidLibraries.androidCompatV4
+
+    implementation androidLibraries.androidCompatV7
+    implementation androidLibraries.androidRecyclerView
+    implementation androidLibraries.constraintLayout
+    implementation androidLibraries.multiDex
+
+    implementation androidLibraries.lifecycle
+    implementation androidLibraries.lifecycleJava8
+
+    implementation androidLibraries.lifecycleExtensions
+    implementation androidLibraries.liveDataReactiveStreams
+
+    implementation androidLibraries.room
+    kapt androidLibraries.roomApt
+    implementation androidLibraries.roomRxJava2
+
+    implementation androidLibraries.paging
+    implementation androidLibraries.pagingRxJava2
+
+    implementation kotlinLibraries.kotlinStdlib
+    implementation kotlinLibraries.kotlinReflect
+    implementation kotlinLibraries.kotlinCoroutines
+    implementation kotlinLibraries.kotlinAndroidCoroutines
+    implementation kotlinLibraries.androidKTX
+
+    implementation thirdDependencies.rxJava2
+    implementation thirdDependencies.rxAndroid2
+    implementation(thirdDependencies.rxLifecycle2) {
+        transitive false
+    }
+    implementation(thirdDependencies.rxLifecycleAndroid2) {
+        transitive false
+    }
+    implementation(thirdDependencies.rxLifecycleComponents2) {
+        transitive false
+    }
+
+    implementation thirdDependencies.okHttp
+    implementation thirdDependencies.retrofit
+    implementation thirdDependencies.retrofitConverterGson
+    implementation thirdDependencies.retrofitRxJava2CallAdapter
+    implementation thirdDependencies.gson
+    implementation thirdDependencies.glide
+
+    implementation thirdDependencies.timber
+
+}

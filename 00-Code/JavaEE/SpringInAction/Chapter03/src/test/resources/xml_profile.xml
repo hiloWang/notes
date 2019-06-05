@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- ========================= profile 演示 ========================= -->
+
+
+    <!--可以在根 <beans> 元素中嵌套定义 <beans> 元素，而不是为每个环境都创建一个 profileXML 文件。这能够将所有的 profile bean 定义放到同一个 XML 文件中-->
+
+    <beans profile="life">
+        <bean id="employee" class="me.ztiany.bean.profile.life.Employee"/>
+        <bean id="job" class="me.ztiany.bean.profile.life.Job"/>
+    </beans>
+
+    <beans profile="war">
+        <bean id="soldier" class="me.ztiany.bean.profile.war.Soldier"/>
+        <bean id="tank" class="me.ztiany.bean.profile.war.Tank"/>
+    </beans>
+
+
+</beans>

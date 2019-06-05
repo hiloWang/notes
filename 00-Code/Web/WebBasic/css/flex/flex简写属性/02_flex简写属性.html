@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            width: 400px;
+            height: 300px;
+            border: 1px solid;
+            margin: 100px auto;
+
+            display: flex;
+        }
+
+        #wrap > .item {
+            height: 50px;
+            background: pink;
+            text-align: center;
+            line-height: 50px;
+
+            /*flex-shrink: 1;
+            flex-grow: 1;
+            flex-basis: 0;*/
+            flex: 300;
+        }
+
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div class="item">11</div>
+    <div class="item">222</div>
+    <div class="item">3333</div>
+    <div class="item">44444</div>
+    <div class="item">555555</div>
+</div>
+</body>
+</html>

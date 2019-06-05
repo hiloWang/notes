@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>左右交换</title>
+
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+    <script type="text/javascript">
+
+        //HTML DOM
+        window.onload = function () {
+
+            document.getElementById("toRightOneBtn").onclick = function () {
+                var leftSelectObj = document.getElementById("leftSelect");
+                var selectedOption = leftSelectObj.options[leftSelectObj.selectedIndex];
+                document.getElementById("rightSelect").add(selectedOption);
+            };
+
+            document.getElementById("toRightAllBtn").onclick = function () {
+                var leftSelectObj = document.getElementById("leftSelect");
+                var leftOptions = leftSelectObj.options;
+                for (var i = 0; i < leftOptions.length; i++) {
+                    document.getElementById("rightSelect").add(leftOptions[i]);
+                    i--;
+                }
+            };
+
+            document.getElementById("leftSelect").ondblclick = function () {
+                document.getElementById("rightSelect").add(this.options[this.selectedIndex]);
+            };
+
+        }
+    </script>
+</head>
+
+<body>
+
+<table>
+    <tr>
+
+        <td>
+            <select title="左边" id="leftSelect" multiple="multiple" size="8">
+                <option>北京</option>
+                <option>天津</option>
+                <option>上海</option>
+                <option>重庆</option>
+                <option>山东</option>
+                <option>湖北</option>
+            </select>
+        </td>
+
+        <td>
+            <input type="button" id="toRightOneBtn" value="->"/><br/>
+            <input type="button" id="toRightAllBtn" value="=>"/><br/>
+            <input type="button" id="toLeftOneBtn" value="<-"/><br/>
+            <input type="button" id="toLeftAllBtn" value="<="/><br/>
+        </td>
+
+        <td>
+            <select title="右边" id="rightSelect" multiple="multiple" size="8">
+                <option>东莞</option>
+            </select>
+        </td>
+
+    </tr>
+</table>
+
+</body>
+</html>

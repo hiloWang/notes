@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#wrap{
+				width: 100px;
+				height: 400px;
+				border: 1px solid;
+				display:flex;
+			}
+			/*
+			 * flex-shrink 默认值为1 只有在 flex-wrap:nowrap时才有作用
+			 * 
+			 * 
+			 * flex-shrink：
+				   每项flex收缩大小 = 伸展基准值 - (收缩比例 / 收缩比例总和 x 溢出的空间)-->并不是
+				   			
+				   				1/5 * 300 = 60；
+				   				
+				   				200 - 60 = 140
+				   				50 - 60 = -10
+				   
+				   
+				   
+				   
+				   1.计算收缩因子与基准值乘的总和  
+				   		200 + 50*4 = 400
+				   2.计算收缩因数
+				              收缩因数=（项目的收缩因子*项目基准值）/第一步计算总和   
+				              1*200 / 400 = 1/2
+				              1*50 / 400 = 1/8 
+				   3.移除空间的计算
+				              移除空间= 项目收缩因数 x 负溢出的空间 
+				              1/2*300 = 150
+				              1/8*300 = 37.5
+				              
+				              200 - 150 =50；
+				              50 - 37.5 = 12.5
+				
+			*/
+			.item{
+				width: 50px;
+				height: 50px;
+				background: pink;
+				text-align: center;
+				flex-shrink: 1;
+			}
+			.item:nth-child(1){
+				width: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="item">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>
+			<div class="item">5</div>
+		</div>
+	</body>
+</html>

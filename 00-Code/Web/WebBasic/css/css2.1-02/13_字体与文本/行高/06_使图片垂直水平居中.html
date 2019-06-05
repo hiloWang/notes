@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            height: 400px;
+            width: 400px;
+            border: 1px solid;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #wrap:after {
+            content: "";
+            display: inline-block;
+            height: 100%;
+            width: 0px;
+            background: pink;
+            /*vertical-align: middle;*/
+        }
+
+        #wrap img {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <img src="img/img2.jpg" width="150"/>
+</div>
+</body>
+</html>

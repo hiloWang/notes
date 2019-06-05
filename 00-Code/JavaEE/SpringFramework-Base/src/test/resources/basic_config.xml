@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--==================================基础配置演示==================================-->
+
+    <!--
+    作用是隐式地向 Spring 容器注册AutowiredAnnotationBeanPostProcessor、CommonAnnotationBeanPostProcessor、
+    PersistenceAnnotationBeanPostProcessor 以及 RequiredAnnotationBeanPostProcessor 这 4 个BeanPostProcessor。
+    注册这4个 BeanPostProcessor的作用，就是为了你的系统能够识别相应的注解。
+
+    使用 @Autowired注解，必须事先在Spring容器中声明AutowiredAnnotationBeanPostProcessor的Bean
+    使用 @Required注解，就必须声明RequiredAnnotationBeanPostProcessor的Bean
+    使用 @Resource、@PostConstruct、@PreDestroy 等注解就必须声明 CommonAnnotationBeanPostProcessor
+    使用 @PersistenceContext 注解，就必须声明 PersistenceAnnotationBeanPostProcessor的Bean
+    -->
+
+    <!--配置了annotation-config 就相当于配置上面要求的处理器-->
+    <context:annotation-config/>
+    <!-- 指定扫描 cn.ztiany.bean 包下的所有类中的注解，注意：扫描包时会扫描指定包下的所有子包，会自动加上annotation-config-->
+    <context:component-scan base-package="com.ztiany.springf.test"/>
+
+
+    <!--
+    在xml中向容器添加对象：
+        - Bean元素:使用该元素描述需要spring容器管理的对象
+        - class属性:被管理对象的完整类名
+        - name属性：给被管理的对象起个名字，获得对象时根据该名称获得对象
+        - id属性：与name属性一样，但名称不可重复，不能使用特殊字符，所以尽量使用name属性
+    -->
+    <bean name="user1" class="com.ztiany.springf.test.basic.domain.User" scope="prototype"/>
+
+    <!--一个配置文件可以导入其他的配置文件-->
+    <import resource="basic_config_factory.xml"/>
+    <import resource="basic_config_injector.xml"/>
+
+</beans>

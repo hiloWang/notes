@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>二级联动</title>
+</head>
+<body>
+
+省份：
+<select title="省" id="province" onchange="selectCity()">
+    <option value="0">请选择</option>
+    <option value="1">山东</option>
+    <option value="2">广东</option>
+    <option value="3">湖北</option>
+</select>
+城市：
+<select title="城市" id="city">
+    <option>请选择</option>
+</select>
+
+<script type="text/javascript">
+
+    var cities = [];
+    cities[1] = ["济南", "青岛", "淄博"];
+    cities[2] = ["广州", "深圳", "东莞"];
+    cities[3] = ["武汉", "襄樊", "荆州"];
+
+    function selectCity() {
+        //得到选择的省份的选项的value
+        var selectedId = document.getElementById("province").value;
+        //取出数组中对应 的城市：按照索引
+        var cs = cities[selectedId];
+        document.getElementById("city").innerHTML = "<option>请选择</option>";
+        //DOM操作：XML DOM|HTML DOM
+        for (var i = 0; i < cs.length; i++) {
+            var opt = new Option(cs[i], cs[i]);
+            document.getElementById("city").add(opt);
+        }
+    }
+
+</script>
+</body>
+</html>

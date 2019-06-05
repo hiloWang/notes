@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>新选择器</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+
+<body>
+<div class="container">
+    <header class="page-header">新选择器</header>
+    <p>这是个段落</p>
+    <ul>
+        <li class="item">item1</li>
+        <li class="item">item2</li>
+        <li class="item">item3</li>
+        <li class="item">item4</li>
+        <li class="item">item5</li>
+        <li class="item">item6</li>
+        <li class="item">item7</li>
+        <li class="item">item8</li>
+        <li class="item">item9</li>
+        <li class="item">item10</li>
+    </ul>
+</div>
+<script src="../jQuery/js/jquery-1.8.3.js"></script>
+<script>
+    (function () {
+
+        /*
+         var item = document.getElementsByClassName('item');
+         console.log(item);
+
+        //jquery方式
+         var item = $('ul > .item');
+
+         var first_item = document.querySelector('.item');
+         console.log(item);
+
+         var items = document.querySelectorAll('.item');
+         console.log(items);
+         for (var i = 0; i < items.length; i++) {
+         items[i].addEventListener('click', function(e) {
+         console.log(1111);
+         });
+         }
+         */
+
+        var items = document.querySelectorAll('ul > .item');
+        console.log(items);
+        for (var i = 0; i < items.length; i++) {
+            items[i].addEventListener('click', function (e) {
+                console.log(1111);
+            });
+        }
+    })();
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.linzhiying{
+			width: 200px;
+			height: 200px;
+			background-color: blue;
+			position: relative;
+			z-index: 10;
+		}
+		.tianliang{
+			width: 200px;
+			height: 200px;
+			background-color: orange;
+			position: relative;
+			z-index: 9;
+		}
+		.kimi{
+			width: 60px;
+			height: 60px;
+			background-color: green;
+			position: absolute;
+			top: 300px;
+			left: 450px;
+			z-index: 454;
+		}
+		.cindy{
+			width: 60px;
+			height: 60px;
+			background-color: pink;
+			position: absolute;
+			top: 130px;
+			left: 490px;
+			z-index: 45454;
+		}
+	</style>
+</head>
+<body>
+	<div class="linzhiying">
+		<p class="kimi"></p>
+	</div>
+	<div class="tianliang">
+		<p class="cindy"></p>
+	</div>
+</body>
+</html>

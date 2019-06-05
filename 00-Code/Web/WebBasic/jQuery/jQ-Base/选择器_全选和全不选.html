@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>使用jQuery完成复选框的全选和全不选</title>
+    <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+
+    <script>
+        $(function () {
+            $("#select").click(function () {
+                //获取下面所有的 复选框并将其选中状态设置跟编码的前端 复选框保持一致。
+                //attr方法与JQ的版本有关，在1.8.3及以下有效。
+                //$("tbody input").attr("checked",this.checked);
+                //prop用于设置属性
+                $("tbody input").prop("checked", this.checked);
+            });
+        });
+    </script>
+
+</head>
+<body>
+<table border="1" width="500" height="50" align="center" id="tbl">
+    <thead>
+    <tr>
+        <td colspan="4">
+            <input type="button" value="添加"/>
+            <input type="button" value="删除"/>
+        </td>
+    </tr>
+    <tr>
+        <th><input type="checkbox" id="select"></th>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><input type="checkbox" class="selectOne"/></td>
+        <td>1</td>
+        <td>张三</td>
+        <td>22</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" class="selectOne"/></td>
+        <td>2</td>
+        <td>李四</td>
+        <td>25</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" class="selectOne"/></td>
+        <td>3</td>
+        <td>王五</td>
+        <td>27</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" class="selectOne"/></td>
+        <td>4</td>
+        <td>赵六</td>
+        <td>29</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" class="selectOne"/></td>
+        <td>5</td>
+        <td>田七</td>
+        <td>30</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" class="selectOne"/></td>
+        <td>6</td>
+        <td>汾九</td>
+        <td>20</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

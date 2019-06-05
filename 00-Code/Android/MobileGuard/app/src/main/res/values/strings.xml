@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">361手机卫士</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="sample_device_admin_description">我是设备的超级管理员，开启我之后，可以进行远程锁屏设置密码和远程清除数据的操作，建议开启</string>
+    <string name="sample_device_admin">我是361手机卫士设备管理员</string>
+
+</resources>

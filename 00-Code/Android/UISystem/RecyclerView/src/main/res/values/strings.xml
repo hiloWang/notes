@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">StudyRecyclerView</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_wrap_content">WrapContentActivity</string>
+</resources>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>三角气泡</title>
+    <style type="text/css">
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        /*在开发过程中，我们经常要制作小三角，比如气泡框里就用到了小三角，那三角形是如何形成的呢？当一个 div 元素的宽高均为 0 时，我们来设置它的 border 值来看看效果。*/
+        .box1 {
+            width: 0;
+            height: 0;
+            border-top: 50px solid #FFB5BF;
+            border-bottom: 50px solid #FFB5BF;
+            border-right: 50px solid #94E8FF;
+            border-left: 50px solid #94E8FF;
+        }
+
+        /*如果我只需要一个小三角呢？比如我只想要一个朝上的小三角，如何处理？小三角朝上，主要起作用的是 border-bottom，bottom-top 就可以忽略了，我们把 border-top 拿掉试试看。*/
+        .box2 {
+            width: 0;
+            height: 0;
+            border-bottom: 50px solid #FFB5BF;
+            border-right: 50px solid #94E8FF;
+            border-left: 50px solid #94E8FF;
+        }
+
+        /*再给周围边的 border-color 设置为 transparent 来隐藏周围的三角，一个朝上的小三角便完成了。*/
+        .box3 {
+            width: 0;
+            height: 0;
+            border-right: 50px solid transparent;
+            border-left: 50px solid transparent;
+            border-bottom: 50px solid #FFB5BF;
+        }
+
+        /*
+        如果你想制作直角三角形也很简单。如果直角在上方，则设置 border-top，在下方则设置 border-bottom；直角如果在左上方，则不设置 border-left ，
+        左边缺失，border-top 就会向左偏，此时是个矩形，然后将 border-right 隐藏，就能得到想要的结果，我们来看看代码是什么样的过程。
+        */
+        .box4 {
+            width: 0;
+            height: 0;
+            border-top: 50px solid #FFB5BF;
+            border-right: 50px solid #94E8FF;
+            border-left: 50px solid #94E8FF;
+        }
+
+        .box5 {
+            width: 0;
+            height: 0;
+            border-top: 50px solid #FFB5BF;
+            border-right: 50px solid #94E8FF;
+        }
+
+        .box6 {
+            width: 0;
+            height: 0;
+            border-top: 50px solid #FFB5BF;
+            border-right: 50px solid transparent;
+        }
+
+        .bubble {
+            width: 200px;
+            height: 50px;
+            border: 5px solid #FFB5BF;
+            position: relative;
+        }
+
+        .common {
+            width: 0;
+            height: 0;
+            position: absolute; /* 使用绝对定位 */
+            left: 50%;
+            transform: translate(-50%, 0); /* 水平居中 */
+        }
+
+        .triangle {
+            bottom: -22px;
+            border-top: 20px solid #FFB5BF;
+            border-right: 20px solid transparent;
+            border-left: 20px solid transparent;
+        }
+        .cover {
+            bottom: -13px;
+            border-top: 20px solid #94E8FF;
+            border-right: 20px solid transparent;
+            border-left: 20px solid transparent;
+            border-top: 20px solid white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box1"></div>
+<br/>
+<div class="box2"></div>
+<br/>
+<div class="box3"></div>
+<br/>
+<div class="box4"></div>
+<br/>
+<div class="box5"></div>
+<br/>
+<div class="box6"></div>
+<br/>
+<div class="bubble">
+    <div class="triangle common"></div>
+    <div class="cover common"></div>     <!-- 用来覆盖的倒三角 -->
+</div>
+
+</body>
+</html>

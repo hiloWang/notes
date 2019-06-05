@@ -1,0 +1,6 @@
+rootProject.name = 'Java-Concurrent'
+include 'Concurrent-Base'
+include 'Java-Concurrent-Art'
+include 'Java-Concurrent-Art-Source'
+include 'Java-Concurrent-In-Practice-Geek'
+

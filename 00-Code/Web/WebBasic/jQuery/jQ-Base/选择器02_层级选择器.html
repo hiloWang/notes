@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>层级选择器</title>
+    <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            $("#btn1").click(function () {
+                //后代选择器，返回集合元素，可以直接在集合上调用方法，内部会实现隐式迭代，即把方法调用应用在每个集合的元素上
+                $("body div").css("background-color", "gold");
+            });
+
+            $("#btn2").click(function () {
+                //儿子选择器
+                $("body>div").css("background-color", "gold");
+            });
+
+            $("#btn3").click(function () {
+                //下一个兄弟选择器
+                $("#two+div").css("background-color", "gold");
+            });
+
+            $("#btn4").click(function () {
+                //$("prev~siblings")选取prev元素之后的所有siblings元素，返回集合元素
+                $("#one~div").css("background-color", "gold");
+            });
+        });
+    </script>
+
+
+</head>
+<body>
+<input type="button" id="btn1" value="选择body中的所有的div元素"/>
+<input type="button" id="btn2" value="选择body中的第一级的孩子"/>
+<input type="button" id="btn3" value="选择id为two的元素的下一个元素"/>
+<input type="button" id="btn4" value="选择id为one的所有的兄弟元素"/>
+
+<hr/>
+<div id="one">
+    <div class="mini">
+        111
+    </div>
+</div>
+
+<div id="two">
+    <div class="mini">
+        222
+    </div>
+    <div class="mini">
+        333
+    </div>
+</div>
+
+<div id="three">
+    <div class="mini">
+        444
+    </div>
+    <div class="mini">
+        555
+    </div>
+    <div class="mini">
+        666
+    </div>
+</div>
+
+<span id="four"></span>
+
+</body>
+</html>

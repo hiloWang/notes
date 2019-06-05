@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			a{
+				text-decoration: none;
+				color: gray;
+				display: block;
+			}
+			#nav > .row{
+				display: flex;
+			}
+			#nav > .row > .item{
+				flex: 1;
+				text-align: center;
+			}
+			
+			#nav > .row > .item > a:before{
+				content: "";
+				display: block;
+				width: 86px;
+				height: 86px;
+				margin: 0 auto;
+			}
+			
+			#nav > .row:nth-child(1) > .item:nth-child(1) >a:before{
+				background: url(img/01.png) no-repeat;
+			}
+			#nav > .row:nth-child(1) > .item:nth-child(2) >a:before{
+				background: url(img/02.png) no-repeat;
+			}
+			#nav > .row:nth-child(1) > .item:nth-child(3) >a:before{
+				background: url(img/03.png) no-repeat;
+			}
+			#nav > .row:nth-child(1) > .item:nth-child(4) >a:before{
+				background: url(img/04.png) no-repeat;
+			}
+			#nav > .row:nth-child(1) > .item:nth-child(5) >a:before{
+				background: url(img/05.png) no-repeat;
+			}
+			
+			
+			#nav > .row:nth-child(2) > .item:nth-child(1) >a:before{
+				background: url(img/06.png) no-repeat;
+			}
+			#nav > .row:nth-child(2) > .item:nth-child(2) >a:before{
+				background: url(img/07.png) no-repeat;
+			}
+			#nav > .row:nth-child(2) > .item:nth-child(3) >a:before{
+				background: url(img/08.png) no-repeat;
+			}
+			#nav > .row:nth-child(2) > .item:nth-child(4) >a:before{
+				background: url(img/09.png) no-repeat;
+			}
+			#nav > .row:nth-child(2) > .item:nth-child(5) >a:before{
+				background: url(img/10.png) no-repeat;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="nav">
+			<div class="row">
+				<div class="item">
+					<a href="javascript:;">天狗</a>
+				</div>
+				<div class="item">
+					<a href="javascript:;">聚划算</a>
+				</div>
+				<div class="item">
+					<a href="javascript:;">天狗国际</a>
+				</div>
+				<div class="item">
+					<a href="javascript:;">外卖</a>
+				</div>
+				<div class="item">
+					<a href="javascript:;">天狗超市</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="item">
+					<a href="javascript:;">充值中心</a>
+				</div>
+				<div class="item">
+					<a href="javascript:;">海峰旅行</a>
+				</div>
+				<div class="item">
+					<a href="javascript:;">领金币</a>
+				</div>
+				<div class="item">
+					<a href="javascript:;">拍卖</a>
+				</div>
+				<div class="item">
+					<a href="javascript:;">分类</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

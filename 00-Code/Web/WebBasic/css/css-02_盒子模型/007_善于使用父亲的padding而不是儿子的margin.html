@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Document</title>
+
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box1 {
+            width: 300px;
+            height: 250px;
+            padding-top: 50px;
+            background-color: orange;
+        }
+
+        .p1 {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+        }
+
+        .box2 {
+            width: 300px;
+            height: 250px;
+            background-color: red;
+        }
+
+        /*由于父容器box2没有添加border，所以p2的margin_top*/
+        .p2 {
+            width: 100px;
+            height: 100px;
+            margin-top: 300px;
+            background-color: blue;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="box1">
+    <p class="p1"></p>
+</div>
+
+<div class="box2">
+    <p class="p2"></p>
+</div>
+
+</body>
+</html>

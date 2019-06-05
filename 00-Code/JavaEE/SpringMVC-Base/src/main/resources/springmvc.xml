@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--mvc核心配置文件-->
+
+    <!-- 扫描@Controler  @Service   -->
+    <context:component-scan base-package="me.ztiany.mvc"/>
+
+
+    <!-- 处理器映射器 -->
+    <!--<bean
+        class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
+    <!-- 处理器适配器 -->
+    <!--<bean
+        class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>-->
+
+    <!-- 注解驱动，等效于上面两个-->
+    <mvc:annotation-driven conversion-service="conversionServiceFactoryBean"/>
+
+    <!-- 视图解释器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 配置转换器转换工厂 （日期去掉前后空格） -->
+    <bean id="conversionServiceFactoryBean"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <!-- 配置 多个转换器-->
+        <property name="converters">
+            <list>
+                <bean class="me.ztiany.mvc.conversion.DateConverter"/>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- SpringMVC 异常处理器 -->
+    <bean class="me.ztiany.mvc.exception.CustomExceptionResolver"/>
+
+    <!-- 文件上传解析器，id必须为：multipartResolver -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 上传图片的大小： 5M  = 1024*1024*5-->
+        <property name="maxUploadSize" value="50000000"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <!-- SpringMVC的拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--**表示拦截所有-->
+            <mvc:mapping path="/**"/>
+            <bean class="me.ztiany.mvc.interceptor.Interceptor1"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="me.ztiany.mvc.interceptor.Interceptor2"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+</beans>

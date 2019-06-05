@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>背景</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #test {
+            /* 默认情况下背景图片是从 padding box 开始绘制，从 border box 开始剪裁 */
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 300px;
+            height: 300px;
+            border: 30px solid rgba(0, 0, 0, .5);
+            padding: 50px;
+            background: pink url(../img/tg.png) repeat;
+            background-origin: padding-box;
+            background-clip: border-box;
+        }
+    </style>
+</head>
+<body>
+<div id="test">
+
+</div>
+</body>
+</html>

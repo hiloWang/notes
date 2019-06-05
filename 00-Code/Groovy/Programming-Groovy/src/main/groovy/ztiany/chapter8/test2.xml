@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<languages
+    xmlns:computer="computer" xmlns:natural="natural">
+
+    <computer:language name="c++"/>
+    <computer:language name="java"/>
+    <computer:language name="Lisp"/>
+
+    <natural:language name="English"/>
+    <natural:language name="Chinese"/>
+    <natural:language name="French"/>
+
+
+
+</languages>

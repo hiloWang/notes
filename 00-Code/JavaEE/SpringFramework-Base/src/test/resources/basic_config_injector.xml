@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--==================================Bean的属性注入==================================-->
+
+    <!-- set方式注入: -->
+    <bean name="user5" class="com.ztiany.springf.test.basic.domain.User">
+        <!--值类型注入: 为User对象中名为name的属性注入tom作为值 -->
+        <property name="name" value="tom"/>
+        <property name="age" value="18"/>
+        <!-- 引用类型注入: 为car属性注入下方配置的car对象 -->
+        <property name="car" ref="car"/>
+    </bean>
+    <!-- 将car对象配置到容器中 -->
+    <bean name="car" class="com.ztiany.springf.test.basic.domain.Car">
+        <property name="name" value="兰博基尼"/>
+        <property name="color" value="黄色"/>
+    </bean>
+
+
+    <!-- 构造函数注入 -->
+    <bean name="user6" class="com.ztiany.springf.test.basic.domain.User">
+        <!-- name属性: 构造函数的参数名 -->
+        <!-- index属性: 构造函数的参数索引 -->
+        <!-- type属性: 构造函数的参数类型-->
+        <constructor-arg name="name" index="0" type="java.lang.Integer" value="999"/>
+        <constructor-arg name="car" ref="car" index="1"/>
+    </bean>
+
+
+    <!-- p名称空间注入, 调用的是 set 方法
+                1. 导入P名称空间  xmlns:p="http://www.springframework.org/schema/p"
+                2.使用 p:属性 完成注入
+                    |-值类型: p:属性名="值"
+                    |-对象类型: p:属性名-ref="bean名称"
+     -->
+    <bean name="user7" class="com.ztiany.springf.test.basic.domain.User" p:name="jack" p:age="20"
+          p:car-ref="car">
+    </bean>
+
+
+    <!-- spel注入: spring Expression Language spring 表达式语言 -->
+    <bean name="user8" class="com.ztiany.springf.test.basic.domain.User">
+        <property name="name" value="#{user6.name}"/>
+        <property name="age" value="#{user6.age}"/>
+        <!-- 引用类型不能使用 spel -->
+        <property name="car" ref="car"/>
+    </bean>
+
+
+    <!-- 复杂类型注入：array、list、map、properties -->
+    <bean name="collection_bean" class="com.ztiany.springf.test.basic.domain.CollectionBean">
+
+        <!-- 如果数组中只注入一个值(对象)，直接使用value或ref即可
+             <property name="arr" value="tom" ></property>
+        -->
+        <property name="arr">
+            <array>
+                <value>tom</value>
+                <value>jerry</value>
+                <ref bean="user6"/>
+            </array>
+        </property>
+
+
+        <!-- 如果List中只准备注入一个值(对象)，直接使用value|ref即可
+        <property name="list" value="jack" ></property>-->
+        <property name="list">
+            <list>
+                <value>jack</value>
+                <value>rose</value>
+                <ref bean="user6"/>
+            </list>
+        </property>
+
+
+        <!-- map类型注入 -->
+        <property name="map">
+            <map>
+                <entry key="url" value="jdbc:mysql:///crm"/>
+                <entry key="user" value-ref="user7"/>
+                <entry key-ref="user6" value-ref="user7"/>
+            </map>
+        </property>
+
+
+        <!-- properties 类型注入 -->
+        <property name="prop">
+            <props>
+                <prop key="driverClass">com.jdbc.mysql.Driver</prop>
+                <prop key="userName">root</prop>
+                <prop key="password">1234</prop>
+            </props>
+        </property>
+
+    </bean>
+
+</beans>

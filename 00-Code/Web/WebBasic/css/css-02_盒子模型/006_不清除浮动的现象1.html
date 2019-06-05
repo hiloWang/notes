@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>浮动清除现象</title>
+</head>
+
+<style type="text/css">
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        width: 120px;
+        float: left;
+        height: 40px;
+        text-align: center;
+        background-color: orange;
+    }
+
+    .u1 {
+        border: 4px solid black;
+    }
+
+    .u2 {
+        border: 4px solid red;
+    }
+
+    .item {
+        text-indent: 2em;
+    }
+
+</style>
+
+<body>
+
+<!--    本以为这些li，会分为两排，但是，第二组中的第1个li，去贴靠第一组中的最后一个li了。
+这是为什么呢？
+   1. 因为浮动的孩子无法为父容器撑起高度，同时浮动的孩子本身会失去默认的宽高
+   2. 浮动后的元素有了贴边的效果，如果是左浮动，那么向左边贴了
+   3. 可以看到第二排的列表比第一排的列表稍微偏下了一点点，那是因为给ul设置了border，
+   所以两个ul的高度为8px，第二个ul按照标准流的布局，所以在第一个ul的下面
+   4. 如果不给ul设置border，那么两个列表的高度就是一样的，因为此时div和ul的高度都为0
+   5. 未来解决这种问题，就需要清除浮动，其本质目的就是要让如盒子有高度
+-->
+
+<div>
+
+    <div>
+        <ul class="u1">
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+            <li>我是列表1</li>
+        </ul>
+    </div>
+
+    <div>
+        <ul class="u2">
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+            <li>我是列表2</li>
+        </ul>
+    </div>
+
+    <div style="clear: both;margin-top: 100px">
+        <p>本以为这些li，会分为两排，但是，第二组中的第1个li，去贴靠第一组中的最后一个li了。这是为什么呢？</p>
+        <p class="item">1. 因为浮动的孩子无法为父容器撑起高度，同时浮动的孩子本身会失去默认的宽高</p>
+        <p class="item">2. 浮动后的元素有了贴边的效果，如果是左浮动，那么向左边贴了</p>
+        <p class="item">3. 可以看到第二排的列表比第一排的列表稍微偏下了一点点，那是因为给ul设置了border，所以两个ul的高度为8px，第二个ul按照标准流的布局，所以在第一个ul的下面</p>
+        <p class="item">4. 如果不给ul设置border，那么两个列表的高度就是一样的，因为此时div和ul的高度都为0</p>
+    </div>
+</div>
+
+
+</body>
+</html>

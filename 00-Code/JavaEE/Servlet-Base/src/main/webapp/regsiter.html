@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>登录</title>
+    <style type="text/css">
+        ul li {
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+
+<!--这里不加/ServletBase也可以是因为都是相对于/ServletBase的-->
+<form action="/ServletBase/servlet/RegisterServlet" method="post">
+
+    <ul>
+        <li>用户名：<input title="用户名" type="text" name="username"/></li>
+        <li> 密码：<input title="密码" type="password" name="password"/></li>
+        <li>
+            验证码：
+            <input title="验证码" type="text" name="code" size="3"/>
+            <img id="img_code" src="/ServletBase/servlet/CodeImageServlet"/>
+            <a href="javascript:change()">看不清哦！</a>
+        </li>
+        <li>
+            <input type="submit" value="登录"/>
+        </li>
+    </ul>
+
+</form>
+
+
+<script type="text/javascript">
+    function change() {//地址没有发生变化，浏览器不会发出请求
+        var imgObj = document.getElementById("img_code");
+        imgObj.src = "/ServletBase/servlet/CodeImageServlet?time=" + new Date().getTime();
+    }
+</script>
+
+
+</body>
+</html>

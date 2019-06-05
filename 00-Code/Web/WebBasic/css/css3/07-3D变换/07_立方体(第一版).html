@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#wrap{
+				position: absolute;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				margin: auto;
+				width: 300px;
+				height: 300px;
+				border: 1px solid;
+				perspective: 200px;
+				transform-style: preserve-3d;
+			}
+
+			#wrap > .box{
+				position: absolute;
+				left: 0;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				margin: auto;
+				width: 100px;
+				height: 100px;
+				transition:3s ;
+				transform-style: preserve-3d;
+				transform-origin: center center -50px;
+			}
+			#wrap > .box > div{
+				position: absolute;
+				width: 100px;
+				height: 100px;
+				background: pink;
+				text-align: center;
+				font: 50px/100px "微软雅黑";
+			}
+			#wrap > .box > div:nth-child(5){
+				transform-origin: bottom;
+				transform: rotateX(90deg);
+				top: -100px;
+			}
+			#wrap > .box > div:nth-child(6){
+				transform-origin: top;
+				transform: rotateX(-90deg);
+				bottom: -100px;
+			}
+			#wrap > .box > div:nth-child(3){
+				transform-origin: right;
+				transform: rotateY(-90deg);
+				left: -100px;
+			}
+			#wrap > .box > div:nth-child(4){
+				transform-origin: left;
+				transform: rotateY(90deg);
+				right: -100px;
+			}
+			#wrap > .box > div:nth-child(2){
+				transform: translateZ(-100px) rotateX(180deg);
+			}
+			#wrap > .box > div:nth-child(1){
+				z-index: 1;
+			}
+
+			#wrap:hover .box{
+				transform: rotateX(180deg);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="box">
+				<div>前</div>
+				<div>后</div>
+				<div>左</div>
+				<div>右</div>
+				<div>上</div>
+				<div>下</div>
+			</div>
+		</div>
+	</body>
+</html>

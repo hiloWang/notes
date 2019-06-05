@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: black;
+            text-align: center;
+        }
+
+        h1 {
+            /*transition: 3s;*/
+            margin-top: 50px;
+            display: inline-block;
+            color: rgba(255, 255, 255, .3);
+            font: bold 80px "微软雅黑";
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0) 100px, rgba(255, 255, 255, 1) 180px, rgba(255, 255, 255, 0) 260px);
+            background-repeat: no-repeat;
+            -webkit-background-clip: text;
+        }
+
+    </style>
+</head>
+<body>
+<h1>光斑动画</h1>
+</body>
+<script type="text/javascript">
+    var h1 = document.querySelector("h1");
+    var flag = -160;
+
+    setInterval(function () {
+        flag += 10;
+        if (flag === 600) {
+            flag = -160;
+        }
+        h1.style.backgroundPosition = flag + "px";
+    }, 30)
+
+</script>
+</html>

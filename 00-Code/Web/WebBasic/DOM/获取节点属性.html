@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取节点属性的方法</title>
+</head>
+<body>
+
+<div id="div1"><p>ppp</p>明天上自习</div>
+
+<script type="text/javascript">
+
+    window.onload = function () {
+        //给id为div1的节点注册一个事件
+        document.getElementById("div1").onclick = function () {
+            //得到div1的第一个孩子节点，文本节点，nodeValue
+
+            //-------------方式一
+            //var fChild = document.getElementById("div1").firstChild;
+            //alert(fChild.nodeName+":"+fChild.nodeValue+":"+fChild.nodeType);
+
+            //-------------方式二
+
+            //var fChild = document.getElementById("div1").lastChild;
+            //alert(fChild.nodeName+":"+fChild.nodeValue+":"+fChild.nodeType);
+
+            //-------------方式三
+            //var nodeList = document.getElementById("div1").childNodes;//孩纸们，数组
+            //alert(nodeList[0].nodeName+":"+nodeList[0].nodeValue+":"+nodeList[0].nodeType);
+
+            //-------------方式四
+            //var div1Node = document.getElementById("div1");
+            //alert(div1Node.innerHTML);//innerHTML不是标准的属性，但是绝大多数浏览器都支持
+
+            //-------------方式五
+            var div1Node = document.getElementById("div1");
+            alert(div1Node.innerText);//取内部的文本
+        }
+    }
+</script>
+
+</body>
+</html>

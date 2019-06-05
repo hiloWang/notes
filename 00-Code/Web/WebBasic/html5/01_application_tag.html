@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"><!--新的标签，指定语言-->
+<head>
+    <meta charset="UTF-8"><!--新的方式-->
+    <title>application_tag</title>
+
+    <style>
+
+        .my-progress {
+            -webkit-appearance: none;
+        }
+
+        .my-progress::-webkit-progress-bar {
+            background-color: #000;
+        }
+
+        .content::after {
+            content: 'css添加的内容';
+            color: #f40;
+        }
+    </style>
+
+</head>
+<body>
+
+
+<!--数据列表要想呈现出来，需要一个载体-->
+<input title="姓名" name="name" list="data_list">
+<datalist id="data_list">
+    <option>张三</option>
+    <option>李四</option>
+</datalist>
+
+<div>
+
+    <progress></progress>
+    <progress value="0.5" max="1"></progress>
+    <progress class="my-progress" value="10" max="100"></progress>
+    <meter min="0" max="100" low="40" high="90" optimum="100" value="91">A+</meter>
+
+</div>
+
+<P class="content">这是：</P>
+
+</body>
+</html>

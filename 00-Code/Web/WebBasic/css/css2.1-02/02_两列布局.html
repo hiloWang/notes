@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>使用BFC实现两列布局</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-width: 600px;
+        }
+
+        div {
+            height: 200px;
+        }
+
+        #left {
+            width: 200px;
+            background: pink;
+            float: left;
+        }
+
+        #right {
+            background: deeppink;
+            /*触发 right 的 bfc，因为BFC 的区域不会与 float box 重叠。*/
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="left">left</div>
+<div id="right">right</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #up, #down {
+            width: 200px;
+            height: 200px;
+            background: pink;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="up">up</div>
+<!--用于解决margin重叠-->
+<div style="height: 1px;"></div>
+<!--<span></span> 不起作用-->
+<!--<br /> br 本身有 21px 的高度-->
+<div id="down">down</div>
+</body>
+</html>

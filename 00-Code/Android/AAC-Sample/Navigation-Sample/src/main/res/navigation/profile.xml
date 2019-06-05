@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/profile_Index">
+
+    <fragment
+        android:id="@+id/profile_Index"
+        android:name="com.ztiany.navigation.profile.ProfileFragment"
+        android:label="Profile">
+
+        <action
+            android:id="@+id/action_index_to_editor"
+            app:destination="@id/profile_Edit"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/profile_Edit"
+        android:name="com.ztiany.navigation.profile.EditProfileFragment"
+        android:label="Detail">
+
+        <argument
+            android:name="detailId"
+            android:defaultValue="0"
+            app:type="integer"/>
+
+        <deepLink app:uri="www.ztiany.me/profile/edit"/>
+
+    </fragment>
+
+
+</navigation>

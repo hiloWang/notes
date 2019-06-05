@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>使用jQuery完成表格隔行换色</title>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+    <script>
+
+        //1.页面加载
+        $(function () {
+
+            /*//2.获取tbody下面的偶数行并设置背景颜色，:even为jQ中的偶数选择器
+             $("tbody tr:even").css("background-color","yellow");
+             //3.获取tbody下面的奇数行并设置背景颜色，:odd为jQ中的基数选择器
+             $("tbody tr:odd").css("background-color","green");*/
+
+            //2.获取tbody下面的偶数行并设置背景颜色
+            $("tbody tr:even").addClass("even");
+            $("tbody tr:even").removeClass("even");
+            //3.获取tbody下面的奇数行并设置背景颜色
+            $("tbody tr:odd").addClass("odd");
+        });
+
+    </script>
+
+</head>
+
+<body>
+<table border="1" width="500" height="50" align="center" id="tbl">
+    <thead>
+    <tr>
+        <th>编号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>张三</td>
+        <td>22</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>李四</td>
+        <td>25</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>王五</td>
+        <td>27</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>赵六</td>
+        <td>29</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>田七</td>
+        <td>30</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>汾九</td>
+        <td>20</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

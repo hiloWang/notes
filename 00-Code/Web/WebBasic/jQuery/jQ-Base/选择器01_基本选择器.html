@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>基本选择器</title>
+    <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+
+    <script>
+        $(function () {
+            //id选择器，返回的是单个元素
+            $("#btn1").click(function () {
+                //css方法用于设置css样式
+                //css方法如果传入一个字符串参数，则表示是获取css属性值
+                //css方法如果传入两个参数，则表示是设置css属性值
+                //css方法如果传入一个对象，则表示设置比多个样式
+                //css方法如果传入两个参数，且二个参数是函数，则此函数返回要设置的属性值。此接受两个参数，index为元素在对象集合中的索引位置，value是原先的属性值
+                $("#one").css("background-color", "pink");
+            });
+
+            $("#btn2").click(function () {
+                $(".mini").css("background-color", "pink");
+            });
+
+            $("#btn3").click(function () {
+                $("div").css("background-color", "pink");
+            });
+
+            $("#btn4").click(function () {
+                $("*").css("background-color", "pink");
+            });
+
+            $("#btn5").click(function () {
+                $("#two,.mini").css("background-color", "pink");
+            });
+        });
+    </script>
+
+</head>
+<body>
+<input type="button" id="btn1" value="选择为one的元素"/>
+<input type="button" id="btn2" value="选择样式为mini的元素"/>
+<input type="button" id="btn3" value="选择所有的div元素"/>
+<input type="button" id="btn4" value="选择所有元素"/>
+<input type="button" id="btn5" value="选择id为two并且样式为mini的元素"/>
+<hr/>
+<div id="one">
+    <div class="mini">
+        111
+    </div>
+</div>
+
+<div id="two">
+    <div class="mini">
+        222
+    </div>
+    <div class="mini">
+        333
+    </div>
+</div>
+
+<div id="three">
+    <div class="mini">
+        444
+    </div>
+    <div class="mini">
+        555
+    </div>
+    <div class="mini">
+        666
+    </div>
+</div>
+
+<span id="four"></span>
+
+</body>
+</html>

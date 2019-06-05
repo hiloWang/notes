@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>margin塌陷</title>
+    <style type="text/css">
+        .box1 {
+            border: 1px solid black;
+        }
+
+        /*这里 p1的margin-bottom和p2的margin-top不会叠加*/
+        .p1 {
+            width: 100px;
+            height: 30px;
+            background-color: #FF0000;
+            margin-bottom: 100px;
+        }
+
+        .p2 {
+            width: 100px;
+            height: 30px;
+            background-color: #00FF00;
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box1">
+    <p class="p1"></p>
+    <p class="p2"></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!-- 配置属性
+     读取 dp.properties 中的属性
+     -->
+    <properties resource="db.properties"/>
+
+    <typeAliases>
+        <!-- 配置该包以其子包下所有类，别名将配置为类名-->
+        <package name="me.ztiany.mybatis.pojo"/>
+    </typeAliases>
+
+    <!-- 和spring整合后 environments配置将废除-->
+    <environments default="development">
+        <environment id="development">
+            <!-- 使用jdbc事务管理 -->
+            <transactionManager type="JDBC"/>
+            <!-- 数据库连接池 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/sqlbase?characterEncoding=utf-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="201314"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- Mapper的位置  Mapper.xml 写Sql语句的文件的位置 -->
+    <mappers>
+        <!--注册指定包下的所有mapper接口，此种方法要求mapper接口名称和mapper映射文件名称相同，且放在同一个目录中。-->
+        <package name="me.ztiany.mybatis.test.basic.mapper"/>
+    </mappers>
+
+
+</configuration>

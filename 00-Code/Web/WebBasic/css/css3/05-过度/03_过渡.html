@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>过度事件</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            width: 60%;
+            height: 60%;
+            border: 1px solid;
+            margin: 100px auto 0;
+        }
+
+        #test {
+            width: 100px;
+            height: 100px;
+            background: pink;
+            text-align: center;
+            font: 30px/100px "微软雅黑";
+
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            margin: auto;
+
+            transition-property: width, height;
+            transition-duration: 2s;
+            transition-timing-function: linear;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="test">
+</div>
+</body>
+<script type="text/javascript">
+    window.onload = function () {
+        var testNode = document.querySelector("#test");
+        var bodyNode = document.querySelector("body");
+        //dom0事件
+        bodyNode.onmouseover = function () {
+            testNode.style.width = "300px";
+            testNode.style.height = "300px";
+            setTimeout(function () {
+                testNode.style.display = "none";
+            }, 3000)
+        }
+        //dom2
+        testNode.addEventListener("transitionend", function () {
+            alert("over")
+        })
+    }
+</script>
+</html>

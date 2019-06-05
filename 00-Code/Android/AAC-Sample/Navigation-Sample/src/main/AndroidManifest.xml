@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.ztiany.navigation"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name=".home.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".profile.ProfileActivity">
+
+
+            <!--
+                 接收地址：http://www.ztiany.mw/profile
+                 Android Studio 3.2及以上可以直接添加nav-graph节点，value就是我们写的navigation，
+                 3.2以下的得自己写intent-filter，如下：
+            -->
+
+        <!--
+        <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="www.ztiany.me"
+                    android:pathPrefix="/profile"
+                    android:scheme="http"/>
+            </intent-filter>
+            -->
+
+            <nav-graph android:value="@navigation/profile"/>
+
+        </activity>
+
+    </application>
+
+</manifest>

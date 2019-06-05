@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			/*
+				flex-grow
+				box-flex 默认值都为0
+				
+				
+				flex-grow： 
+					   可用空间 = (容器大小 - 所有相邻项目flex-basis的总和)
+					   				400 - 5*50 = 150
+					   				400 - 5*0  = 400
+					   可扩展空间 = (可用空间/所有相邻项目flex-grow的总和)
+					   				150 / 8 = 18.75
+					   				400 / 8 = 50
+					   每项伸缩大小 = (伸缩基准值 + (可扩展空间 x flex-grow值))
+					   				
+									50 + 18.75*4 = 125
+									50 + 18.75*1 = 68.75
+									
+									0 + 50*4 = 200
+									0 + 50 = 50
+				
+			*/
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#wrap{
+				width: 400px;
+				height: 300px;
+				border: 1px solid;
+				margin:100px auto;
+				display:flex;
+				flex-direction: row;
+		        justify-content: flex-start;
+		        align-items: flex-start;
+			}
+			#wrap > .item{
+				width: 50px;
+				height: 50px;
+				background: pink;
+				text-align: center;
+				line-height: 50px;
+				flex-grow: 1;
+				flex-basis: 0;
+			}
+			
+			#wrap > .item:nth-child(1){
+				flex-grow: 4;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="item">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>
+			<div class="item">5</div>
+		</div>
+	</body>
+</html>

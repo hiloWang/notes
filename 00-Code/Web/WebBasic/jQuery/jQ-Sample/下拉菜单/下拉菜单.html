@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下拉菜单</title>
+    <script type="text/javascript" src="../../js/jquery-1.8.3.js"></script>
+
+    <style type="text/css">
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .wrap {
+            width: 330px;
+            height: 30px;
+            margin: 100px auto 0;
+            background-image: url(bg.jpg);
+            padding-left: 10px;
+        }
+
+        /*所有的li*/
+        /*子绝父相*/
+        .wrap li {
+            width: 100px;
+            float: left;
+            height: 30px;
+            margin-right: 10px;
+            position: relative;
+        }
+
+        .wrap a {
+            color: black;
+            text-decoration: none;
+            display: block;
+            width: 100px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            background-image: url(libg.jpg);
+        }
+
+        .wrap li ul {
+            position: absolute;
+            /*默认隐藏*/
+            display: none;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        $(function () {
+
+            var setListener = function () {
+                $(".wrap li")
+                    //hover当鼠标移动到一个匹配的元素上面时，会触发指定的第一个函数。当鼠标移出这个元素时，会触发指定的第二个函数。
+                    .hover(function () {
+                        $(this).children("ul").stop().slideToggle();
+                    })
+            };
+
+            setListener();
+
+        })
+    </script>
+
+</head>
+<body>
+
+<div class="wrap">
+    <ul>
+        <li>
+            <a href="#">一级菜单1</a>
+            <ul>
+                <li><a href="#">二级菜单1</a></li>
+                <li><a href="#">二级菜单2</a></li>
+                <li><a href="#">二级菜单3</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">一级菜单1</a>
+            <ul>
+                <li><a href="#">二级菜单1</a></li>
+                <li><a href="#">二级菜单2</a></li>
+                <li><a href="#">二级菜单3</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">一级菜单1</a>
+            <ul>
+                <li><a href="#">二级菜单1</a></li>
+                <li><a href="#">二级菜单2</a></li>
+                <li><a href="#">二级菜单3</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

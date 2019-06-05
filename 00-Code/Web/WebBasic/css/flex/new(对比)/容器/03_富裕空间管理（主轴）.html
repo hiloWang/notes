@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#wrap{
+				width: 400px;
+				height: 300px;
+				border: 1px solid;
+				margin:100px auto;
+				display:flex;
+				flex-direction: row-reverse;
+				 /*
+				 flex-start                  富裕空间在主轴的正方向
+		         flex-end                    富裕空间在主轴的反方向
+		         center  	                              富裕空间在主轴的两边
+		         space-between               富裕空间在项目之间
+		         space-around(box 没有的)    富裕空间在项目两边
+		         */
+		        justify-content: space-around;
+			}
+			#wrap > .item{
+				width: 50px;
+				height: 50px;
+				background: pink;
+				text-align: center;
+				line-height: 50px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="item">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>
+			<div class="item">5</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟onload</title>
+
+    <script>
+
+        /*模拟jQuery的多次入口函数不覆盖*/
+        function fakeQuery(dom) {
+            return {
+                ready: function (func) {
+                    if (typeof dom.onload === "function") {
+                        var old = dom.onload;
+                        dom.onload = function () {
+                            func();
+                            old();
+                        }
+                    } else {
+                        dom.onload = func;
+                    }
+                }
+            }
+        }
+
+
+        fakeQuery(window).ready(function () {
+            alert("第一调用");
+        });
+
+        fakeQuery(window).ready(function () {
+            alert("第二调用");
+        });
+
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>

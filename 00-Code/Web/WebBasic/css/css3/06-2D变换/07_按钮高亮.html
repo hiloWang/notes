@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>按钮高亮</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            width: 60px;
+            height: 30px;
+            background: gray;
+            text-align: center;
+            line-height: 30px;
+            border: 1px solid black;
+            box-sizing: border-box;
+            font-weight: bold;
+
+            /*top,height 百分比参照与包含块的高度*/
+            /*left,margin,padding,width 百分比参照与包含块的宽度*/
+            /*translate(-50%,-50%) 百分比参照于自身的宽高*/
+            /*background-position 百分比参照于（图片区域-图片的位图像素值）*/
+
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: 2000ms;
+        }
+
+        a:hover {
+            background: white;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+<a href="javascript:;">HOME</a>
+</body>
+</html>

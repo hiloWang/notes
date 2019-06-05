@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>过度</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            width: 60%;
+            height: 60%;
+            border: 1px solid;
+            margin: 100px auto 0;
+        }
+
+        #test {
+            width: 100px;
+            height: 100px;
+            background: pink;
+            text-align: center;
+            font: 30px/100px "微软雅黑";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            margin: auto;
+
+            transition-property: width;
+            transition-duration: 5s;
+            transition-timing-function: linear;
+            transition-delay: 3s;
+        }
+
+        body:hover #test {
+            width: 300px;
+        }
+
+    </style>
+</head>
+<body>
+<div id="test">
+</div>
+</body>
+</html>

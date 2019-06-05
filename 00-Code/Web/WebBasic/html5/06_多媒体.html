@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>多媒体</title>
+</head>
+
+<body>
+
+<!--如果浏览器不支持video，那么会把video当作一个普通标签，比如与div样-->
+<video controls="controls" poster="toy.png" autoplay="autoplay">
+
+    <source src="fun.ogg" type="video/ogg">
+    <source src="fun.mp4" type="video/mp4">
+
+    <!--兼容方式来播放video-->
+    <object type="application/x-shockwave-flash" data="http://static.youku.com/v1.0.0557/v/swf/loader.swf" width="100%" height="100%" id="movie_player">
+        <param name="allowFullScreen" value="true">
+        <param name="allowscriptaccess" value="always">
+        <param name="allowFullScreenInteractive" value="true">
+        <param name="flashvars" value="VideoIDS=XMTMwNDAzNzM4NA==&amp;ShowId=0&amp;category=85&amp;Cp=0&amp;ev=1&amp;Light=on&amp;THX=off&amp;unCookie=0&amp;frame=0&amp;pvid=1439005764768c9QpaT&amp;uepflag=1&amp;Tid=0&amp;isAutoPlay=true&amp;Version=/v1.0.1080&amp;show_ce=0&amp;winType=interior&amp;Type=Folder&amp;Fid=25977506&amp;Pt=0&amp;Ob=1&amp;plchid=z&amp;openScanCode=1&amp;scanCodeText=&quot;限时&quot; 扫码免广告&amp;embedid=AjMyNjAwOTM0NgJ3d3cueW91a3UuY29tAi8=&amp;vext=bc%3D%26pid%3D1439005764768c9QpaT%26unCookie%3D0%26frame%3D0%26type%3D1%26fob%3D1%26fpo%3D0%26svt%3D0%26emb%3DAjMyNjAwOTM0NgJ3d3cueW91a3UuY29tAi8%3D%26dn%3D%E7%BD%91%E9%A1%B5%26hwc%3D1%26mtype%3Doth&amp;pageStartTime=1439005764766">
+        <param name="movie" value="http://static.youku.com/v1.0.0557/v/swf/loader.swf">
+        <div class="player_html5">
+            <div class="picture" style="height:100%">
+                <div style="line-height:460px;"><span style="font-size:18px">您还没有安装flash播放器,请点击<a href="http://www.adobe.com/go/getflash" target="_blank">这里</a>安装</span></div>
+            </div>
+        </div>
+    </object>
+
+</video>
+
+<script>
+     var btn = document.getElementById('btn');
+     var btn_pause = document.getElementById('btn_pause');
+     var audio = document.getElementById('audio');
+     btn.addEventListener('click', function() {
+       // 播放音频
+       audio.play();
+     });
+     btn_pause.addEventListener('click', function() {
+       // 播放音频
+       audio.pause();
+     });
+</script>
+</body>
+
+</html>

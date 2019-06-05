@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery-城市选择案例</title>
+
+    <style type="text/css" media="screen">
+        select {
+            width: 200px;
+            background-color: teal;
+            height: 200px;
+            font-size: 20px;
+        }
+        .btn-box {
+            width: 30px;
+            display: inline-block;
+            vertical-align: top;
+        }
+    </style>
+
+    <script src="../js/jquery-1.8.3.js"></script>
+
+    <script>
+
+        $(function(){
+            $("#btn-sel-all").on('click',function(){
+                //把所有的 城市从左边 移动到右边select中
+                $("#src-city option").appendTo("#tar-city");
+            });
+            $("#btn-sel-none").on('click',function(){
+                //把所有的 城市从左边 移动到右边select中
+                $("#tar-city option").appendTo("#src-city");
+            });
+            $("#btn-sel").on('click',function(){
+                //把所有的 城市从左边 移动到右边select中
+                $("#src-city option:selected").appendTo("#tar-city");
+            });
+
+            $("#btn-back").on('click',function(){
+                //把所有的 城市从左边 移动到右边select中
+                $("#tar-city option:selected").appendTo("#src-city");
+            });
+        });
+    </script>
+</head>
+<body>
+
+<select id="src-city" name="src-city" multiple>
+    <option value="1">北京</option>
+    <option value="2">上海</option>
+    <option value="3">深圳</option>
+    <option value="4">广州</option>
+    <option value="5">西红柿</option>
+</select>
+<div class="btn-box">
+    <button id="btn-sel-all"> &gt;&gt; </button>
+    <button id="btn-sel-none"> &lt;&lt; </button>
+    <button id="btn-back"> &lt; </button>
+    <button id="btn-sel"> &gt;</button>
+</div>
+
+<select id="tar-city" name="tar-city" multiple>
+
+</select>
+</body>
+</html>

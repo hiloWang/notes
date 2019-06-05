@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            border: 1px solid black; /*给父元素添加一个边框，便于辨认*/
+            width: 1000px;
+            font-size: 20px; /*设置大号字体，便于比较*/
+        }
+
+        img#img1 {
+            width: 150px;
+        }
+
+        #span {
+            display: inline-block; /*注意这里的inline-block*/
+            width: 250px;
+            height: 80px;
+            background-color: yellow; /*给span元素设置一背景色，便于辨认*/
+        }
+
+        img#img2 {
+            width: 250px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    Writing
+    <img id="img1" src="img/img1.jpg"/>
+    <span id="span">span元素</span>
+    <img id="img2" src="img/img2.jpg"/>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--开启注解自动代理-->
+    <aop:aspectj-autoproxy/>
+
+    <context:component-scan base-package="me.ztiany.aop.injectaspect"/>
+
+    <bean class="me.ztiany.aop.injectaspect.CarAspect" factory-method="aspectOf">
+        <property name="cartTrace" ref="carTrace"/>
+    </bean>
+
+
+    <bean id="benz" class="me.ztiany.aop.injectaspect.Benz"/>
+    <bean id="bmw" class="me.ztiany.aop.injectaspect.BMW"/>
+    <bean id="carTrace" class="me.ztiany.aop.injectaspect.CartTrace"/>
+
+    <!--
+    通常情况下，Spring bean由Spring容器初始化，但是AspectJ切面是由AspectJ在运行期创建的。等到Spring有机会为CarAspect注入CartTrace时，
+    CarAspect已经被实例化了。因为Spring不能负责创建CarAspect，那就不能在 Spring中简单地把CarAspect声明为一个bean。相反，
+    我们需要一种方式为Spring获得已经由AspectJ创建的CarAspect实例的句柄，从而可以注入CartTrace。幸好，
+    所有的AspectJ切面都提供了一个静态的aspectOf()方法，该方法返回切面的一个单例。所以为了获得切面的实例，
+    我们必须使用factory-method来调用asepctOf()方法而不是调用CarAspect的构造器方法。
+    -->
+
+
+</beans>

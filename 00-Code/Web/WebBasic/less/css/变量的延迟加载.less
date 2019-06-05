@@ -1,0 +1,10 @@
+@var: 0;
+.class {
+@var: 1;
+    .brass {
+      @var: 2;
+      three: @var;//three 的需要等到 @var 完全初始化后才会确认，最终 var 被赋值为 3，所以 three 的值为 3。
+      @var: 3;
+    }
+  one: @var;  
+}

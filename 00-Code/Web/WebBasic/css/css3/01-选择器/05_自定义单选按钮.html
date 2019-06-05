@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			label{
+				position: relative;
+				float: left;
+				width: 100px;
+				height: 100px;
+				border: 2px solid;
+				overflow: hidden;
+				border-radius: 50%;
+			}
+			label > span{
+				position: absolute;
+				left: 0;
+				top: 0;
+				bottom: 0;
+				right: 0;
+			}
+			input{
+				position: absolute;
+				left: -50px;
+				top: -50px;
+			}
+			
+			
+			input:checked + span{
+				background: pink;
+			}
+		</style>
+	</head>
+	<body>
+		<label >
+			<input type="radio" name="atguigu" />
+			<span></span>
+		</label>
+		<label >
+			<input type="radio" name="atguigu" />
+			<span></span>
+		</label>
+		<label >
+			<input type="radio" name="atguigu" />
+			<span></span>
+		</label>
+	</body>
+</html>

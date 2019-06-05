@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shiporder xmlns="http://www.itcast.cn"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.itcast.cn shiporder.xsd"
+           orderid="abc">
+    <orderperson1>aaa</orderperson1>
+    <shipto>
+        <name>wj</name>
+        <address>sz</address>
+        <city>sz</city>
+        <country>cn</country>
+    </shipto>
+    <item>
+        <title>tt</title>
+        <quantity>10</quantity>
+        <price>100.5</price>
+    </item>
+</shiporder>

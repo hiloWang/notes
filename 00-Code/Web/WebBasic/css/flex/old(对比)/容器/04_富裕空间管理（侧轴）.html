@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#wrap{
+				width: 400px;
+				height: 300px;
+				border: 1px solid;
+				margin:100px auto;
+				display:-webkit-box;
+				/*-webkit-box-orient控制主轴和侧轴分别是哪一根*/
+				-webkit-box-orient:vertical;
+				/*-webkit-box-direction控制主轴方向*/
+				-webkit-box-direction: reverse;
+				 /* 
+				  start  富裕空间在右边（x）  下边（y）
+		          end 	  富裕空间在左边	（x） 上边（y）
+		          center  富裕空间在两边
+		          justify 富裕空间在项目之间
+		         */
+				-webkit-box-pack: justify;
+				 /*
+				 	start  富裕空间在右边（x）  下边（y）  
+          		 	end 	  富裕空间在左边	（x） 上边（y）
+           		 	center 	富裕空间在两边
+           		 */ 
+           		 -webkit-box-align:end;
+			}
+			#wrap > .item{
+				width: 50px;
+				height: 50px;
+				background: pink;
+				text-align: center;
+				line-height: 50px;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="item">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			<div class="item">4</div>
+			<div class="item">5</div>
+		</div>
+	</body>
+</html>

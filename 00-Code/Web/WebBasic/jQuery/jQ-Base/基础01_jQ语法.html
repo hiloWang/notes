@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQ语法</title>
+    <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+
+</head>
+
+
+<body>
+
+<input type="button" value="JS写入" onclick="writeByJs()"/>
+<input type="button" value="JQ写入" id="btn"/><br/>
+班长：<span id="span1">你好帅！</span>
+
+<script type="text/javascript">
+    /*
+     jQuery 语法是通过选取 HTML 元素，并对选取的元素执行某些操作。语法：基础语法： $(selector).action()
+
+     - 美元符号定义 jQuery
+     - 选择符（selector）"查询"和"查找" HTML 元素
+     - jQuery 的 action() 执行对元素的操作
+
+     实例：
+
+     $(this).hide() - 隐藏当前元素
+     $("p").hide() - 隐藏所有 <p> 元素
+     $("p.test").hide() - 隐藏所有 class="test" 的 <p> 元素
+     $("#test").hide() - 隐藏所有 id="test" 的元素
+     */
+
+    function writeByJs() {
+        //Js操作DOM
+        var sp = document.getElementById("span1");
+        sp.innerText = "Write By Js";
+        //Dom 转换为 jQ对象
+        $(sp).html("Write By jQ")
+    }
+
+    $(function () {
+        $("#btn").click(function () {
+            //JQ对象无法操作JS里面的属性和方法！！！
+            $("#span1").html("呵呵哒！");
+            //JQ对象向DOM对象转换方式一
+            $("#span1").get(0).innerHTML = "美美哒！";
+            //JQ对象向DOM对象转换方式二
+            $("#span1")[0].innerHTML = "棒棒哒！";
+        });
+    });
+
+</script>
+</body>
+
+
+</html>

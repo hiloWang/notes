@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>经典布局-两栏布局-方式5</title>
+
+    <!--
+    设置 .left 的 position 为 absolute，.left 脱离了文档流，.right 会无视 .left 的存在。
+    -->
+    <style type="text/css">
+
+        .container {
+            border: 1px solid red;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            font-size: 0;
+        }
+
+        .left {
+            width: 100px;
+            position: absolute;
+            height: 150px;
+            background-color: #00FF00;
+        }
+
+        .right {
+            height: 150px;
+            left: 100px;
+            margin-left: 100px;
+            background-color: #94E8FF;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+
+<div>
+    测试、测试
+</div>
+
+</body>
+</html>

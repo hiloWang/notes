@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/item_change_name"
+        android:title="修改防盗功能名称"/>
+    <item
+        android:id="@+id/item_change_password"
+        android:title="修改密码"/>
+    <item
+        android:id="@+id/item_howtouse"
+        android:title="如何使用"/>
+    
+</menu>

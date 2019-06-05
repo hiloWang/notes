@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            width: 300px;
+            border: 1px solid;
+            margin: 0 auto;
+        }
+
+        #left {
+            float: left;
+            width: 80px;
+            height: 80px;
+            background: url(../css2.1-01/img/mv.jpg) no-repeat -50px -50px;
+        }
+
+        #des {
+            padding-left: 10px;
+            /*display: inline-block;*/
+            /*display 要为 block，加上下面三个属性，实现文本省略号*/
+            display: block;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="left"></div>
+    <div id="des">
+        此产品贱卖 买一送三 此产品贱卖 买一送三此产品贱卖 买一送三 此产品贱卖 买一送三<br/>
+        此产品贱卖 买一送三 此产品贱卖 买一送三<br/>
+        此产品贱卖 买一送三 此产品贱卖 买一送三<br/>
+        此产品贱卖 买一送三 此产品贱卖 买一送三<br/>
+        此产品贱卖 买一送三 此产品贱卖 买一送三<br/>
+        此产品贱卖 买一送三 此产品贱卖 买一送三<br/>
+        此产品贱卖 买一送三 此产品贱卖 买一送三<br/>
+    </div>
+</div>
+</body>
+</html>

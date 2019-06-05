@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>层叠性</title>
+
+    <style type="text/css">
+
+        /*都选择上了，则算权重，此处为红色*/
+        #a_box1 .a_hezi2 p { /*    1 1 1  */
+            color: red;
+        }
+
+        div div #a_box3 p { /* 1 3*/
+            color: green;
+        }
+
+        div.a_hezi1 div.a_hezi2 div.a_hezi3 p { /*  3 4  */
+            color: blue;
+        }
+
+        /*如果权重一样，则后写的优先，此处为红色*/
+        #b_box2 div .b_pp{/* 1 1 1 */
+            color:blue;
+        }
+        #b_box1 .b_hezi2 p{/* 1 1 1*/
+            color:red;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div class="a_hezi1" id="a_box1">
+    <div class="a_hezi2" id="a_box2">
+        <div class="a_hezi3" id="a_box3">
+            <p>猜猜我是什么颜色？</p>
+        </div>
+    </div>
+</div>
+
+<div class="b_hezi1" id="b_box1">
+    <div class="b_hezi2" id="b_box2">
+        <div class="b_hezi3" id="b_box3">
+            <p class="b_pp">猜猜我是什么颜色？</p>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

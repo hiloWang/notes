@@ -1,0 +1,129 @@
+:buildsrc:compileJava NO-SOURCE
+:buildsrc:compileGroovy
+:buildsrc:processResources NO-SOURCE
+:buildsrc:classes
+:buildsrc:jar
+:buildsrc:assemble
+:buildsrc:compileTestJava NO-SOURCE
+:buildsrc:compileTestGroovy NO-SOURCE
+:buildsrc:processTestResources NO-SOURCE
+:buildsrc:testClasses UP-TO-DATE
+:buildsrc:test NO-SOURCE
+:buildsrc:check UP-TO-DATE
+:buildsrc:build
+NDK is missing a "platforms" directory.
+If you are using NDK, verify the ndk.dir is set to a valid NDK directory.  It is currently set to D:\dev_tools\android-sdk\ndk-bundle.
+If you are not using NDK, unset the NDK variable from ANDROID_NDK_HOME or local.properties to remove this warning.
+
+Observed package id 'build-tools;26.0.0-rc2' in inconsistent location 'D:\dev_tools\android-sdk\build-tools\26.0.0-preview' (Expected 'D:\dev_tools\android-sdk\build-tools\26.0.0-rc2')
+Observed package id 'build-tools;26.0.0-rc2' in inconsistent location 'D:\dev_tools\android-sdk\build-tools\26.0.0-preview' (Expected 'D:\dev_tools\android-sdk\build-tools\26.0.0-rc2')
+Build properties not found for package Android SDK Platform 15
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getScopes-------------------------------------------------------------------> SCOPE_FULL_PROJECT
+-------------------------------------------------------------------getScopes-------------------------------------------------------------------> SCOPE_FULL_PROJECT
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getScopes-------------------------------------------------------------------> SCOPE_FULL_PROJECT
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getScopes-------------------------------------------------------------------> SCOPE_FULL_PROJECT
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getScopes-------------------------------------------------------------------> SCOPE_FULL_PROJECT
+-------------------------------------------------------------------getScopes-------------------------------------------------------------------> SCOPE_FULL_PROJECT
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getScopes-------------------------------------------------------------------> SCOPE_FULL_PROJECT
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getScopes-------------------------------------------------------------------> SCOPE_FULL_PROJECT
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getScopes-------------------------------------------------------------------> SCOPE_FULL_PROJECT
+-------------------------------------------------------------------getScopes-------------------------------------------------------------------> SCOPE_FULL_PROJECT
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getScopes-------------------------------------------------------------------> SCOPE_FULL_PROJECT
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getInputTypes-------------------------------------------------------------------> CONTENT_CLASS
+-------------------------------------------------------------------getScopes-------------------------------------------------------------------> SCOPE_FULL_PROJECT
+:app:preBuild UP-TO-DATE
+:app:preDebugBuild
+:app:compileDebugAidl
+:app:compileDebugRenderscript
+:app:checkDebugManifest
+:app:generateDebugBuildConfig
+:app:prepareLintJar
+:app:generateDebugResValues
+:app:generateDebugResources
+:app:mergeDebugResources
+:app:createDebugCompatibleScreenManifests
+:app:processDebugManifest
+:app:splitsDiscoveryTaskDebug
+:app:processDebugResources
+:app:generateDebugSources
+:app:javaPreCompileDebug
+:app:compileDebugJavaWithJavac
+:app:compileDebugNdk NO-SOURCE
+:app:compileDebugSources
+:app:mergeDebugShaders
+:app:compileDebugShaders
+:app:generateDebugAssets
+:app:mergeDebugAssets
+:app:transformClassesWithStackFramesFixerForDebug
+:app:transformClassesWithDesugarForDebug
+:app:transformClassesWithPrintTransformForDebug
+-------------------------------------------------------------------isIncremental-------------------------------------------------------------------> false
+-------------------------------------------------------------------directoryInputs-------------------------------------------------------------------
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\0
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\0
+-------------------------------------------------------------------jarInputs-------------------------------------------------------------------
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\1.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\1.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\2.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\2.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\3.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\3.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\4.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\4.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\5.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\5.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\6.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\6.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\7.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\7.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\8.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\8.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\9.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\9.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\10.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\10.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\11.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\11.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\12.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\12.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\13.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\13.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\14.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\14.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\15.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\15.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\16.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\16.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\17.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\17.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\18.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\18.jar
+D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\desugar\debug\19.jar
+dest --> D:\codes\github\Programming-Notes-Code\Gradle\Gradle-AndroidTransformAPI\app\build\intermediates\transforms\PrintTransform\debug\19.jar
+:app:transformClassesWithDexBuilderForDebug
+:app:transformClassesWithMultidexlistForDebug
+:app:transformDexArchiveWithDexMergerForDebug
+:app:mergeDebugJniLibFolders
+:app:transformNativeLibsWithMergeJniLibsForDebug
+:app:processDebugJavaRes NO-SOURCE
+:app:transformResourcesWithMergeJavaResForDebug
+:app:validateSigningDebug
+:app:packageDebug
+:app:assembleDebug
+
+BUILD SUCCESSFUL in 27s
+28 actionable tasks: 28 executed

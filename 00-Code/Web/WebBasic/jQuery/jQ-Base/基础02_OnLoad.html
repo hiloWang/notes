@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OnLoad</title>
+    <script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+</head>
+
+<body>
+
+
+<script type="text/javascript">
+
+    //传统的方式页面加载会存在覆盖问题，加载比JQ慢(整个页面加载完毕，包括里面的其它内容，比如图片)
+    //JQ不存在覆盖问题，加载的时候是顺序执行
+    //覆盖问题：定义两次window.onload = function ()，只会执行后面定义的那次
+    window.onload = function () {
+        document.write("<div>window.onload </div>")
+    };
+
+    //JQ的加载比JS加载要快！(当整个dom树结构绘制完毕就会加载)
+    //jQuery是与$等效的，使用$只是为了更加方便的编程
+    jQuery(document).ready(function () {
+        document.write("<div>jQuery.ready </div>")
+    });
+
+    $(document).ready(function () {
+        document.write("<div>$(document).ready)</div>")
+    });
+    
+    //简写方式
+    $(function () {
+        document.write("<div>$(function ()) </div>")
+    });
+
+</script>
+
+</body>
+</html>

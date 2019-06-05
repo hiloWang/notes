@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="home_title">#9900ff00</color>
+    <color name="dark">#22000000</color>
+    <color name="list_item_transparent">@android:color/transparent</color>
+    <color name="yellow">#bbbbbb00</color>
+    <color name="grenn">#bb00ff00</color>
+    <color name="textColorPrimary">#ffffffff</color>
+    <color name="white">#ffffffff</color>
+    <color name="textColorPrimaryDark">#ff000000</color>
+
+</resources>

@@ -1,0 +1,20 @@
+group 'com.ztiany'
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    //dom4j
+    compile group: 'dom4j', name: 'dom4j', version: '1.6.1'
+    //dom4j使用xpath
+    compile group: 'jaxen', name: 'jaxen', version: '1.1.6'
+    // pull
+    compile group: 'net.sf.kxml', name: 'kxml2', version: '2.3.0'
+}

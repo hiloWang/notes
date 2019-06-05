@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!--声明文档兼容模式，表示使用IE浏览器的最新模式-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--视口的作用：在移动浏览器中，当页面宽度超出设备，浏览器内部虚拟的一个页面容器，会将页面缩放到设备这么大来展示-->
+    <!--width 	设置layout viewport  的宽度，为一个正整数，或字符串"width-device"(表示采用设备的宽度)
+        initial-scale 	设置页面的初始缩放值，为一个数字，可以带小数
+        minimum-scale 	允许用户的最小缩放值，为一个数字，可以带小数
+        maximum-scale 	允许用户的最大缩放值，为一个数字，可以带小数
+        height 	设置layout viewport  的高度，这个属性对我们并不重要，很少使用
+        user-scalable 	是否允许用户进行缩放，值为"no"或"yes", no 代表不允许，yes代表允许
+        如果设置"user-scalable=no",那么"minimum-scale"和"maximum-scale"无效
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <title>Bootstrap容器</title>
+
+    <!-- 引入Bootstrap核心样式文件 -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果，必须放置到web服务器中 -->
+
+    <style type="text/css">
+        .container {
+            border: solid red 1px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <span>你好呀</span>
+</div>
+
+<!--前端开发建议：网站优化时，除了立即需要工作的js存放在head外，将大部分JS文件放在页面的末尾-->
+<!-- 引入jQuery核心js文件，必须放置在bootStrap.js前面！-->
+<script src="../js/jquery-3.3.1.js"></script>
+<!-- 引入BootStrap核心js文件 -->
+<script src="../js/bootstrap.js"></script>
+
+</body>
+
+</html>

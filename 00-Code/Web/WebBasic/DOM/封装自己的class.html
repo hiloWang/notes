@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>封装自己的类名</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            margin: 10px;
+        }
+    </style>
+
+    <script>
+
+        window.onload = function () {
+
+            // 封装自己的类名
+            function getClass(classname) {
+                //判断支持否(IE系列中，IE9才支持)
+                if (document.getElementsByClassName) {
+                    return document.getElementsByClassName(classname);
+                }
+
+                var arr = []; //用于返回 数组
+                var dom = document.getElementsByTagName("*");//所有节点
+
+                for (var i = 0; i < dom.length; i++) { // 遍历所有的 盒子
+
+                    var txtArr = dom[i].className.split(" "); // 分割类名 并且 转换为数组
+
+                    //  ["demo","test"];
+                    for (var j = 0; j < txtArr.length; j++) {  // 遍历 通过类名分割的数组
+                        if (txtArr[j] === classname) {
+                            arr.push(dom[i]); // 我们要的是 div
+                        }
+                    }
+                }
+                return arr;
+            }
+
+            var test = getClass("test");
+            console.log(test);
+        }
+    </script>
+
+</head>
+<body>
+
+<div></div>
+<div class="demo"></div>
+<div class="test"></div>
+<div></div>
+<div></div>
+<div class="demo test one"></div>
+<div class="demo one"></div>
+<div></div>
+<div class="demo"></div>
+<div class="one two test"></div>
+
+</body>
+</html>

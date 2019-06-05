@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- xmlns="http://www.itcast.com" 默认的名称空间 -->
+<书架 xmlns="http://www.itcast.com"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.itcast.com book.xsd ">
+    <书>
+        <书名>书名</书名>
+        <作者>作者</作者>
+        <售价>0.0</售价>
+    </书>
+</书架>

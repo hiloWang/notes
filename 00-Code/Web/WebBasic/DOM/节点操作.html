@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>节点操作</title>
+</head>
+<body>
+
+添加用户：
+用户名：<input title="用户名" type="text" id="name" value=""/>
+邮箱：<input title="邮箱" type="text" id="email"/>
+电话：<input title="电话" type="text" id="phone"/><br/>
+<input type="button" id="addBtn1" value="添加XML DOM"/>
+<input type="button" id="addBtn2" value="添加HTML DOM"/>
+<hr/>
+<table id="t1" border="1" width="438">
+    <tr>
+        <td>姓名</td>
+        <td>邮箱</td>
+        <td>电话</td>
+        <td>操作</td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+
+
+    window.onload = function () {
+        //XML DOM方式
+        document.getElementById("addBtn1").onclick = function () {
+            //得到name、email、phone的值
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+            //构建新节点：tr
+            var trNode = document.createElement("tr");
+            //构建四个td节点：并设置文本内容
+            var nameTdNode = document.createElement("td");
+            nameTdNode.innerHTML = name;
+            var emailTdNode = document.createElement("td");
+            emailTdNode.innerHTML = email;
+            var phoneTdNode = document.createElement("td");
+            phoneTdNode.innerHTML = phone;
+            var opTdNode = document.createElement("td");
+            opTdNode.innerHTML = "<input type='button' onclick='del(this)' value='删除'/>";
+            //把td节点添加到tr节点上
+            trNode.appendChild(nameTdNode);
+            trNode.appendChild(emailTdNode);
+            trNode.appendChild(phoneTdNode);
+            trNode.appendChild(opTdNode);
+            //把tr节点挂接到table.tbody节点上
+            /*var tBodyNode = document.getElementById("t1").firstChild;
+             tBodyNode.appendChild(trNode);IE能用*/
+            var tBodyNode = document.createElement("tbody");//各个浏览器都能用
+            tBodyNode.appendChild(trNode);
+            document.getElementById("t1").appendChild(tBodyNode);
+        };
+
+        //HTML DOM方式
+        document.getElementById("addBtn2").onclick = function () {
+            //得到name、email、phone的值
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+            //得到表格对象
+            var tableObj = document.getElementById("t1");
+            //调用insertRow插入一行，返回TableRow
+            var trObj = tableObj.insertRow(tableObj.rows.length);
+            //TableRow的insertCell，返回TableCell
+            var nameTdObj = trObj.insertCell(trObj.cells.length);
+            nameTdObj.innerHTML = name;
+            var emailTdObj = trObj.insertCell(trObj.cells.length);
+            emailTdObj.innerHTML = email;
+            var phoneTdObj = trObj.insertCell(trObj.cells.length);
+            phoneTdObj.innerHTML = phone;
+            var opTdObj = trObj.insertCell(trObj.cells.length);
+            opTdObj.innerHTML = "<input type='button' onclick='del(this)' value='删除'/>";
+        }
+    };
+
+
+    function del(aObj) {
+        document.getElementById("t1").deleteRow(aObj.parentNode.parentNode.rowIndex);
+    }
+</script>
+
+</body>
+</html>

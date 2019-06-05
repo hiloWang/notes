@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>经典布局-三栏布局-双飞翼</title>
+
+    <!--
+    圣杯布局来源于2006年的一篇文章：In Search of the Holy Grail。双飞翼布局始于淘宝 UED。两者都是在解决：
+        两边固定宽度，中间自适应的三栏布局，并且主要内容要优先渲染，按照 DOM 从上至下的加载原则，中间的自适应部分要放在前面。
+    -->
+
+    <!--
+        1. 将 .center 写在最前面，方便最先渲染。
+        2. 为了保证窗口缩小时仍然能展示，我们给 body 设置了最小宽度。
+
+        双飞翼布局与圣杯布局的前部分一样，在给左右两边元素留出位置的思路有区别。圣杯布局是设置了父元素的 padding 留出空间，
+        之后利用 relative 来归位。双飞翼则是多加了一个 div，将中间自适应部分包裹起来，利用子 div 的 margin 来给左右元素留空间。
+
+        同样的问题，双飞翼布局通过多加一个 div 并使用了 margin 来实现，圣杯布局则是使用 padding、相对定位（relative）、设置偏移量（left、right）来实现，
+        相对来说，双飞翼布局更容易理解。在圣杯布局中，无限缩小屏幕（假设没有设置 body 的最小宽度），当 .main 的宽度小于 .left 时，会出现布局错乱。
+    -->
+
+    <style type="text/css">
+
+        body {
+            min-width: 630px;
+        }
+
+        .container {
+            overflow: hidden;
+        }
+
+        .center-container {
+            width: 100%;
+            float: left;
+        }
+
+        .center-container .center {
+            height: 150px;
+            background-color: #94E8FF;
+
+            margin-left: 100px; /* 新添加的属性 */
+            margin-right: 200px; /* 新添加的属性 */
+        }
+
+        .left {
+            width: 100px;
+            height: 150px;
+            background-color: #FFB5BF;
+            float: left;
+            margin-left: -100%;
+        }
+
+        .right {
+            width: 200px;
+            height: 150px;
+            background-color: #8990D5;
+            float: left;
+            margin-left: -200px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+    <div class="center-container">
+        <div class="center">center哈哈</div>
+    </div>
+    <div class="left"></div>
+    <div class="right"></div>
+</div>
+
+</body>
+</html>

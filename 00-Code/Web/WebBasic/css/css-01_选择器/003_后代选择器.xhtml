@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+    <title>后代选择器</title>
+    <style type="text/css">
+
+        /*这里选择的是：div1里的所有li2里的所有p*/
+        .div1 .li2 p {
+            color: red;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="div1">
+
+    <ul>
+        <li>
+            <p>段落</p>
+            <p>段落</p>
+            <p>段落</p>
+        </li>
+
+        <li class="li2">
+            <p>段落</p>
+            <p>段落</p>
+            <p>段落</p>
+        </li>
+
+        <li>
+            <p>段落</p>
+            <p>段落</p>
+            <p>段落</p>
+
+        </li>
+    </ul>
+
+</div>
+
+<div>
+    <p>段落</p>
+    <p>段落</p>
+    <p>段落</p>
+</div>
+
+</body>
+
+</html>

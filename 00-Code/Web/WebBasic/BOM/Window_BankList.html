@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择银行</title>
+    <style type="text/css">
+        ul li {
+            list-style: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<ul>
+    <li><input title="中国工商银行" type="radio" name="bank_name" value="中国工商银行" onclick="rtValue(this)" id="gs_bank"/><label
+            for="cn_bank">中国工商银行</label></li>
+    <li><input title="中国建设银行" type="radio" name="bank_name" value="中国建设银行" onclick="rtValue(this)" id="js_bank"/><label
+            for="js_bank">中国建设银行</label></li>
+    <li><input title="中国农业银行" type="radio" name="bank_name" value="中国农业银行" onclick="rtValue(this)" id="ny_bank"/><label
+            for="ny_bank">中国农业银行</label></li>
+    <li><input title="中国银行" type="radio" name="bank_name" value="中国银行" id="cn_bank" onclick="rtValue(this)"/><label
+            for="cn_bank">中国银行</label></li>
+</ul>
+
+<script type="text/javascript">
+    function rtValue(inputObj) {
+        if (window.opener) {
+            console.log("opener %s", window.opener);
+            window.opener.document.getElementById("bank_name").value = inputObj.value;
+        } else if (window.parent) {
+            console.log("parent %s", window.parent);
+            window.dialogArguments.document.getElementById("bank_name").value = inputObj.value;
+        }
+        window.close();
+    }
+</script>
+
+</body>
+</html>

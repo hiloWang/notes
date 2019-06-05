@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+    <display-name>Servlet-Base</display-name>
+
+    <!-- =============================================default============================================= -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <context-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </context-param>
+    <context-param>
+        <param-name>global_key</param-name>
+        <param-value>global_value</param-value>
+    </context-param>
+
+    <!-- =============================================Servlets============================================= -->
+
+    <servlet>
+        <servlet-name>DownloadServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.http.DownloadServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>NoCacheServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.http.NoCacheServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>GzipServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.http.GzipServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Location302Servlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.http.Location302Servlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>PrintLifecycleServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.generic.PrintLifecycleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UnSafeServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.basic.UnSafeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletConfigSampleServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.basic.ServletConfigSampleServlet</servlet-class>
+        <init-param>
+            <param-name>keyA</param-name>
+            <param-value>AAA is good</param-value>
+        </init-param>
+        <init-param>
+            <param-name>keyB</param-name>
+            <param-value>BBB is good</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletContextSample1Servlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.basic.ServletContextSample1Servlet
+        </servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletContextSample2Servlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.basic.ServletContextSample2Servlet
+        </servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResponseEncode1Servlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.response.ResponseEncode1Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResponseEncode2Servlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.response.ResponseEncode2Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DownloadCNImageServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.response.DownloadCNImageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CodeImageServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.response.CodeImageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.response.RegisterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForwardSourceServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.request.ForwardSourceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForwardTargetServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.request.ForwardTargetServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>IncludeTargetServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.request.IncludeTargetServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>IncludeSourceServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.request.IncludeSourceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RequestEncodeServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.request.RequestEncodeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RequestStreamServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.request.RequestStreamServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RequestPropertiesServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.request.RequestPropertiesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BeanUtilsServlet</servlet-name>
+        <servlet-class>com.ztiany.serbase.servlets.request.BeanUtilsServlet</servlet-class>
+    </servlet>
+
+    <!-- =============================================映射============================================= -->
+
+    <servlet-mapping>
+        <servlet-name>DownloadServlet</servlet-name>
+        <url-pattern>/servlet/downloadImageServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>NoCacheServlet</servlet-name>
+        <url-pattern>/servlet/nocacheServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>GzipServlet</servlet-name>
+        <url-pattern>/servlet/gzipServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Location302Servlet</servlet-name>
+        <url-pattern>/servlet/Location302Servlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>PrintLifecycleServlet</servlet-name>
+        <url-pattern>/servlet/PrintLifecycleServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>UnSafeServlet</servlet-name>
+        <url-pattern>/servlet/UnSafeServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ServletConfigSampleServlet</servlet-name>
+        <url-pattern>/servlet/ServletConfigSampleServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ServletContextSample1Servlet</servlet-name>
+        <url-pattern>/servlet/ServletContextSample1Servlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ServletContextSample2Servlet</servlet-name>
+        <url-pattern>/servlet/ServletContextSample2Servlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ResponseEncode1Servlet</servlet-name>
+        <url-pattern>/servlet/ResponseEncode1Servlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ResponseEncode2Servlet</servlet-name>
+        <url-pattern>/servlet/ResponseEncode2Servlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>DownloadCNImageServlet</servlet-name>
+        <url-pattern>/servlet/DownloadCNImageServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>CodeImageServlet</servlet-name>
+        <url-pattern>/servlet/CodeImageServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/servlet/RegisterServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ForwardSourceServlet</servlet-name>
+        <url-pattern>/servlet/ForwardSourceServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ForwardTargetServlet</servlet-name>
+        <url-pattern>/servlet/ForwardTargetServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>IncludeTargetServlet</servlet-name>
+        <url-pattern>/servlet/IncludeTargetServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>IncludeSourceServlet</servlet-name>
+        <url-pattern>/servlet/IncludeSourceServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>RequestEncodeServlet</servlet-name>
+        <url-pattern>/servlet/RequestEncodeServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>RequestStreamServlet</servlet-name>
+        <url-pattern>/servlet/RequestStreamServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>RequestPropertiesServlet</servlet-name>
+        <url-pattern>/servlet/RequestPropertiesServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>BeanUtilsServlet</servlet-name>
+        <url-pattern>/servlet/BeanUtilsServlet</url-pattern>
+    </servlet-mapping>
+
+
+</web-app>

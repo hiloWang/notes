@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            position: relative;
+            margin: 200px auto;
+            width: 300px;
+            height: 300px;
+            border: 1px solid;
+        }
+
+        #test {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /*transform: translate3d(-50%,-50%,0);*/
+            margin-left: -50px;
+            margin-top: -50px;
+            width: 100px;
+            height: 100px;
+            background: pink;
+            text-align: center;
+            font: 20px/100px "微软雅黑";
+            border-radius: 100%;
+
+            /*动画内的属性*/
+            animation-name: move;
+            animation-duration: 3s;
+            animation-timing-function: linear;
+            /*反转的是关键帧和animation-timing-function*/
+            animation-direction: alternate-reverse;
+            /*动画外的属性*/
+            animation-delay: 1s;
+
+            /*只作用于动画内的属性*/
+            /*重复的是关键帧*/
+            animation-iteration-count: 3;
+
+            /*元素在动画外的状态
+             *
+             * backwards：from之前的状态与form的状态保持一致
+             * forwards：to之后的状态与to的状态保持一致
+             * both：backwards+forwards
+             */
+            animation-fill-mode: both;
+            animation-play-state: running;
+        }
+
+        @keyframes move {
+            from {
+                transform: translateY(-100px);
+            }
+            to {
+                transform: translateY(100px);
+            }
+        }
+
+        #wrap:hover #test {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body>
+<div id="wrap">
+    <div id="test">CSS</div>
+</div>
+</body>
+</html>

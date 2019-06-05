@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/home_IndexFragment">
+
+    <fragment
+        android:id="@+id/home_IndexFragment"
+        android:name="com.ztiany.navigation.home.HomeFragment"
+        android:label="Home">
+
+        <action
+            android:id="@+id/action_home_to_detail"
+            app:destination="@id/home_DetailFragment"/>
+
+        <action
+            android:id="@+id/action_home_to_category"
+            app:destination="@id/home_CategoryFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/home_DetailFragment"
+        android:name="com.ztiany.navigation.home.DetailFragment"
+        android:label="Detail">
+
+        <argument
+            android:name="detailId"
+            android:defaultValue="0"
+            app:type="integer"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/home_CategoryFragment"
+        android:name="com.ztiany.navigation.home.CategoryFragment"
+        android:label="Category">
+
+        <argument
+            android:name="categoryId"
+            android:defaultValue="0"
+            app:type="integer"/>
+
+        <argument
+            android:name="categoryName"
+            app:type="string"/>
+
+    </fragment>
+
+</navigation>

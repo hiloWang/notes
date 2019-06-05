@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!--
+        1.两边固定  当中自适应
+        2.当中列要完整显示
+        3.当中列要优先加载
+    -->
+
+    <!--
+        浮动:	搭建完整的布局框架
+        margin 为负值，调整旁边两列的位置(使三列布局到一行上)
+        使用相对定位，调整旁边两列的位置（使两列位置调整到两头）
+    -->
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-width: 600px;
+        }
+
+        #content {
+            padding: 0 200px;
+        }
+
+        #header, #footer {
+            height: 20px;
+            text-align: center;
+            border: 1px solid deeppink;
+            background: gray;
+        }
+
+        #content .middle {
+            float: left;
+            width: 100%;
+            background: pink;
+            /*padding: 0 200px;：错误，因为 width 已经指定了为 100%，所以这样是从 width 两边加 200，而不是从 width 从扣掉两百*/
+        }
+
+        #content .left {
+            position: relative;
+            left: -200px;
+            margin-left: -100%;
+            float: left;
+            width: 200px;
+            background: yellow;
+        }
+
+        #content .right {
+            position: relative;
+            right: -200px;
+            margin-left: -200px;
+            float: left;
+            width: 200px;
+            background: yellow;
+        }
+
+        .clearfix {
+            *zoom: 1;
+        }
+
+        .clearfix:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<div id="header">header</div>
+<div id="content" class="clearfix">
+    <div class="middle">
+        <h4>middle</h4>
+        <!--<h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>
+        <h4>middle</h4>-->
+    </div>
+    <div class="left">left</div>
+    <div class="right">right</div>
+</div>
+<div id="footer">footer</div>
+</body>
+</html>

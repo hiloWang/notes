@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Ajax Sample</title>
+    <style type="text/css">
+        ul li {
+            list-style: none;
+        }
+
+        span {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<ul>
+    <li><input type="button" value="get访问服务器端" onclick="fn1()"><span id="span1"></span></li>
+    <li><input type="button" value="post访问服务器端" onclick="fn2()"><span id="span2"></span></li>
+    <li><input type="button" value="ajax访问服务器端" onclick="fn3()"><span id="span3"></span></li>
+</ul>
+
+<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+
+<script type="text/javascript">
+
+    function fn1() {
+        //get异步访问
+        $.get(
+            "/ajax_base/servlet/AjaxServlet", //url地址
+            {"name": "张三", "age": 25}, //请求参数
+            function (data) { //执行成功后的回调函数
+                console.log(data);
+                console.log(typeof data);
+                alert(data.result);
+            },
+            "json"
+        );
+    }
+
+    function fn2() {
+        //post异步访问
+        $.post(
+            "/ajax_base/servlet/AjaxServlet", //url地址
+            {"name": "李四", "age": 25}, //请求参数
+            function (data) { //执行成功后的回调函数
+                console.log(data);
+                alert(data.result);
+            },
+            "json"
+        );
+    }
+
+    function fn3() {
+        $.ajax({
+            url: "/ajax_base/servlet/AjaxServlet",
+            async: true,
+            type: "POST",
+            data: {"name": "lucy", "age": 18},
+            success: function (data) {
+                console.log(data);
+                alert(data.result);
+            },
+            error: function () {
+                alert("请求失败");
+            },
+            dataType: "json"
+        });
+    }
+</script>
+
+
+</body>
+</html>

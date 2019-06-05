@@ -1,0 +1,82 @@
+import javassist.ClassPool
+import javassist.CtClass
+
+group 'me.ztiany.javassist'
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url uri('repo')
+        }
+    }
+    dependencies {
+        classpath gradleApi()//gradle sdk
+        classpath localGroovy()//groovy sdk
+        classpath 'org.javassist:javassist:3.20.0-GA'
+    }
+}
+
+def doJavassistWork(JavaCompile javaCompile, Project project) {
+    println "doJavassistWork"
+    ClassPool pool = ClassPool.getDefault()
+    println javaCompile.destinationDir.toString()
+    pool.appendClassPath(javaCompile.destinationDir.toString())
+    CtClass cc = pool.get("me.ztiany.javassist.compile.Main")
+    if (cc == null) {
+        return
+    }
+    //解冻后的类，类可以修改一次。
+    cc.defrost()
+    def method = cc.getDeclaredMethod("hello")
+    method.insertBefore("System.out.println(123);")
+    cc.writeFile(javaCompile.destinationDir.toString() + "/")
+    println "Javassist do work success"
+}
+
+
+allprojects {
+
+    apply plugin: 'idea'
+
+    idea {
+        module {
+            outputDir file('build/classes/java/main')
+            testOutputDir file('build/classes/java/test')
+        }
+    }
+
+    if (project.convention.findPlugin(JavaPluginConvention)) {
+        // Change the output directory for the main and test source sets back to the old path
+        sourceSets.main.output.classesDir = new File(buildDir, "classes/java/main")
+        sourceSets.test.output.classesDir = new File(buildDir, "classes/java/test")
+    }
+
+
+    afterEvaluate { project ->
+        project.tasks.each {
+            if (it.name == "compileJava") {
+                JavaCompile javaCompile = it as JavaCompile
+                javaCompile.doLast {
+                    doJavassistWork(javaCompile, project)
+                }
+            }
+        }
+    }
+}
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile 'org.javassist:javassist:3.20.0-GA'
+}

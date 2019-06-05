@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <!-- ========================= XML注入演示 ========================= -->
+
+
+    <!-- ================================构造函数注入================================-->
+
+    <bean id="beanB1" class="me.ztiany.bean.xml.BeanB"/>
+
+    <!--使用c命名空间，属性名方式-->
+    <bean id="beanA1" class="me.ztiany.bean.xml.BeanA"
+          c:age="12"
+          c:name="Ztiany"
+          c:beanB-ref="beanB1"/>
+
+    <!--使用c命名空间，参数索引方式-->
+    <bean id="beanA2" class="me.ztiany.bean.xml.BeanA"
+          c:_0="12"
+          c:_1="Ztiany"
+          c:_2-ref="beanB1"/>
+
+    <!--引用类型使用ref，基本类型和字符串使用value-->
+    <bean id="beanA3" class="me.ztiany.bean.xml.BeanA">
+        <constructor-arg value="12"/>
+        <constructor-arg value="Ztiany"/>
+        <constructor-arg ref="beanB1"/>
+    </bean>
+
+    <bean id="beanC1" class="me.ztiany.bean.xml.BeanC">
+        <constructor-arg>
+            <list>
+                <value>A</value>
+                <value>B</value>
+                <value>C</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="beanC2" class="me.ztiany.bean.xml.BeanC">
+        <constructor-arg ref="listA"/>
+    </bean>
+
+    <bean id="beanC3" class="me.ztiany.bean.xml.BeanC">
+        <constructor-arg>
+            <null/>
+        </constructor-arg>
+    </bean>
+
+
+    <!-- ================================属性注入================================-->
+
+    <bean id="beanB2" class="me.ztiany.bean.xml.BeanB">
+        <property name="age" value="12"/>
+        <property name="name" value="Ztiany"/>
+        <property name="beanA" ref="beanA1"/>
+        <property name="list" ref="listA"/>
+    </bean>
+
+    <!--使用p命名空间，属性名方式-->
+    <bean id="beanB3" class="me.ztiany.bean.xml.BeanB"
+          p:age="12" p:name="Ztiany" p:beanA-ref="beanA1" p:list-ref="listA"/>
+
+    <!-- ================================util命名空间================================-->
+    <!--用于创建一些集合-->
+    <util:list id="listA">
+        <value>A</value>
+        <value>B</value>
+        <value>C</value>
+        <value>D</value>
+    </util:list>
+
+</beans>

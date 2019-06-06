@@ -7,6 +7,8 @@
  ============================================================================
  */
 
+//direct.h is a C/C++ header file provided by Microsoft Windows, which contains functions for manipulating file system directories. Some POSIX functions that do similar things are in unistd.h.
+//https://en.wikipedia.org/wiki/Direct.h
 #include <direct.h>
 #include <stdio.h>
 

@@ -30,58 +30,55 @@
 ---
 ## 2 ubuntu环境搭建与相关配置
 
-### 安装编译环境
+### 安装主题与美化
+
+1：安装优化工具
 
 ```shell
-sudo apt-get install build-essential
+#安装美化管理器(中文名：优化)
+sudo apt install gnome-tweak-tool
 ```
 
-### install unity tools
+2：Gnome-shell Extensions
 
-```shell
-sudo add-apt-repository ppa:freyja-dev/unity-tweak-tool-daily
-sudo apt-get update
-sudo apt-get install unity-tweak-tool
-```
+1. 用 firefox 打开 https://extensions.gnome.org，按照提示安装插件
+2. udo apt install chrome-gnome-shell
+3. 安装以下扩展
+   1. User Themes
+   2. Dash to Dock
+   3. Gnome Global Application Menu
+   4. TopIcons Plus
+
+3：安装相关主题和图标
+
+- 网址：https://www.gnome-look.org/
+- 下载相关主题后按照要求提取并放置于指定目录中，一般是`~/.themes` 中
+- 推荐的 themes
+  - https://www.opendesktop.org/s/Gnome/p/1013714/
+  - https://www.opendesktop.org/s/Gnome/p/1013741/
+  - https://www.opendesktop.org/s/Gnome/p/1102582/
+
+具体参考 [Ubuntu18.04（Gnome桌面）主题美化，Mac私人定制](https://blog.csdn.net/zyqblog/article/details/80152016)
 
 ### install aptitude
 
-aptitude工具是基于apt的一款安装工具，优点是可以自动解决安装和卸载时候的依赖关系。
+aptitude 工具是基于 apt 的一款安装工具，优点是可以自动解决安装和卸载时候的依赖关系。
 
 ```shell
 sudo apt install aptitude
 ```
 
-### 安装工具
+### install Shadowsocks
 
-```shell
-sudo aptitude install shutter//安装截屏软件shutter
-sudo apt install docky//docky工具栏：使用 apt/apt-get 可能需要重启才能生效，用aptitude安装后可以直接使用
-```
+具体参考[Shadowsocks-Wiki](https://github.com/Shadowsocks-Wiki/shadowsocks)
 
-### 安装主题
+### install vscode
 
-```shell
-//主题
-sudo add-apt-repository ppa:noobslab/themes
-sudo apt-get update
-sudo apt-get install flatabulous-theme
-//配套图标
-sudo add-apt-repository ppa:noobslab/icons
-sudo apt-get update
-sudo apt-get install ultra-flat-icons
-```
+参考[Installing Visual Studio Code on Ubuntu](https://linuxize.com/post/how-to-install-visual-studio-code-on-ubuntu-18-04/)
 
 ### install jdk
 
 ```shell
-//首先安装软件包管理工具
-sudo apt-get install python-software-properties
-sudo apt-get install software-properties-common
-//Oracle
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install oracle-java8-installer
 //open jdk
 sudo apt-get update
 sudo apt-get install openjdk-8-jdk
@@ -93,17 +90,19 @@ sudo apt-get install openjdk-8-jdk
 sudo apt-get install zsh
 ```
 
-### vim
+### vim 配置
 
 ```shell
 sudo apt-get install vim-gtk
-vim /etc/vim/vimrc #编辑配置文件，加入以下配置
+```
 
-        //config:
-        set nu
-        set tabstop
-        set cursorline
-        set ruler
+`vim /etc/vim/vimrc` 编辑配置文件，加入以下配置
+
+```
+set nu
+set tabstop
+set cursorline
+set ruler
 ```
 
 ### dos2unix
@@ -226,4 +225,3 @@ sudo service nginx restart
 
 - [ss 的安装与配置](https://github.com/Shadowsocks-Wiki/shadowsocks/blob/master/6-linux-setup-guide-cn.md)
 - [how-to-install-visual-studio-code-on-ubuntu-18-04/](https://linuxize.com/post/how-to-install-visual-studio-code-on-ubuntu-18-04/)
-- [Ubuntu18.04 Gnome桌面主题美化](https://blog.csdn.net/zyqblog/article/details/80152016)

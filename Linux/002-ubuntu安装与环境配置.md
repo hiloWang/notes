@@ -41,7 +41,7 @@ sudo apt install gnome-tweak-tool
 
 2：Gnome-shell Extensions
 
-1. 用 firefox 打开 https://extensions.gnome.org，按照提示安装插件
+1. 用 firefox 打开 <https://extensions.gnome.org>，按照提示安装插件
 2. udo apt install chrome-gnome-shell
 3. 安装以下扩展
    1. User Themes
@@ -51,12 +51,12 @@ sudo apt install gnome-tweak-tool
 
 3：安装相关主题和图标
 
-- 网址：https://www.gnome-look.org/
+- 网址：<https://www.gnome-look.org/>
 - 下载相关主题后按照要求提取并放置于指定目录中，一般是`~/.themes` 中
 - 推荐的 themes
-  - https://www.opendesktop.org/s/Gnome/p/1013714/
-  - https://www.opendesktop.org/s/Gnome/p/1013741/
-  - https://www.opendesktop.org/s/Gnome/p/1102582/
+  - <https://www.opendesktop.org/s/Gnome/p/1013714/>
+  - <https://www.opendesktop.org/s/Gnome/p/1013741/>
+  - <https://www.opendesktop.org/s/Gnome/p/1102582/>
 
 具体参考 [Ubuntu18.04（Gnome桌面）主题美化，Mac私人定制](https://blog.csdn.net/zyqblog/article/details/80152016)
 
@@ -98,7 +98,7 @@ sudo apt-get install vim-gtk
 
 `vim /etc/vim/vimrc` 编辑配置文件，加入以下配置
 
-```
+```shell
 set nu
 set tabstop
 set cursorline

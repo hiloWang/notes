@@ -10,7 +10,7 @@
 
 Linux用户管理最重要的两个文件就是 `/etc/passwd` 和 `/etc/shadow` 这两个文件。其中 `/etc/passwd` 是用来存储登陆用户信息的，它的基本格式如下：
 
-```
+```bash
 root:x:0:0:root:/root:/bin/bash
 daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 bin:x:2:2:bin:/bin:/usr/sbin/nologin
@@ -35,7 +35,9 @@ man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
 
 使用了这个 shell 的用户即使有了口令，进行登陆操作时也无法登陆，如果尝试登录会出现如下的信息：
 
+```log
     This account is currently not available
+```
 
 所谓的**无法登陆**指的仅是：这个使用者无法使用 bash 或其他 shell 来登陆系统， 并不是说这个账号就无法使用其他的系统资源。
 
@@ -43,13 +45,12 @@ man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
 
 nologin 的作用就是限制某些用户通过 ssh 登陆到 shell 上。有时候为了进行系统维护工作，临时禁止其他用户登录，可以使用 nologin 文件，具体做法是在/etc/目录下创建一个名称为 nologin 的文件。例如：
 
-```
+```bash
 touch /etc/nologin
 echo disable login by admin temperarily! > etc/nologin
 ```
 
 当用户试图登陆时，将会给用户显示 "disable login by admin temperarily!"，当系统维护结束以后，再删除 `/etc/nologin` 文件，其他用户就又可以恢复登陆了，这只是限于能登陆 shell 的用户来说的，对于那些登陆shell为 `/sbin/nologin` 的用户来说没有影响，因为他们本身就无法登陆shell。
-
 
 具体参考：
 

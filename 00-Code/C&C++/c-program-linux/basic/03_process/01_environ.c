@@ -70,9 +70,6 @@ int main(int argc, char const *argv[])
     {
         modifyEnv();
     }
-    else if (strcmp(target, "3") == 0)
-    {
-    }
     else
     {
         printf("specfiy which function that you want to call\n");

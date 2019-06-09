@@ -549,7 +549,6 @@ echo命令的功能是在显示器上显示一段文字，一般起到一个提�
 - basename /ect/sysconfig/network 获取路径的文件名
 - dirname /ect/sysconfig/network 获取路径的目录名称
 
-
 ### todo
 
 - objdump

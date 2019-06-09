@@ -1,7 +1,6 @@
 # Shell
 
-Shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。Shell 既是一种命令语言，又是一种程序设计语言。
-Shell 是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。
+Shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。Shell 既是一种命令语言，又是一种程序设计语言。Shell 是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。
 
 - Shell脚本(shell script)是一种为shell编写的脚本程序
 - Shell环境：
@@ -315,7 +314,6 @@ str | 检测字符串是否为空，不为空返回 true。 | `[ $a ]` 返回 tr
 -x file | 检测文件是否可执行，如果是，则返回 true。 | `[ -x $file ]` 返回 true。
 -s file | 检测文件是否为空（文件大小是否大于0），不为空返回 true。 | `[ -s $file ]` 返回 true。
 -e file | 检测文件（包括目录）是否存在，如果是，则返回 true。 | `[ -e $file ]` 返回 true。
-
 
 ---
 ## 7 命令
@@ -860,7 +858,7 @@ let  "t1 = ((a = 5 + 3, b = 7 - 1, c = 15 - 4))"
 exit命令 同于退出shell，并返回给定值。在shell脚本中可以终止当前脚本执行。执行exit可使shell以指定的状态值退出。若不设置状态值参数，则shell以预设值退出。状态值0代表执行成功，其他值代表执行失败
 
 ---
-## 13 `[]、()、[[]]、(())`
+## 13 shell 中的 `[]、()、[[]]、(())`
 
 ### 小括号 `( )`
 
@@ -903,6 +901,7 @@ if  test $var -eq 0;  then  echo  "True";  fi
 ## 14 数学计算
 
 数学计算总结
+
 ```Shell
 # let方式
 let result+=5
@@ -917,9 +916,19 @@ $(expr $nb1 + 10)
 # bc方式
 result=`echo "$nb3 * 1.5" | bc`
 ```
+
 ---
 ## 引用
 
-- [Linux 命令大全](http://www.runoob.com/linux/linux-command-manual.html)
-- [Shell教程](http://www.runoob.com/linux/linux-shell.html)
+教程：
+
+- [菜鸟教程：Shell教程](http://www.runoob.com/linux/linux-shell.html)
+- [菜鸟教程：Linux 命令大全](http://www.runoob.com/linux/linux-command-manual.html)
 - [shell中各种括号的作用`()、(())、[]、[[]]、{}`](http://blog.csdn.net/taiyang1987912/article/details/39551385)
+
+书籍：
+
+- 《[Linux C 一站式编程：第 31 章 Shell脚本](https://akaedu.github.io/book/ch31s01.html)》
+- 《Linux Shell脚本攻略》第3版
+- 《Linux命令行与shell脚本编程大全》第3版
+- 《Shell脚本学习指南》

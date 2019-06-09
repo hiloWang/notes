@@ -1,4 +1,4 @@
-# Android todo 
+# Android todo
 
 ## 源码分析
 
@@ -38,7 +38,6 @@
 
 - [SVG前戏—让你的View多姿多彩](https://mp.weixin.qq.com/s?__biz=MzI3OTU0MzI4MQ==&mid=2247486149&idx=1&sn=48057cc58f1e45a4030ce2705ec357a6&chksm=eb47665bdc30ef4def6e7c465d39b6b5e5c48fcf377495054b59b83872909e540b51294ba1dc&mpshare=1&scene=1&srcid=0809DmWgVXFDin4P60ncreJF#rd)
 - [终于，我还是码造一个了中国地图](https://mp.weixin.qq.com/s?__biz=MzI3OTU0MzI4MQ==&mid=2247486162&idx=1&sn=7c899abd26b9da6e0f88474cd024c377&chksm=eb47664cdc30ef5aadda82f92fc31703dfc0d0e7923ba857f7a182bcff2fdfd3cb4cae93f89e&mpshare=1&scene=1&srcid=0813bC2OYrvVaKEqAEo6Oyv8#rd)
-
 
 ## Activity
 
@@ -86,3 +85,10 @@
 ## 架构
 
 - [MVI](http://hannesdorfmann.com/android/mosby3-mvi-1)
+
+## RecyclerView
+
+- [【腾讯Bugly干货分享】RecyclerView 必知必会](https://www.cnblogs.com/bugly/p/6264751.html)
+- [让你明明白白的使用RecyclerView——SnapHelper详解](http://www.apkbus.com/blog-978890-79798.html)
+- [RecyclerView问题汇总](https://juejin.im/post/5cce410551882541e40e471d)
+- [如何优雅的实现一个高效、高性能、异步数据实时刷新的列表](http://www.silencedut.com/2019/01/24/%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E9%AB%98%E6%95%88%E3%80%81%E9%AB%98%E6%80%A7%E8%83%BD%E3%80%81%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%97%B6%E5%88%B7%E6%96%B0%E7%9A%84%E5%88%97%E8%A1%A8/)

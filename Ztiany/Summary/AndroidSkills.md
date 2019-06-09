@@ -4,39 +4,39 @@
 ## 1 Android基础
 
 - Activity
-    - 生命周期
-    - 启动模式
-    - 状态保存
-    - 任务栈
+  - 生命周期
+  - 启动模式
+  - 状态保存
+  - 任务栈
 - Service
-    - 生命周期
-    - 基本使用
-    - 启动方式
-    - Service与Activity通信
+  - 生命周期
+  - 基本使用
+  - 启动方式
+  - Service与Activity通信
 - ContentProvider
-    - 编写自己的ContentProvider
-    - 通过ContentProvider获取系统资源
-    - 图片/音频/视频/联系人/系统账户等获取
+  - 编写自己的ContentProvider
+  - 通过ContentProvider获取系统资源
+  - 图片/音频/视频/联系人/系统账户等获取
 - Broadcast
-    - 本地广播
-    - 有序广播
-    - 无顺广播
-    - 优先级
+  - 本地广播
+  - 有序广播
+  - 无顺广播
+  - 优先级
 - 四大组件在manifest.xml中配置
 - 掌握Fragment的使用与常见问题
 - Intent
-    - Intent传递数据
-    - Intent的flag
+  - Intent传递数据
+  - Intent的flag
 - 传感器
-    - 方向传感器
-    - 加速度传感器
+  - 方向传感器
+  - 加速度传感器
 - 多媒体API使用
-    - 音频播放
-    - 视频播放
-    - 拍照与录像
+  - 音频播放
+  - 视频播放
+  - 拍照与录像
 - Sqlite的使用
-    - Cursor
-    - 其他数据库API
+  - Cursor
+  - 其他数据库API
 - Handler机制
 - AsyncTask原理
 - HandlerThread原理
@@ -45,8 +45,8 @@
 - 桌面Widget的开发
 - 理解RomateView
 - 系统权限
-    - 静态权限
-    - 动态权限
+  - 静态权限
+  - 动态权限
 - Android的数据存储
 - 屏幕适配
 - 常用UI控件使用
@@ -104,23 +104,23 @@
 ### 绘图技能
 
 - Canvas
-    - 绘图操作
-    - 画布变换
-    - 画布裁剪
-    - 图层操作
-    - drawBitmapMesh
+  - 绘图操作
+  - 画布变换
+  - 画布裁剪
+  - 图层操作
+  - drawBitmapMesh
 - Paint
-    - Paint常用API
-    - Paint的Shader:五大着色器
-    - xfermode：图形混合模式
-    - mask 滤镜效果，模糊滤镜与浮雕滤镜
-    - 字体绘制与测量
-    - 颜色矩阵
-    - 颜色混合模式
+  - Paint常用API
+  - Paint的Shader:五大着色器
+  - xfermode：图形混合模式
+  - mask 滤镜效果，模糊滤镜与浮雕滤镜
+  - 字体绘制与测量
+  - 颜色矩阵
+  - 颜色混合模式
 - Path
-    - 各种Path基础API
-    - 填充模式
-    - 贝塞尔曲线。使用贝塞尔曲线组合圆形
+  - 各种Path基础API
+  - 填充模式
+  - 贝塞尔曲线。使用贝塞尔曲线组合圆形
 - PathMeasure
 - Rect与Region
 - Bitmap像素的分析
@@ -227,11 +227,11 @@
 - 布局优化
 - UI卡顿分析、过度渲染问题
 - Bitmap优化
-    - 缩放性能优化
-    - 缓存性能优化
-    - 重用性能优化
-    - PNG压缩性能优化
-    - 微信图片终极压缩方案问题
+  - 缩放性能优化
+  - 缓存性能优化
+  - 重用性能优化
+  - PNG压缩性能优化
+  - 微信图片终极压缩方案问题
 
 ### 网络优化
 
@@ -279,7 +279,6 @@
 - ThreadPool使用场景和注意
 - 多进程APP
 
-
 ---
 ## 5 JNI与NDK编程(todo)
 
@@ -326,13 +325,12 @@
 - 对象序列化/AIDL
 - Messenger原理
 
-
 ### 构建与安全
 
 - AndroidStudio
-    - 快捷键
-    - 各种分析器
-    - 常用插件
+  - 快捷键
+  - 各种分析器
+  - 常用插件
 - Git版本管理
 - Gradle深入
 - Gradle构建、Gradle插件
@@ -340,13 +338,12 @@
 - App混淆
 - App反编译
 
-
 ---
 ## 8 Android第三方框架
 
 - RxJava/RxAndroid
-    - RxBindding
-    - RxLife
+  - RxBindding
+  - RxLife
 - Dagger2
 - Okhttp3
 - Stetho
@@ -395,11 +392,8 @@
 - 日期工具类
 - 数字处理工具类
 
-
 ---
 ## 12 跨平台Android开发方式
 
 - ReactNative
 - Flutter
-
-

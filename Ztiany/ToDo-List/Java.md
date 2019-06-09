@@ -1,3 +1,5 @@
+# Java Todo
+
 ## JVM
 
 - [OpenJDK系列(二):从ClassFileParser谈Endian](https://blog.csdn.net/dd864140130/article/details/82427033)
@@ -20,17 +22,22 @@
 - [聊聊并发系列](http://www.infoq.com/cn/author/%E6%96%B9%E8%85%BE%E9%A3%9E)
 - [Java多线程系列目录(共43篇)](http://www.cnblogs.com/skywang12345/p/java_threads_category.html)
 - 《Java并发编程的艺术》
-    - 锁的内存语义
-    - ForkJoin原理
-    - Condition原理
-    - ConcurrentHashMap
-    - ConcurrentLinkedQueue
+  - 锁的内存语义
+  - ForkJoin原理
+  - Condition原理
+  - ConcurrentHashMap
+  - ConcurrentLinkedQueue
 - CompletableFuture
-    - [Java里面CompletableFuture详解](https://blog.csdn.net/cainiao_user/article/details/76423495)
-    - [Java8新的异步编程方式 CompletableFuture](https://juejin.im/post/59eae61b51882549fc512b34)
-    - [20个使用 Java CompletableFuture的例子](http://colobu.com/2018/03/12/20-Examples-of-Using-Java%E2%80%99s-CompletableFuture/)
+  - [Java里面CompletableFuture详解](https://blog.csdn.net/cainiao_user/article/details/76423495)
+  - [Java8新的异步编程方式 CompletableFuture](https://juejin.im/post/59eae61b51882549fc512b34)
+  - [20个使用 Java CompletableFuture的例子](http://colobu.com/2018/03/12/20-Examples-of-Using-Java%E2%80%99s-CompletableFuture/)
 - [深入剖析ConcurrentHashMap(1)](http://ifeve.com/java-concurrent-hashmap-1/)
 - [深入剖析ConcurrentHashMap(2)](http://ifeve.com/java-concurrent-hashmap-2/)
 - [形形色色的锁-1](https://cloud.tencent.com/developer/article/1337960)
 - [形形色色的锁-2](https://cloud.tencent.com/developer/article/1334828)
+- [图解悲观锁和乐观锁](http://www.imooc.com/article/285147)
+- [java 中的锁 -- 偏向锁、轻量级锁、自旋锁、重量级锁](https://blog.csdn.net/zqz_zqz/article/details/70233767)
+
+## I/O
+
 - [Lazy Asynchronous I/O For Event-Driven Servers](https://www.usenix.org/legacy/event/usenix04/tech/general/full_papers/elmeleegy/elmeleegy_html/html.html)

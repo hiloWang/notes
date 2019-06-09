@@ -30,7 +30,8 @@
 ### 1.3 有用的方法
 
 #### RecyclerView
-```
+
+```java
     //滑动到当前Scroll + offset
     mRecyclerView.smoothScrollBy(0, 300);
     //滑动到指定位置，position已经显示则不会移动，如果从上往下移动到目标位置则靠上,否则靠下
@@ -45,7 +46,7 @@
 
 #### LayoutManager
 
-```
+```java
 findFirstVisibleItemPosition() 返回当前第一个可见Item的position
 findFirstCompletelyVisibleItemPosition() 返回当前第一个完全可见Item的position
 findLastVisibleItemPosition() 返回当前最后一个可见Item的position
@@ -67,6 +68,13 @@ findLastCompletelyVisibleItemPosition() 返回当前最后一个完全可见Item
 ---
 ## 3 相关资源
 
+### RecyclerView 技术博客
+
+- [【腾讯Bugly干货分享】RecyclerView 必知必会](https://www.cnblogs.com/bugly/p/6264751.html)
+- [让你明明白白的使用RecyclerView——SnapHelper详解](http://www.apkbus.com/blog-978890-79798.html)
+- [RecyclerView问题汇总](https://juejin.im/post/5cce410551882541e40e471d)
+- [如何优雅的实现一个高效、高性能、异步数据实时刷新的列表](http://www.silencedut.com/2019/01/24/%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E9%AB%98%E6%95%88%E3%80%81%E9%AB%98%E6%80%A7%E8%83%BD%E3%80%81%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE%E5%AE%9E%E6%97%B6%E5%88%B7%E6%96%B0%E7%9A%84%E5%88%97%E8%A1%A8/)
+
 ### LayoutManager
 
 - [greedo-layout-for-android-可以顶边Item宽度百分比的布局管理器](https://github.com/500px/greedo-layout-for-android)
@@ -79,13 +87,12 @@ findLastCompletelyVisibleItemPosition() 返回当前最后一个完全可见Item
 
 ### 打造属于自己的LayoutManager
 
-*   [第一部分](https://github.com/hehonghui/android-tech-frontier/blob/master/issue-9/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-1.md)
-*   [第二部分](https://github.com/hehonghui/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-2.md)
-*   [第三部分](https://github.com/hehonghui/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-3.md)
-*   [第四部分](https://github.com/hehonghui/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Redux.md)
+- [第一部分](https://github.com/hehonghui/android-tech-frontier/blob/master/issue-9/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-1.md)
+- [第二部分](https://github.com/hehonghui/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-2.md)
+- [第三部分](https://github.com/hehonghui/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Part-3.md)
+- [第四部分](https://github.com/hehonghui/android-tech-frontier/blob/master/issue-13/%E5%88%9B%E5%BB%BA-RecyclerView-LayoutManager-Redux.md)
 
-### 使用与原理
+### 原理
 
 - [RecyclerView剖析](http://blog.csdn.net/qq_23012315/article/details/50807224)
 - [RecyclerView源码剖析](https://blog.saymagic.tech/2016/10/21/understand-recycler.html)
-- [【腾讯Bugly干货分享】RecyclerView 必知必会](https://www.cnblogs.com/bugly/p/6264751.html)

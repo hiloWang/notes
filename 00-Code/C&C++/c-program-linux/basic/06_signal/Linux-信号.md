@@ -8,11 +8,11 @@
 4. 终端驱动程序将 Ctrl-C 解释成一个 SIGINT 信号，记在该进程的 PCB 中（也可以说发送了一个 SIGINT 信号给该进程）。
 5. 当某个时刻要从内核返回到该进程的用户空间代码继续执行之前，首先处理 PCB 中记录的信号，发现有一个 SIGINT 信号待处理，而这个信号的默认处理动作是终止进程，所以直接终止进程而不再返回它的用户空间代码执行。
 
-具体参考[LinuxC一站式编程：第 33 章 信号的基本概念](https://akaedu.github.io/book/ch33s01.html)
+具体参考[Linux C编程一站式学习：第 33 章 信号的基本概念](https://akaedu.github.io/book/ch33s01.html)
 
 ## 产生信号
 
-具体参考[LinuxC一站式编程：第 33 章 产生信号](https://akaedu.github.io/book/ch33s02.html)
+具体参考[Linux C编程一站式学习：第 33 章 产生信号](https://akaedu.github.io/book/ch33s02.html)
 
 ### 通过终端按键产生信号
 
@@ -34,7 +34,7 @@ SIGPIPE 是一种由软件条件产生的信号，调用 alarm 函数可以设�
 
 ## 阻塞信号
 
-具体参考[LinuxC一站式编程：第 33 章 阻塞信号](https://akaedu.github.io/book/ch33s03.html)
+具体参考[Linux C编程一站式学习：第 33 章 阻塞信号](https://akaedu.github.io/book/ch33s03.html)
 
 ### 信号在内核中的表示
 
@@ -51,4 +51,4 @@ SIGPIPE 是一种由软件条件产生的信号，调用 alarm 函数可以设�
 
 如果信号的处理动作是用户自定义函数，在信号递达时就调用这个函数，这称为捕捉信号。
 
-具体参考[LinuxC一站式编程：第 33 章 捕捉信号](https://akaedu.github.io/book/ch33s04.html)
+具体参考[Linux C编程一站式学习：第 33 章 捕捉信号](https://akaedu.github.io/book/ch33s04.html)

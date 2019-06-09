@@ -21,7 +21,7 @@
 - exec 函数族的作用是执行参数所指定的可执行文件或脚本。这个函数会替换掉当前进程的内存镜像，也就是执行这个函数成功后，调用该函数的程序就不存在了。
 - 一个程序可以多次加载到内存，成为同时运行的多个进程，例如可以同时开多个终端窗口运行 /bin/bash，另一方面，一个进程在调用exec前后也可以分别执行两个不同的程序，例如在 Shell 提示符下输入命令 ls，首先 fork 创建子进程，这时子进程仍在执行 /bin/bash 程序，然后子进程调用 exec 执行新的程序 /bin/ls。
 
-具体参考[LinuxC一站式编程：第 28 章 第 30 章 进程](https://akaedu.github.io/book/ch30s01.html)
+具体参考[Linux C编程一站式学习：第 28 章 第 30 章 进程](https://akaedu.github.io/book/ch30s01.html)
 
 ## 环境变量
 
@@ -30,11 +30,11 @@
 - setenv 函数
 - unsetenv 函数
 
-具体参考[LinuxC一站式编程：第 28 章 第 30 章 环境变量](https://akaedu.github.io/book/ch30s02.html)
+具体参考[Linux C编程一站式学习：第 28 章 第 30 章 环境变量](https://akaedu.github.io/book/ch30s02.html)
 
 ## 进程控制
 
-具体参考[LinuxC一站式编程：第 28 章 第 30 章 环境变量](https://akaedu.github.io/book/ch30s03.html)
+具体参考[Linux C编程一站式学习：第 28 章 第 30 章 环境变量](https://akaedu.github.io/book/ch30s03.html)
 
 ### fork 函数
 
@@ -52,7 +52,7 @@ exec 函数如果调用成功则加载新的程序从启动代码开始执行，
 
 每个进程各自有不同的用户地址空间，任何一个进程的全局变量在另一个进程中都看不到，所以进程之间要交换数据必须通过内核，在内核中开辟一块缓冲区，进程1把数据从用户空间拷到内核缓冲区，进程2再从内核缓冲区把数据读走，内核提供的这种机制称为进程间通信（IPC，InterProcess Communication）。
 
-具体参考[LinuxC一站式编程：第 28 章 第 30 章 进程间通信](https://akaedu.github.io/book/ch30s04.html)
+具体参考[Linux C编程一站式学习：第 28 章 第 30 章 进程间通信](https://akaedu.github.io/book/ch30s04.html)
 
 ### 管道
 

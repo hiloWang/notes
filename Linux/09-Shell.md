@@ -928,7 +928,7 @@ result=`echo "$nb3 * 1.5" | bc`
 
 书籍：
 
-- 《[Linux C 一站式编程：第 31 章 Shell脚本](https://akaedu.github.io/book/ch31s01.html)》
+- 《[Linux C编程一站式学习：第 31 章 Shell脚本](https://akaedu.github.io/book/ch31s01.html)》
 - 《Linux Shell脚本攻略》第3版
 - 《Linux命令行与shell脚本编程大全》第3版
 - 《Shell脚本学习指南》

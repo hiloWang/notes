@@ -9,15 +9,15 @@
 
 ### 内存是个大问题但是缺乏关注
 
-- 表现比较隐秘
-- Java 自带了内存回收机制
-- 压死骆驼的往往是最后一个根稻草
+- 表现比较隐秘，一般难以察觉。
+- Java 自带了内存回收机制，很多人没有优化意识。
+- 压死骆驼的往往是最后一个根稻草：OOM。
 
 ### 内存问题
 
-- 内存抖动：图形分析工具呈现锯齿状，GC 导致卡顿
-- 内存泄露：可用内存减少，频繁 GC
-- OOM：应用奔溃
+- 内存抖动：图形分析工具呈现锯齿状，GC 导致卡顿。
+- 内存泄露：可用内存减少，频繁 GC。
+- OOM：应用奔溃。
 
 ### 内存分析工具
 
@@ -156,7 +156,7 @@ public class MemoryLeakActivity extends AppCompatActivity implements CallBack{
 - 操作步骤：Histogram --> ListObject --> With incomeing references --> Path To GC Roots
 
 ---
-## 4.6 全面理解MAT
+## 4.6 全面理解 MAT
 
 - Histogram(直方图)，基于类分析
   - with outgoing references 引用了那些对象
@@ -279,7 +279,7 @@ public class AppContext extends Application{
 
 ### 常规方案实现 1
 
-设定场景线上 Dump：` Debug.dumpHprofData()`，流程如下：
+设定场景线上 Dump：`Debug.dumpHprofData()`，流程如下：
 
 1. 触发时机：超过最大内存的 80%
 2. 内存 Dump 到文件
@@ -288,42 +288,41 @@ public class AppContext extends Application{
 
 方案特点:
 
-- Dump 文件太大，和对象数正相关，可裁剪
-- 上传失败率高
+- Dump 文件太大，和对象数正相关，可对文件进行裁剪。
+- 上传失败率高，分析困难。
+- 配合一定策略，有一定效果。
 
 ### 常规方案实现 2
 
 实现方式：
 
-- LeakCanary 带到线上
-- 预设泄露怀疑点
-- 发现泄露回传
+- 将 LeakCanary 带到线上
+- 在代码中预设泄露怀疑点
+- 发现泄露回传分析结果
 
 方案特点:
 
 - 不适合所有场景，必须预设怀疑点
-- 分析比较耗时，自身可能触发 OOM
-- 分析泄露，找引用链
-- LeakCanary 分为分析和监控两大组件
+- 分析比较耗时，自身可能触发 OOM（LeakCanary自身缺陷）
 
-LeakCanary 定制：
+理解 LeakCanary 原理
 
-- 预设怀疑点 --> 自动找怀疑点
-- 分析泄露链路慢 --> 只分析 Retain Size 大的对象
-- 分析导致 OOM --> 对象裁剪，不全部加载到内存
+1. 监控控件生命周期，onDestory 添加 RefWatcher 检测
+2. 二次确认，对象是否被回收，如果没有则断定发生内存泄露
+3. 分析泄露，找引用链
+4. LeakCanary 分为分析和监控两大组件
 
-### 常规方案实现 3
+LeakCanary 定制（修改源码）：
 
-LeakCanary 原理
-
-- 监控控件生命周期，onDestory 添加 RefWatcher 检测
-- 二次确认断定发生内存泄露
+- 预设怀疑点 --> 自动找怀疑点（谁的内存占用大，就怀疑谁）
+- 分析泄露链路慢：分析每一个对象 --> 只分析 Retain Size 大的对象
+- 分析导致 OOM： 将内存堆栈中的对象映射文件全部加载到内存当中 --> 内存堆栈中的对象进行裁剪，不全部加载到内存，只记录对象数量和内存占用
 
 ### 线上监控完整方案
 
-- 常规指标：待机内存、重点模块内存、OOM 率
-- 整体及重点模块 GC 次数，GC 时间
-- LeakCanary 定制线上自动化分析
+1. 监控常规指标：待机内存、重点模块内存、OOM 率
+2. 整体及重点模块：GC 次数，GC 时间
+3. 对 LeakCanary 进行定制，线上自动化分析
 
 ---
 ## 4.9 内存优化技巧总结

@@ -1,3 +1,12 @@
+/*
+ ============================================================================
+
+ Author      : Ztiany
+ Description : Linux线程：线程间同步
+
+ ============================================================================
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -89,5 +98,4 @@ void main() {
     //销毁互斥锁和条件变量
     pthread_mutex_destroy(&mutex);
     pthread_cond_destroy(&has_product);
-
 }

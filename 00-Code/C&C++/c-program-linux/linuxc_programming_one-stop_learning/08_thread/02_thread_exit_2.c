@@ -2,7 +2,7 @@
  ============================================================================
 
  Author      : Ztiany
- Description : Linux线程，pthread
+ Description : Linux线程：pthread
 
  ============================================================================
  */
@@ -10,9 +10,9 @@
 /*
  Linux查看pthread手册：
 
-man -k pthread 查看pthread
+man -k pthread 查看 pthread
 man pthread-create 查看方法
-apt-get install manpages-posix-dev 安装pthread手册
+apt-get install manpages-posix-dev 安装 pthread 手册
  */
 
 #include <stdlib.h>
@@ -20,20 +20,25 @@ apt-get install manpages-posix-dev 安装pthread手册
 #include <unistd.h>
 #include <pthread.h>
 
-void *thr_fun(void *arg) {
-    char *no = (char *) arg;
+static int a = 3;
+
+void *thr_fun(void *arg)
+{
+    char *no = (char *)arg;
     int i = 0;
-    for (; i < 10; i++) {
+    for (; i < 10; i++)
+    {
         printf("%s thread, i:%d\n", no, i);
-        if (i == 5) {
+        if (i == 5)
+        {
             //线程自己退出
-            pthread_exit(2);
-            //他杀pthread_cancel
+            pthread_exit(&a);
         }
     }
 }
 
-void main() {
+void main()
+{
     printf("main thread\n");
     //线程id
     pthread_t tid;
@@ -45,5 +50,5 @@ void main() {
     //等待tid线程结束
     //thr_fun与退出时传入的参数，都作为第二个参数的内容
     pthread_join(tid, &rval);
-    printf("rval:%d\n", (int) rval);
+    printf("rval:%d\n", *((int *)rval));
 }

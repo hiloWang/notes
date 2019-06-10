@@ -101,3 +101,6 @@ Sample：
 - [破解 Kotlin 协程(4) - 异常处理篇](https://mp.weixin.qq.com/s/WMFQuffyIq00Ai-XM5ISOA)
 - [破解 Kotlin 协程(5) - 协程取消篇](https://mp.weixin.qq.com/s/l17Jc_FvQ44WYopx867xeA)
 - [破解 Kotlin 协程(6) - 协程挂起篇](https://mp.weixin.qq.com/s/CKVfG3seCLjQSl_UTaJHCg)
+- [破解 Kotlin 协程(7) - 序列生成器篇](https://juejin.im/post/5cfe19025188252ee72966ee))
+- [破解 Kotlin 协程(8) - Android 篇](https://mp.weixin.qq.com/s/UDVTuuTCHYnujlsaf9r8gA)
+  

@@ -58,7 +58,10 @@ sudo apt install gnome-tweak-tool
   - <https://www.opendesktop.org/s/Gnome/p/1013741/>
   - <https://www.opendesktop.org/s/Gnome/p/1102582/>
 
-具体参考 [Ubuntu18.04（Gnome桌面）主题美化，Mac私人定制](https://blog.csdn.net/zyqblog/article/details/80152016)
+具体参考：
+
+- [Ubuntu18.04（Gnome桌面）主题美化，Mac私人定制](https://blog.csdn.net/zyqblog/article/details/80152016)
+- [Ubuntu18.04 美化](https://www.jianshu.com/p/49ed3971170a)
 
 ### install aptitude
 

@@ -5,7 +5,6 @@
 
 通过 Accept-Encoding 和 Content-encoding 客户端和服务端可以协商采用压缩的方式来进行内容传输，针对文本数据的压缩可以大大减少传输量的大小，从而提高响应速度，gzip 是常见的压缩方式。
 
-
 gzip是**GNUzip**的缩写，最早用于UNIX系统的文件压缩。HTTP协议上的gzip编码是一种用来改进web应用程序性能的技术，web服务器和客户端（浏览器）必须共同支持gzip。目前主流的浏览器，Chrome,firefox,IE等都支持该协议。常见的服务器如Apache，Nginx，IIS同样支持gzip。
 
 gzip压缩比率在3到10倍左右，可以大大节省服务器的网络带宽。而在实际应用中，并不是对所有文件进行压缩，通常只是压缩静态文件。
@@ -23,9 +22,7 @@ gzip压缩比率在3到10倍左右，可以大大节省服务器的网络带宽�
 
 ![](images/http_gzip_02.png)
 
-
 可以看到请求头中：`accept-encoding:gzip, deflate, sdch`，表明chrome浏览器支持这三种压缩。accept-encoding 中添加的另外两个压缩方式 deflate 和 sdch。deflate 与 gzip 使用的压缩算法几乎相同。sdch是**Shared Dictionary Compression over HTTP**的缩写，即通过字典压缩算法对各个页面中相同的内容进行压缩，减少相同的内容的传输。**sdch**是Google 推出的，目前只有 Google Chrome, Chromium 和 Android 支持。
-
 
 通过网址 http://gzip.zzbaike.com/ 可以检测一个网站的GZIP压缩率：
 
@@ -41,6 +38,7 @@ gzip压缩比率在3到10倍左右，可以大大节省服务器的网络带宽�
 ### 2.2 分块传输编码解决的问题
 
 #### 持久链接
+
 HTTP 运行在 TCP 连接之上，为了尽可能的提高 HTTP 性能，使用持久连接(多次请求复用已有的TCP连接)就显得尤为重要了。为此，HTTP 协议引入了相应的机制。HTTP/1.0 的持久连接机制是后来才引入的，通过 `Connection: keep-alive` 这个头部来实现，服务端和客户端都可以使用它告诉对方在发送完数据之后不需要断开 TCP 连接，以备后用。HTTP/1.1 则规定所有连接都必须是持久的，除非显式地在头部加上 `Connection: close`。所以实际上，HTTP/1.1 中 Connection 这个头部字段已经没有 keep-alive 这个取值了，但由于历史原因，很多 Web Server 和浏览器，还是保留着给 HTTP/1.1 长连接发送 Connection: keep-alive 的习惯。
 
 #### Content-Length
@@ -57,7 +55,6 @@ HTTP 1.1引入分块传输编码可以解决上面问题：
 - 分块传输编码允许服务器在最后发送消息头字段。对于那些头字段值在内容被生成之前无法知道的情形非常重要，例如消息的内容要使用散列进行签名，散列的结果通过HTTP消息头字段进行传输。没有分块传输编码时，服务器必须缓冲内容直到完成后计算头字段的值并在发送内容前发送这些头字段的值。
 - HTTP服务器有时使用压缩 （gzip或deflate）以缩短传输花费的时间。分块传输编码可以用来分隔压缩对象的多个部分。在这种情况下，块不是分别压缩的，而是整个负载进行压缩，压缩的输出使用本文描述的方案进行分块传输。在压缩的情形中，分块编码有利于一边进行压缩一边发送数据，而不是先完成压缩过程以得知压缩后数据的大小。
 
-
 ---
 ## 引用
 
@@ -67,4 +64,3 @@ HTTP 1.1引入分块传输编码可以解决上面问题：
 - [HTTP 协议中的 Transfer-Encoding](https://imququ.com/post/transfer-encoding-header-in-http.html)
 - [HTTP 内容编码，也就这 2 点需要知道 | 实用 HTTP](https://www.cnblogs.com/plokmju/p/http_gzip.html)
 - [HTTP传输编码增加了传输量，只为解决这一个问题 | 实用 HTTP](https://www.cnblogs.com/plokmju/p/http_code.html)
-

@@ -30,8 +30,20 @@ socket API是一层抽象的网络编程接口，适用于各种底层网络协�
 - 错误处理与读写控制
 - 使用 fork 并发处理多个 client 的请求
 - setsockopt：允许创建端口号相同但IP地址不同的多个 socket 描述符
-- select是网络程序中很常用的一个系统调用，它可以同时监听多个阻塞的文件描述符（例如多个网络连接），哪个有数据到达就处理哪个，这样，不需要fork和多进程就可以实现并发服务的server。
+- select是网络程序中很常用的一个系统调用，它可以同时监听多个阻塞的文件描述符（例如多个网络连接），哪个有数据到达就处理哪个，这样，不需要fork和多进程就可以实现并发服务的server
+
+具体参考 [Linux C编程一站式学习：第 37 章 基于TCP协议的网络程序](https://akaedu.github.io/book/ch37s02.html)
 
 ## 基于 UDP 协议的网络程序
 
+UDP 面向无连接通信。
+
+具体参考 [Linux C编程一站式学习：第 37 章 基于 UDP 协议的网络程序](https://akaedu.github.io/book/ch37s03.html)
+
 ## UNIX Domain Socket IPC
+
+socket API原本是为网络通讯设计的，但后来在socket的框架上发展出一种IPC机制，就是UNIX Domain Socket。虽然网络socket也可用于同一台主机的进程间通讯（通过loopback地址127.0.0.1），但是UNIX Domain Socket用于IPC更有效率：不需要经过网络协议栈，不需要打包拆包、计算校验和、维护序号和应答等，只是将应用层数据从一个进程拷贝到另一个进程。这是因为，IPC机制本质上是可靠的通讯，而网络协议是为不可靠的通讯设计的。UNIX Domain Socket也提供面向流和面向数据包两种API接口，类似于TCP和UDP，但是面向消息的UNIX Domain Socket也是可靠的，消息既不会丢失也不会顺序错乱。
+
+UNIX Domain Socket是全双工的，API接口语义丰富，相比其它IPC机制有明显的优越性，目前已成为使用最广泛的IPC机制，比如X Window服务器和GUI程序之间就是通过UNIX Domain Socket通讯的。
+
+具体参考 [Linux C编程一站式学习：第 37 章 UNIX Domain Socket IPC](https://akaedu.github.io/book/ch37s04.html)

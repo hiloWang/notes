@@ -1,4 +1,6 @@
-## Python 学习笔记 
+# Python 学习
+
+## Python 学习笔记
 
 - [01-Python 简介](01-Python简介.md)
 - [02-基础语法](02-基础语法.md)
@@ -28,3 +30,4 @@
 - [菜鸟教程：Python3](http://www.runoob.com/python3/python3-tutorial.html)
 - [pep8](https://www.python.org/dev/peps/pep-0008/)
 - 《Python编程从入门到实战》
+- 传智 Python 就业班课程

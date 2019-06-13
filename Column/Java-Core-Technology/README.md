@@ -1,1 +1,1 @@
-# [Java 核心技术 36 讲](https://time.geekbang.org/column/article/6478) 学习笔记
+# [Java 核心技术 36 讲](https://time.geekbang.org/column/article/6478)

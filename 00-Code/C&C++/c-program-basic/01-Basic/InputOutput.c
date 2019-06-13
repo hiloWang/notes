@@ -48,7 +48,7 @@ static void scanfSample2(){
 
 int main() {
     //getcharEOF();
-    //scanfReturn();
+    scanfReturn();
     //printfSample1();
     //scanfSample2();
     return EXIT_SUCCESS;

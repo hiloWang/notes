@@ -65,9 +65,14 @@ Dart
   - [带你快速掌握Flutter的视图(Widgets)](http://www.devio.org/2019/03/16/flutter-views/)
   - [两分钟带你快速掌握Flutter的项目结构、资源、依赖和本地化](http://www.devio.org/2019/04/02/flutter-project-structure-resources-dependencies-and-localization/)
   - [快速上手Flutter开发系列教程」之线程和异步UI](http://www.devio.org/2019/03/16/thread-and-asynchronous-ui/)
+  
+Google
+
 - [Flutter 您需要知道的知识点 | FAQ・第一期](https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&mid=2652048481&idx=1&sn=3775bb6e61b9b4d7d7c5a48871a13807&chksm=808cac24b7fb2532858b94dc45f1ec4f8ec83f28f186e0cbc53a40034b3398feddea553e3054&scene=21#wechat_redirect)
 - [Flutter 您需要知道的知识点 | FAQ・第二期](https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&mid=2652048715&idx=1&sn=c8346d2603f311301d719d5374cc77ea&chksm=808cad0eb7fb241864557d2bc08cacc2efeb76a27d3a6b849d2df44ccbddfa13c3e1b1db0f85&scene=21#wechat_redirect)
 - [Flutter 您需要知道的知识点 | FAQ・第三期](https://mp.weixin.qq.com/s/qXNbT-pJ4wnKANhUsyn2xw)
+- [Flutter 您需要知道的知识点 | FAQ・第四期](https://mp.weixin.qq.com/s/iWQwjC8mEWSX9TNz_hn6rw)
+- [Flutter 混合开发组件化与工程化架构 | 开发者说·DTalk](https://mp.weixin.qq.com/s/NK0RMuXM2_AJmAbnnvv9SA)
 
 plugin
 

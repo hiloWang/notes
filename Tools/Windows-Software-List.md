@@ -8,7 +8,6 @@
 - [高效 Tools 系列](https://jeffjade.com/tags/Toss/)
 - [少数派](https://sspai.com/topics)
 
-
 ---
 ##  IDE
 
@@ -23,7 +22,6 @@
 - Cmake
 - vscode
 
-
 ---
 ## 数据库
 
@@ -33,7 +31,6 @@
 - MySql
 - Oracle
 
-
 ---
 ## 类Unix
 
@@ -41,17 +38,16 @@
 - MinGW
 - [GOW](https://github.com/bmatzelle/gow)
 - Chocolatey
-    - `ChocolateyInstall` 配置安装环境
-    - `ChocolateyToolsRoot` 和 `ChocolateyToolsLocation`  配置软件安装环境
+  - `ChocolateyInstall` 配置安装环境
+  - `ChocolateyToolsRoot` 和 `ChocolateyToolsLocation`  配置软件安装环境
 - [babun](http://babun.github.io/)
 - [cmder](http://cmder.net/)
-    - `Cmder.exe /REGISTER ALL`
-    - Environment：`set LANG=zh_CN.UTF-8`
-    - [Win下必备神器之Cmder](https://jeffjade.com/2016/01/13/2016-01-13-windows-software-cmder/)
+  - `Cmder.exe /REGISTER ALL`
+  - Environment：`set LANG=zh_CN.UTF-8`
+  - [Win下必备神器之Cmder](https://jeffjade.com/2016/01/13/2016-01-13-windows-software-cmder/)
 - [xshell-cn](http://www.xshellcn.com/xshell.html)
 - Windows10-bash子系统：详细配置参考[这里](http://www.jianshu.com/p/bc38ed12da1d)
 - LLVM (要求安装 visual studio)
-
 
 ---
 ##  网络
@@ -62,14 +58,12 @@
 - netassist
 - Cisco Packet Tracer
 
-
 ---
 ## 开发
 
 - WinHex：16进制编辑器
 - NodeJs + NVM
 - Genymotion：模拟器
-
 
 ---
 ## 压缩
@@ -78,14 +72,14 @@
 - [bandizip](http://www.bandisoft.com/bandizip/)
 
 ---
-##  UI设计
+## UI设计
 
 - [马克鳗](http://www.getmarkman.com/)
 - Photoshop:[adobe系列](http://adobe.v404.cn/adobe/)
 - Sketeh
 
 ---
-##  高效工具
+## 高效工具
 
 - Everything
 - Listary
@@ -98,14 +92,14 @@
 - Seer 或 QuickLook
 
 ---
-##  画图
+## 画图
 
 - Astah
 - StarUML
 - xmind
 
 ---
-##  图片压缩
+## 图片压缩
 
 - [iSparta](http://isparta.github.io/)
 - [智图](http://zhitu.isux.us/index.php/preview/download)
@@ -115,7 +109,7 @@
 - [mediainfo-gui](s://sourceforge.net/projects/mediainfo/files/binary/mediainfo-gui/0.7.58/)
 
 ---
-##  常用软件
+## 常用软件
 
 - ccleaner
 - 为知笔记
@@ -152,10 +146,9 @@
 
 ### 1 Sublime
 
-
 安装包管理工具：
 
-```
+```python
 import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
 ```
 
@@ -180,7 +173,7 @@ import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.
 - MarkdownTOC
 - Material Theme
 
-```
+```json
 "draw_centered": false
 ```
 
@@ -192,7 +185,7 @@ import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.
 
 markdown：
 
-```
+```json
 background: #272822;
 color: white;
 
@@ -202,6 +195,7 @@ color: white;
 ```
 
 encodeing：
-```
+
+```json
 files.autoGuessEncoding = true
 ```

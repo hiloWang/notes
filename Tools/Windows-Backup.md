@@ -1,6 +1,8 @@
-software list
+# windows backup
 
-```
+## software list
+
+```bash
 Adobe Photoshop CC (64 Bit)
 android-ndk-r13b-windows-x86_64
 android-sdk
@@ -55,9 +57,9 @@ Wireshark
 xshell
 ```
 
-environment
+## environment
 
-```
+```bash
 ANDROID_HOME --> sdk
 ANDROID_SDK_HOME --> .android
 JAVA_HOME

@@ -1,6 +1,6 @@
 ## 1  Windows常用的快捷键
 
-```
+```bash
 *   WIN+D：显示桌面，再按一次还原桌面；
 *   WIN+R：打开运行，输入命令可以执行相应操作
 *   WIN+E：打开资源管理器；
@@ -34,7 +34,6 @@
 *   WIN+ALT+数字：让位于任务栏指定位置（按下的数字作为序号）的程序，显示跳转清单；
 ```
 
-
 ---
 ## 2 清理
 
@@ -56,7 +55,6 @@
 - IE右键：`HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\MenuExt`
 - 右键：`HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers`
 
-
 ----
 ## 3 Windows与Unix换行符号转换
 
@@ -70,7 +68,6 @@
 - 使用notepad++显示所有符号：操作：`视图->显示符号->显示所有符号`
 - 使用notepad++转换文档格式：操作：`编辑->档案格式转换->转换为UNIX格式`
 
-
 ---
 ## 4 Windows 10 版本历史
 
@@ -82,7 +79,6 @@
 
 ---
 ## 5 Windows 命令行
-
 
 ### 1 获取帮助
 
@@ -109,13 +105,16 @@
 
 **当前目录创建a.txt文件**
 
+```bash
     cd .>a.txt
+```
 
 **过滤字符**
 
+```bash
     findstr "你要搜索的内容"  file.txt
     Select-String -path file.txt -Pattern  "你要搜索的内容"(powershell命令)
-
+```
 
 ---
 ## 引用

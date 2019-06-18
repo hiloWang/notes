@@ -88,4 +88,4 @@ DALVIK THREADS:
 
 ## 参考
 
-- [关于ANR异常捕获与分析，你所需要知道的一切](https://droidyue.com/blog/2015/12/06/practise-about-crash-in-android/)
+- [关于ANR异常捕获与分析，你所需要知道的一切](https://codezjx.com/2017/08/06/anr-trace-analytics/)

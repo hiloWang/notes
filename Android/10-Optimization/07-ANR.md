@@ -85,3 +85,7 @@ DALVIK THREADS:
   at com.ztiany.test.anr.ANRActivity.access$000(ANRActivity.java:17)
   at com.ztiany.test.anr.ANRActivity$1.run(ANRActivity.java:35)
 ```
+
+## 参考
+
+- [关于ANR异常捕获与分析，你所需要知道的一切](https://droidyue.com/blog/2015/12/06/practise-about-crash-in-android/)

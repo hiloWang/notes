@@ -45,19 +45,17 @@ shift + F4|在新的窗口编辑文件
 
 1. **打开文件位置**：
 右键文件--show in explorer
-2. **检查升级**：
-Settings  --> Updates
- * **Stable Channel** ： 正式版本通道，只会获取最新的正式版本。
- * **Beta Channel** ： 测试版本通道，只会获取最新的测试版本。
- * **Dev Channel** ： 开发发布通道，只会获取最新的开发版本。
- * **Canary Channel** ： 预览发布通道，只会获取最新的预览版本。
+2. **检查升级**：Settings  --> Updates
+   1. **Stable Channel**：正式版本通道，只会获取最新的正式版本。
+   2. **Beta Channel**：测试版本通道，只会获取最新的测试版本。
+   3. **Dev Channel**：开发发布通道，只会获取最新的开发版本。
+   4. **Canary Channel**：预览发布通道，只会获取最新的预览版本。
 3. **自动导包**：
 Editor--> General --> AutoImport
-4. **代码字体**：
+4. **代码字体**
 Editor--> Color&Font-->  Font
 5. **代码颜色**：
-比如java：
-Editor--> Color&Font-->  Java
+比如java：Editor--> Color&Font-->  Java
 6. **生成文件自动签名**：
 Editor--> File And Code Templates --> Includes
 7. **显示文档注释**：
@@ -70,13 +68,12 @@ Editor-->General-->Appearance-->Show Line Number
 Editor—> Code Style—>
 11. **关闭项目后，再次打开，不直接进入上次的项目**：
 Appearance&Behavior-->System Setting -->Reopne last project on startup
-12. **编辑快速生成代码提示**
+12. **编辑快速生成代码提示**：
 Editor-->Live Templates
-13. **驼峰选择**
+13. **驼峰选择**：
 Editor-General-->Smart Keys-->Use CameHumps Words
 14. **Log颜色**：
-比如java：
-Editor--> Color&Font-->  Android Log
+比如java：Editor--> Color&Font-->  Android Log
 
 ## AndroidStudio 升级策略
 

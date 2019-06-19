@@ -1,3 +1,5 @@
+# TimeoutException
+
 如果想向崩溃发起挑战，那么 Top 20 崩溃就是我们无法避免的对手。在这里面会有不少疑难的系统崩溃问题，TimeoutException 就是其中比较经典的一个。
 
 >关乎 TimeoutException，具体参考[how-to-handle-java-util-concurrent-timeoutexception-android-os-binderproxy-fin](https://stackoverflow.com/questions/24021609/how-to-handle-java-util-concurrent-timeoutexception-android-os-binderproxy-fin)

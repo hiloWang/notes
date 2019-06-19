@@ -2,7 +2,7 @@
 
 Android N中默认开启了严苛模式，将对安全做更严格的校验。而从 Android N 开始，将不允许在 App 间，使用 `file://` 的方式，传递一个 File ，否者会抛出 FileUriExposedException 的错误，会直接引发 Crash。
 
-# 解决方案
+## 解决方案
 
 既然Android N中默认开启了严苛模式，限制了 `file://` 的方式的传递，当然也会提供响应的解决方案。
 
@@ -61,12 +61,12 @@ Android N中默认开启了严苛模式，将对安全做更严格的校验。�
 
 paths节点下可以配置的节点名和对应的目录如下：
 
-*   **root-path**：表示根目录，『/』。
-*   **files-path**：表示 content.getFileDir() 获取到的目录。
-*   **cache-path**：表示 content.getCacheDir() 获取到的目录
-*   **external-path**：表示Environment.getExternalStorageDirectory() 指向的目录。
-*   **external-files-path**：表示 ContextCompat.getExternalFilesDirs() 获取到的目录。
-*   **external-cache-path**：表示 ContextCompat.getExternalCacheDirs() 获取到的目录。
+* **root-path**：表示根目录，`/`。
+* **files-path**：表示 content.getFileDir() 获取到的目录。
+* **cache-path**：表示 content.getCacheDir() 获取到的目录
+* **external-path**：表示Environment.getExternalStorageDirectory() 指向的目录。
+* **external-files-path**：表示 ContextCompat.getExternalFilesDirs() 获取到的目录。
+* **external-cache-path**：表示 ContextCompat.getExternalCacheDirs() 获取到的目录。
 
 最后在传递Uri的时候，使用FileProvider把File类型的Uri转换为content类型的，比如创建一个拍照获取图片的Intent：
 

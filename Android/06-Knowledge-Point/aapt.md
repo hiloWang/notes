@@ -1,6 +1,5 @@
 # aapt
 
-
 ## 1 Android中appt工具使用介绍
 
 aapt即`Android Asset Packaging Tool`，我们可以在SDK的**platform-tools**目录下找到该工具。aapt可以查看、 创建、 更新ZIP格式的文档附件(zip, jar, apk)。 也可将资源文件编译成二进制文件，尽管可能开发中没有直接使用过aapt工具，但是build scripts和IDE插件会使用这个工具打包apk文件构成一个Android 应用程序。
@@ -24,13 +23,13 @@ appt工具功能主要又一下几点功能：
 
 ## 列出zip文件中的文档
 
-```
+```bash
       aapt l[ist] [-v] [-a] file.{zip,jar,apk}
 ```
 
 ## 显示apk文件的各种信息，(注意各个选项的先后顺序)
 
-```
+```bash
      aapt d[ump] [--values] [--include-meta-data] WHAT file.{apk} [asset [asset ..]
 
        strings          打印资源表中的字符串池
@@ -44,7 +43,7 @@ appt工具功能主要又一下几点功能：
 
 ## 打包Android资源  It will read assets and resources that are
 
-```
+```bash
        supplied(提供的) with the -M -A -S or raw-files-dir arguments.  The -J -P -F and -R
        options control which files are output.
 
@@ -72,7 +71,7 @@ appt工具功能主要又一下几点功能：
 
 ## 添加或者移除资源
 
-```
+```bash
      aapt r[emove] [-v] file.{zip,jar,apk} file1 [file2 ...]
        Delete specified files from Zip-compatible archive.
 
@@ -82,14 +81,14 @@ appt工具功能主要又一下几点功能：
 
 ## 列出版本
 
-```
+```bash
      aapt v[ersion]
        Print program version.
 ```
 
 ## 其他
 
-```
+```bash
      aapt c[runch] [-v] -S resource-sources ... -C output-folder ...
        Do PNG preprocessing on one or several resource folders
        and store the results in the output folder.

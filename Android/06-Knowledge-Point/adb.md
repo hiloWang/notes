@@ -1,16 +1,16 @@
-#  adb 学习
+# adb 学习
 
 ---
 ## 1 adb介绍
 
 **Android Debug Bridge**，Android调试桥接器，简称adb ，该工具位于`<sdk>/platform-tools/`目录下，其源码位于`<path-to-sourcecode>/system/core/adb`目录下，是用于管理模拟器或真机状态的万能工具。 adb 采用了客户端-服务器模型，包括三个部分：
 
-1.  客户端部分，运行在开发用的电脑上，可以在命令行中运行adb命令来调用该客户端，像 DDMS 这样的 Android 工具也可以调用adb客户端。
-2.  守护进程部分，运行于模拟器或手机的后台。
-3.  服务端部分，是运行在开发用电脑上的后台进程，用于管理客户端与运行在模拟器或真机的守护进程通信。
+1. 客户端部分，运行在开发用的电脑上，可以在命令行中运行adb命令来调用该客户端，像 DDMS 这样的 Android 工具也可以调用adb客户端。
+2. 守护进程部分，运行于模拟器或手机的后台。
+3. 服务端部分，是运行在开发用电脑上的后台进程，用于管理客户端与运行在模拟器或真机的守护进程通信。
 
 ---
-###  ADB原理
+### ADB原理
 
 当启动adb客户端时，客户端首先检查PC的adb服务进程是否运行，如果没有运行，则启动服务端。当服务端启动时，它会绑定到本地的** TCP5037** 端口，并且监听从adb客户端发来的命令——**所有adb客户端都使用 5037 端口与 adb 服务端通信。**
 
@@ -32,8 +32,6 @@ windows如果不进入设置终端，则无法使用grep命令，可以使用**c
 
 findstr DisplayDeviceInfo 表示找到DisplayDeviceInfo相关的信息，这与进入设备终端使用`dumpsys display | grep DisplayDeviceInfo`命令的效果时一致的，当然findstr和grep命令还是有很多的不同的。
 
-
-
 ---
 ## 2 用法
 
@@ -50,7 +48,6 @@ findstr DisplayDeviceInfo 表示找到DisplayDeviceInfo相关的信息，这与�
 
 如果只有一个设备/模拟器连接时，可以省略掉` [-d|-e|-s <serialNumber>] `这一部分，直接使用` adb <command>`。如果有多台设备，先使用`adb devices`命令查看设备的序列号，然后使用-s指令，比如：`adb -s 序列号 install xxx.apk`
 
-
 其他基本命令：
 
 - `adb kill-server` 停止adb服务
@@ -64,23 +61,22 @@ findstr DisplayDeviceInfo 表示找到DisplayDeviceInfo相关的信息，这与�
 - `adb uninstall package_name`卸载apk
 - `adb pull remote local/adb push local remote`将文件复制到设备/从设备复制文件
 
-
 ### 无线连接设备
 
 可以通过USB数据线连接设备，但是有时候这并不方便，其实也可以使用无线连接的方式，不过要使用无线连接首先还是需要通过USB连接进行设置：
 
-0. 将 Android 设备与要运行 adb 的电脑连接到同一个局域网，比如连到同一个 WiFi。
-1. 通过USB连接设备
-2. 让设备在555 端口监听 TCP/IP 连接：`adb tcpip 5555`
-3. 断开 USB 连接。
-4. 找到设备的 IP 地址。
- - 方式1：在手机上通过`「设置」-「关于手机」-「状态信息」-「IP地址」`找到
- - 方式2：通过adb找到，下面会介绍
-5. 通过 IP 地址连接设备。`adb connect <device-ip-address>`device-ip-address即设备的ip地址
-6. 确认连接状态。
-7. 断开连接可以使用：`adb disconnect <device-ip-address>`
+1. 将 Android 设备与要运行 adb 的电脑连接到同一个局域网，比如连到同一个 WiFi。
+2. 通过USB连接设备
+3. 让设备在555 端口监听 TCP/IP 连接：`adb tcpip 5555`
+4. 断开 USB 连接。
+5. 找到设备的 IP 地址。
+   1. 方式1：在手机上通过`「设置」-「关于手机」-「状态信息」-「IP地址」`找到
+   2. 方式2：通过adb找到，下面会介绍
+6. 通过 IP 地址连接设备。`adb connect <device-ip-address>`device-ip-address即设备的ip地址
+7. 确认连接状态。
+8. 断开连接可以使用：`adb disconnect <device-ip-address>`
 
-**不借助USB进行无线连接需要Root权限，还需要在手机上安装终端模拟器，具体参考下方链接**
+**不借助USB进行无线连接需要Root权限，还需要在手机上安装终端模拟器，具体参考下方链接**。
 
 ### 设置端口转发
 
@@ -133,13 +129,12 @@ PM主要功能包括：
 | -u | 包含已卸载应用 |
 | `<FILTER>` | 包名包含 `<FILTER>` 字符串 |
 
-
 **查看权限**：
 
 `pm list permission`
 `pm list permission-groups`
 
-**安装和卸载APK**
+**安装和卸载APK**：
 
 `pm install [-lrtsfd] [-i PACKAGE] [--user USER_ID] [PATH]`
 `pm uninstall [-k] [--user USER_ID] PACKAGE`
@@ -153,14 +148,12 @@ PM主要功能包括：
 | -d | 允许降级覆盖安装 |
 | -g | 授予所有运行时权限 |
 
-
 **清理应用数据**
 ` pm clear [--user USER_ID] PACKAGE`
 
 **重置所有授权**
 
 `pm reset-permissions`
-
 
 ### AM命令
 
@@ -182,7 +175,8 @@ WM即WindowManager
 - `wm size [reset|WxH|WdpxHdp]` 返回或重置显示的尺寸
 
 常用的WM命令
-```
+
+```bash
 wm size：查询设备分辨率
 wm size 1000x2000 设置设备的分辨率
 wm size reset 重置分辨率
@@ -223,7 +217,7 @@ input可以模拟按键/输入
 - activity     显示所有的activities的信息
 - cpuinfo    显示CPU信息
 - window    显示键盘，窗口和它们的关系
-- wifi     显示wifi信息 
+- wifi     显示wifi信息
 - package packagename    获取安装包信息
 - usagestats    每个界面启动的时间
 - statusbar    显示状态栏相关的信息
@@ -239,15 +233,9 @@ input可以模拟按键/输入
 `adb shell cat /system/build.prop`  获取设备编译属性
 `adb shell cat /data/misc/wifi/*.conf`  获取设备 Wi-Fi 配置信息
 
-
 ---
 ## 4 参考
 
 - [Command Line Tools](https://developer.android.com/studio/command-line/index.html?hl=zh-cn)
 - [Android 开发中常用 ADB 命令总结](http://mp.weixin.qq.com/s?__biz=MzI3NjAwMzk3Mg==&mid=402824871&idx=1&sn=fe0b154985b7372178b427ae3c436f49&scene=1&srcid=01278wDVR8EwxAC3C27Z0eF5#wechat_redirect)
 - [awesome-adb](https://github.com/mzlogin/awesome-adb)
-
-
-
-
-

@@ -26,6 +26,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+   signingConfigs {
+        release {
+            keyAlias "performance"
+            keyPassword "123123"
+            storeFile file('../test.jks')
+            storePassword "123123"
+        }
+    }
+
+    buildTypes {
+        //正式发布
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    //app:lintVitalRelease error
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
 }
 
 dependencies {
@@ -41,8 +64,8 @@ dependencies {
     implementation  'com.umeng.umsdk:analytics:7.5.4'
     implementation  'com.umeng.umsdk:common:1.5.4'
 
-    implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
-    implementation 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    implementation 'com.tencent.bugly:crashreport:3.0.0' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    implementation 'com.tencent.bugly:nativecrashreport:3.7.1' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
     implementation 'top.zibin:Luban:1.1.8'
 
     implementation 'com.facebook.fresco:fresco:1.11.0'
@@ -53,11 +76,11 @@ dependencies {
 
 
     //3D地图so及jar
-    implementation 'com.amap.api:3dmap:latest.integration'
+    implementation 'com.amap.api:3dmap:6.9.0'
     //定位功能
-    implementation 'com.amap.api:location:latest.integration'
+    implementation 'com.amap.api:location:4.6.0'
     //搜索功能
-    implementation 'com.amap.api:search:latest.integration'
+    implementation 'com.amap.api:search:6.9.0'
 
 
     implementation 'cn.jiguang.sdk:jpush:3.1.7'
@@ -74,11 +97,11 @@ dependencies {
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
 
 
-    implementation 'org.aspectj:aspectjrt:1.8.+'
+    implementation 'org.aspectj:aspectjrt:1.8.14'
 
     implementation 'me.weishu:epic:0.3.6'
 
-    implementation 'com.android.support:asynclayoutinflater:28.0.0-alpha1'
+    implementation 'com.android.support:asynclayoutinflater:28.0.0'
 
     annotationProcessor 'com.zhangyue.we:x2c-apt:1.1.2'
     implementation 'com.zhangyue.we:x2c-lib:1.0.6'

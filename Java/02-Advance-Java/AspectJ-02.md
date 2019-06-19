@@ -13,7 +13,6 @@
 | 目标对象（Target Object） | 包含连接点的对象，也被称作被通知或被代理对象 |
 | AOP代理（AOP Proxy） | AOP框架创建的对象，以目标对象为基础，织入了通知逻辑代理主要包括动态代理、字节码增强两种类型 |
 
-
 ### Join Points
 
 JointPoint就是程序运行时的一些连接点。在连接点可以插入切面功能代码。**构造方法调用、调用方法、方法执行、异常、设置一个变量，或者读取一个变量等等**，这些都是Join Points
@@ -33,12 +32,12 @@ initialization|对象初始化，在构造器中的对象初始化。包含：�
 pre-initialization|对象预初始化，在构造器中的对象初始化之前：从当前构造器调用，到父构造器调用结束为止|preinitialization(构造器签名)
 handler|异常处理|handler(类型签名)
 advice execution|通知的执行：环绕某个通知的整个执行。可以对通知进行通知|adviceexecution()
- 
- 注意call和execution的区别：
- 
- 1. method call是调用某个函数的地方。而execution是某个函数执行的内部。
- 2. call捕获的JoinPoint是签名方法的调用点，而execution捕获的则是执行点
- 
+
+注意call和execution的区别：
+
+1. method call是调用某个函数的地方。而execution是某个函数执行的内部。
+2. call捕获的JoinPoint是签名方法的调用点，而execution捕获的则是执行点
+
 ### Pointcuts(切入点)
 
 不是所有类型的JointPoint都是我们关注的。Pointcuts的目标是提供一种方法使得开发者能够选择自己感兴趣的JoinPoints。
@@ -46,54 +45,54 @@ advice execution|通知的执行：环绕某个通知的整个执行。可以对
 pointcut选择基于正则的语法，Pointcuts的主要类型有：
 
 - Methods and Constructors
-    - `call(Signature)`: 方法和构造函数的调用点
-    - `execution(Signature)`: 方法和构造函数的执行点
+  - `call(Signature)`: 方法和构造函数的调用点
+  - `execution(Signature)`: 方法和构造函数的执行点
 - Fields
-    - `get(Signature)`: 属性的读操作
-    - `set(Signature)`: 属性的写操作
+  - `get(Signature)`: 属性的读操作
+  - `set(Signature)`: 属性的写操作
 - Exception Handlers
-    - 异常处理执行
+  - 异常处理执行
 - Advice
-    - `adviceexecution()`: Advice执行
+  - `adviceexecution()`: Advice执行
 - Initialization
-    - `staticinitialization(TypePattern)`    : 类初始化
-    - `initialization(Signature)`: 对象初始化
-    - `preinitialization(Signature)`: 对象预先初始化
+  - `staticinitialization(TypePattern)`    : 类初始化
+  - `initialization(Signature)`: 对象初始化
+  - `preinitialization(Signature)`: 对象预先初始化
 - Lexical
-    - `within(TypePattern)`: 捕获在指定类或者方面中的程序体中的所有连接点，包括内部类
-    - `withincode(Signature)`: 用于捕获在构造器或者方法中的所有连接点，包括在其中的本地类
+  - `within(TypePattern)`: 捕获在指定类或者方面中的程序体中的所有连接点，包括内部类
+  - `withincode(Signature)`: 用于捕获在构造器或者方法中的所有连接点，包括在其中的本地类
 - Instanceof checks and context exposure
-    - `this(Type or Id)`: 所有Type or id 的实例的执行点，匹配所有的连接点，如方法调用，属性设置
-    - `target(Type or Id)`: 配所有的连接点，目标对象为Type或Id
-    - `args(Type or Id)`: 参数类型为Type
+  - `this(Type or Id)`: 所有Type or id 的实例的执行点，匹配所有的连接点，如方法调用，属性设置
+  - `target(Type or Id)`: 配所有的连接点，目标对象为Type或Id
+  - `args(Type or Id)`: 参数类型为Type
 - Control Flow
-    - `cflow(Pointcut)`: 捕获所有的连接点在指定的方法执行中，包括执行方法本身
-    - `cflowbelow(Pointcut)`: 捕获所有的连接点在指定的方法执行中，除了执行方法本身
+  - `cflow(Pointcut)`: 捕获所有的连接点在指定的方法执行中，包括执行方法本身
+  - `cflowbelow(Pointcut)`: 捕获所有的连接点在指定的方法执行中，除了执行方法本身
 - Conditional
-    - `if(Expression)`
+  - `if(Expression)`
 - Combination(多Pointcut的逻辑结合操作)
-    - `! Pointcut`
-    - `Pointcut0 && Pointcut1`
-    - `Pointcut0 || Pointcut1`
+  - `!Pointcut`
+  - `Pointcut0 && Pointcut1`
+  - `Pointcut0 || Pointcut1`
 
 ### Advice
 
 通过 pointcuts 来选择合适的 JointPoin t后，就可以在 JointPoint 处插入的代码，Advice 用于指定在 JPoint 之前还是之后插入代码，具体包括以下具体的 Advice：
 
 - After 包括三个 Advice
-    - After：在切入点执行之后执行，不论其结果
-    - AfterReturning：在切入点执行成功后执行
-    - AfterThrowing：在切入点执行失败后执行
+  - After：在切入点执行之后执行，不论其结果
+  - AfterReturning：在切入点执行成功后执行
+  - AfterThrowing：在切入点执行失败后执行
 - Before：在切入点前插入代码
 - Around：环绕切入点的执行过程，具有修改连接点执行上下文的能力
-    - 在连接点之前/之后添加额外的逻辑，例如性能分析
-    - 跳过原先逻辑还执行备选的逻辑，例如缓存。只要不调用 `proceed()`，即不执行原有的逻辑
-    - 使用 try-catch 包裹原先逻辑，提供异常处理策略，例如事务管理
+  - 在连接点之前/之后添加额外的逻辑，例如性能分析
+  - 跳过原先逻辑还执行备选的逻辑，例如缓存。只要不调用 `proceed()`，即不执行原有的逻辑
+  - 使用 try-catch 包裹原先逻辑，提供异常处理策略，例如事务管理
 - AfterRunning: 返回通知, 在方法返回结果之后执行
 - AfterThrowing: 异常通知, 在方法抛出异常之后
 
 注意：
- 
+
 - Advice 为 Before 和 After 时，切入方法的参数应该是 JoinPoint
 - Advice 为 Around 时，方法参数应该为 ProceedingJoinPoint，ProceedingJoinPoint 继承 JoinPoint，多了 proceed 功能，此时如果我们不调用 proceed 方法，被切入的方法将不会被调用，
 - Around 和 After 是不能同时作用在同一个方法上的，会产生重复切入的问题。
@@ -112,12 +111,12 @@ Pointcuts 语法包括：
 
 - 通配符
 - 类型签名语法
-    - 基于注解的类型签名
-    - 基于泛型的类型签名
-    - 联合类型签名
+  - 基于注解的类型签名
+  - 基于泛型的类型签名
+  - 联合类型签名
 - 方法和构造器签名语法
-    - 基本方法签名
-    - 基于注解的方法签名
+  - 基本方法签名
+  - 基于注解的方法签名
 - 字段签名语法
 
 ### 通配符
@@ -126,7 +125,7 @@ Pointcuts 语法包括：
 
 ### Java语法示例
 
-#### call和execution
+#### call 和 execution
 
 语法结构：`execution([修饰符] 返回值类型 方法名(参数)［异常模式］)`，其中修饰符和异常模式可选
 
@@ -140,7 +139,12 @@ Pointcuts 语法包括：
 `execution(* com.aspect..*(..))` | 所有 `com.aspect` 包，以及子孙包下的所有方法
 `execution(* com..*.*Dao.find*(..))` | com 包下的所有以 Dao 结尾的类的以 find 开头的方法
 
-#### within 和 withincode 
+- call 在切入点匹配的方法的调用点插入代码、execution 在切入点匹配的方法内部插入代码。
+- 对于继承类来说，如果它没有覆盖父类的方法，那么 execution 不会匹配子类中没有覆盖父类的方法。比如们有一个类 B 继承于A，但没有覆盖 A 类的 `foo()`，那么对于B的实例的foo()方法，`execution(* B.foo())`将不会被匹配。
+- 如果想跟踪连接点的内部代码运行情况可以考虑使用 execution，但如果你只关心连接点的签名，则使用 call。
+
+#### within 和 withincode
+
 
 - within用于捕获类型，示例`within(HelloAspectDemo)`表示在HelloAspectDemo类中
 - withincode用于捕获在构造器或者方法中的所有连接点，用法与 within 类似，`withcode()`接受的 signature 是方法

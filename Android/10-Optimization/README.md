@@ -6,15 +6,16 @@
 
 ## 2 资料整理
 
-### 工具
+### 优化工具
 
+- 官网文档 [AndroidStudio 用户指南](https://developer.android.com/studio/intro/)，AS 提供了很多优化工具
+- 官网文档 [Profile your app performance](https://developer.android.com/studio/profile)，介绍了性能优化的方方面面
 - [Android性能分析工具整理汇总](https://github.com/D-clock/Doc/blob/master/Android/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/Android%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7%E6%95%B4%E7%90%86%E6%B1%87%E6%80%BB.md)
 - [MAT使用入门](http://www.jianshu.com/p/d8e247b1e7b2)
 - [MAT - Memory Analyzer Tool 使用进阶](http://www.lightskystreet.com/2015/09/01/mat_usage/)
-- [AndroidStudio 用户指南](https://developer.android.com/studio/intro/)
 - [我这样减少了26.5M Java内存！](http://wetest.qq.com/lab/view/359.html)
 
-### 性能优化
+### 性能优化手册
 
 - [Android性能优化典范——系列](http://hukai.me/android-performance-patterns/)
 - [Android界面性能调优手册](https://androidtest.org/android-graphics-performance-pattens/)

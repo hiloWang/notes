@@ -34,8 +34,8 @@
 
 - [Android项目中的Gradle Task流程可视化](http://www.snowdream.tech/2016/08/10/gradle-android-task-graph-visteg/ "Android项目中的Gradle Task流程可视化")
 - [gradle-visteg](https://github.com/mmalohlava/gradle-visteg)
-  - http://www.graphviz.org/Download_windows.php
-  - http://stackoverflow.com/questions/1494492/graphviz-how-to-go-from-dot-to-a-graph
+  - <http://www.graphviz.org/Download_windows.php>
+  - <http://stackoverflow.com/questions/1494492/graphviz-how-to-go-from-dot-to-a-graph>
 - [gradle-task-tree](https://github.com/dorongold/gradle-task-tree)
 - [gradle-dependency-graph-generator-plugin](https://github.com/vanniktech/gradle-dependency-graph-generator-plugin)
 

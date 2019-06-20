@@ -30,4 +30,4 @@
 - [菜鸟教程：Python3](http://www.runoob.com/python3/python3-tutorial.html)
 - [pep8](https://www.python.org/dev/peps/pep-0008/)
 - 《Python编程从入门到实战》
-- 传智 Python 就业班课程
+- [传智 Python 课程](https://pan.baidu.com/s/1by63z71-F2gVYi5_msHk0A)，提取码 ot76

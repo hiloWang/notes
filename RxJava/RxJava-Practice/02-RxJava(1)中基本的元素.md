@@ -459,7 +459,7 @@ Transformer与与lift的Operator类似，都是继承了Func1，但是Transforme
 ---
 ## 10 类图
 
-![](index_files/RxJava1.png)
+![RxJava1](images/RxJava1.png)
 
 ---
 ## 引用

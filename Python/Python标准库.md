@@ -2,7 +2,6 @@
 
 Python有一套很有用的标准库(standard library)。标准库会随着Python解释器，一起安装在你的电脑中的。 它是Python的一个组成部分。这些标准库是Python为你准备好的利器，可以让编程事半功倍。
 
----
 ## 常用标准库
 
 | 标准库 | 说明 |
@@ -29,7 +28,6 @@ Python有一套很有用的标准库(standard library)。标准库会随着Pytho
 | functools | functools 是python2.5被引人的,一些工具函数放在此包里。 |
 | types | types模块定义了python中所有的类型 |
 
----
 ## 常用扩展库
 
 | 扩展库 | 说明 |
@@ -57,8 +55,6 @@ Python有一套很有用的标准库(standard library)。标准库会随着Pytho
 | pandas | 数据处理库 |
 | scikit-learn | 机器学习库 |
 
-
---- 
 ## functools
 
 ### partial函数(偏函数)
@@ -79,7 +75,6 @@ p = functools.partial(showarg, 1,2,3)
 
 使用装饰器时，有一些细节需要被注意。例如，被装饰后的函数其实已经是另外一个函数了（函数名等函数属性会发生改变）。Python的functools包中提供了一个叫wraps的装饰器来消除这样的副作用
 
----
 ## 内置函数
 
 - dir：函数不带参数时，返回当前范围内的变量、方法和定义的类型列表；带参数时，返回参数的属性、方法列表。如果参数包含方法`__dir__()`，该方法将被调用。如果参数不包含`__dir__()`，该方法将最大限度地收集参数信息。
@@ -101,8 +96,6 @@ Python内置了许多有用的函数，具体参考：
 - [Built-in Functions](https://docs.python.org/3/library/functions.html)
 - [Python3内置函数](http://www.runoob.com/python3/python3-built-in-functions.html)
 
-
----
 ## 引用
 
 - [Python 3 标准库](http://docspy3zh.readthedocs.io/en/latest/library/)

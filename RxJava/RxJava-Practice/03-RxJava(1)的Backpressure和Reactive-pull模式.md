@@ -572,7 +572,7 @@ Rx 中有操作函数可以用来处理这种消费者处理不过来的情况�
 
 onBackpressureBuffer 会缓存所有当前无法消费的数据，直到 Observer 可以处理为止。
 
-![](index_files/onBackpressureBuffer.png)
+![onBackpressureBuffer](images/onBackpressureBuffer.png)
 
 可以指定缓冲的数量，如果缓冲满了则会导致数据流失败。
 
@@ -616,7 +616,7 @@ onBackpressureBuffer 会缓存所有当前无法消费的数据，直到 Observe
 
 如果消费者无法处理数据，则 onBackpressureDrop 就把该数据丢弃了。
 
-![](index_files/onBackpressureDrop.png)
+![onBackpressureDrop](images/onBackpressureDrop.png)
 
 ```java
           Observable.interval(1, TimeUnit.MILLISECONDS)

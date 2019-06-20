@@ -1,4 +1,6 @@
-## 1  Windows常用的快捷键
+# Windows 10 操作总结
+
+## 1 Windows常用的快捷键
 
 ```bash
 *   WIN+D：显示桌面，再按一次还原桌面；
@@ -34,7 +36,6 @@
 *   WIN+ALT+数字：让位于任务栏指定位置（按下的数字作为序号）的程序，显示跳转清单；
 ```
 
----
 ## 2 清理
 
 ### C 盘清理
@@ -55,7 +56,6 @@
 - IE右键：`HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\MenuExt`
 - 右键：`HKEY_CLASSES_ROOT\Directory\Background\shellex\ContextMenuHandlers`
 
-----
 ## 3 Windows与Unix换行符号转换
 
 由于两个系统的换行符不一样，有时候在Windows中的配置的类Unix运行shell脚本时就会出现问题。比如语法错误。
@@ -68,7 +68,6 @@
 - 使用notepad++显示所有符号：操作：`视图->显示符号->显示所有符号`
 - 使用notepad++转换文档格式：操作：`编辑->档案格式转换->转换为UNIX格式`
 
----
 ## 4 Windows 10 版本历史
 
 参考[Windows 10版本历史](https://zh.wikipedia.org/wiki/Windows_10%E7%89%88%E6%9C%AC%E5%8E%86%E5%8F%B2)
@@ -77,7 +76,8 @@
 - 1709
 - 1803
 
----
+以后不会再有 Windows 11 或者其他版本了，全都基于 Windows 10 更新。
+
 ## 5 Windows 命令行
 
 ### 1 获取帮助
@@ -103,20 +103,19 @@
 
 ### 4 实用技巧
 
-**当前目录创建a.txt文件**
+当前目录创建a.txt文件
 
 ```bash
     cd .>a.txt
 ```
 
-**过滤字符**
+过滤字符
 
 ```bash
     findstr "你要搜索的内容"  file.txt
     Select-String -path file.txt -Pattern  "你要搜索的内容"(powershell命令)
 ```
 
----
 ## 引用
 
 - [Windows 有哪些你相见恨晚的奇技淫巧？](http://www.zhihu.com/question/27721113)

@@ -1,6 +1,5 @@
-# 软件列表
+# Windows 10 软件列表
 
----
 ## 链接
 
 - [Windows 下有什么软件能够极大地提高工作效率？](https://www.zhihu.com/question/22919326)
@@ -8,8 +7,7 @@
 - [高效 Tools 系列](https://jeffjade.com/tags/Toss/)
 - [少数派](https://sspai.com/topics)
 
----
-##  IDE
+## IDE
 
 - IDEA
 - CLion
@@ -22,7 +20,6 @@
 - Cmake
 - vscode
 
----
 ## 数据库
 
 - [Android逆向助手](http://www.dayanzai.me/android-hack.html)
@@ -31,8 +28,7 @@
 - MySql
 - Oracle
 
----
-## 类Unix
+## 类 Unix
 
 - CygMin
 - MinGW
@@ -49,7 +45,6 @@
 - Windows10-bash子系统：详细配置参考[这里](http://www.jianshu.com/p/bc38ed12da1d)
 - LLVM (要求安装 visual studio)
 
----
 ##  网络
 
 - Fiddler
@@ -58,27 +53,23 @@
 - netassist
 - Cisco Packet Tracer
 
----
 ## 开发
 
 - WinHex：16进制编辑器
 - NodeJs + NVM
 - Genymotion：模拟器
 
----
 ## 压缩
 
 - 7zip
 - [bandizip](http://www.bandisoft.com/bandizip/)
 
----
 ## UI设计
 
 - [马克鳗](http://www.getmarkman.com/)
 - Photoshop:[adobe系列](http://adobe.v404.cn/adobe/)
 - Sketeh
 
----
 ## 高效工具
 
 - Everything
@@ -91,14 +82,12 @@
 - AutoHotkey
 - Seer 或 QuickLook
 
----
 ## 画图
 
 - Astah
 - StarUML
 - xmind
 
----
 ## 图片压缩
 
 - [iSparta](http://isparta.github.io/)
@@ -108,7 +97,6 @@
 - [magicexif](http://www.magicexif.com/)
 - [mediainfo-gui](s://sourceforge.net/projects/mediainfo/files/binary/mediainfo-gui/0.7.58/)
 
----
 ## 常用软件
 
 - ccleaner
@@ -125,7 +113,6 @@
 - eagleget下载器
 - 百度云盘
 
----
 ## Windows
 
 - 微信

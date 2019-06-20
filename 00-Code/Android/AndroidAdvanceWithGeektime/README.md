@@ -1,4 +1,4 @@
-# [Android开发高手课](https://time.geekbang.org/column/intro/142) 学习笔记
+# [Android开发高手课](https://time.geekbang.org/column/intro/142) 实践
 
 ## 为什么需要学习这个专栏
 

@@ -18,7 +18,7 @@
 - configure详细指令说明可以从`./configure --help`命令获取
 - configure文件中描述了各个模块之间的依赖关系等
 
-```
+```make
 configure文件中的下面内容：
 SLIBNAME_WITH_MAJOR='$(SLIBNAME).$(LIBMAJOR)'
 LIB_INSTALL_EXTRA_CMD='$$(RANLIB)"$(LIBDIR)/$(LIBNAME)"'
@@ -36,6 +36,7 @@ SLIB_INSTALL_LINKS='$(SLIBNAME)'
 ## 库
 
 - [VideoCompression](https://github.com/RudreshJR/VideoCompression)，Android Library for VideoCompressionLibrary for VideoCompression
+- [RxFFmpeg](https://github.com/microshow/RxFFmpeg)
 
 ---
 ## 学习

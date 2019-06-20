@@ -5,7 +5,7 @@
 - [DataStructure Algorithms](DataStructure-Algorithms/README.md)
 - [Linux](Linux/README.md)
 - [Android](Android/README.md)
-- [Gradle](Build-System/Gradle/README.md)
+- [Gradle](Gradle/README.md)
 - [JavaEE](JavaEE/README.md)
 - [Web](Front-end/README.md)
 - [C&CPP](C&CPP/README.md)

@@ -10,7 +10,7 @@ C++ 语言基础与提高：
 
 编译与构建：
 
-- [编译器-gcc学习](Tools/gcc-01-入门.md)
-- [构建工具-cmake简介](Tools/cmake-01-简介.md)  
+- [编译器-gcc学习](03-GCC/gcc-01-入门.md)
+- [构建工具-cmake简介](04-Cmake/cmake-01-简介.md)  
 - [LLVM](https://llvm.org/)
 - [xmake](https://xmake.io/cn/)

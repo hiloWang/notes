@@ -1,1 +1,7 @@
 .vscode
+.DS_Store
+.gitattributes
+.classpath
+.project
+.settings
+bin

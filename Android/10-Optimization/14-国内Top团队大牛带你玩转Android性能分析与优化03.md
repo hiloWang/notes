@@ -239,7 +239,6 @@ public class ImageHook extends XC_MethodHook {
         }
     }
 
-
     private static void warn(int bitmapWidth, int bitmapHeight, int viewWidth, int viewHeight, Throwable t) {
         String warnInfo = new StringBuilder("Bitmap size too large: ")
                 .append("\n real size: (").append(bitmapWidth).append(',').append(bitmapHeight).append(')')

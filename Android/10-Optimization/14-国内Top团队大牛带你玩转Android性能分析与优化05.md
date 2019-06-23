@@ -14,7 +14,7 @@
 - 产生愿意错综复杂：代码、内存、绘制、IO...
 - 不易复现：与当时的场景强相关
 
-### CPU Profiler
+### TraceView（CPU Profiler）
 
 使用方式：
 
@@ -241,16 +241,190 @@ public class AppContext extends Application{
 
 ## 6.6 如何实现界面秒开
 
-- [ ] todo
+### 如何实现界面秒开
+
+- 使用 SysTrace 分析卡顿
+- 使用异步加载或者延迟初始化
+- 提前获取数据
+- 异步 Inflate，绘制优化
+
+### 界面秒开率统计
+
+- 方式1：监听 onCreate 到 onWindowFocusChanged（不太准确）
+- 方式2：实现自定义的接口
+- 方式3：使用 AOP 监控方法前后时间
+
+### Lancet 介绍
+
+Lancet 特点：
+
+- 轻量级 Android AOP 框架
+- 变异速度快，支持增量编译
+
+使用 Lancet 监控 onCreate 到 onWindowFocusChanged 耗时：
+
+```java
+    @Insert(value = "onCreate",mayCreateSuper = true)
+    @TargetClass(value = "android.support.v7.app.AppCompatActivity",scope = Scope.ALL)
+    protected void onCreate(Bundle savedInstanceState) {
+        sActivityRecord.mOnCreateTime = System.currentTimeMillis();
+        Origin.callVoid();
+    }
+
+    @Insert(value = "onWindowFocusChanged",mayCreateSuper = true)
+    @TargetClass(value = "android.support.v7.app.AppCompatActivity",scope = Scope.ALL)
+    public void onWindowFocusChanged(boolean hasFocus) {
+        sActivityRecord.mOnWindowsFocusChangedTime = System.currentTimeMillis();
+        LogUtils.i("onWindowFocusChanged cost "+(sActivityRecord.mOnWindowsFocusChangedTime - sActivityRecord.mOnCreateTime));
+        Origin.callVoid();
+    }
+```
+
+### 界面秒开率统计监控维度
+
+- 总体耗时
+- 生命周期耗时
+- 生命周期间隔耗时
 
 ## 6.7 优雅监控耗时盲区
 
-- [ ] todo
+### 背景
 
-## 6.8 卡顿优化技巧总结初步
+什么是监控耗时盲区：一般的监控都是监控一个大的范围，而一些细节没偶考虑到，比如：
 
-- [ ] todo
+- 生命周期的间隔
+- onResume 到 Feed 展示的间隔
+- 比如 postMessage(假如在onResume是postMessage，而且这个Message耗时200ms) 和可能在 Feed 之前执行。
+
+```java
+public class MainActivity extends AppCompatActivity implements OnFeedShowCallBack {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        //这个 post 就会影响 Feed 展示，用户看到的界面就会延迟1s
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                LogUtils.i("Msg 执行");
+               try {
+                   Thread.sleep(1000);
+               } catch (InterruptedException e) {
+                   e.printStackTrace();
+               }
+            }
+        });
+    }
+}
+```
+
+### 耗时盲区监控难点
+
+- 只知道盲区时间，不清楚具体在做什么。(比如由于开发人员多，第三方SDK，很难知道主界面 onResume 到 Feed 主线程到底都做了什么)
+- 线上盲区无从排查
+
+### 耗时盲区监控线下方案
+
+TraceView：
+
+- 特使适合一段时间内的盲区监控
+- 线程具体做了什么一目了然
+
+### 耗时盲区监控线上方案
+
+思考分析:
+
+- 方式1：使用 AndroidPerformanceMonitor，能获取具体的执行时间，但是不能获取 message 是谁 post 的），不太完美。
+- 方式2：使用 AOP 切 Handler方法，能知道 message 是谁 post 的，但不清楚准确执行时间，不太完美。
+- 方式3：使用同一的 Handler，定制具体方法，定义 gradle 插件，编译器动态替换为同一的 Handler。（能获取具体堆栈也能知道调用时间）
+
+```java
+public class SuperHandler extends Handler {
+
+    private long mStartTime = System.currentTimeMillis();
+
+    public SuperHandler() {
+        super(Looper.myLooper(), null);
+    }
+
+    public SuperHandler(Callback callback) {
+        super(Looper.myLooper(), callback);
+    }
+
+    public SuperHandler(Looper looper, Callback callback) {
+        super(looper, callback);
+    }
+
+    public SuperHandler(Looper looper) {
+        super(looper);
+    }
+
+    @Override
+    public boolean sendMessageAtTime(Message msg, long uptimeMillis) {
+        boolean send = super.sendMessageAtTime(msg, uptimeMillis);
+        if (send) {
+            GetDetailHandlerHelper.getMsgDetail().put(msg, Log.getStackTraceString(new Throwable()).replace("java.lang.Throwable", ""));
+        }
+        return send;
+    }
+
+    @Override
+    public void dispatchMessage(Message msg) {
+        mStartTime = System.currentTimeMillis();
+        super.dispatchMessage(msg);
+
+        if (GetDetailHandlerHelper.getMsgDetail().containsKey(msg)
+                && Looper.myLooper() == Looper.getMainLooper()) {
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("Msg_Cost", System.currentTimeMillis() - mStartTime);
+                jsonObject.put("MsgTrace", msg.getTarget() + " " + GetDetailHandlerHelper.getMsgDetail().get(msg));
+
+                LogUtils.i("MsgDetail " + jsonObject.toString());
+                GetDetailHandlerHelper.getMsgDetail().remove(msg);
+            } catch (Exception e) {
+            }
+        }
+    }
+
+}
+```
+
+### 耗时盲区总结
+
+- 卡顿监控重要的一环，全面性保障
+- TraceView 适合线下
+- 动态替换 Handler 方案适合线下
+
+## 6.8 卡顿优化技巧总结
+
+- 耗时操作：异步，延迟
+- 布局优化：异步，X2C，重绘解决
+- 内存：降低内存占用，减少GC时间
+- 卡顿优化工具建设
+  - Systrace
+  - TraceView
+  - StrictMode
+  - 自动化监控工具
+    - AndroidPerformanceMonitor
+    - WatchDog
+  - 单点问题：AOP，Hook
+  - 盲区监控：gradle 编译器替换为同一的 Handler
+- 卡顿监控指标
+  - 卡顿率，ANR率，界面秒开率
+  - 交互时间，生命周期时间
+  - 上报环境，场景信息
 
 ## 6.9 卡顿优化模拟面试
 
-- [ ] todo
+1. 你是怎么做卡顿优化？
+   1. 突出阶段化建设
+   2. 第一阶段：系统工具定位，解决
+   3. 第二阶段：自动化卡顿监控方案
+   4. 第三阶段：线上监控和线下检测工具建设
+2. 怎么自动化获取卡顿信息？
+   1. mLogging.println 对象
+   2. 突出细节：高频采集，找出重复堆栈
+3. 卡顿的一整套解决方案是怎么做的？
+   1. 线上、线下工具结合，线下尽早暴露问题，线上注重监控
+   2. 特定难题突破，单点问题，盲区监控
+   3. 线上监控建设

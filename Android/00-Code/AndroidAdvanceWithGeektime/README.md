@@ -7,6 +7,13 @@
 - [焦虑的移动开发者该如何破局？](https://time.geekbang.org/column/article/69958)
 - [如何打造高质量的应用？](https://time.geekbang.org/column/article/70250)
 
+## 专栏内容
+
+高质量开发模块：
+
+1. 崩溃优化
+2. 内存优化
+
 ## 找对方法学习
 
 因为这个专栏比较有技术深度，学起来可能比较吃力，关于学习方法可以参考：[专栏学得苦？可能是方法没找对](https://time.geekbang.org/column/article/77342)。

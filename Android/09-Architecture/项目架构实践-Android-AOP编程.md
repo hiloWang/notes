@@ -78,3 +78,7 @@ AST：
 
 - [capt 全称 Class Annotation Processor Tool，是作者基于 ASM 和 Android Transform API 打造的 Android 平台的字节码的注解处理工具。](https://mp.weixin.qq.com/s/8_88oUB2MJi27BJJOb-2_Q)
 - [sdk-editor-plugin](https://github.com/iwhys/sdk-editor-plugin)
+
+运行时 AOP：
+
+- [epic](https://github.com/tiann/epic)

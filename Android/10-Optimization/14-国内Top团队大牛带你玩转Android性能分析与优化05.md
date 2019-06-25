@@ -19,7 +19,7 @@
 使用方式：
 
 - `Debug.startMethodTracing()、Debug.stopMethodTracing()`
-- 生成文件在 Android/data/packagename/files 中，可以直接在 AS 中打开
+- 生成文件在 `Android/data/packagename/files` 中，可以直接在 AS 中打开
 
 特点：
 
@@ -27,7 +27,7 @@
 - 信息全面，包含所有线程
 - 运行时开销严重，整体都会变慢
 
-### Systrance
+### Systrace
 
 - 监控和跟踪 API 调用，线程允许情况，生成 HTML 报告
 - 轻量级，开销小
@@ -250,8 +250,8 @@ public class AppContext extends Application{
 
 ### 界面秒开率统计
 
-- 方式1：监听 onCreate 到 onWindowFocusChanged（不太准确）
-- 方式2：实现自定义的接口
+- 方式1：监听 onCreate 到 onWindowFocusChanged 的时间（不太准确，onWindowFocusChanged 调用不代表数据已经展示）。
+- 方式2：Activity/Fragment Feed 是统计，但是不够优雅。
 - 方式3：使用 AOP 监控方法前后时间
 
 ### Lancet 介绍
@@ -284,7 +284,7 @@ Lancet 特点：
 
 - 总体耗时
 - 生命周期耗时
-- 生命周期间隔耗时
+- 生命周期函数间隔耗时
 
 ## 6.7 优雅监控耗时盲区
 
@@ -292,7 +292,7 @@ Lancet 特点：
 
 什么是监控耗时盲区：一般的监控都是监控一个大的范围，而一些细节没偶考虑到，比如：
 
-- 生命周期的间隔
+- 生命周期函数的间隔（比如 onStart 到 onResume）
 - onResume 到 Feed 展示的间隔
 - 比如 postMessage(假如在onResume是postMessage，而且这个Message耗时200ms) 和可能在 Feed 之前执行。
 
@@ -326,7 +326,7 @@ public class MainActivity extends AppCompatActivity implements OnFeedShowCallBac
 
 TraceView：
 
-- 特使适合一段时间内的盲区监控
+- 适合一段时间内的盲区监控
 - 线程具体做了什么一目了然
 
 ### 耗时盲区监控线上方案
@@ -338,6 +338,7 @@ TraceView：
 - 方式3：使用同一的 Handler，定制具体方法，定义 gradle 插件，编译器动态替换为同一的 Handler。（能获取具体堆栈也能知道调用时间）
 
 ```java
+//定义 SuperHandler，利用编译期字节码编辑技术，将所有使用到的 Handler 替换为 SuperHandler，从而实现耗时盲区监控
 public class SuperHandler extends Handler {
 
     private long mStartTime = System.currentTimeMillis();
@@ -391,9 +392,9 @@ public class SuperHandler extends Handler {
 
 ### 耗时盲区总结
 
-- 卡顿监控重要的一环，全面性保障
+- 耗时盲区总结是卡顿监控重要的一环，全面性保障
 - TraceView 适合线下
-- 动态替换 Handler 方案适合线下
+- 动态替换 Handler 方案适合线上
 
 ## 6.8 卡顿优化技巧总结
 

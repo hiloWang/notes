@@ -1,4 +1,6 @@
-## Android System 
+# Android OS理解
+
+## Android System 系列博客
 
 - [罗升阳-安卓之旅](http://blog.csdn.net/luoshengyang/article/details/8923485)
 - [GitYuan:Android 系统开篇](http://gityuan.com/android/)
@@ -16,6 +18,7 @@
 
 ### Books
 
-- 《深入理解Android内核设计思想》
-- 《Android开发艺术探索》
-- 《Android内核剖析》
+- 《Android内核剖析》 柯元旦
+- 《Android开发艺术探索》 任玉刚
+- 《深入理解Android》系列，详情参考[全面认识Android OS](https://mp.weixin.qq.com/s/BJuILjoGwfnaBLwNPV8qRg)
+- 《深入理解Android内核设计思想》 林学森

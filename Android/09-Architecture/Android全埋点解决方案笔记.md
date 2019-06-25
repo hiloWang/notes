@@ -6,7 +6,7 @@
 - 兼容性：Android SDK版本、Java 和 Kotlin、Lamdba、DataBinding、Fragment等等都需要考虑。
 - 扩展性：业务的不断迭代，全自动采集和精细化采集控制力度的要求。
 
-## 1 买点方案一：`$AppViewScreen`
+## 1 买埋方案一：`$AppViewScreen`
 
 **关键技术**：
 

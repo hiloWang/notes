@@ -20,7 +20,7 @@
 影响Android线程调度的两个因素：
 
 - nice值
-- cgroups
+- cgroup
 
 nice值：
 
@@ -30,7 +30,7 @@ nice值：
 
 >Linux中，使用nice value来设定一个进程的优先级，系统任务调度器根据nice值合理安排调度。由于Android基于Linux Kernel，在Android中也存在nice值。具体参考[](https://droidyue.com/blog/2015/09/05/android-process-and-thread-schedule-nice/?droid_refer=series)
 
-cgroups（系统级）：
+cgroup：
 
 - 更严格的群组调度策略
 - 保证前台线程可以获取到更多的CPU

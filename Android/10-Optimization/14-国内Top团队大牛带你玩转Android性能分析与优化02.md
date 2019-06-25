@@ -161,7 +161,7 @@ Debug.stopMethodTracing("")
 使用方式：
 
 ```java
-//先用代码买点
+//先用代码埋点
 Trace.beginSection()
 Trace.endSection()
 

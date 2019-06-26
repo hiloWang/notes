@@ -98,9 +98,9 @@
 
 ## 开源框架
 
-- [Dagger2 使用指南](08-OpenProject/Dagger2使用指南.md)
-- [okio 简介](08-OpenProject/okio-简介.md)
-- [okio wiki](08-OpenProject/okio-wiki.md)
+- [Dagger2 使用指南](07-OpenProject/Dagger2使用指南.md)
+- [okio 简介](07-OpenProject/okio-简介.md)
+- [okio wiki](07-OpenProject/okio-wiki.md)
 
 ## NDK
 
@@ -110,40 +110,40 @@
 
 ## 优化
 
-- [性能优化](10-Optimization/Performance.md)
+- [性能优化](09-Optimization/Performance.md)
 
 ## 架构总结
 
-- [架构相关资料](09-Architecture/References.md)
-- [项目架构实践01-开发准备](09-Architecture/项目架构实践01-开发准备.md)
-- [项目架构实践02-开发规范](09-Architecture/项目架构实践02-开发规范.md)
-- [项目架构实践03-认识架构](09-Architecture/项目架构实践03-认识架构.md)
-- [项目架构实践04-架构实施](09-Architecture/项目架构实践04-架构实施.md)
-- [项目架构实践05-组件化与模块化](09-Architecture/项目架构实践05-组件化与模块化.md)
-- [项目架构实践-AOP编程](09-Architecture/项目架构实践-AOP编程.md)
-- [项目架构实践-CleanArchitecture学习](09-Architecture/项目架构实践-CleanArchitecture学习.md)
-- [项目架构实践-DataBinding](09-Architecture/项目架构实践-DataBinding.md)
-- [项目架构实践-Jetpack-AAC-1](09-Architecture/项目架构实践-Jetpack-AAC-1.md)
-- [项目架构实践-Jetpack-AAC-2](09-Architecture/项目架构实践-Jetpack-AAC-2.md)
-- [项目架构实践-Jetpack-AAC-3](09-Architecture/项目架构实践-Jetpack-AAC-3.md)
-- [项目架构实践-Jetpack-Navigation](09-Architecture/项目架构实践-Jetpack-Navigation.md)
-- [项目架构实践-Jetpack-介绍](09-Architecture/项目架构实践-Jetpack-介绍.md)
-- [项目架构实践-列表设计与思考](09-Architecture/项目架构实践-列表设计与思考.md)
-- [项目架构实践-项目测试与CI](09-Architecture/项目架构实践-项目测试与CI.md)
-- [跨平台开发模式](09-Architecture/跨平台开发模式.md)
+- [架构相关资料](08-Architecture/References.md)
+- [项目架构实践01-开发准备](08-Architecture/项目架构实践01-开发准备.md)
+- [项目架构实践02-开发规范](08-Architecture/项目架构实践02-开发规范.md)
+- [项目架构实践03-认识架构](08-Architecture/项目架构实践03-认识架构.md)
+- [项目架构实践04-架构实施](08-Architecture/项目架构实践04-架构实施.md)
+- [项目架构实践05-组件化与模块化](08-Architecture/项目架构实践05-组件化与模块化.md)
+- [项目架构实践-AOP编程](08-Architecture/项目架构实践-AOP编程.md)
+- [项目架构实践-CleanArchitecture学习](08-Architecture/项目架构实践-CleanArchitecture学习.md)
+- [项目架构实践-DataBinding](08-Architecture/项目架构实践-DataBinding.md)
+- [项目架构实践-Jetpack-AAC-1](08-Architecture/项目架构实践-Jetpack-AAC-1.md)
+- [项目架构实践-Jetpack-AAC-2](08-Architecture/项目架构实践-Jetpack-AAC-2.md)
+- [项目架构实践-Jetpack-AAC-3](08-Architecture/项目架构实践-Jetpack-AAC-3.md)
+- [项目架构实践-Jetpack-Navigation](08-Architecture/项目架构实践-Jetpack-Navigation.md)
+- [项目架构实践-Jetpack-介绍](08-Architecture/项目架构实践-Jetpack-介绍.md)
+- [项目架构实践-列表设计与思考](08-Architecture/项目架构实践-列表设计与思考.md)
+- [项目架构实践-项目测试与CI](08-Architecture/项目架构实践-项目测试与CI.md)
+- [跨平台开发模式](08-Architecture/跨平台开发模式.md)
 
 ## 网络
 
-- [Android网络请求](07-Network/Android网络请求.md)
-- [OkHttp01-References](07-Network/OkHttp01-References.md)
-- [OkHttp02-Interceptor](07-Network/OkHttp02-Interceptor.md)
-- [OkHttp03-AutoRetry](07-Network/OkHttp03-AutoRetry.md)
-- [OkHttp04-Analyse](07-Network/OkHttp04-Analyse.md)
-- [Retrofit-1使用](07-Network/Retrofit-1使用.md)
-- [Retrofit-2Analyse](07-Network/Retrofit-2Analyse.md)
-- [Retrofit-3Extends](07-Network/Retrofit-3Extends.md)
-- [GraphQL](07-Network/GraphQL.md)
-- [相关资料](07-Network/References.md)
+- [Android网络请求](06-Network/Android网络请求.md)
+- [OkHttp01-References](06-Network/OkHttp01-References.md)
+- [OkHttp02-Interceptor](06-Network/OkHttp02-Interceptor.md)
+- [OkHttp03-AutoRetry](06-Network/OkHttp03-AutoRetry.md)
+- [OkHttp04-Analyse](06-Network/OkHttp04-Analyse.md)
+- [Retrofit-1使用](06-Network/Retrofit-1使用.md)
+- [Retrofit-2Analyse](06-Network/Retrofit-2Analyse.md)
+- [Retrofit-3Extends](06-Network/Retrofit-3Extends.md)
+- [GraphQL](06-Network/GraphQL.md)
+- [相关资料](06-Network/References.md)
 
 ## 系统
 
@@ -164,7 +164,6 @@ IPC机制（《Android开发艺术探索总结》）
 - [IPC-04-BinderAuthentication](12-System-Analysis/IPC-04-BinderAuthentication.md)
 - [IPC-05-ContentProvider](12-System-Analysis/IPC-05-ContentProvider.md)
 - [IPC-06-Messenger](12-System-Analysis/IPC-06-Messenger.md)
-
 
 《深入理解Android内核设计思想》：
 

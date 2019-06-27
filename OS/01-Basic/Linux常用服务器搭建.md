@@ -69,7 +69,7 @@ SSH为Secure Shell的缩写，由 IETF 的网络工作小组（Network Working G
        ssh 用户名@IP使用
 ```
 
-![](index_files/4ca9cec4-5bab-4209-ad14-ba28469df87d.jpg)
+![](index_files/ssh.jpg)
 
 ### 2.3 SCP
 

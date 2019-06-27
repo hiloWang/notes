@@ -101,6 +101,7 @@ public final class Pm {
         }
  }
 ```
+
 可以看到，Pm在runInstall方法中，调用了mPm(IPackageManager)的installPackageAsUser方法。
 
 ---
@@ -114,7 +115,6 @@ Android系统在启动的过程中，会启动一个应用程序管理服务Pack
 - `/data/app`
 - `/data/app-private`
 
----
 在安装Apk时，会调用PackageManagerService的installPackageAsUser方法，把Apk文件复制到安装目录下(比如`/data/app`)，然后执行相应的apk解析操作，PMS的源码在`frameworks/base/services/core`目录下。
 
 PackageManagerService实现了IPackageManager.Stub，很明显是一个Binder结构：
@@ -124,7 +124,6 @@ public class PackageManagerService extends IPackageManager.Stub {
      .......
 }
 ```
-
 
 ### installPackageAsUser
 
@@ -141,6 +140,7 @@ public class PackageManagerService extends IPackageManager.Stub {
         mHandler.sendMessage(msg);
     }
 ```
+
 installPackageAsUser方法首先会检查安装权限，如果具备安装权限，就会创建一个InstallParams对象，发送INIT_COPY消息给内部的mHandler处理。
 
 ### doHandleMessage
@@ -187,6 +187,7 @@ installPackageAsUser方法首先会检查安装权限，如果具备安装权限
 ```
 
 #### MCS_BOUND处理
+
 ```java
  case MCS_BOUND: {
                     if (msg.obj != null) {
@@ -228,6 +229,7 @@ installPackageAsUser方法首先会检查安装权限，如果具备安装权限
 ### HandlerParams
 
 上面分析到调用了HandlerParams的startCopy方法
+
 ```java
      final boolean startCopy() {
             boolean res;
@@ -252,16 +254,16 @@ installPackageAsUser方法首先会检查安装权限，如果具备安装权限
         }
 
 ```
+
 startCopy方法做了为三件事：
+
 - 失败后的重试安装
 - 调用handleStartCopy方法完整apk的安装
 - 安装完毕后调用handleReturnCode方法返回结果
 
 ### handleStartCopy
 
-HandlerParams是一个抽象类，执行Apk安装的是其子类InstallParams，InstallParams的handleStartCopy方法非常长，主要做功能是：
-
-InstallParams的handleStartCopy()的主要内容是通过`com.android.defcontainer.DefaultContainerService`来获取apk的推荐安装路径，通过这个路径来确定是内部安装还是SD卡安装，在方法的末尾，根据路径来创建不同的InstallArgs,分别是FileInstallArgs和SdInstallArgs，然后执行各自的copyApk()方法。
+HandlerParams是一个抽象类，执行Apk安装的是其子类InstallParams，InstallParams的handleStartCopy方法非常长，主要做功能是：InstallParams的handleStartCopy()的主要内容是通过`com.android.defcontainer.DefaultContainerService`来获取apk的推荐安装路径，通过这个路径来确定是内部安装还是SD卡安装，在方法的末尾，根据路径来创建不同的InstallArgs,分别是FileInstallArgs和SdInstallArgs，然后执行各自的copyApk()方法。
 
 ```java
 public void handleStartCopy() throws RemoteException {
@@ -285,6 +287,7 @@ private InstallArgs createInstallArgs(InstallParams params) {
 ```
 
 ### FileInstallArgs copyApk
+
 ```java
 int copyApk(IMediaContainerService imcs, boolean temp) throws RemoteException {
             // .......省略代码
@@ -319,7 +322,6 @@ int copyApk(IMediaContainerService imcs, boolean temp) throws RemoteException {
         }
 ```
 
-
 ### handleReturnCode
 
 apk复制到指定目录后，就会执行handleReturnCode方法，完全apk的解析等操作
@@ -331,9 +333,11 @@ void handleReturnCode() {
             }
 }
 ```
+
 handleReturnCode调用了processPendingInstall方法
 
 ### processPendingInstall
+
 ```java
 private void processPendingInstall(final InstallArgs args, final int currentStatus) {
 
@@ -355,9 +359,9 @@ private void processPendingInstall(final InstallArgs args, final int currentStat
                     }
                     args.doPostInstall(res.returnCode, res.uid);
                 }
-                
+
                 // .......省略代码
-                
+
                 //发送一个POST_INTALL消息，告诉系统是否安装完毕。
                 if (!doRestore) {
                     if (DEBUG_INSTALL) Log.v(TAG, "No restore - queue post-install for " + token);
@@ -374,6 +378,7 @@ processPendingInstallf方法中调用了`doPreInstall()和installPackageLI(),doP
 ### installPackageLI
 
 installPackageLI方法非常长，主要功能有：
+
 - 使用PackageParser对apk包进行解析
 - 判断是升级apk还是安装新的apk
 - 执行dex优化和替换，执行so的库的导出

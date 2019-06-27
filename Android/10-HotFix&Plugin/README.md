@@ -1,8 +1,6 @@
-## 1 预备知识
+# 插件化热修复相关知识
 
-### Common
-
-- Android 类加载机制
+## 1 相关博客
 
 ### 插件
 
@@ -20,6 +18,7 @@
 - [干货满满，Android热修复方案介绍](https://yq.aliyun.com/articles/231111?utm_content=m_34179)
 - [Android 热修复你想知道的一切都在这里了](https://juejin.im/entry/58df77baac502e4957872346)
 - [最全面的Android热修复技术](https://blog.csdn.net/u010299178/article/details/52031505)
+- [Android 热修复专题：支付宝、淘宝、微信、QQ空间、饿了么、美丽说蘑菇街、美团大众点评方案集合](https://zhuanlan.zhihu.com/p/25863920)
 
 ---
 ## 2 框架
@@ -36,6 +35,7 @@
 - [360——RePlugin](https://github.com/Qihoo360/RePlugin)
 - [Android-Plugin-Framework](https://github.com/limpoxe/Android-Plugin-Framework)：Android插件开发框架完整源码及示例
 - [Phantom — 唯一零 Hook 稳定占坑类 Android 热更新插件化方案](https://github.com/ManbangGroup/Phantom)
+- [腾讯——Shadow](https://github.com/Tencent/Shadow)
 
 ### 热修复
 

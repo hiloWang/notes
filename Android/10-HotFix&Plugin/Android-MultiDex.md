@@ -5,7 +5,7 @@
 
 Android中单个dex文件所能包含的最大的引用数为65536，这包含AndroidFrameWork、依赖的jar包，以及本身包含的所有代码，65536是一个很大的数，一般一个简单的应用很难大大65536，但是对于比较大的应用就容易达到，当应用的方法数达到65536后，编译器就无法完成编译工作并抛出异常。**这是一个构建期异常**。
 
-```
+```log
     UNEXPECED TOP_LEVEL EXCEPTION:
     com.android.dex.DexIndexOverflowException:method ID not in [0,oxffff]
 ```
@@ -15,7 +15,9 @@ Android 应用 (APK) 文件包含 Dalvik Executable (DEX) 文件形式的可执�
 
 另外一种情况，有时方法数并没有达到65536，并且编译器也能正常完成工作，但是应用在低版本手机安装时异常终止，异常信息如下：
 
+```log
     E/dalvikvm:Optimization failed
+```
 
 dexopt是一个程序，应用安装时，系统会通过dexopt来优化dex文件，在优化的过程中dex采用一个固定大小的缓冲区来存储应用中所有方法的信息，这个缓冲区就是LinearAlloc，LinearAlloc缓冲区在新版本中的Android系统中大小是8M或者16M，但是在Android2.2和2.3中只有5M，当安装的apk中的方法数比较多时，尽管她还没有达到65536这个上限，但是它的存储空间仍然可能超过5M，这种情况下dexopt程序就会报错。
 
@@ -30,10 +32,12 @@ Java中的ClassLoader机制我们应该已经非常熟悉了，而Android只是�
 
 Android中的类加载器继承关系为
 
+```log
     ClassLoader
         |-->BaseDexClassLoader
              |-->PathClassLoader
              |-->DexClassLoader
+```
 
 ClassLoader的getSystemClassLoader方法被改写了
 
@@ -51,9 +55,8 @@ static private class SystemClassLoader {
        public static ClassLoader loader = ClassLoader.createSystemClassLoader();
 }
 ```
-可以看出现在返回的是`PathClassLoader`
 
-PathClassLoader和DexClassLoader都继承自BaseDexClassLoader，只是用途不一样：
+可以看出现在返回的是`PathClassLoader`，PathClassLoader和DexClassLoader都继承自BaseDexClassLoader，只是用途不一样：
 
 - PathClassLoader用于加载data/app目录下的apk文件，从这个目录可以看出，PahClassLoader主要用来加载已经安装了的apk
 - DexClassLoader的类加载路径是在创建DexClassLoader对象时指定的，所以它可以加载任何目录下的Dex文件
@@ -195,6 +198,7 @@ ant规定`build.xml`中定义根节点为`project`代表项目名称，`project`
 Dex65536的原理是可以指定jar包打包在次dex中，在app启动的时候，编写代码把次dex拷贝到app的私有目录下，接着以这个目录为类路径够建一个DexClassLoader，然后把这个DexClassLoader插入到app的PathClassLoader和PathClassLoader的parent中间，这样就符合的类加载器的委托机制。
 
 插入逻辑为：
+
 ```java
 
 public class AppContext extends Application{

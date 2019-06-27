@@ -406,8 +406,7 @@ installPackageLI方法非常长，主要功能有：
     - 5.0开始：根据 packages.xml 中指定的 codePath，创建一个目录（一般是`data/data/package_name/base.apk`），apk 会被命名成 base.apk 并拷贝到此，其中 lib 目录用来存放 native 库。目录是由包名 -1 组成，有时候此处是 -2。这是为了升级使用，升级时会新创建一个 -1 或 -2 的目录，如果升级成功，则删除原目录并更改 packages.xml 中 codePath 到新目录。
 3. ODEX：如果每次应用运行还得去 base.apk 中取 dex 文件，效率就太低了。为了提升效率，Android 系统在应用安装时还会做些优化操作，把所有可运行的 dex 文件单独提取放在一块并做些优化。在 Dalvik 模式下，会使用 dexopt 把 base.apk 中的 dex 文件优化为 odex，存储在 `/data/dalvik-cache` 中，如果是 ART 模式，则会使用 dex2oat 优化成 oat 文件也存储在该目录下，并且文件名一样，但文件大小会大很多，因为 ART 模式会在安装时把 dex 优化为机器码，所以在 ART 模式下的应用运行更快，但 apk 安装速度相对 Dalvik 模式下变慢，并且会占用更多的 ROM。
 
-![](index_files/f3734e50-a3ed-4e7a-8cbb-1d91b3a8257b.png)
-
+![data_dir](images/data_dir.png)
 
 ---
 ## 引用

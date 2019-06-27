@@ -3,14 +3,15 @@
 ---
 ## 1 方法数组越界
 
-Android中单个dex文件所能包含的最大的引用数为65536，这包含AndroidFrameWork、依赖的jar包，以及本身包含的所有代码，65536是一个很大的数，一般一个简单的应用很难大大65536，但是对于比较大的应用就容易达到，当应用的方法数达到65536后，编译器就无法完成编译工作并抛出异常。**这是一个构建期异常。**
+Android中单个dex文件所能包含的最大的引用数为65536，这包含AndroidFrameWork、依赖的jar包，以及本身包含的所有代码，65536是一个很大的数，一般一个简单的应用很难大大65536，但是对于比较大的应用就容易达到，当应用的方法数达到65536后，编译器就无法完成编译工作并抛出异常。**这是一个构建期异常**。
 
+```
     UNEXPECED TOP_LEVEL EXCEPTION:
     com.android.dex.DexIndexOverflowException:method ID not in [0,oxffff]
+```
 
 >**关于64k限制**：65536。这个数字很重要，因为它代表的是单个 Dalvik Executable (DEX) 字节码文件内的代码可调用的引用总数。
 Android 应用 (APK) 文件包含 Dalvik Executable (DEX) 文件形式的可执行字节码文件，其中包含用来运行您的应用的已编译代码。Dalvik Executable 规范将可在单个 DEX 文件内可引用的方法总数限制在 65,536，其中包括 Android 框架方法、库方法以及您自己代码中的方法。在计算机科学领域内，术语千（简称 K）表示 1024（或 2^10）。由于 65,536 等于 64 X 1024，因此这一限制也称为“64K 引用限制”。——官方文档
-
 
 另外一种情况，有时方法数并没有达到65536，并且编译器也能正常完成工作，但是应用在低版本手机安装时异常终止，异常信息如下：
 
@@ -120,15 +121,17 @@ DexPathList中就保存了ClassLoader对应的dex路径和so路径等。google�
 
 在一个app中的Application类中执行下面代码
 
+```java
             Log.d(TAG, "ClassLoader.getSystemClassLoader():" + ClassLoader.getSystemClassLoader());
 
             Log.d(TAG, "getClassLoader():" + getClassLoader());
 
             Log.d(TAG, "MainActivity.class.getClassLoader():" + MainActivity.class.getClassLoader());
+```
 
 打印的结果为：
 
-```
+```log
 ClassLoader.getSystemClassLoader():
    dalvik.system.PathClassLoader[DexPathList[[directory "."],nativeLibraryDirectories=[/vendor/lib64, /system/lib64]]]
 
@@ -145,8 +148,6 @@ getClassLoader():
 
 - getSystemClassLoader的DexPathList是空的
 - Application的getClassLoader()和MainActivity.class.getClassLoader()返回的ClassLoader是同一个累加器，可以看到DexPathList的路径包含`/data/app/com.ztiany.gradlemultidex-1/base.apk`，这一般就是apk的安装路径了。
-
-
 
 ---
 ## 3 MultiDex解决方案
@@ -279,10 +280,7 @@ Gradle开启MultiDex很简单，在Androidstudio中，在gradle中使用如下�
     }
 ```
 
-在defaultConfig加上`multiDexEnabled true`，在依赖配置中加上multidex即可。
-
-
-然后再代码中我们需要使用到MultiDexApplication，使用方法如下：
+在 defaultConfig 加上`multiDexEnabled true`，在依赖配置中加上multidex即可，然后再代码中我们需要使用到 MultiDexApplication，使用方法如下：
 
 ```xml
         <application
@@ -313,9 +311,9 @@ Gradle开启MultiDex很简单，在Androidstudio中，在gradle中使用如下�
     }
 ```
 
-**通过Gradle配置主dex中的类**
+**通过Gradle配置主dex中的类**：
 
-配置如下：
+配置如下
 
 ```groovy
     // app/build.gradle:
@@ -345,10 +343,9 @@ Gradle开启MultiDex很简单，在Androidstudio中，在gradle中使用如下�
 
 以上命令选择均属于sdk中的dx工具。
 
-
 而maindexlist.txt在app目录下，语法如下：
 
-```
+```groovy
     com/ztiany/bitmaputil/AppContext.class
     com/ztiany/bitmaputil/MainActivity.class
 
@@ -370,7 +367,7 @@ Gradle开启MultiDex很简单，在Androidstudio中，在gradle中使用如下�
 
 MultiDex中的针对各个系统版本有不同的实现，比如V19类就是针对Android 4.4及以上的。
 
-```
+```java
     private static final class V19 {
     
             private static void install(ClassLoader loader, List<File> additionalClassPathEntries,

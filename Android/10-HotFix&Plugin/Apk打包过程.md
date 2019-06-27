@@ -2,7 +2,7 @@
 
 APK其实就是一个zip压缩包，解压一个Apk后可以得到如下文件：
 
-```
+```log
 ├─assets   //apk资产文件
 │  ├─address
 │  ├─amap_sdk_shaders
@@ -31,9 +31,9 @@ APK其实就是一个zip压缩包，解压一个Apk后可以得到如下文件�
 
 Android官方APK打包流程图：
 
-![](index_files/build.png)
+![build](images/build.png)
 
-![](index_files/Vjx6y.png)
+![Vjx6y](images/packaging_process.png)
 
 ---
 ## 2 流程说明
@@ -77,7 +77,6 @@ Android官方APK打包流程图：
 
 具体参考[自己动手生成Android Apk](http://blog.csdn.net/chenkai19920410/article/details/60589100)
 
-
 ---
 ## 4 问题
 
@@ -97,6 +96,3 @@ xml里面都是各种字符，不利于快速遍历。编译成二进制文件�
 ## 引用
 
 [Android打包流程](https://mp.weixin.qq.com/s?__biz=MjM5NDkxMTgyNw==&mid=2653059035&idx=1&sn=50773de47cfbbf54a4521e141b93125d&chksm=bd5654e78a21ddf11dfde7366de2722a2945d0003d3b413b221c89fc07fd66abd0def480ff5e&mpshare=1&scene=1&srcid=0802VY4KGr2wHrS30pBI1Kme#rd)
-
-
-

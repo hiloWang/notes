@@ -8,7 +8,7 @@
 - Sophix：傻瓜式接入，但是阿里云的后台是收费的。
 - [Android 热更新服务平台](http://tinkerpatch.com/)+tinker：接入相对简单，但是tinkerpatch是收费的。
 
-最终选择：bugly+tinker
+最终选择：`bugly+tinker`
 
 ---
 ## 2 如何集成
@@ -31,7 +31,7 @@ Tinker的补丁是基于DexDiff算法生成的，所以如果使用gradle的多�
 
 - [VasDolly](https://github.com/Tencent)
 - [walle](https://link.jianshu.com/?t=https://github.com/Meituan-Dianping/walle)
-- [packer-ng-plugin ](https://github.com/mcxiaoke/packer-ng-plugin)
+- [packer-ng-plugin](https://github.com/mcxiaoke/packer-ng-plugin)
 
 这些工具打包将渠道信息写在apk文件的zip comment中，不会造成多渠道包的dex差异。
 

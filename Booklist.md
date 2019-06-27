@@ -46,7 +46,7 @@
 
 ## Java平台
 
-* 《EffectiveJava》
+* 《EffectiveJava》 第二版
 * 《Java编程思想》
 * 《Java核心技术：卷1》
 * 《Java核心技术：卷2》

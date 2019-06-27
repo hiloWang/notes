@@ -68,7 +68,6 @@ MVX：
 - [浅谈 MVC、MVP 和 MVVM 架构模式](https://draveness.me/mvx)
 - [如何构建Android MVVM 应用框架](https://tech.meituan.com/android_mvvm.html?utm_source=tool.lu)
 
-
 架构思考与实践
 
 - [AndroidArchitectureCollection-架构文章合集](https://github.com/CameloeAnthony/AndroidArchitectureCollection)

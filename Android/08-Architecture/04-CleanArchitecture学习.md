@@ -1,10 +1,10 @@
 # CleanArchitecture
 
-Clean架构由uncle-bob的[这篇文章](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)提出，文章主要讲解如何架构一个高内聚，低耦合的应用。下面是基于[android10](https://github.com/android10/Android-CleanArchitecture)的实践进行分析。
+Clean 架构由 uncle-bob 的 [这篇文章](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) 提出，文章主要讲解如何架构一个高内聚，低耦合的应用。下面是基于[android10](https://github.com/android10/Android-CleanArchitecture) 的实践进行分析。
 
 架构图：
 
-![](index_files/d3564457-d8a7-421e-b5e5-85f2e7bdf8f9.jpg)
+![clean_architecture](index_files/clean_architecture.jpg)
 
 ---
 ## 1 Presenter
@@ -20,16 +20,14 @@ Domain层是纯Java层module，Domain用于定义业务模型、抽象业务行�
 
 UseCase 表示业务用例，是对任何业务行为的抽象。任何Presenter都持有这个UseCase，UseCase提供`execute(Subscriber subscriber)`和`unsubscribe()`，分别表示业务的执行和取消。
 
- - UseCase的构造方法为`UseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread)`
- - UseCase是一个抽象的类，具体的业务类需要实现其`Observable buildUseCaseObservable()`方法。表示根据具体的业务构建一个数据源。
- - UseCase存在的问题，泛型丢失，子类返回的Observable是没有带泛型信息的，所以在execute方法每次都有不安全的类型转换。
- - **一个UseCase仅仅代表一个业务调度**
+- UseCase的构造方法为`UseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread)`
+- UseCase是一个抽象的类，具体的业务类需要实现其`Observable buildUseCaseObservable()`方法。表示根据具体的业务构建一个数据源。
+- UseCase存在的问题，泛型丢失，子类返回的Observable是没有带泛型信息的，所以在execute方法每次都有不安全的类型转换。
+- **一个UseCase仅仅代表一个业务调度**。
 - PostExecutionThread 表示一个抽象的主线程调度器，需要被注入。
 - ThreadExecutor 表示耗时操作的线程调度器。需要被注入。
 
-下面以一个User列表与User详情为例进行讲解：
-
-对于User列表和用户详情分别有两个UseCase，分别是GetUserList和GetUserDetail，他们代表具体的业务用例，而资源从哪里获取呢？Domain采用的是资源模式Repository，所以GetUserList和GetUserDetail的创建还需要依赖UserRepository，GetUserList和GetUserDetail仅仅代表业务用例即一个业务的执行，而具体的数据操作是由资源模式实现的
+以一个User列表与User详情为例：对于User列表和用户详情分别有两个UseCase，分别是GetUserList和GetUserDetail，他们代表具体的业务用例，而资源从哪里获取呢？Domain采用的是资源模式Repository，所以GetUserList和GetUserDetail的创建还需要依赖UserRepository，GetUserList和GetUserDetail仅仅代表业务用例即一个业务的执行，而具体的数据操作是由资源模式实现的
 
 ### UserRepository
 
@@ -79,21 +77,19 @@ UserDataStore是对具体数据操作的抽象，其定义如下：
 
 userDataStoreFactory通过判断具体的情况（如缓存是否存在，是否过期等）来给UserDataRepository创建具体的UserDataStore实现，从而实现数据的获取与存储。
 
-
 需要注意的是上述各个类之间关系都是通过接口实现依赖的，然后通过Dagger2注入具体的实现。
 
 ---
-##  4 数据模型
+## 4 数据模型
 
 每一层都有自己的数据模型
-
 
 - Presentation层的VO：用户UI展示 ，与Domain的数据模型互相转换
 - Data层的Entity：用于本地数据的持久化存储，与Domain的数据模型互相转换
 - Domain的Model：用于解析网络协议数据。
 
 ---
-##  5 总结
+## 5 总结
 
 - Presenter没有保护任何Android的代码，可以直接在JVM上进行测试，提升了效率
 - Data主要实现具体的数据存储和获取，所有的依赖都通过Dagger2进行注入，没有任何具体的硬编码，测试可以直接在JVM上进行，Data有自己的持久化数据模型，实现了Domain层的定义的仓库接口
@@ -101,18 +97,18 @@ userDataStoreFactory通过判断具体的情况（如缓存是否存在，是否
 
 **主要的调用逻辑**：
 
-```
-                 Presenter
-                    |
-                 UseCase(Subscribe<T>)
-                    GetUserListUseCase实现UseCase
-                    |
-                UserRepository
-                   UserDataRepository实现UserRepository
-                    |
-                userDataStoreFactory生成UserDataStore
-                    |
-                UserDataStore
-                   DiskUserDataStore实现UserDataStore，返回具体的数据
-                   CloudUserDataStore实现UserDataStore，返回具体的数据
+```log
+Presenter
+    |
+UseCase(Subscribe<T>)
+    GetUserListUseCase实现UseCase
+    |
+UserRepository
+    UserDataRepository实现UserRepository
+    |
+userDataStoreFactory生成UserDataStore
+    |
+UserDataStore
+    DiskUserDataStore实现UserDataStore，返回具体的数据
+    CloudUserDataStore实现UserDataStore，返回具体的数据
 ```

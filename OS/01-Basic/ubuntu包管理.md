@@ -39,7 +39,6 @@ dpkg机制最早由DebianLinux社区开发出来，派生于Debian的Linux发行
     sudo apt-get clean && sudo apt-get autoclean 清理无用的包
     sudo apt-get check 检查是否有损坏的依赖
 
-
 ---
 ## 4 软件安装位置
 

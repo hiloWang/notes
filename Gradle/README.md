@@ -39,6 +39,11 @@
 - [gradle-task-tree](https://github.com/dorongold/gradle-task-tree)
 - [gradle-dependency-graph-generator-plugin](https://github.com/vanniktech/gradle-dependency-graph-generator-plugin)
 
+### Gradle With Kotlin
+
+- [kotlin_dsl guide](https://docs.gradle.org/current/userguide/kotlin_dsl.html)
+- [kotlin-dsl](https://github.com/gradle/kotlin-dsl)
+
 ### 持续集成
 
 - [Android Jenkins+Git+Gradle持续集成-实在太详细](http://www.jianshu.com/p/38b2e17ced73)

@@ -14,7 +14,7 @@ ASCII （American Standard Code for Information Interchange，美国信息交换
 
 破解方式：
 
-- 品读分析法，英文中出现字母最频繁的是字母 e
+- 频度分析法，英文中出现字母最频繁的是字母 e
 
 ## Byte 和 bit
 

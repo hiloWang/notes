@@ -80,10 +80,10 @@ Anko Layouts 允许使用 DSL 的方式来创建布局，使用起来非常方�
 #### 注意事项
 
 - Anko DSL 布局创建声明 View 的两种方式：
-    - textView 创建普通的 TextView
-    - themedTextView 创建带 theme 的 TexiView，原理，ContextWrapper 包装原有的Context
-    - 布局预览要求：1 安装 anko 插件、2 使用 AnkoComponent
-    - Anko DSL 布局 适用于硬编码布局的场景
+  - textView 创建普通的 TextView
+  - themedTextView 创建带 theme 的 TexiView，原理，ContextWrapper 包装原有的Context
+  - 布局预览要求：1 安装 anko 插件、2 使用 AnkoComponent
+  - Anko DSL 布局 适用于硬编码布局的场景
 - 让 Anko DSL 布局支持`自定义 View`，需要给 ViewManager 添加扩展方法
 - 让 Anko DSL 布局支持`自定义布局`，一般参考源码即可，比如 `verticalLayout`
 
@@ -204,7 +204,6 @@ inline fun ignoreCarsh(code: () -> Unit){
 - 比如为 TextInputLayout 添加直接获取 text 的方法
 - 等等，尽管发挥自己的想象力。
 
-
 ### 使用 sealed 类
 
 Kotlin 的 sealed 类可以实现轻松的处理错误数据，常见应用：
@@ -282,15 +281,11 @@ fun update(@Path("storeId") storeId: Int, @Path("categoryId") categoryId: Int?, 
 
 参考：[Observable.combineLatest type inference in kotlin](https://stackoverflow.com/questions/42725749/observable-combinelatest-type-inference-in-kotlin)
 
-------
-
 ### Suppress 压制警告
 
 - `@Suppress("UNCHECKED_CAST")`：没有检查的类型转换
 - `@Suppress("DEPRECATION")`：废弃的API
 - `@Suppress("UNUSED_PARAMETER")`：无用的参数
-
-------
 
 ### data class 与默认构造函数
 
@@ -376,3 +371,15 @@ data class 提供了 copy 方法，但其拷贝方式是浅拷贝，而有些时
 ### kotlin 接口默认函数
 
 kotlin 支持接口默认函数，但是其最终还是编译为字节码，而对于 JVM 来说，Java1.8 才支持在接口上定义默认方法，因此当 kotlin 编译目标字节码低于 1.8 时，使用 kotlin 接口上的默认函数可能会带来问题。
+
+### Kotlin extension 的坑
+
+使用 Kotlin extension，在 Activity 和 Fragment 以及自定义的 View 中可以直接使用 id 引用 view，但是有利有弊，在使用的时候务必要注意，当 Fragment 被执行 destroyView 后，使用 id 引用 view 返回的 View 是 null，因为 view 已经被销毁了，那么下面这种情况就可能会引发 NPE。
+
+```kotlin
+  view.post {
+        xxxView.setXXX();
+    }
+```
+
+因为 post 的 Runnable 的执行时机是不可控的，即使实在 onResume 中 post 的 Runnable，也有可能在 destroyView 后执行。

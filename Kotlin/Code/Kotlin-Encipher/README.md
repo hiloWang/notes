@@ -16,7 +16,7 @@ ASCII （American Standard Code for Information Interchange，美国信息交换
 
 破解方式：
 
-- 品读分析法，英文中出现字母最频繁的是字母 e
+- 频度分析法，英文中出现字母最频繁的是字母 e
 
 ## 3 Byte 和 bit
 
@@ -27,22 +27,22 @@ ASCII （American Standard Code for Information Interchange，美国信息交换
 - DES，DES 是一种将 64 比特的明文密码加密成 64 比特密文的对称密码算法，需要的密码长度为 8 位
 - AES，需要的密码长度位 16 位
 
-```
-AES/CBC/NoPadding (128) 
-AES/CBC/PKCS5Padding (128) 
-AES/ECB/NoPadding (128) 
-AES/ECB/PKCS5Padding (128) 
-DES/CBC/NoPadding (56) 
-DES/CBC/PKCS5Padding (56) 
-DES/ECB/NoPadding (56) 
-DES/ECB/PKCS5Padding (56) 
-DESede/CBC/NoPadding (168) 
-DESede/CBC/PKCS5Padding (168) 
-DESede/ECB/NoPadding (168) 
-DESede/ECB/PKCS5Padding (168) 
-RSA/ECB/PKCS1Padding (1024, 2048) 
-RSA/ECB/OAEPWithSHA-1AndMGF1Padding (1024, 2048) 
-RSA/ECB/OAEPWithSHA-256AndMGF1Padding (1024, 2048) 
+```log
+AES/CBC/NoPadding (128)
+AES/CBC/PKCS5Padding (128)
+AES/ECB/NoPadding (128)
+AES/ECB/PKCS5Padding (128)
+DES/CBC/NoPadding (56)
+DES/CBC/PKCS5Padding (56)
+DES/ECB/NoPadding (56)
+DES/ECB/PKCS5Padding (56)
+DESede/CBC/NoPadding (168)
+DESede/CBC/PKCS5Padding (168)
+DESede/ECB/NoPadding (168)
+DESede/ECB/PKCS5Padding (168)
+RSA/ECB/PKCS1Padding (1024, 2048)
+RSA/ECB/OAEPWithSHA-1AndMGF1Padding (1024, 2048)
+RSA/ECB/OAEPWithSHA-256AndMGF1Padding (1024, 2048)
 ```
 
 上面摘取自官方文档，三个单词的意思分别为`/算法/工作模式/填充模式`，最后括号里标明的是密钥长度，可以看到 DES 的密钥长度是 56 位，但是代码中我们传入的密钥长度是 8 个字符，那么 `8*8=64` 是怎么回事呢？因为DES 密钥每 8 位包含 1 位纠错码，即前 7 位参与加密计算，最后一位作为校验码，密码长度 64 位每 8 位减去一位就是 56 了。
@@ -71,10 +71,10 @@ RSA/ECB/OAEPWithSHA-256AndMGF1Padding (1024, 2048)
 - 常用算法：md5、 sha1、 sha256
 - 特点：不可逆（加密后无法破解）
 - 应用场景
-    - 对用户密码进行 md5 加密后保存到数据库里
-    - 软件下载站使用消息摘要计算文件指纹，防止被篡改
-    - 数字签名
-    
+  - 对用户密码进行 md5 加密后保存到数据库里
+  - 软件下载站使用消息摘要计算文件指纹，防止被篡改
+  - 数字签名
+
 ## 8 数字签名
 
 数字签名是非对称加密与消息摘要的组合应用

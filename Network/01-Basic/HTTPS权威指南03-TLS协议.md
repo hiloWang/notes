@@ -112,7 +112,7 @@ Handshake protocol: ClientHello
 - Compression ：客户端可以提交一个或多个支持压缩的方法。默认的压缩方法是null，代表没有压缩。 
 - Extensions 扩展（extension）块由任意数量的扩展组成。这些扩展会携带额外数据。
 
-#### (2) ServerHello 
+#### (2) ServerHello
 
 ServerHello 消息的意义是将服务器选择的连接参数传送回客户端。这个消息的结构与 ClientHello 类似，只是每个字段只包含一个选项（即选中的可选参数）。服务器无需支持客户端支持的佳版本。如果服务器不支持与客户端相同的版本，可以提供 某个其他版本以期待客户端能够接受。 
 
@@ -351,3 +351,4 @@ struct {
 ## 推荐阅读
 
 - 通过阅读 [Wireshark 抓包理解 HTTPS 请求流程](https://www.jianshu.com/p/cf8c2f2cd18a) 可以加深 TLS 握手过程的理解。
+- [数字签名、数字证书与HTTPS是什么关系？](https://www.zhihu.com/question/52493697)

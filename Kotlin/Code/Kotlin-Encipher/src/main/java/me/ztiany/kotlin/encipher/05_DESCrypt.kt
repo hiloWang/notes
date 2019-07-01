@@ -9,7 +9,6 @@ import javax.crypto.spec.IvParameterSpec
 
 /**
  * DES加密，解密
- * Created by itheima
  */
 
 object DESCrypt {
@@ -33,6 +32,7 @@ object DESCrypt {
         val key: Key = kf.generateSecret(keySpec)
         val iv = IvParameterSpec(password.toByteArray())
         cipher.init(Cipher.ENCRYPT_MODE, key, iv)// CBC模式需要额外参数
+
         //3.加密/解密
         val encrypt = cipher.doFinal(input.toByteArray())
         println("加密后字节数组长度=" + encrypt.size)//8

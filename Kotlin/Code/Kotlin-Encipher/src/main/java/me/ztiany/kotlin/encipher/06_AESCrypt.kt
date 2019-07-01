@@ -5,7 +5,6 @@ import javax.crypto.spec.SecretKeySpec
 
 /**
  * AES加密解密
- * Created by itheima
  */
 object AESCrypt {
 

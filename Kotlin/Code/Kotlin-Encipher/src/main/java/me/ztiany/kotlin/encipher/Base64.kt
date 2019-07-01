@@ -5,7 +5,6 @@ import java.io.UnsupportedEncodingException
 
 /**
  * Base64编码解码
- * Created by itheima
  */
 object Base64 {
 

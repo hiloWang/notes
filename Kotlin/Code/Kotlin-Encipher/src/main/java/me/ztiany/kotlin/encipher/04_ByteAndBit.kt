@@ -1,7 +1,7 @@
 package me.ztiany.kotlin.encipher
 
 
-fun main(args: Array<String>) {
+fun main() {
     val ch: Char = 'A'
     //获取字符ascii
     val ascii = ch.toInt()

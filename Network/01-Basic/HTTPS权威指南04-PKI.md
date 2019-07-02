@@ -140,7 +140,6 @@ DV证书的签发是全自动的，所以非常快，它的签发时间主要取
 
 - 在线证书状态协议（online certificate status protocol，OCSP）允许信赖方获得一张证书的吊销信息。OCSP服务器通常称为OCSP响应程序，OCSP响应程序的地址编码在颁发机构信息访问（authority information access，AIA）证书扩展中。OCSP支持实时查询并且解决了CRL最大的缺点，但是并没有解决所有的吊销问题：因为OCSP的使用带来了性能、隐私方面的问题和新的漏洞。其中一部分问题可以通过OCSP stapling技术来解决，它允许服务器在TLS握手的过程中直接嵌入OCSP响应。
 
-
 ---
 ## 引用
 

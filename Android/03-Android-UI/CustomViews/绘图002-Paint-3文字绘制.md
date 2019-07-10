@@ -46,7 +46,7 @@ getFontMetrics返回一个FontMetrics，这个FontMetrics描述了字体的测�
 - bottom 与 top 类似
 - leading 表示行间距
 
-升部和降部都是基于baseLine而言的，baseLine以上都是负数，而baseLine以下才是正数。
+升部和降部都是基于 baseLine 而言的，baseLine 以上都是负数，而 baseLine 以下才是正数。
 
 TextView中我们可以通过xml设置其属性`android:includeFontPadding="false"`去掉一定的边距值但是不能完全去掉。
 
@@ -63,7 +63,7 @@ TextView中我们可以通过xml设置其属性`android:includeFontPadding="fals
 
 ![](index_files/1f975540-29e2-42b4-9ba6-05bd20680fbc.jpg)
 
-想对应的还有下面一系列方法：
+相对应的还有下面一系列方法：
 
 ```java
     getFontMetrics();

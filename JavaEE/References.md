@@ -59,6 +59,7 @@
 - [springmvc-mybatis-learning](https://github.com/brianway/springmvc-mybatis-learning)
 - Java并发编程与高并发解决方案：[funiture](https://github.com/kanwangzjm/funiture)
 - [spring-boot-examples](https://github.com/ityouknow/spring-boot-examples)
+- [Jeecg-Boot 快速开发平台（前后端分离版本）](https://github.com/zhangdaiscott/jeecg-boot)
 
 ### 架构演变与设计
 

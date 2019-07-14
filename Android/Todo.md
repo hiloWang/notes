@@ -80,7 +80,6 @@
 ## NDK
 
 - [xHook](https://github.com/iqiyi/xHook)
-- [关于在Android中使用CMake你所需要了解的一切](https://mp.weixin.qq.com/s/WAb4uGs0CMSpplXS9zZG-Q)
 
 ## 架构
 

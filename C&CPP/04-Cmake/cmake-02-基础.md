@@ -41,7 +41,7 @@ add_executable(Sample02 ${DIR_SRCS})
 
 ### 1.3 编译不同目录下的多个文件
 
-这是在子目录下需要新建一个`CmakeLists.txt`文件，用于编译子目录下的源文件，然后在根目录下的`CmakeLists.txt`可以包含子模块
+这时在子目录下需要新建一个`CmakeLists.txt`文件，用于编译子目录下的源文件，然后在根目录下的`CmakeLists.txt`可以包含子模块
 
 子目录构建：
 
@@ -124,14 +124,16 @@ target_link_libraries (Sample4  ${EXTRA_LIBS})
 
 ### 1.5 添加环境检查
 
-有时候需要对系统环境进行检测，要使用到一个平台相关的函数，首先要检测此函数是否存在，存在则使用系统提供的函数，否则使用自己编写的函数。
-CMake提供了环境检查的功能：
+有时候需要对系统环境进行检测，要使用到一个平台相关的函数，首先要检测此函数是否存在，存在则使用系统提供的函数，否则使用自己编写的函数。CMake提供了环境检查的功能：
 
 - 1 在`config.h.in`配置文件中定义下面变量
-```
+
+```c
 #cmakedefine HAVE_POW
 ```
+
 - 2 在CMakeLlist中定义
+
 ```Shell
 
 ......
@@ -187,8 +189,8 @@ Directory或Script中的CMake语言代码可以使用`include()`命令在包含�
 - `${xxx-variable}`：用于引用已定义的变量，可以嵌套引用，嵌套引用从内部进行替换，例如`${outer_${inner_variable}variable}`
 - `message("message to display" ...)`：用于输入日志，比如`message("CMAKE_SOURCE_DIR : " ${CMAKE_SOURCE_DIR})`，message支持多种模式，比如`STATUS、WARNING：CMake`等，`message(STATUS ${PROJECT_NAME})`表示输出一个附带的信息
 - `project(<PROJECT-NAME> [LANGUAGES] [<language-name>...])`：给工程命名,设置项目名称并将该名称存储在PROJECT_NAME变量中
-- `aux_source_directory(<dir> <variable>)`：收集指定目录中所有源文件的名称，并将列表存储在提供的`<variable>`中。
-- `include_directories([AFTER|BEFORE] [SYSTEM] dir1 [dir2 ...])`：添加头文件路径 
+- `aux_source_directory(<dir> <variable>)`：收集指定目录中所有源文件的名称，并将列表存储在提供的`<variable>`中
+- `include_directories([AFTER|BEFORE] [SYSTEM] dir1 [dir2 ...])`：添加头文件路径
 - `link_directories(directory1 directory2 ...)`：添加库文件路径(`.so/.dll/.lib/.dylib/`)
 - `link_libraries(library1 <debug | optimized> library2 ...)`：添加需要链接的库文件路径，比如`link_libraries(“xxx/lib/libcommon.a”)`
 - `add_definitions(-DFOO -DBAR ...)`：将-D定义标志添加到源文件的编译中

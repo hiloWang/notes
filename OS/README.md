@@ -4,13 +4,10 @@
 
 - [ ] todo
 
-## 2 Leaning plans
-
-## 3 Learning materials
+## 2 Learning materials
 
 ### References
 
-- 学堂在线-操作系统课程
 - [操作系统面试重难点总结](http://www.jianshu.com/p/d254b138de03)
 - [《Think OS: A Brief Introduction to Operating Systems》](http://greenteapress.com/thinkos/html/index.html)
 - [《Think OS》中文版](https://legacy.gitbook.com/book/wizardforcel/think-os/details)
@@ -21,6 +18,10 @@
 - [zshguide](https://github.com/goreliu/zshguide)
 - [Awesome-Linux-Software-zh_CN](https://github.com/alim0x/Awesome-Linux-Software-zh_CN)
 
+### Blogs
+
+- [5分钟让你明白“软链接”和“硬链接”的区别](https://www.jianshu.com/p/dde6a01c4094)
+
 ### Books
 
 - 《Linux/UNIX系统编程手册》
@@ -29,3 +30,7 @@
 - 《UNIX网络編程》
 - 《深入理解计算机操作系统》
 - 《Linux技术内幕》
+
+### Courses
+
+- 学堂在线-操作系统课程

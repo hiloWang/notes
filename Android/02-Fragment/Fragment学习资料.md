@@ -20,6 +20,7 @@
 - [SwipeBackFragment](https://github.com/YoKeyword/SwipeBackFragment)
 - [SafelyAndroid](https://github.com/Piasy/SafelyAndroid)
 - [Fragmentation](https://github.com/YoKeyword/Fragmentation)
+- [AndroidNavigation](https://github.com/listenzz/AndroidNavigation)
 
 ## 生命周期
 
@@ -27,7 +28,7 @@
 
 ## FragmentDialog
 
-- [ 官方文档 ](http://developer.android.com/intl/zh-cn/guide/topics/ui/dialogs.html#DialogFragment)
+- [官方文档](http://developer.android.com/intl/zh-cn/guide/topics/ui/dialogs.html#DialogFragment)
 
 ## 推荐Fragment踩坑总结
 

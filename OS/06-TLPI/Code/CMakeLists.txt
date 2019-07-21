@@ -6,5 +6,5 @@ set(CMAKE_C_STANDARD 99)
 include_directories(lib)
 add_subdirectory(lib)
 
-add_executable(Code chapter04/copy.c)
+add_executable(Code chapter04/seek_io.c)
 target_link_libraries(Code libtlpi)

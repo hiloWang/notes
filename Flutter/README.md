@@ -74,6 +74,7 @@ Google
 - [Flutter 您需要知道的知识点 | FAQ・第四期](https://mp.weixin.qq.com/s/iWQwjC8mEWSX9TNz_hn6rw)
 - [Flutter 混合开发组件化与工程化架构 | 开发者说·DTalk](https://mp.weixin.qq.com/s/NK0RMuXM2_AJmAbnnvv9SA)
 - [Flutter 最新进展与未来展望](https://mp.weixin.qq.com/s/dC2C1jpDrQSsip6wjiejBw)
+- [深入理解 Flutter 多线程 | 开发者说·DTalk](https://mp.weixin.qq.com/s/1hsOv4vXOvt8c5l_4ZhOTQ)
 
 plugin
 

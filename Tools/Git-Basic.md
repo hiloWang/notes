@@ -34,7 +34,7 @@
 
 ## 创建仓库
 
-```bash
+```shell
 git init
 ```
 
@@ -66,7 +66,7 @@ git init
 `git log`  |  查看每次提交 -p 选项展开显示每次提交的内容差异
 `git log -1`  | 使用 git log -1 表示只显示最近一次
 `git log --status`    |   仅显示简要的增改行数统计
-`git log --pretty=oneline`    |   --pretty 选项，可以指定使用完全不同于默认格式的方式展示提交历史。比如用 oneline 将每个提交放在一行显示，这在提交数很大时非常有用。另外还有 short，full 和 fuller 可以用，展示的信息或多或少有些不同
+`git log --pretty=oneline`    |   --pretty 选项，可以指定使用完全不同于默认格式的方式展示提交历史，比如用 oneline 将每个提交放在一行显示，这在提交数很大时非常有用。另外还有 short，full 和 fuller 可以用，展示的信息或多或少有些不同
 `git blame file_name`     |        追溯一个文件的历史修改记录
 `git log --graph` |   git提交的log视图
 `git log --pretty=format:"%h %s" --graph`    |   分支及其分化衍合情况
@@ -96,7 +96,7 @@ git init
 
 ## SSH KEY
 
-```bash
+```shell
     ssh-keygen -t rsa -C "your email address"     在`C:\Users\Administrator\.ssh`生成私匙，邮箱地址使用初始化的邮箱  (提醒ssh-keygen没有空格)
     ssh -T git@gitHub.com 验证ssh key
 ```
@@ -105,17 +105,19 @@ git init
 
 命令|说明
 ---|---
-`git fetch <repository名称>`  | 从远程查看抓取数据，不合并
 `git clone git_address`   |   克隆远程仓库并且自动关联
-`git remote add <origin> <git@github.com:Ztiany/studyGit.github>` |  关联远程仓库,如果是在本地init的git仓库
+`git fetch <repository名称>`  | 从远程查看抓取数据，不合并
+`git remote add <origin> <git@github.com:Ztiany/studyGit.github>` |  关联远程仓库，如果是在本地init的git仓库
+`git remote set-url <origin> <git@github.com:Ztiany/studyGit.github>` |  修改远程仓库地址
 `git pull origin master`  |  拉取分支并合并，一定要指定分支名
-`git push -u origin master`  | 推送到远程仓库，并建立关联 （远程仓库是空的）
-`git push origin master` | 远程仓库没有此分支则推送此分支，否则就是推送提交的内容
-`git pull origin master ----allow-unrelated-histories`| 拉取分支，允许合并无相关的历史
-`git push origin --delete <branch-name>`        |   删除远程分支
-`git checkout -b <branch-name> <origin>/<branch-name>`  |   在本地创建和远程分支对应的分支 前提是远程仓库有这个分支
-`git remote rm paul` | 删除远程paul仓库
-`git push -f`|强制推送
+`git pull origin master --allow-unrelated-histories`  |  拉取分支并合并，一定要指定分支名，允许未关联的历史。
+`git push -u origin master`  |  推送到远程仓库，并建立关联 （远程仓库是空的）
+`git push origin master`    |  远程仓库没有此分支则推送此分支，否则就是推送提交的内容
+`git pull origin master ----allow-unrelated-histories`  |   拉取分支，允许合并无相关的历史
+`git push origin --delete <branch-name>`    |   删除远程分支
+`git checkout -b <branch-name> <origin>/<branch-name>`  |   在本地创建和远程分支对应的分支，前提是远程仓库有这个分支
+`git remote rm paul`    |   删除远程paul仓库
+`git push -f`   |   强制推送
 
 关于`git pull --rebase`:发者A将push修改到Repo时，开发者B已经push了自己的修改，这时候A需要先pull最新的修改，但这样会在Git历史中留下一个Merge History，使用`git pull --rebase`指令拉取最新的修改，该指令的作用是拉取本地代码后，将本地代未提交的代码作用到最新的版本中，从而避免多余的Merge History。
 
@@ -151,7 +153,7 @@ git init
 
 rebase就是变基的意思，假设master是主分支，dev是某个测试分支，当测试完基本功能后接受到master分支owner的通知，说master已经有了改动，所有的局部功能需要在新的master状态，对于dev分支来讲，就需要对自己当前的的分支**改变基点**，操作如下：
 
-```bash
+```shell
      git checkout dev
      git rebase master //以master为基点变基
 ```
@@ -194,14 +196,14 @@ rebase就是变基的意思，假设master是主分支，dev是某个测试分�
 
 子模块就是你的一个Git项目需要应用其他Git项目，但是希望子模块能独立关联远程仓库。
 
-```bash
+```shell
 # 在主项目下使用此命令关联子模块，如果操作成功，会在根目录生成.gitmodules文件
 `git submodule add <git://github.com/chneukirchen/rack.git rack>`
 ```
 
 如果拉取了一个含有子模块的项目，需要执行以下命令，首先拉取住主项目，命令略
 
-```bash
+```shell
 # 初次拉取必须使用此目录初始化子模块
 `git submodule init`
 # 然后更新子模块，主模块更新不会自动同步子模块，每次需要同步子模块都需要子命令
@@ -212,7 +214,7 @@ rebase就是变基的意思，假设master是主分支，dev是某个测试分�
 
 ## 快捷配置
 
-```bash
+```shell
     git config --global color.ui.true
     git config --global alias.st status     配置别名
     git config --global alias.unstage 'reset HEAD'  配置别名  之后用git unstage file
@@ -238,14 +240,14 @@ rebase就是变基的意思，假设master是主分支，dev是某个测试分�
 
 实例:
 
-```bash
+```shell
     git rm log/\*.log 删除log目录下所有 ".log" 结尾的文件
     git rm \*~ 递归删除当前目录及其子目录下的所有 "~" 结尾的文件
 ```
 
 ## 技巧
 
-```bash
+```shell
     # 提示命令
     git st 忘了命令，连续两次tag，会有提示
 ```
@@ -276,7 +278,7 @@ git开发流程图如下:
 
 ## GitHub保持与Forked的项目同步
 
-```bash
+```shell
 git remote -v //查看当前的远程仓库地址
 git remote add upstream 原来的仓库地址 //添加一个远程参考地址
 git fetch upstream //拉取原仓库
@@ -289,7 +291,7 @@ git push //推送到forked的仓库
 
 [how to delete all commit history in github? [duplicate]](https://stackoverflow.com/questions/13716658/how-to-delete-all-commit-history-in-github)
 
-```bash
+```shell
 # 1.  Checkout
     `git checkout --orphan latest_branch`
 # 2.  Add all the files
@@ -306,7 +308,7 @@ git push //推送到forked的仓库
 
 ## 修改远程仓库地址
 
-```bash
+```shell
 git remote set-url origin [url]
 ```
 

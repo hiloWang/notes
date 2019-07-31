@@ -85,14 +85,14 @@ ioctl 即 `input/output control`的缩写，`ioctl()` 系统调用为执行文�
 
 ## 7 总结
 
-知识点：
+**知识点**：
 
 - 掌握构成通用 I/O 模型的系统调用：文件通用 I/O 模型包括打开文件、关闭文件、从文件中读数据和向文件中写数据，对应的系统调用有 `open, crate, read, write, close, leek` 函数。
 - 什么是标准 I/O，系统提供哪些标准 I/O？
 - 什么是文件空洞概念？
 - ioctl 函数用来做什么的？
 
-代码实践：
+**代码实践**：
 
 - `Code/chapter04/example/cp.c` 文件读写基本操作。
 - `Code/chapter04/example/seek_io.c` lseek 函数和体验文件空洞。

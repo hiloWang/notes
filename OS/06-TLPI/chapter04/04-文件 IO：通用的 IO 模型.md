@@ -8,7 +8,7 @@
 
 大多数程序都期望能够使用 3 种标准的文件描述符，见下表：
 
-![04_stdio](images/04_stdio.png)
+![04_stdio](../images/04_stdio.png)
 
 在程序开始运行之前，在程序开始运行之前，shell 代表程序打开这 3 个文件描述符，在 shell 的日常操作中，这 3 个文件描述符始终是打开的。（在交互式 shell 中，这 3 个文件描述符通常指向 shell 运行所在的终端。）如果命令行指定对输入/输出进行重定向操作， 那么 shell 会对文件描述符做适当修改，然后再启动程序。
 
@@ -94,5 +94,5 @@ ioctl 即 `input/output control`的缩写，`ioctl()` 系统调用为执行文�
 
 **代码实践**：
 
-- `Code/chapter04/example/cp.c` 文件读写基本操作。
-- `Code/chapter04/example/seek_io.c` lseek 函数和体验文件空洞。
+- `example/cp.c` 文件读写基本操作。
+- `example/seek_io.c` lseek 函数和体验文件空洞。

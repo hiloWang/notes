@@ -22,7 +22,6 @@ kotlin 发展简史：
 - 2016.9 支持 apt
 - kotlin 生成的字节码默认支持 java6
 
-
 ## 2 Kotlin 学习资料
 
 ### 1 文档与资料
@@ -37,6 +36,10 @@ kotlin 发展简史：
 - [EasyKotlin-All](https://github.com/EasyKotli)
 - [《Kotlin实战》](https://panxl6.gitbooks.io/kotlin-in-action-in-chinese/content/introduction.html)
 - [《Atomic Kotlin》](https://www.atomickotlin.com/atomickotlin/)
+
+Collections：
+
+- [Collections杂谈(一)](https://mp.weixin.qq.com/s?__biz=MzIzMTYzOTYzNA==&mid=2247484478&idx=1&sn=7761fd02ff5a6e9503a572085cc4bf5a&chksm=e8a05b03dfd7d2155c98dbbb2a2b0e32cac57d194794358161121364daec67bf325acd083a66&mpshare=1&scene=1&srcid=&sharer_sharetime=1565312916247&sharer_shareid=837da3c9c7d8315352e3f3c120932755#rd)
 
 ### 2 Android
 

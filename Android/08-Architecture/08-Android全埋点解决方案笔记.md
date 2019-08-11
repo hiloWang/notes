@@ -46,3 +46,33 @@
 - 如果程序发生崩溃或被强杀了，则在下一次启动时应该补发一次 AppEnd 事件，这是为了记录事件的完整性，因为程序发生崩溃或被强杀了是无法触发 AppEnd 事件的。具体的做法是，在页面启动时（onStart），判断上一个页面退出时间间隔是否超过 30s，如果超过则去检查之前是否记录了 AppEnd 事件，如果没有则补发一次 AppEnd 事件，然后再走正常流程触发 AppStart 和 AppViewScreen 事件。
 
 具体实现方案参考 [AutoTrackAppStartAppEnd](https://github.com/wangzhzh/AutoTrackAppStartAppEnd)。
+
+## 3 `$AppClick` 全埋点方案 1：代理 `View.OnClickListener`
+
+`$AppClick` 事件即 View 的点击事件，目前对与 `$AppClick` 事件自动化埋点方案整体上可以分为动态方法和静态方案。
+
+- 动态方法：实现相对简单。
+- 静态方案：由于是静态织入埋点代码，其效率较高，更容易扩展，兼容性也较好。
+
+动态埋点方式之一 **代理 View.OnClickListener** 的思路：当一个界面的布局初始化完后，遍历 View 树，如果某个 View 被设置了 View.OnClickListener，则通过反射获取其 View.OnClickListener 替换为我们自定义的 WrapperOnClickListener，WrapperOnClickListener 的主要功能是通知 Click 事件，然后调用原来的 View.OnClickListener。
+
+技术要点：
+
+- 遍历的时机：ViewTreeObserver.OnGlobalLayoutListener，每当 View 树发生布局变化时，我们都遍历一次 View 树，代理每个 View 的 View.OnClickListener。
+- 遍历的根节点：DecorView，这是每个 View 树的根 View，最佳选择。
+- 扩展支持所有的控件：
+  - 有些控件的交互不是通过 View.OnClickListener 的，比如 RatingBar、RadioGroup 等等，这些都需要做特殊处理。
+  - 获取对应控件的内存，比如 TextView 极其子类的文本内容。
+  - 根据资源 id 获取资源名称：`Resource.getResourceEntryName()`
+
+具体实现方案参考 [AutoTrackAppClick1](https://github.com/wangzhzh/AutoTrackAppClick1)。也可以参考 [AutoTrace](https://github.com/fengcunhan/AutoTrace/)。
+
+代理 View.OnClickListener 的缺点
+
+- 使用了反射替换 View.OnClickListener，性能可能会有影响。
+- 每一次布局更改，都需要动态遍历 View 树。
+- 无法直接支持浮动在 Activity 之上的 View 的点击，比如 Dialog、PopupWindow 等。
+
+## 4 `$AppClick` 全埋点方案 2：代理 `Window.Callback`
+
+- [ ] todo

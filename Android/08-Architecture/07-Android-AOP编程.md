@@ -30,9 +30,10 @@ Android 平台的虚拟机运行的是 dex 文件，dex 文件的生成需要下
 
 可选方案：
 
-- Android Gradle Plugin 1.5 之前可能需要特定的 hook 手段，比如修改 dex等构建工具 和 java 的 Instumentation 机制。（不过现在已不需要再考虑这种情况）
-- Android Gradle Plugin 1.5 之后提供了 Transform API，我们可以利用 Transform API 对转换未 dex 之前的 class 做一些处理，比如插入/替换一些代码，基于这种方式，可供选择的字节码编辑库有：aspactJ、javassist、asm。这种方式的好处在于可以做到对业务代码完全无侵入。
-- 利用 APT，单词地使用 APT 只能生成代码而不能修改已有源码，但可以利用 ast 抽象语法树 API 修改源码。
+- Android Gradle Plugin 1.5 之前可能需要特定的 hook 手段，比如修改 dex 等构建工具 或 java 的 Instumentation 机制。（不过现在已不需要再考虑这种情况）
+- Android Gradle Plugin 1.5 之后提供了 Transform API，我们可以利用 Transform API 对转换为 dex 之前的 class 做一些处理，比如插入/替换一些代码，基于这种方式，可供选择的字节码编辑库有：aspactJ、javassist、asm 等。这种方式的好处在于可以做到对业务代码完全无侵入。
+- 使用 APT，使用 APT 可以生成一些模板代码，但是不能修改已有源码。
+- 使用 AST，利用 AST 抽象语法树 API 可以修改源码。
 
 ## AOP 应用
 

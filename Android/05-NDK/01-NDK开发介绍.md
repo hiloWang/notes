@@ -18,22 +18,21 @@ Java Native Interface（JNI）标准是java平台的一部分，JNI是Java语言
 3. 基于安全性的考虑。防止代码被反编译，为了安全起见，使用C/C++语言来编写重要的部分以增大系统的安全性，最后生成so库（用过第三方库的应该都不陌生）便于给人提供方便。（任何有效的代码混淆对于会smail语法反编译你apk是分分钟的事，即使你加壳也不能幸免高手的攻击）
 4. 便于移植。用C/C++写得库可以方便在其他的嵌入式平台上再次使用。
 
-
 ### NDK使用
 
 配置Android.mk和Application.mk文件，编写好相关代码，然后使用ndk-build命令进行编译。
 
 示例：
-```
+
+```shell
 ndk-build NDK_PROJECT_PATH=. NDK_APPLICATION_MK=./jni/Application.mk NDK_LIBS_OUT=./jniLibs
 ```
+
 - `NDK_PROJECT_PATH` 指定项目路径, 会自动读取这个目录下的 jni/Android.mk 文件
 - `NDK_APPLICATION_MK` 指定 Application.mk 的位置
 - `NDK_LIBS_OUT` 指定将生成的 .so 文件放到哪个目录，默认 Android Studio 会读取 jniLibs 目录下的 .so 文件, 所以我们把 .so 文件生成到这
 
-
 关于ndk-build的命令选项可以通过`ndk-build -h`获取。
-
 
 ---
 ## 2 一些概念

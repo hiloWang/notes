@@ -49,19 +49,20 @@
 
 ## 3 `$AppClick` 全埋点方案 1：代理 `View.OnClickListener`
 
-`$AppClick` 事件即 View 的点击事件，目前对与 `$AppClick` 事件自动化埋点方案整体上可以分为动态方法和静态方案。
+`$AppClick` 事件即 View 的点击事件，目前对与 `$AppClick` 事件自动化埋点方案整体上可以分为动态方法和静态方案，两种方案各有优缺点：
 
 - 动态方法：实现相对简单。
 - 静态方案：由于是静态织入埋点代码，其效率较高，更容易扩展，兼容性也较好。
 
-动态埋点方式之一 **代理 View.OnClickListener** 的思路：当一个界面的布局初始化完后，遍历 View 树，如果某个 View 被设置了 View.OnClickListener，则通过反射获取其 View.OnClickListener 替换为我们自定义的 WrapperOnClickListener，WrapperOnClickListener 的主要功能是通知 Click 事件，然后调用原来的 View.OnClickListener。
+动态埋点方式之一 **代理 View.OnClickListener** 的思路是：当一个界面的布局初始化完后，遍历 View 树，对于该 View 树中的每个 View ，如果被设置了 `View.OnClickListener`，则通过反射获取其 `View.OnClickListener` 替换为我们自定义的 WrapperOnClickListener，WrapperOnClickListener 的主要功能是统计 Click 事件，然后调用原来的 `View.OnClickListener`。
 
 技术要点：
 
-- 遍历的时机：ViewTreeObserver.OnGlobalLayoutListener，每当 View 树发生布局变化时，我们都遍历一次 View 树，代理每个 View 的 View.OnClickListener。
+- 使用 `Application.registerActivityLifecycleCallbacks()` 监听每个界面的打开。
+- 对每个界面遍历的时机：`ViewTreeObserver.OnGlobalLayoutListener`，每当 View 树发生布局变化时，我们都遍历一次 View 树，代理每个 View 的 `View.OnClickListener`。
 - 遍历的根节点：DecorView，这是每个 View 树的根 View，最佳选择。
 - 扩展支持所有的控件：
-  - 有些控件的交互不是通过 View.OnClickListener 的，比如 RatingBar、RadioGroup 等等，这些都需要做特殊处理。
+  - 有些控件的交互不是通过 `View.OnClickListener` 的，比如 RatingBar、RadioGroup 等等，这些都需要做特殊处理。
   - 获取对应控件的内存，比如 TextView 极其子类的文本内容。
   - 根据资源 id 获取资源名称：`Resource.getResourceEntryName()`
 
@@ -75,4 +76,15 @@
 
 ## 4 `$AppClick` 全埋点方案 2：代理 `Window.Callback`
 
-- [ ] todo
+该方案整体上与代理 `View.OnClickListener` 相差不大，区别在于这里我们代理的是 `Window.Callback`，每个 Activity 都对应一个 Window，Window 中通过 Callback 用于监听各种事件（Activity 是默认的实现者），比如 TouchEvent，View 树中的所有触摸事件都会先回调到 `Window.Callback`，我们可以利用相同的手段，包装一下 `Window.Callback`，然后在 dispatchTouchEvent 回调用统计事件，当收到一个 ACTION_UP 事件后，则初步认为是一个点击事件结束，然后尝试去统计。
+
+具体实现方案参考 [AutoTrackAppClick2](https://github.com/wangzhzh/AutoTrackAppClick2)。
+
+代理 `Window.Callback` 的缺点
+
+- 每一次点击事件，都需要动态遍历 View 树，找到对应的 View，性能影响较大。
+- 无法直接支持浮动在 Activity 之上的 View 的点击，比如 Dialog、PopupWindow 等。
+
+## 5 `$AppClick` 全埋点方案 3：代理 `View.AccessibilityDelegate`
+
+todo

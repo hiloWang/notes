@@ -8,6 +8,7 @@
 
 ## 教程
 
+- [JNI/NDK开发指南](https://blog.csdn.net/xyang81/column/info/blogjnindk)
 - [Android NDK 入门](https://xiaozhuanlan.com/crayfish)
 - [慕课网：Android-NDK进阶](https://www.imooc.com/learn/918)
 

@@ -2,8 +2,7 @@
 
 [The Linux Programming Interface](http://man7.org/tlpi/index.html) web site
 
-## Source
+## Sources Reference
 
-- [bradfa/tlpi-dist](https://github.com/bradfa/tlpi-dist)
-- [Arachnid-27/tlpi](https://github.com/Arachnid-27/tlpi)
+- [bradfa/tlpi-dist](https://github.com/bradfa/tlpi-dist)(official)
 - [cyyzero/tlpi](https://github.com/cyyzero/tlpi)

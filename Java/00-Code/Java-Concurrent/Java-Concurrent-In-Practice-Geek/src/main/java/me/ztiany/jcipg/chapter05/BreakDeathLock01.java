@@ -20,6 +20,9 @@ public class BreakDeathLock01 {
         System.out.println("accountB " + accountB.getBalance());
     }
 
+    /**
+     * Allocator 管理临界区，它有两个重要功能，分别是：同时申请资源 apply() 和同时释放资源 free()。
+     */
     static class Allocator {
 
         private static Allocator instance = new Allocator();
@@ -44,7 +47,7 @@ public class BreakDeathLock01 {
             return true;
         }
 
-        // 归还资源
+        // 一次性归还资源
         synchronized void free(Object from, Object to) {
             als.remove(from);
             als.remove(to);
@@ -90,4 +93,3 @@ public class BreakDeathLock01 {
     }
 
 }
-

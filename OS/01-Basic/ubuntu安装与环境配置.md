@@ -87,6 +87,8 @@ sudo apt-get update
 sudo apt-get install openjdk-8-jdk
 ```
 
+配置 `JAVA_HOME` 参考 [how-to-set-java-home-for-java](https://askubuntu.com/questions/175514/how-to-set-java-home-for-java)
+
 ### oh-my-zsh
 
 ```shell

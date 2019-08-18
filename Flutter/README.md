@@ -92,6 +92,7 @@ plugin
 - [Simple basic isolated apps, for budding flutter devs.](https://github.com/nisrulz/flutter-examples)
 - [Basic Flutter apps, for flutter devs.](https://github.com/iampawan/FlutterExampleApps)
 - [Kotlin + MVP + Flutter ，让你可以在自己的项目中集成 Flutter 并使用](https://juejin.im/post/5b7cf52e51882542c963f0f1)
+- [Flutter版】玩安卓，非常适合学习，代码不多、注释多](https://github.com/yechaoa/wanandroid_flutter)
 - [Flutter豆瓣客户端](https://github.com/kaina404/FlutterDouBan)
 - [flutter-go](https://github.com/alibaba/flutter-go)
 - [Awesome Flutter：带你从入门到进阶的 Flutter 指南](https://juejin.im/post/5b2869e66fb9a00e5f3e861f)

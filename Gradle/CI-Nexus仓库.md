@@ -7,7 +7,7 @@
 
 **以管理员的身份**启动命令行，进入解压后的nexus的bin目录，然后依次运行下面命令：
 
-```
+```shell
 nexus.bat install //安装服务
 nexus.bat start //启动nexus
 ```
@@ -15,12 +15,12 @@ nexus.bat start //启动nexus
 等待nexus启动之后可以在本地打开链接`http://127.0.0.1:8081/nexus/#welcome`,正常的话可以看到nexus的控制台了，然后需要登录，
 nexus默认的账户是`admin `,密码是`admin123`,登录之后的界面为：
 
-![](images/nexus_repository.png)
+![nexus_repository](images/nexus_repository.png)
 
 点击左边的Repositories选项，可以进入仓库管理界面，为了测试我们添加三个仓库：
 
 1. 本地仓库(hosted),配置好仓库存储地址即可。
-2. 代理仓库(proxy),这里选择阿里云的maven镜像，速度很不错的，地址为：http://127.0.0.1:8081/nexus/content/repositories/aliyun/
+2. 代理仓库(proxy),这里选择阿里云的maven镜像，速度很不错的，地址为：<http://127.0.0.1:8081/nexus/content/repositories/aliyun/>
 3. 仓库组(group),仓库组用于组合多个仓库。这里组合的是上面添加的两个仓库。
 
 到这里nexus相关的工作就完成了。
@@ -86,10 +86,12 @@ uploadArchives {
     }
 }
 ```
+
 运行`gradle uploadArchives`即可上传library到私有仓库。
 
 在app项目使用刚刚上传的library:
-```
+
+```groovy
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:25.3.1'

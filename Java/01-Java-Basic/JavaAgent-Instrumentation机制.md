@@ -1,4 +1,4 @@
-# Instrumentation 机制
+# JavaAgfent-Instrumentation 机制
 
 ---
 ## 1 Instrumentation 机制介绍
@@ -55,7 +55,7 @@ public class Greeting implements ClassFileTransformer {
 
 在jar的清单文件中需要定义一下属性：
 
-```
+```log
 Manifest-Version: 1.0
 Premain-Class: me.ztiany.instrumentation.Greeting
 Can-Redefine-Classes: true
@@ -75,7 +75,7 @@ public class JavaAgentTest {
 
 这里VM参数为`-javaagent:E:\code\studio\my_github\Repository\Java\ASM-Base\JavaAgent\build\libs\JavaAgent-1.0.jar="test args"`,运行后可以看到控制台打印了如下信息：
 
-```
+```log
      I've been called with options: "test args"
 load->各种类路径
 ......
@@ -91,9 +91,6 @@ load->java/lang/Shutdown$Lock
 ---
 ## 引用
 
+- [Java Agent 学习笔记](http://nullwy.me/2018/10/java-agent/)
 - [Java 5 特性 Instrumentation 实践](https://www.ibm.com/developerworks/cn/java/j-lo-instrumentation/)
 - [JavaSE6 Instrumentation 新功能](https://www.ibm.com/developerworks/cn/java/j-lo-jse61/index.html)
-
-
-
-

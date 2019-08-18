@@ -6,6 +6,10 @@
 - 兼容性：Android SDK版本、Java 和 Kotlin、Lamdba、DataBinding、Fragment等等都需要考虑。
 - 扩展性：业务的不断迭代，全自动采集和精细化采集控制力度的要求。
 
+Android全埋点 SensorsAnalytics SDK：
+
+- [sensorsdata/sa-sdk-android](https://github.com/sensorsdata/sa-sdk-android)
+
 ## 1 `$AppViewScreen` 全埋点方案
 
 `$AppViewScreen` 事件，即页面浏览事件，在 Android 中，页面流浏览事件就是指切换不同的 Activity/Fragment。
@@ -22,7 +26,7 @@
 - 页面 Title
 - ...等
 
-**细节完善**：在申请权限时，系统会开启新的对话框类型的 Activity 处理权限申请，无论是用户解决还是允许，对话框消失后，申请界面对应的 Activity 都会再次执行 onResume 方法，这会导致统计不准确(多统计了一次 PV)。解决方案是，在弹框之前先过滤掉当前 Activity 的 PV 统计（以当前 Activity 的 Class 标识），待权限申请结束后，再次恢复当前 Activity 的 PV 统计。
+**动态权限申请导致的统计不准确问题处理**：在申请权限时，系统会开启新的对话框类型的 Activity 处理权限申请，无论是用户解决还是允许，对话框消失后，申请界面对应的 Activity 都会再次执行 onResume 方法，这会导致统计不准确(多统计了一次 PV)。解决方案是，在弹框之前先过滤掉当前 Activity 的 PV 统计（以当前 Activity 的 Class 标识），待权限申请结束后，再次恢复当前 Activity 的 PV 统计。
 
 ## 2 `$AppStart、$AppEnd` 全埋点方案
 
@@ -49,10 +53,14 @@
 
 ## 3 `$AppClick` 全埋点方案 1：代理 `View.OnClickListener`
 
+### `$AppClick` 事件介绍
+
 `$AppClick` 事件即 View 的点击事件，目前对与 `$AppClick` 事件自动化埋点方案整体上可以分为动态方法和静态方案，两种方案各有优缺点：
 
-- 动态方法：实现相对简单。
+- 动态方法：实现相对简单，但对效率有影响，兼容性也是需要考虑的问题。
 - 静态方案：由于是静态织入埋点代码，其效率较高，更容易扩展，兼容性也较好。
+
+### 代理 `View.OnClickListener`
 
 动态埋点方式之一 **代理 View.OnClickListener** 的思路是：当一个界面的布局初始化完后，遍历 View 树，对于该 View 树中的每个 View ，如果被设置了 `View.OnClickListener`，则通过反射获取其 `View.OnClickListener` 替换为我们自定义的 WrapperOnClickListener，WrapperOnClickListener 的主要功能是统计 Click 事件，然后调用原来的 `View.OnClickListener`。
 
@@ -87,4 +95,57 @@
 
 ## 5 `$AppClick` 全埋点方案 3：代理 `View.AccessibilityDelegate`
 
-todo
+### Accessibility 介绍
+
+关于 accessibility 具体参考[accessibility](https://developer.android.com/guide/topics/ui/accessibility)。
+
+### 方案
+
+利用 accessibility，我们也可以检测到用户的点击事件，下面是 View 的 performClick 方法实现，我们知道最终 View 的 OnClick 都是通过这个方法触发的，可以看到该方法最后一行代码 `sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);` 发送了一个 AccessibilityEvent，最终方法会调用到 mAccessibilityDelegate 的 sendAccessibilityEvent 方法，而这里的 mAccessibilityDelegate 就是我们需要 Hook 的地方。
+
+```java
+    public boolean performClick() {
+        final boolean result;
+        final ListenerInfo li = mListenerInfo;
+        if (li != null && li.mOnClickListener != null) {
+            playSoundEffect(SoundEffectConstants.CLICK);
+            li.mOnClickListener.onClick(this);
+            result = true;
+        } else {
+            result = false;
+        }
+
+        sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_CLICKED);
+        return result;
+    }
+
+    public void sendAccessibilityEvent(int eventType) {
+        if (mAccessibilityDelegate != null) {
+            mAccessibilityDelegate.sendAccessibilityEvent(this, eventType);
+        } else {
+            sendAccessibilityEventInternal(eventType);
+        }
+    }
+```
+
+该方案整体上与代理 `View.OnClickListener` 相差不大，区别在于这里我们代理的是 `mAccessibilityDelegate`，而且代理 `mAccessibilityDelegate`  只能用来帮助我们统计点击事件的，向 RatingBar 之类的特殊控件，还是需要采取特殊处理。
+
+具体实现参考 [AutoTrackAppClick3](https://github.com/wangzhzh/AutoTrackAppClick3)。
+
+该方案的缺点：
+
+- 使用了反射去 hook mAccessibilityDelegate，效率可能有影响，还可能会引发兼容性问题。
+- 无法支持浮动在 Activity 之上的 View 的点击，比如 Dialog、PopupWindow 等。
+
+## 6 `$AppClick` 全埋点方案 4：透明层
+
+该方案整体上与代理 `View.OnClickListener` 相差不大，区别在于我们不再去代理任何 Listener，而是在每个 Activity 启动后在 DecorView 的最上层加一个透明的 View，该 View 的唯一功能就是检测手势事件进行统计。需要注意的是，务必保证我们添加的透明层是在 DecorView 的最上层。
+
+具体实现参考 [AutoTrackAppClick4](https://github.com/wangzhzh/AutoTrackAppClick4)。
+
+该方案的缺点：
+
+- 无法支持浮动在 Activity 之上的 View 的点击，比如 Dialog、PopupWindow 等。
+- 每一次采集，都需要去遍历整个 View 树找到手势事件对应的 View。效率较低。
+
+至此，静态采集方案介绍完毕。

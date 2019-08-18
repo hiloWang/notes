@@ -38,7 +38,6 @@
 5. 防止设置Parameters是的各种崩溃:try-catch
 6. 拍摄后的照片方向问题，有可能是90°、有可能是0°，使用**`ExifInterface`**进行获取与设置。
 
-
 ### 1.1 检查相机与申请权限
 
 ```xml
@@ -53,7 +52,7 @@
 
 检查设备是否存在相机
 
-```
+```java
     /** 检查设备是否存在相机*/
     private boolean checkCameraHardware(Context context) {
         if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){
@@ -76,7 +75,7 @@
 2. 手动触发调用`autoFocus()`
 3. 利用传感器判断手机一定，调用`autoFocus()`自动对焦
 
-####   防止拍照变形
+#### 防止拍照变形
 
 - SurfaceView尺寸：即自定义相机应用中用于显示相机预览图像的View的尺寸，手机预览图像
 - Previewsize：相机硬件提供的预览帧数据尺寸，预览帧数据传递给SurfaceView，实现预览图像的显示，相机预览图像
@@ -99,6 +98,7 @@
 
 supportedPicResolutions
 
+```log
     size:  w = 5248  , h = 3936
     size:  w = 4672  , h = 3504
     size:  w = 4608  , h = 2592
@@ -119,9 +119,11 @@ supportedPicResolutions
     size:  w = 1024  , h = 768
     size:  w = 640  , h = 480
     size:  w = 320  , h = 240
+```
 
 supportedPreviewSizes
 
+```log
     size:  w = 1920  , h = 1152
     size:  w = 1920  , h = 1088
     size:  w = 1920  , h = 1080
@@ -139,6 +141,7 @@ supportedPreviewSizes
     size:  w = 352  , h = 288
     size:  w = 320  , h = 240
     size:  w = 176  , h = 144
+```
 
 具体的开发过程中，应该如何做呢？
 
@@ -153,15 +156,15 @@ supportedPreviewSizes
 2. 横屏与竖屏应用
 3. 前置摄像头的成像角度
 
-####  照片的EXFI信息
+#### 照片的EXFI信息
 
 招聘拍摄完毕需要设置照片的元信息，比如地点，设备，角度等。这些都可以使用Android提供的EXFI(Exchangeable Image File)接口设置。
 
 实例：
 
-```
+```java
      ExifInterface exifInterface = new ExifInterface(path);
-                //设置照片旋转90°
+     //设置照片旋转90°
      exifInterface.setAttribute(ExifInterface.TAG_ORIENTATION,      String.valueOf(ExifInterface.ORIENTATION_ROTATE_90));
      exifInterface.saveAttributes();//一定要记得保存，否则没有效果的。
 ```
@@ -180,14 +183,14 @@ supportedPreviewSizes
 
 在设计API时，要根据具体的需求开发，并且确定你封装这个API是提供什么样的功能，总之如果不是去开发一个完整的相机应用，就不要想着把所有的功能都封装进去，毕竟相机这东西涉及的方面太多了。总计就是一句话**确定你封装这个API是提供什么样的功能**。
 
-
 ---
 ##  引用
 
-###  Blog
+### Blog
 
 - [官方文档](https://developer.android.com/guide/topics/media/camera.html#considerations)
 - [官方教程](https://developer.android.com/training/camera/index.html)
+- [Android相机开发系列](https://www.polarxiong.com/tag/camera/)
 - [安卓相机开发那些坑](https://www.zhangningning.com.cn/blog/Android/android_camera_dev.html)
 - [Android Camera使用总结与那些坑](https://mp.weixin.qq.com/s?__biz=MzI3MDE0NzYwNA==&mid=2651434751&idx=1&sn=4154b06e059e17a983053a2c4806c24c&chksm=f1288784c65f0e92a443a4112c1f808db72a8595b8ba0cae9d36c661e9bb830e554b0ff87664&mpshare=1&scene=1&srcid=0524pUYORU8DT7LuZ3okUIcQ#rd)
 - [Camera基础介绍](http://www.jianshu.com/p/96fc616b7778)

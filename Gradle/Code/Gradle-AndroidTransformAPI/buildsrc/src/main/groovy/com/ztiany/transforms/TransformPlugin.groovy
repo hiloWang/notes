@@ -10,6 +10,7 @@ class TransformPlugin implements Plugin<Project> {
     void apply(Project project) {
         def android = project.extensions.findByType(AppExtension)
         android.registerTransform(new PrintTransform(project))
+        android.registerTransform(new TestTransform())
     }
 
 }

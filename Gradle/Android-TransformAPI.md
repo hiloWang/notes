@@ -14,11 +14,11 @@ Android项目使用gradle进行构建，具体由`Android gradle plugin`实现�
 
 Transform 每次都是将一个输入进行处理，然后将处理结果输出，而输出的结果将会作为另一个 Transform 的输入，在整个打包过程中可以有无数个这样的 Transform 流程，然后将最后一个 Transform 的输出结果与其他资源打包生成 APK 文件。
 
-![](images/gradle_android_transform_steps.png)
+![gradle_android_transform_steps](images/gradle_android_transform_steps.png)
 
 从项目 `build/intermediates/transforms` 文件夹也可以找到这些 Transform 的输出。
 
-![](images/gradle_android_transform_project.png)
+![gradle_android_transform_project](images/gradle_android_transform_project.png)
 
 ### 2.2 API使用
 
@@ -38,7 +38,7 @@ android{
 
 - 自定义 `gradle plugin`
 - 实现 `com.android.build.api.transform.Transform` 类
-- 在自定的 `gradle plugin `中注册我们实现的 Transform
+- 在自定的 `gradle plugin` 中注册我们实现的 Transform
 - 在项目中应用这个自定义`gradle plugin`
 
 注入自定的 Transform 很简单，代码如下：
@@ -109,7 +109,7 @@ android{
 #### Scopes
 
 在 TransformAPI 的实现中定义了以下 Scopes：
- 
+
 - PROJECT：当前项目
 - SUB_PROJECTS：子项目
 - EXTERNAL_LIBRARIES：外部的依赖库
@@ -138,7 +138,6 @@ transform方法参数说明:
 
 我们的 transform 要把上一个 transform 产生的中间文件复制到自己的输出地址，以作为下一个 transform 过程的输入。
 
-
 所以默认情况下也需要做如下逻辑处理（下面使用的到 FileUtils 为 `org.apache.commons.io.FileUtils`）：
 
 ```groovy
@@ -153,7 +152,7 @@ transform方法参数说明:
                     jarProcess(input, outputProvider)
             }
         }
-    
+
         private static ArrayList<DirectoryInput> dirProcess(TransformInput input, TransformOutputProvider outputProvider) {
             input.directoryInputs.each {
                 DirectoryInput directoryInput ->
@@ -163,7 +162,7 @@ transform方法参数说明:
                     FileUtils.copyDirectory(directoryInput.file, dest)
             }
         }
-    
+
         private static ArrayList<JarInput> jarProcess(TransformInput input, TransformOutputProvider outputProvider) {
             input.jarInputs.each {
                 JarInput jarInput ->
@@ -189,14 +188,14 @@ transform方法参数说明:
 
 对于一个复杂的 Android 项目，如果我们注册了一个作用范围是 SCOPE_FULL_PROJECT 而又不支持增量编译的 Transform，那么每一次编译都要对项目中所有的被编译文件进行处理，而每一次处理都涉及大量 IO 操作，这必将大大增加项目的编译时间，所以我们很有必要让我们的 Transform 支持增量编译。
 
-Android Plugin 为 Transform 的增量编译提供了完善的自持，既然要支持增量，那么就我们需要关心以下信息：
+Android Plugin 为 Transform 的增量编译提供了完善的支持，既然要支持增量，那么就我们需要关心以下信息：
 
 - 当前这次 transform 是增量还是全量编译（这是由 Gradle 决定的）
 - 如果是增量编译，我们又需要知道以下信息：
-    - 哪些文件没有改变
-    - 哪些文件被修改了
-    - 哪些文件被删除了
-    - 哪些文件被新增了
+  - 哪些文件没有改变
+  - 哪些文件被修改了
+  - 哪些文件被删除了
+  - 哪些文件被新增了
 
 第一个问题，当前这次 transform 是增量还是全量编译，从 transform 方法的参数 isIncremental 即可判断，需要注意的是，如果 isIncremental 为 false，我们需要调用 `outputProvider.deleteAll()` 方法来删除之前一次 transform 的输出。
 
@@ -217,9 +216,9 @@ public enum Status {
 
 1. 根据 isIncremental 判断当前是否为增量编译，如果不是则需要调用 `outputProvider.deleteAll()` 方法来删除之前一次 transform 的输出，再进行对全量的 transform。
 2. 如果是增量编译，则：
-    - 对于状态为 NOTCHANGED 的文件，可以直接忽略不处理，之前一次 transform 已经将其复制到指定目录了。
-    - 对于状态为 REMOVED 的文件，则需要将其从指定目标目录中删除。
-    -  对于状态为 ADDED 和 CHANGED 的文件，需要重新 transform 后再复制到指定目标目录中。
+   1. 对于状态为 NOTCHANGED 的文件，可以直接忽略不处理，之前一次 transform 已经将其复制到指定目录了。
+   2. 对于状态为 REMOVED 的文件，则需要将其从指定目标目录中删除。
+   3. 对于状态为 ADDED 和 CHANGED 的文件，需要重新 transform 后再复制到指定目标目录中。
 
 **需要注意的是：如果先 clean 再编译时， jar 的状态是 NOTCHANGED，而 changedFiles 是空的**。
 
@@ -231,10 +230,13 @@ public enum Status {
 ---
 ## 引用
 
-博客：
+官方介绍：
 
 - [Transform API](http://tools.android.com/tech-docs/new-build-system/transform-api)
-- [transform-api-a-real-world-example-cfd49990d3e1](https://medium.com/grandcentrix/transform-api-a-real-world-example-cfd49990d3e1)
+
+博客：
+
+- [如何开发一款高性能的gradle transform](https://www.jianshu.com/p/d84032b46b56)
 - [通过自定义 Gradle 插件修改编译后的 class文件](http://blog.csdn.net/huachao1001/article/details/51819972)
 - [gradle transform api 初探](http://www.jianshu.com/p/c9ce643e2f22)
 - [如何理解 Transform API](https://juejin.im/entry/59776f2bf265da6c4741db2b)
@@ -244,3 +246,4 @@ public enum Status {
 - [AutoRegister](https://github.com/luckybilly/AutoRegister)
 - [gradle_plugin_android_aspectjx](https://github.com/HujiangTechnology/gradle_plugin_android_aspectjx)
 - [metis](https://github.com/yangxlei/metis)
+- [sa-sdk-android-plugin2](https://github.com/sensorsdata/sa-sdk-android-plugin2)

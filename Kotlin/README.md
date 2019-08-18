@@ -1,6 +1,6 @@
 ## 1 Kotlin 简介
 
-Kotlin主要是由俄罗斯圣彼得堡的JetBrains开发团队所发展出来的编程语言，其名称来自于圣彼得堡附近的科特林岛。Kotlin是一门 **静态的强类型编程语言**，可以运行在JVM上，但不限于JVM。Kotlin与所有基于 Java的框架完全兼容，应用领域有 **服务端开发、Android开发、Kotlin For JavaScript、Kotlin Native**，可以说是全栈语言。
+Kotlin主要是由俄罗斯圣彼得堡的JetBrains开发团队所发展出来的编程语言，其名称来自于圣彼得堡附近的科特林岛。Kotlin是一门 **静态的强类型编程语言**，可以运行在JVM上，但不限于JVM。Kotlin 与所有基于 Java 的框架完全兼容，应用领域有 **服务端开发、Android开发、Kotlin For JavaScript、Kotlin Native**，可以说是全栈语言。
 
 Kotlin 领域：
 

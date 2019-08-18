@@ -5,7 +5,7 @@ import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
 import java.util.zip.ZipEntry
 
-
+@SuppressWarnings("unused")
 class JarZipUtil {
 
     /**
@@ -18,9 +18,9 @@ class JarZipUtil {
         List list = new ArrayList()
         if (jarPath.endsWith('.jar')) {
             JarFile jarFile = new JarFile(jarPath)
-            Enumeration<JarEntry> jarEntrys = jarFile.entries()
-            while (jarEntrys.hasMoreElements()) {
-                JarEntry jarEntry = jarEntrys.nextElement()
+            Enumeration<JarEntry> jarEntries = jarFile.entries()
+            while (jarEntries.hasMoreElements()) {
+                JarEntry jarEntry = jarEntries.nextElement()
                 if (jarEntry.directory) {
                     continue
                 }

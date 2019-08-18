@@ -6,7 +6,7 @@ JSR-269 把 method, package, constructor, type, variable, enum, annotation 等 J
 
 注解最早是在 java5 引入，主要包含 apt 和 `com.sum.mirror` 包中相关的 mirror api，此时 apt 和 javac 是各自独立的。从 java6 开始，注解处理器正式标准化，apt 工具也被直接集成在 javac 当中。
 
-**实现一个编译时注解处理器主要分两步：**
+**实现一个编译时注解处理器主要分两步**：
 
 1. 继承 AbstractProcessor，实现自己的注解处理器。
 2. 注册处理器，并打成 jar 包。
@@ -17,14 +17,13 @@ JSR-269 把 method, package, constructor, type, variable, enum, annotation 等 J
 
 - AbstractProcessor： 抽象的注解处理器，我们需要继承它来实现自己的处理器
 - ProcessingEnvironment： 用于获取相关工具对象，我们可以通过它获取下面工具对象
-    - Elements：包含用于操作Element的工具方法
-    - Messager：用来报告错误，警告和其他提示信息
-    - Filer：用来创建新的源文件，class文件以及辅助文件
-    - Types：包含用于操作TypeMirror的工具方法
+  - Elements：包含用于操作Element的工具方法
+  - Messager：用来报告错误，警告和其他提示信息
+  - Filer：用来创建新的源文件，class文件以及辅助文件
+  - Types：包含用于操作TypeMirror的工具方法
 - RoundEnvironment：**这是一个非常重要的类，通过它我们获取被注解标注的对象(方法、字段、类等)**
 - Element：表示一个程序元素，比如包、类或者方法。每个元素都表示一个静态的语言级构造
 - TypeMirror：表示Java编程语言中的类型，这些类型包括基本类型、声明类型（类和接口类型）、数组类型、类型变量和null类型。还可以表示通配符类型参数、executable的签名和返回类型，以及对应于包和关键字 `void` 的伪类型。
-
 
 ### AbstractProcessor
 
@@ -132,7 +131,7 @@ public interface Element extends javax.lang.model.AnnotatedConstruct {
 
     //返回此元素定义的类型
     TypeMirror asType();
-    //返回此元素的类型。 
+    //返回此元素的类型。
     ElementKind getKind();
     //返回此元素的修饰符，不包括注释。但包括显式修饰符，比如接口成员的 public 和 static 修饰符。
     Set<Modifier> getModifiers();
@@ -140,9 +139,9 @@ public interface Element extends javax.lang.model.AnnotatedConstruct {
     Name getSimpleName();
     /*
     返回封装此元素（非严格意义上）的最里层元素。
-        如果此元素的声明在词法上直接封装在另一个元素的声明中，则返回那个封装元素。 
-        如果此元素是顶层类型，则返回它的包。 
-        如果此元素是一个包，则返回 null。 
+        如果此元素的声明在词法上直接封装在另一个元素的声明中，则返回那个封装元素。
+        如果此元素是顶层类型，则返回它的包。
+        如果此元素是一个包，则返回 null。
         如果此元素是一个类型参数，则返回 null。
     */
     Element getEnclosingElement();
@@ -154,8 +153,8 @@ public interface Element extends javax.lang.model.AnnotatedConstruct {
     //将一个 visitor 应用到此元素。应用于访问者模式。
     <R, P> R accept(ElementVisitor<R, P> v, P p);
 }
-
 ```
+
 其子类包括：
 
 - PackageElement      表示一个包程序元素。提供对有关包及其成员的信息的访问。
@@ -167,7 +166,6 @@ public interface Element extends javax.lang.model.AnnotatedConstruct {
 ### TypeMirror
 
 表示 Java 编程语言中的类型。这些类型包括基本类型、声明类型（类和接口类型）、数组类型、类型变量和 null 类型。还可以表示通配符类型参数、executable 的签名和返回类型，以及对应于包和关键字 void 的伪类型。 应该使用 Types 中的实用工具方法比较这些类型。不保证总是使用相同的对象表示某个特定的类型。TypeMirror类中最重要的是getKind()方法，该方法返回TypeKind类型(kind:种类)，**getKind()方法返回的是TypeKind，TypeKind是枚举类型，表示类型镜像的种类。**
-
 
 ### 常用API
 
@@ -188,7 +186,7 @@ int TypeUtils.typeExchange(Element)
 ----
 ## 2 编译时注解 API 相关类图
 
-![](index_files/Class_20Diagram0.png)
+![Class_20Diagram0](index_files/Class_20Diagram0.png)
 
 ----
 ## 3 打包注解并注册
@@ -225,6 +223,7 @@ APT 插件的作用是只允许配置编译时注解处理器依赖，但在最�
 ## 5 开发实践
 
 - 1 在`init(ProcessingEnvironment processingEnv)`方法中做一些初始化工作，然后通过 processingEnv 获取需要用到的工具类。
+
 ```java
 @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -239,10 +238,10 @@ APT 插件的作用是只允许配置编译时注解处理器依赖，但在最�
 ```
 
 - 2 在`process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment)`方法中一般有如下步骤：
-    - 获取所有的应用了目标注解的元素，用定义的数据类型封装其他，统一存放在列表中
-    - 遍历列表，处理每个元素，生成对应的代码
+  - 获取所有的应用了目标注解的元素，用定义的数据类型封装其他，统一存放在列表中
+  - 遍历列表，处理每个元素，生成对应的代码
 
-###  使用标准类库提供的访问者
+### 使用标准类库提供的访问者
 
 在 `javax.lang.model.util` 中提供了 ElementVisitor 接口用来遍历所有被编译的 Java 源码的元素，这是一个访问者设计模式的实现。
 

@@ -11,7 +11,6 @@ Notification通知，是一种让你的应用程序在不使用Activity的情况
 - 在通知托盘显示其他额外的信息
 - 在通知托盘使用交互式操作来操作广播
 
-
 **Notification 对象必须包含以下内容：**
 
 - 小图标，由 setSmallIcon() 设置
@@ -24,16 +23,16 @@ Notification通知，是一种让你的应用程序在不使用Activity的情况
 一个通知就是一条消息，显示在你的应用程序之外的界面（通知栏）。当你告知系统需要发布一个通知时，它首先作为一个icon出现在状态栏区域。为了进一步了解它的细节，用户可以下拉状态栏展开至通知栏查看。
 
  通知有两种可视化样式，取决于版本和drawer的状态：
- 
+
  - 标准视图：在通知drawer中显示标准视图的通知。
  - 大型视图：当通知被展开时可以看到的一个大型视图。该视图也是扩展通知的一部分，该特征引入于4.1Jerry Bean。
-
 
 #### 正常视图元素介绍
 
  一个出现在标准视图中的通知，其高度是64dp。即使你使用大型视图创建一个通知，它仍然出现在标准视图中直至被展开。下面是一个正常视图的范例：
+
  ![](images/notification01.jpg)
- 
+
  1. 内容标题，
  2. 大型图标，
  3. 内容文本，
@@ -47,7 +46,6 @@ Notification通知，是一种让你的应用程序在不使用Activity的情况
 
  ![](images/notification02.jpg)
 
-
 大型视图的视觉元素与正常视图共享。不同之处在于“7”：通知细节区域。对于此区域的显示内容，各种大型视图通知有着不同的设置：
 
 - Big picture style：细节区域展现一个高度为256dp的bitmap。
@@ -59,12 +57,10 @@ Notification通知，是一种让你的应用程序在不使用Activity的情况
  - Big content title：允许你添加一个标题去覆盖正常视图的内容标题，但它只能出现在可扩展的视图中。
  - Summary text：允许你在细节区域底端添加一行文本。
 
-
 ---
 ## 2 如何使用Notification
 
 Notification的api在不同的系统版本变化较大,为了解决Android系统版本差异导致的Notification兼容性问题，Android官方在4.1版本后提供了`NotificationCompat`兼容类来帮助开发实现体验统一的Notification,这一段主要介绍如何使用`NotificationCompat`。
-
 
 ### 2.1 简单的使用方法
 
@@ -131,7 +127,6 @@ Notification的api在不同的系统版本变化较大,为了解决Android系统
 
  ![](images/notification04.jpg)
 
-
 ### 2.4 Api4.1后的Style的通知
 
 #### 大型文本通知样式：
@@ -154,8 +149,6 @@ Notification的api在不同的系统版本变化较大,为了解决Android系统
 ```
 
  ![](images/notification06.png)
-
-
 
 ### 2.5 启动 Activity 时保留导航
 
@@ -195,7 +188,7 @@ Notification的api在不同的系统版本变化较大,为了解决Android系统
             //stackBuilder.editIntentAt(1).putExtra() 添加数据
 ```
 
-#####  特殊 Activity
+##### 特殊 Activity
 
 >仅当从通知中启动时，用户才会看到此 Activity。 从某种意义上说，Activity 是通过提供很难显示在通知本身中的信息来扩展通知。对于这种情况，请将 PendingIntent 设置为在全新任务中启动。但是，由于启动的 Activity 不是应用 Activity 流程的一部分，因此无需创建返回栈。点击“返回”仍会将用户带到主屏幕。
 
@@ -256,7 +249,6 @@ Notification的api在不同的系统版本变化较大,为了解决Android系统
     ).start();
 ```
 
-
 #### 2.8 和Service一起使用
 
 配合Service可以构建一个前台进程服务，此服务需要一个Notification，并且这个Notification不能被移除。如何第一个参数为0,Notification不会显示
@@ -264,7 +256,6 @@ Notification的api在不同的系统版本变化较大,为了解决Android系统
 ```java
       startForeground(1, mNotification);
 ```
-
 
 #### 2.9 取消通知
 
@@ -336,6 +327,4 @@ Android在API级别 11中添加了Notification.Builder，高于API Level 11，�
 - [Android自定义Notification并没有那么简单](http://sixwolf.net/blog/2016/04/18/Android%E8%87%AA%E5%AE%9A%E4%B9%89Notification%E5%B9%B6%E6%B2%A1%E6%9C%89%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/)
 - [Android Notification常见样式总结](http://blog.csdn.net/w804518214/article/details/51231946)
 - [Android通知栏微技巧，那些你所没关注过的小细节](http://blog.csdn.net/guolin_blog/article/details/50945228)
-
-
-
+- [Android Notification 详解](https://www.jianshu.com/p/d2051a785309)

@@ -2,7 +2,7 @@
 
 ## productFlavors
 
-3.0 的 productFlavors 必须属于一个 flavorDimensions
+AndroidGradle 3.0 的 productFlavors 必须属于一个 flavorDimensions。
 
 ```groovy
 flavorDimensions "tier", "minApi"
@@ -29,7 +29,7 @@ flavorDimensions "tier", "minApi"
   }
 ```
 
-## 如何依赖不同buildType的library
+## 如何依赖不同 buildType 的 library
 
 默认情况下，主工程依赖所以来的module的构建类型都是release的，这个不随着主工程的构建类型而改变，那么如果依赖不同buildType的library呢？
 
@@ -55,13 +55,13 @@ flavorDimensions "tier", "minApi"
         //主工程
         dependencies {
                //基础类库
-              compile project(path: ':base', configuration: libraryBuildType)
+            compile project(path: ':base', configuration: libraryBuildType)
         }
 ```
 
 然后我们可以在build.properties或者命令行中指定libraryBuildType
 
-## 本地依赖aar文件
+## 本地依赖 aar 文件
 
 Android开发中，依赖本地aar文件与jar文件有所不同，gradle不能像直接依赖jar那样依赖aar文件，依赖aar文本需要把改问题天添加到本地仓库中，再进行依赖。
 

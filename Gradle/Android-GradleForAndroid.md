@@ -311,7 +311,7 @@ mustRunAfter 表示两个 Task 可以单独执行，但是同时执行两个 tas
 
 当没有签名信息时，会弹出提示框让你输入密码：
 
-![](images/gradle_android_enter_password.png)
+![gradle_android_enter_password](images/gradle_android_enter_password.png)
 
 ### Hook到Android插件
 

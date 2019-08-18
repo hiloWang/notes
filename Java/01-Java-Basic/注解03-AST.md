@@ -1,12 +1,11 @@
 # AST 抽象语法树简介与应用
 
-
 ---
 ## 1 Java 编译过程简介
 
 将一组源文件编译成相应的一组类文件的过程并不简单，但通常可以分为**三个**阶段。源文件的不同部分根据需要以不同的速率在整个过程中进行处理。
 
-![](index_files/javac-flow.png)
+![javac-flow](index_files/javac-flow.png)
 
 `Java源代码-> 词语法分析-> 生成AST -> 语义分析 -> 编译成字节码`
 
@@ -15,7 +14,6 @@
 1. 读取命令行上指定的所有源文件，并将其解析为**语法树**，然后将所有外部可见的定义输入到编译器的符号表中。
 2. 调用所有编译器注解处理器。如果任何注解处理器生成了任何新的源文件或类文件，则重新编译该文件，直到不创建新文件。
 3. 最后，解析器创建的**语法树**被分析并翻译成类文件。在分析过程中，可以找到对其他类的引用。编译器将检查这些类的源代码和类路径，如果它们在源码路径中被找到，那么这些文件也将被编译，**尽管它们不会受到编译期注解处理**。这一个步骤主要包括：`类型检查、控制流分析、泛型的类型擦除、去除语法糖、字节码生成`等操作。
-
 
 ---
 ## 2 AST 介绍
@@ -32,23 +30,19 @@ AST 修改是通过在将其转换为字节码之前增加附加节点以达到�
 
 Java 编译过程中的第一步中，源码就被解析为 AST 了，接下来的处理都是基于这个 AST 了，那么修改 AST 的时机如何选择，从编译的三个步骤来看，第一步已经生成了 AST，而第二步是编译期注解处理器，可以让开发者可以参与到一部分的编译工作，在这个步骤中可以对 AST 进行修改。虽然标准 API 中并没有提供修改 AST 的类库，但 javac 的内部工具提供了修改 AST 的 API，除此之外还有一些修改 AST 的开源类库。
 
-![](index_files/ast_time.png)
+![ast_time](index_files/ast_time.png)
 
 Java 源码的编译是由 javac 处理的，除了使用命令行工具编译 Java 代码，`JDK 6` 增加了规范 `JSR-199(Java Compiler API)` 和 `JSR-296(Pluggable Annotations Processing API)`，这些规范请求提供编译相关的 API。Java 编译器的实现代码和 API 的整体结构如下图所示：
 
 ![](index_files/javac.png)
 
-- **绿色**标注的包是官方 API（Official API），即 JSR-199 和 JSR-296
-- **黄色**标注的包为（Supported API）
-- **紫色**标注的包代码全部在 `com.sun.tools.javac.*` 包下，为内部 API（Internal API）和编译器的实现类。**这部分 API 不属于 JSR 269**
-
-具体 API 如下：
+API 简要说明如下（具体参考[Compiler Package Overview](http://openjdk.java.net/groups/compiler/doc/package-overview/index.html)）：
 
 - `javax.annotation.processing`：注解处理 (JSR-296)
 - `javax.lang.model`：注解处理和编译器 Tree API 使用的语言模型 (JSR-296)
-    - `javax.lang.model.element`：语言元素
-    - `javax.lang.model.type`：类型
-    - `javax.lang.model.util`：语言模型工具
+  - `javax.lang.model.element`：语言元素
+  - `javax.lang.model.type`：类型
+  - `javax.lang.model.util`：语言模型工具
 - `javax.tools`：Java 编译器 API (JSR-199)
 - `com.sun.source.*`： 编译器 Tree API，提供 javac 工具使用的抽象语法树 AST 的只读访问
 - `com.sun.tools.javac.*`：内部 API 和编译器的实现类，这部分 API 提供了**修改 AST** 的功能
@@ -56,6 +50,8 @@ Java 源码的编译是由 javac 处理的，除了使用命令行工具编译 J
 因此使用 javac 内部的API `com.sun.tools.javac.*`可以实现在编译期修改或插入代码
 
 #### 使用第三方库修改 AST
+
+在 github 上也有相关开源库提供了修改 AST 的功能：
 
 - [Rewrite](https://github.com/Netflix-Skunkworks/rewrite)
 - [JavaParser](https://github.com/Javaparser/Javaparser)
@@ -219,7 +215,6 @@ public class ForceAssertions extends AbstractProcessor {
     private static final String APP_SOURCE_DIR = "JavaCompiler/src/main/java/me/ztiany/compiler/App.java";
     private static final String TARGET_OPTION = "-d";
     private static final String TARGET_DIR = "JavaCompiler/build/manual";
-    
 
     private static void doCompile(List<File> source, List<String> args, List<Processor> processors) {
         //编译器
@@ -315,25 +310,16 @@ public class App {
 - [OpenJDK：Java编译过程 Compilation Overview](https://openjdk.java.net/groups/compiler/doc/compilation-overview/index.html)
 - [Eclipse JDT：AST 介绍](https://www.eclipse.org/articles/Article-JavaCodeManipulation_AST/)
 
-AST 操作：
+入门介绍：
 
+- [Java 编译器 javac 笔记：javac API、注解处理 API 与 Lombok 原理](https://nullwy.me/2017/04/javac-api/)
+- [The Hacker’s Guide to Javac](The_Hacker’s_Guide_to_Javac.pdf)
 - [java注解处理器——在编译期修改语法树](https://blog.csdn.net/a_zhenzhen/article/details/86065063)
-
-AST 操作类库：
-
-- [Rewrite](https://github.com/Netflix-Skunkworks/rewrite)
-- [JavaParser](https://github.com/Javaparser/Javaparser)
 
 扩展：
 
-- [安卓AOP之AST：抽象语法树](https://www.jianshu.com/p/5514cf705666)
 - [Lombok原理分析与功能实现](https://blog.mythsman.com/2017/12/19/1/)
 - [利用 Project Lombok 自定义 AST 转换](https://www.ibm.com/developerworks/cn/java/j-lombok/?ca=drs-)
-
-Javac API：
-
-- [Java 编译器 javac 笔记](https://nullwy.me/2017/04/javac-api/)
-- [The Hacker’s Guide to Javac](https://scg.unibe.ch/archive/projects/Erni08b.pdf)
 
 书籍：
 

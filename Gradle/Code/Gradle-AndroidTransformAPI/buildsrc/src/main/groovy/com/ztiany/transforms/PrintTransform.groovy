@@ -61,14 +61,13 @@ class PrintTransform extends Transform {
         }
     }
 
-    private
-    static ArrayList<DirectoryInput> dirProcess(TransformInput input, TransformOutputProvider outputProvider) {
-        println("-------------------------------------------------------------------directoryInputs-------------------------------------------------------------------")
+    private static ArrayList<DirectoryInput> dirProcess(TransformInput input, TransformOutputProvider outputProvider) {
+        println("-------------------------------------------------------------------PrintTransform directoryInputs-------------------------------------------------------------------")
         input.directoryInputs.each {
             DirectoryInput directoryInput ->
                 //E:\code\studio\my_github\Repository\Gradle\TransformAPI\app\build\intermediates\classes\release
                 //E:\code\studio\my_github\Repository\Gradle\TransformAPI\app\build\intermediates\classes\debug
-                println directoryInput.file
+                println "origin --> ${directoryInput.file}"
                 //文件夹里面包含的是我们手写的类以及R.class、BuildConfig.class以及R$XXX.class等
                 // 获取output目录
                 Inject.injectDir(directoryInput.file.canonicalPath, "com\\ztiany\\transform")
@@ -77,11 +76,11 @@ class PrintTransform extends Transform {
                 // 将input的目录复制到output指定目录
                 FileUtils.copyDirectory(directoryInput.file, dest)
         }
+        println()
     }
 
-    private
-    static ArrayList<JarInput> jarProcess(TransformInput input, TransformOutputProvider outputProvider) {
-        println("-------------------------------------------------------------------jarInputs-------------------------------------------------------------------")
+    private static ArrayList<JarInput> jarProcess(TransformInput input, TransformOutputProvider outputProvider) {
+        println("-------------------------------------------------------------------PrintTransform jarInputs-------------------------------------------------------------------")
         input.jarInputs.each {
             JarInput jarInput ->
                 //jar文件一般是第三方依赖库jar文件
@@ -102,18 +101,24 @@ class PrintTransform extends Transform {
                 C:\Users\Administrator\.android\build-cache\84a2403fa5cce0acddf4b96dc74d9137fe884a17\output\jars\classes.jar
                  */
 
-                println (jarInput.file.getAbsolutePath() + " status = ${jarInput.status}")
+                println("${jarInput.file.getAbsolutePath()}, status = ${jarInput.status}")
+
                 def jarName = jarInput.name
+
                 def md5Name = DigestUtils.md5Hex(jarInput.file.getAbsolutePath())
+
                 if (jarName.endsWith(".jar")) {
                     jarName = jarName.substring(0, jarName.length() - 4)
                 }
+
                 //生成输出路径
                 def dest = outputProvider.getContentLocation(jarName + md5Name, jarInput.contentTypes, jarInput.scopes, Format.JAR)
                 println("dest --> $dest")
                 //将输入内容复制到输出
                 FileUtils.copyFile(jarInput.file, dest)
         }
+
+        println()
     }
 
 }

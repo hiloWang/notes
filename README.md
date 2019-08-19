@@ -1,15 +1,1 @@
 # notes
-
-- [OS](OS/README.md)
-- [Network](Network/README.md)
-- [DataStructure Algorithms](DSA/README.md)
-- [C&CPP](C&CPP/README.md)
-- [Java](Java/README.md)
-- [Kotlin](Kotlin/README.md)
-- [Groovy](Groovy/README.md)
-- [RxJava](RxJava/README.md)
-- [Python](Python/README.md)
-- [Gradle](Gradle/README.md)
-- [Android](Android/README.md)
-- [JavaEE](JavaEE/README.md)
-- [Web](Front-end/README.md)
